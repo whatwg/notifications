@@ -1,0 +1,566 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+          ******* WARNING *********************************************************
+          This document was automatically generated using the Re-Spec specification
+          publishing system. Edits made here will be lost when it is regenerated
+          and chances are high that the editor will do something quite unpleasant
+          to you should that happen.
+          ******* WARNING *********************************************************
+        --><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Web Notifications</title><link rel="stylesheet" href="respec-w3c.css" type="text/css"></link><link rel="stylesheet" href="http://www.w3.org/StyleSheets/TR/base" type="text/css"></link><meta name="revision" content="$Id: Notifications.html,v 1.10 2012/05/09 05:52:30 jgregg Exp $"></meta></head><body><div class="head"><p><a href="http://www.w3.org/"><img src="http://www.w3.org/Icons/w3c_home" width="72" height="48" alt="W3C"></img></a></p><h1 class="head">Web Notifications</h1><h2 id="pagesubtitle">W3C Editor's Draft <em>08 May 2012</em></h2><dl><dt>Editor:</dt><dd><span class="person">John Gregg (<a href="http://www.google.com/">Google</a>) &lt;<a href="mailto:johnnyg@google.com">johnnyg@google.com</a>&gt;</span></dd></dl><p class="copyright"><a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> ©2006
+        <a href="http://www.w3.org/"><acronym title="World Wide Web Consortium">W3C</acronym></a><sup>®</sup>
+        (<a href="http://www.csail.mit.edu/"><acronym title="Massachusetts Institute of Technology">MIT</acronym></a>,
+        <a href="http://www.ercim.org/"><acronym title="European Research Consortium for Informatics and Mathematics">ERCIM</acronym></a>,
+        <a href="http://www.keio.ac.jp/">Keio</a>), All Rights Reserved. W3C
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and 
+        <a href="http://www.w3.org/Consortium/Legal/copyright-documents">document  use</a> rules apply.
+      </p></div><hr></hr>
+
+  
+
+  <h2 id="specabstract">Abstract</h2><div class="section">
+    
+    <p>
+      This document defines an API for displaying simple notifications to the user.
+    </p>
+    
+  </div>
+
+  <div class="section"><h2 id="sotd">Status of this Document</h2>
+    
+    <p>
+      This document is an Editor's Draft and is not suitable for purposes other
+      than reviewing the specification being developed.
+    </p>
+  </div>
+
+  <div class="section"><h2 id="contents">Table of Contents</h2>
+    
+
+    <ul class="toc"><li><a href="#definitions">1. Definitions</a></li><li><a href="#requirements">2. Requirements and use cases</a></li><li><a href="#introduction">3. Introduction</a></li><li><ul class="toc"><li><a href="#">3.1. Security</a></li></ul></li><li><a href="#permissions">4. Permissions</a></li><li><a href="#idl-if-Notification">5. The Notification interface</a></li><li><ul class="toc"><li><a href="#">5.1. Directionality</a></li><li><a href="#">5.2. Event handler attributes</a></li><li><a href="#">5.3. Constructors</a></li></ul></li><li><a href="#algorithms">6. Algorithms</a></li><li><ul class="toc"><li><a href="#showing">6.1. Showing a notification</a></li><li><a href="#closing">6.2. Closing a notification</a></li><li><a href="#queueing">6.3. Queueing notifications</a></li><li><a href="#displaying">6.4. Displaying notifications</a></li><li><a href="#replacing">6.5. Replacing a notification</a></li></ul></li><li><a href="#interactions">7. Examples of interacting with notifications</a></li><li><ul class="toc"><li><a href="#">7.1. Using events</a></li><li><a href="#tags-example">7.2. Using the tag attribute for multiple instances</a></li><li><a href="#">7.3. Using the tag attribute for a single instance</a></li></ul></li><li><a href="#">8. References</a></li></ul>
+  </div>
+
+  <div class="section"><h2 id="definitions">1. Definitions</h2>
+    
+
+    <ul>
+      <li><em>ambient notification</em>: A notification which appears and disappears automatically without user action.</li>
+      <li><em>interactive notification</em>: A notification which can receive events from user actions and deliver them to the application which created the notification.</li>
+      <li><em>persistent notification</em>: A notification which is displayed until the user explicitly dismisses it.</li>
+      <li><em>notification platform</em>: A notification platform is a system outside the user agent which provides desktop notifications.  Examples include Growl on MacOS, NotifyOSD on Linux, and the Windows notification API.</li>
+      <li><em>simple notification</em>: A notification which consists only of an icon and one or two lines of text.</li>
+      <li><em>web notification</em>: A notification which consists of Web platform content, such as HTML or SVG.</li>
+    </ul>
+  </div>
+
+  <div class="section"><h2 id="requirements">2. Requirements and use cases</h2>
+      
+    This specification must meet the following requirements:
+    <ul>
+      <li>An implementation which uses only the existing notification platforms in major platforms to display notifications must be able to comply with the specification.</li>
+      <li>The specification must allow compliant implementations regardless of platform or device.</li>
+      <li>The specification must provide controls to users in order to prevent unwanted notifications to be displayed.</li>
+      <li>The specification must define an event model for interactive notifications.</li>
+      <li>The specification must address security issues.</li>
+      <li>The specification should not require any implementation to display persistent notifications.</li>
+      <li>The specification should be compatible with other Web technologies, such as HTML and SVG.</li>
+    </ul>
+
+    The specification attempts to address the following use cases:
+    <ul>
+      <li>An application alerts the user "you've got mail" in the form of an ambient notification, with no interaction necessary.</li>
+      <li>An application alerts the user "you've got mail" as an interactive notification which allows the user to easily return to the inbox.</li>
+      <li>A calendar application alerts the user for an upcoming meeting, and allows the user to easily specify a "snooze" delay of several possible time periods.</li>
+      <li>A system alerts the user "your printer is out of paper".</li>
+      <li>An application with multiple simultaneous execution contexts (like a multi-tab email application) wants to show notifications without creating duplicate notifications.</li>
+    </ul>
+  </div>
+  
+  <div class="section"><h2 id="introduction">3. Introduction</h2><p><strong>This section is not normative.</strong></p>
+    
+    <p>
+      This specification provides an API to generate <em>simple notifications</em> to
+      alert users outside of the web page.  It does not specify exactly how a user
+      agent should display these notifications; the best presentation depends on the device
+      where the user agent is run.  When this specificiation refers to displaying
+      notifications on the "desktop", it generally refers to some static display
+      area outside the web page, but may take several forms, including:
+      <ul>
+        <li>a corner of the user's display,</li>
+        <li>an area within the chrome of the user agent,</li>
+        <li>the "home" screen of a mobile device,</li>
+        <li><em>et al.</em></li>
+      </ul>
+      This specification does not define exactly how the user agent should display
+      the notification, and the API is designed to be flexible with respect to
+      presentation options.
+    </p>
+    <p>
+      This specification is designed to be compatible with existing notification platforms
+      as much as possible, but also to be platform-independent.  Since the common platforms
+      do not provide the same functionality, this spec will indicate what events are guaranteed
+      and which are not.  In particular, notifications as specified here only can contain
+      text and icon content.  In the future, notifications generated from Web content may
+      wish to contain Web content themselves, but that is outside the scope of this document.
+    </p>    
+    <p>
+      In general, the event model for notifications is best-effort; while the Notification 
+      object offers an "onclick" event, applications may enhance their functionality by
+      listening for that event, but <em>must not depend on receiving it</em>,
+      in case the underlying notification platform does not provide that capability.
+    </p>
+   
+    <div class="section"><h3 id="">3.1. Security</h3>
+      
+      <p>
+	Notifications should only be presented when the user has indicated they are desired;
+	without this they could create a negative experience for the user.
+      </p>     
+      </div>
+  </div>
+
+  <div class="section"><h2 id="permissions">4. Permissions</h2>
+    
+    <p>
+      Permission must be granted by the user before the user agent
+      is allowed to show notifications.  Permissions are granted separately for
+      each security origin, as defined in [<cite><a href="#ORIGIN" class="bibref">ORIGIN</a></cite>].
+    </p>
+
+    <p>
+      The <em>current notification permission level</em> is one of the string values
+      <code>'ALLOWED'</code>, <code>'DENIED'</code>, and <code>'DEFAULT'</code>.
+    </p>
+  </div>
+
+  <div class="section"><h2 id="idl-if-Notification">5. The Notification interface</h2>
+    
+    <p>
+      The Notification interface represents a single notification to be shown to the user. It extends the EventTarget interface defined in [<cite><a href="#DOMEVENTS" class="bibref">DOMEVENTS</a></cite>].
+    </p>
+    <div class="boxed"><p><span class="idlTitle">the Notification interface</span></p><pre class="schema" title="the Notification interface">interface <a href="#idl-if-Notification">Notification</a> : EventTarget {
+
+  void               <a href="#dfn-close">close</a>();
+           attribute Function   <a href="#dfn-onclick">onclick</a>;
+           attribute Function   <a href="#dfn-onshow">onshow</a>;
+           attribute Function   <a href="#dfn-onerror">onerror</a>;
+           attribute Function   <a href="#dfn-onclose">onclose</a>;
+           attribute DOMString  <a href="#dfn-tag">tag</a>;
+           attribute DOMString  <a href="#dfn-dir">dir</a>;
+};</pre></div><div class="section" id="idl-if-Notification"><div class="section"><h4 class="idl-header" id="idl-meths-Notification">Attributes</h4><dl class="idl-attr"><dt id="dfn-dir"><code>dir</code>
+      of type
+      DOMString</dt><dd><p>
+	      The <code>dir</code> attribute specifies the directionality of the notification.
+	    </p></dd><dt id="dfn-onclick"><code>onclick</code>
+      of type
+      Function</dt><dd><p>
+	      An event listener function corresponding to the event type "click".  This event
+	      listener is must be invoked when the user clicks on a notification.
+	    </p><p>
+	      <em>
+		This event is not guaranteed if the underlying notification platform does not support receiving
+		click events.
+	      </em>
+	    </p></dd><dt id="dfn-onclose"><code>onclose</code>
+      of type
+      Function</dt><dd><p>
+	      An event listener function corresponding to the event type "close".  This
+	      event fires after the "show" event, at the point when the notification is 
+	      dismissed by the user, closed by script, or closed by the notification
+	      platform.
+	    </p></dd><dt id="dfn-onerror"><code>onerror</code>
+      of type
+      Function</dt><dd><p>
+	      An event listener function corresponding to the event type "error".  This
+	      event fires if the notification cannot be displayed to the user because of an error.
+	    </p></dd><dt id="dfn-onshow"><code>onshow</code>
+      of type
+      Function</dt><dd><p>
+	      An event listener function corresponding to the event type "show".  The show event
+	      must fire when the notification actually becomes visible to the user.
+	    </p><p>
+	      <em>
+		If the underlying notification platform does not show the notification immediately,
+		this event may precede the notification becoming visible, and the event represents
+		only that the user agent has attempted to show the notification.
+	      </em>
+	    </p></dd><dt id="dfn-tag"><code>tag</code>
+      of type
+      DOMString</dt><dd><p>
+	      The tag value identifies this notification for possible replacement by another notification
+	      serving the same purpose.  The user agent should not allow two notifications created
+	      by the same security origin and having the same tag value to be shown simultaneously.
+	    </p><p>
+	      See below for an example of <a href="#tags-example">using notification tags</a>.
+	    </p></dd></dl></div><div class="section"><h4 class="idl-header" id="idl-attrs-Notification">Methods</h4><dl class="idl-meth"><dt id="dfn-close"><code>close</code></dt><dd><p>
+	      Requests the user agent to close this notification. If the notification
+	      has already been displayed, the user agent must remove it from the display;
+	      otherwise, the user agent must prevent it from being displayed.
+	    </p><dl><dt>No Parameters</dt><dt>No Return Value</dt><dt>No Exceptions</dt></dl></dd></dl></div></div>
+    
+    <div class="section"><h3 id="">5.1. Directionality</h3>
+      
+      <p>
+	The <code>dir</code> attribute of the <code>Notification</code> interface specifies
+	the directionality of the notification.  It is an enumerated attribute with the following
+	keywords:
+
+	<ul>
+	  <li>
+	    The <code>ltr</code> keyword, which indicates that the contents of the notification
+	    are left-to-right text.
+	  </li>
+	  <li>
+	    The <code>rtl</code> keyword, which indicates that the contents of the notification
+	    are right-to-left text.
+	  </li>
+	  <li>
+	    The <code>auto</code> keyword, which indicates that the directionality of the notification
+	    is to be determined programmatically, as described below.
+	  </li>
+	</ul>
+	  
+	If unspecified the attribute has the value <code>auto</code>.
+      </p>
+      <p>
+	If the notification's dir attribute is <code>auto</code>, its title and body must be
+	split into paragraphs and the directionality of each paragraph determined from its content
+	independently of the others as specified by the Unicode bidirectional algorithm's rule P1,
+	P2, and P3. [<cite><a href="#BIDI" class="bibref">BIDI</a></cite>]
+      </p>
+      <p>
+	The user agent should reflect the directionality of the notification, for each paragraph
+	of the title and body, in the underlying notification platform if that platform supports it.
+      </p>
+    </div>
+
+    
+    <div class="section"><h3 id="">5.2. Event handler attributes</h3>
+      
+      <p>The following are event handler attributes (and their corresponding event handler event types, as defined by [<cite><a href="#HTML5" class="bibref">HTML5</a></cite>]) that must be supported as DOM attributes by the Notification object.</p>
+      <table>
+	<thead style="border-bottom: medium solid;">
+	  <tr>
+	    <th>event handler attribute</th>
+	    <th>event handler event type</th>
+	  </tr>
+	</thead>
+	<tr>
+	  <td><code>onclick</code></td>
+	  <td><code>click</code></td>
+	</tr>
+	<tr>
+	  <td><code>onshow</code></td>
+	  <td><code>show</code></td>
+	</tr>
+	<tr>
+	  <td><code>onerror</code></td>
+	  <td><code>error</code></td>
+	</tr>
+	<tr>
+	  <td><code>onclose</code></td>
+	  <td><code>close</code></td>
+	</tr>
+      </table>
+    </div>
+    
+    <div class="section"><h3 id="">5.3. Constructors</h3>
+      
+      <div class="boxed"><p><span class="idlTitle">Constructing a notification</span></p><pre class="schema" title="Constructing a notification">  <a href="#idl-if-Notification">Notification</a> <a href="#dfn-notification">Notification</a>(in DOMString title, in Object options);
+</pre></div><dt id="dfn-notification"><code>Notification</code></dt><dd><p>
+	      Creates a new simple notification object with the provided content, and posts a task for it to be shown.
+	    </p><dl><dt>Parameters</dt><dd class="idl-params"><dl><dt><code>title</code>
+          of type
+          DOMString</dt><dd>
+	      Primary text, or title, of the notification.  The user agent must process any markup in this string so that it appears as plain text when used as a string in the underlying notification platform.
+	    </dd><dt><code>options</code>
+          of type
+          Object</dt><dd>
+	      Optional additional parameters.  This object is a dictionary, which may contain any or all of the following keys. Any additional keys not
+	      specified here should be ignored.
+	      <blockquote>
+		<dt><code>iconUrl</code>
+          of type
+          DOMString</dt><dd>
+		  The value contains the URL of the icon to be shown with this notification.
+		  The parameter must be resolved relative to the current document base URL or worker script URL.
+		</dd>
+		<dt><code>body</code>
+          of type
+          DOMString</dt><dd>
+		    The value contains the secondary text, or body, of the notification.
+
+		  <p>
+		    The user agent must process any markup in this string so that it appears as plain text when used as a string in the underlying notification platform.
+		  </p>
+		</dd>
+		<dt><code>tag</code>
+          of type
+          DOMString</dt><dd>
+		  This value must be assigned to the <code>tag</code> attribute of the new Notification object.
+		</dd>
+		<dt><code>onshow</code>
+          of type
+          Function</dt><dd>
+		  This value must be assigned to the <code>onshow</code> attribute of the new Notification object.
+		</dd>
+		<dt><code>onerror</code>
+          of type
+          Function</dt><dd>
+		  The value must be assigned to the <code>onerror</code> attribute of the new Notification object.
+		</dd>
+		<dt><code>onclick</code>
+          of type
+          Function</dt><dd>
+		  The value must be assigned to the <code>onclick</code> attribute of the new Notification object.
+		</dd>
+		<dt><code>onclose</code>
+          of type
+          Function</dt><dd>
+		  The value must be assigned to the <code>onclose</code> attribute of the new Notification object.
+		</dd>
+	      </blockquote>
+	    </dd></dl></dd><dt>Return Value</dt><dd><table><tr><td><code></code></td><td>
+	      <p>A new notification object.</p>
+	    </td></tr></table></dd><dt>No Exceptions</dt></dl></dd>
+      <p>
+	When the <code>Notification()</code> constructor is invoked, the user agent must return a new Notification object.
+	The user agent must post a task to show the new notification, as specified in <a href="#showing">Showing a notification</a>.
+      </p>
+    </div>
+  </div>
+
+  <div class="section"><h2 id="algorithms">6. Algorithms</h2>
+      
+    <p>
+      The user agent must keep a <em>queue of pending notifications</em> and a <em>list of active notifications</em>. 
+    </p>
+
+    <div class="section"><h3 id="showing">6.1. Showing a notification</h3>
+      
+      <p>
+	When the user agent shows <em>notification</em>, it must proceed as follows.
+      </p>
+      
+      <p>
+	If notification permissions are not allowed, the user agent must fire the <code>error</code>
+	event on <em>notification</em> and not proceed further.
+      </p>
+
+      <p>
+	The user agent then must search for a possible replacement.
+	<ol>
+	  <li>Get the tag attribute of the notification to be shown, and let it be <em>tag</em>.</li>
+	  <li>
+	    If <em>tag</em> is defined, examine all the notifications in the <em>list of active notifications</em> and
+	    the <em>queue of pending notifications</em>.
+	    If any notification is found with the same source origin and has a tag attribute equal to <em>tag</em>, 
+	    let it be called <em>existing</em>.
+	  </li>
+	</ol>
+	If <em>existing</em> was found, the user agent must replace <em>existing</em> with <em>notification</em>
+	according to the <a href="#replacing">replacing a notification</a> algorithm, and stop.
+      </p>						
+      
+      <p>
+	If no replacement candidate was found, and the device allows notifications to be displayed immediately
+	without limitations on the number of concurrent notifications, the user agent must
+	display the notification immediately using <a href="#displaying">displaying a notification</a>
+	algorithm, and stop.
+      </p>
+      
+      <p>
+	If the device does have limitations on the number of concurrent notifications,
+	the user agent must either immediately call to a notifications platform which 
+	natively supports queueing, or add <em>notification</em> to the
+	<em>queue of pending notifications</em>, and proceed according to <a href="#queueing">queueing notifications</a>.
+      </p>
+    </div>
+
+    <div class="section"><h3 id="closing">6.2. Closing a notification</h3>
+      
+      <p>
+	When a notification is closed, either by the underlying notifications platform or by the user,
+	the user agent must fire the <code>close</code> event on that notification, and remove it
+	from the <em>list of active notifications</em>.
+      </p>
+    </div>
+
+    <div class="section"><h3 id="queueing">6.3. Queueing notifications</h3>
+      
+      <p>
+	Whenever the <em>queue of pending notifications</em> is not empty, the user agent must wait and 
+	monitor changes in the available notification space on the device.
+      </p>
+
+      <p>
+	When the available display space changes on the device such that a new notification may be
+	displayed, for example due to a previous notification being dismissed, the user agent should
+	<a href="#displaying">display</a> the first notification in the queue, and remove that notification
+	from the queue.
+      </p>
+    </div>
+
+    <div class="section"><h3 id="displaying">6.4. Displaying notifications</h3>
+      
+      <p>
+	When a user agent is to <em>display a notification</em>, the user agent should perform the following steps:
+	<ol>
+	  <li>
+	    If <code>iconUrl</code> has been supplied, fetch the resource given by <code>iconUrl</code> using the algorithm defined in [<cite><a href="#HTML5" class="bibref">HTML5</a></cite>].
+	  </li>
+	  <li>
+	    If the fetch algorithm returns error information, queue a task to fire the <code>error</code> event on the notification
+	    object and stop executing this algorithm.
+	  </li>
+	  <li>Fire the <code>show</code> event on the notification object.</li>
+	  <li>Show the notification on the device, such as by calling the appropriate notification platform.</li>
+	  <li>Add the new notification to the <em>list of active notifications</em>.</li>
+	</ol>
+      </p>
+    </div>
+
+    <div class="section"><h3 id="replacing">6.5. Replacing a notification</h3>
+      
+      <p>
+	When a user agent is to <em>replace a notification</em>, the user agent should perform the following steps.
+	Let <em>old</em> be the notification to be replaced by <em>new</em>.
+	<ol>
+	  <li>
+	    If <em>new</em> has an <code>iconUrl</code> specified, fetch the icon resource in <em>new</em> using the algorithm defined in [<cite><a href="#HTML5" class="bibref">HTML5</a></cite>].
+	  </li>
+	  <li>
+	    If the fetch algorithm returns error information, queue a task to fire the <code>error</code> event on the <em>new</em> notification
+	    object and stop executing this algorithm, returning the error information.  The <em>old</em> notification is not affected.
+	  </li>
+	  <li>Fire the <code>close</code> event on the <em>old</em> notification object.</li>
+	  <li>If <em>old</em> is in the <em>queue of pending notifications</em>:
+	    <ol type="a">
+	      <li>Replace <em>old</em> with <em>new</em>, in the same position, in the <em>queue of pending notifications</em>.</li>
+	    </ol>
+	    otherwise, if <em>old</em> is in the <em>list of active notifications</em>:
+	    <ol type="a">
+	      <li>Fire the <code>show</code> event on the <em>new</em> notification object.</li>
+	      <li>If the underlying notification platform supports replacement, replace <em>old</em> with <em>new</em> using the platform.</li>
+	      <li>If the underlying notification platform does not support replacement, remove <em>old</em> using the platform and show <em>new</em> using the platform.</li>
+	      <li>Remove <em>old</em> from the <em>list of active notifications</em>.</li>
+	      <li>Add <em>new</em> to the <em>list of active notifications</em>.</li>
+	    </ol>
+	  </li>
+	</ol>
+      </p>
+    </div>
+  </div>
+  <div class="section"><h2 id="interactions">7. Examples of interacting with notifications</h2><p><strong>This section is not normative.</strong></p>
+    
+    <div class="section"><h3 id="">7.1. Using events</h3>
+      
+      <p>
+	Notification objects dispatch events during their lifecycle, which authors can use
+	to generate desired behaviors.
+      </p>
+      <p>
+	The <code>show</code> event occurs when the notification is shown to the user -- 
+	this may be at some time after the notification is created in the case
+	of limited display space and a queue.
+      </p>
+
+      <p>
+	In the following example, this event is used to guarantee that regardless of when
+	the notification is shown, it is displayed for only 15 seconds.
+      </p>
+
+      <div class="boxed"><div><span class="exampleTitle">Example: </span></div><pre class="example" title="">new Notification("New Email Received",
+                 { iconUrl: "mail.png",
+                   onshow: function() { setTimeout(notification.close(), 15000); }
+                 });</pre></div>
+
+      <p>
+	The <code>close</code> events occurs when the notification is dismissed by the user.
+	Authors may use this event to perform actions when notifications are acknowledged.
+      </p>
+      <p>
+	In the following example, when a meeting reminder notification is acknowledged, the
+	application suppresses other forms of reminders.
+      </p>
+
+      <div class="boxed"><div><span class="exampleTitle">Example: </span></div><pre class="example" title="">new Notification("Meeting about to begin",
+                 { iconUrl: "calendar.gif",
+                   body: "Room 101",
+                   onclose: function() { cancelReminders(event); }
+                 });</pre></div>
+    </div>
+    
+    <div class="section"><h3 id="tags-example">7.2. Using the tag attribute for multiple instances</h3>
+      
+      <p>
+	Web applications frequently operate concurrently in multiple instances, such as when a
+	user opens a mail application in multiple browser tabs.  Since the desktop is a shared
+	resource, Web Notifications provides a way for these instances to easily coordinate, by
+	using the <code>tag</code> attribute.
+      </p>
+      <p>
+	Notifications which represent the same conceptual event can be tagged in the same way,
+	and when both are shown, the user will only receive one notification.
+      </p>
+
+      <div class="boxed"><div><span class="exampleTitle">Example: </span></div><pre class="example" title="">Instance 1                                   | Instance 2
+                                             |
+// Instance notices there is new mail.       |
+new Notification("New mail from John Doe",   |
+                 { tag: 'message1' });       |
+                                             |
+                                             |  // Slightly later, this instance notices
+                                             |  // there is new mail.
+                                             |  new Notification("New mail from John Doe",
+                                             |                   { tag: 'message1' });</pre></div>
+      <p>
+	The result of this situation, if the user agent follows the algorithms here, is a <strong>single</strong> notification "New mail from John Doe".
+      </p>
+    </div>
+    <div class="section"><h3 id="">7.3. Using the tag attribute for a single instance</h3>
+      
+      <p>
+	The tag attribute can also be used by a single instance of an application to keep its
+	notifications as current as possible as state changes.
+      </p>
+      <p>
+	For example, if Alice is using a chat application with Bob, and Bob sends multiple 
+	messages while Alice is idle, the application may prefer that Alice not see a
+	desktop notification for each message.
+      </p>
+
+      <div class="boxed"><div><span class="exampleTitle">Example: </span></div><pre class="example" title="">// Bob says "Hi"
+new Notification("Bob: Hi", { tag: 'chat_Bob' });
+
+// Bob says "Are you free this afternoon?"
+new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });</pre></div>
+
+      <p>
+	The result of this situation is a <strong>single</strong> notification; the second one
+	replaces the first having the same tag.  In a platform that queues notifications
+	(first-in-first-out), using the tag allows the notification to also maintain its
+	position in the queue.  Platforms where the newest notifications are shown first,
+	a similar result could be achieved using the <code>close()</code> method.
+      </p>
+    </div>
+  </div>
+
+  <div class="section"><h2 id="">8. References</h2>
+    
+    <dl class="bibliography">
+      
+      
+      
+      
+      
+    <dt id="BIDI">BIDI</dt><dd><cite><a href="http://unicode.org/reports/tr9/#The_Paragraph_Level">Unicode Bidirectional Algorithm</a></cite>,
+    </dd><dt id="DOMEVENTS">DOMEVENTS</dt><dd><cite><a href="http://www.w3.org/TR/DOM-Level-3-Events">Document Object Model (DOM) Level 3 Events Specification</a></cite>,
+    </dd><dt id="HTML5">HTML5</dt><dd><cite><a href="http://www.w3.org/TR/html5/">HTML5: A vocabulary and associated APIs for HTML and XHTML</a></cite>,
+    </dd><dt id="ORIGIN">ORIGIN</dt><dd><cite><a href="http://tools.ietf.org/html/rfc6454#section-3.2">The Web Origin</a></cite>,
+    </dd><dt id="PERMISSIONS">PERMISSIONS</dt><dd><cite><a href="FeaturePermissions.html">Feature Permissions</a></cite>,
+    </dd></dl>
+  </div>
+
+</body></html>
