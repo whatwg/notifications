@@ -503,26 +503,16 @@ Rendering section of HTML. <span data-anolis-ref>HTML</span>
 
 <p>User agents are expected to honor the Unicode semantics of the text of a
 <span title=concept-notification>notification</span>'s <span>title</span>
-and <span>body</span>.
-
-<p>The directionality of a
-<span title=concept-notification>notification</span>'s <span>title</span> is
-given by its <span>title direction</span>. If that is
-"<code title>auto</code>", the directionality is "<code title>rtl</code>" if
-<span>title</span> contains a character of bidirectional character type AL
-or R, and there is no character of bidirectional character type L anywhere
-before it, or "<code title>ltr</code>" otherwise.
-
-<!-- copied from HTML: -->
-<p>A <span title=concept-notification>notification</span>'s
-<span>body</span> is expected to be treated as an independent set of one or
-more bidirectional algorithm paragraphs when displayed, as defined by the
-bidirectional algorithm, including, for instance, supporting the
-paragraph-breaking behaviour of U+000A LINE FEED (LF) characters.
-
-<p>The higher-level override of rules P2 and P3 is provided by a
+and <span>body</span>. Each is expected to be treated as an independent set
+of one or more bidirectional algorithm paragraphs when displayed, as defined
+by the bidirectional algorithm's rules P1, P2, and P3, including, for
+instance, supporting the paragraph-breaking behaviour of
+U+000A LINE FEED (LF) characters. For each paragraph of the
+<span>title</span> and <span>body</span>, the
 <span title=concept-notification>notification</span>'s
-<span>body direction</span>, when that is not "<code title>auto</code>".
+<span>title direction</span> and <span>body direction</span> respectively
+provide the higher-level override of rules P2 and P3 if they have a value
+other than "<code title>auto</code>".
 <span data-anolis-ref>BIDI</span>
 
 
@@ -619,6 +609,7 @@ new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });
 <h2 class=no-num>Acknowledgments</h2>
 
 <p>Thanks to
+Aharon (Vladimir) Lanin,
 Alex Russell,
 Doug Turner,
 Drew Wilson,

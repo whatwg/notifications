@@ -525,26 +525,16 @@ Rendering section of HTML. <a href="#refsHTML">[HTML]</a>
 
 <p>User agents are expected to honor the Unicode semantics of the text of a
 <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#title">title</a>
-and <a href="#body">body</a>.
-
-<p>The directionality of a
-<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#title">title</a> is
-given by its <a href="#title-direction">title direction</a>. If that is
-"<code title="">auto</code>", the directionality is "<code title="">rtl</code>" if
-<a href="#title">title</a> contains a character of bidirectional character type AL
-or R, and there is no character of bidirectional character type L anywhere
-before it, or "<code title="">ltr</code>" otherwise.
-
-<!-- copied from HTML: -->
-<p>A <a href="#concept-notification" title="concept-notification">notification</a>'s
-<a href="#body">body</a> is expected to be treated as an independent set of one or
-more bidirectional algorithm paragraphs when displayed, as defined by the
-bidirectional algorithm, including, for instance, supporting the
-paragraph-breaking behaviour of U+000A LINE FEED (LF) characters.
-
-<p>The higher-level override of rules P2 and P3 is provided by a
+and <a href="#body">body</a>. Each is expected to be treated as an independent set
+of one or more bidirectional algorithm paragraphs when displayed, as defined
+by the bidirectional algorithm's rules P1, P2, and P3, including, for
+instance, supporting the paragraph-breaking behaviour of
+U+000A LINE FEED (LF) characters. For each paragraph of the
+<a href="#title">title</a> and <a href="#body">body</a>, the
 <a href="#concept-notification" title="concept-notification">notification</a>'s
-<a href="#body-direction">body direction</a>, when that is not "<code title="">auto</code>".
+<a href="#title-direction">title direction</a> and <a href="#body-direction">body direction</a> respectively
+provide the higher-level override of rules P2 and P3 if they have a value
+other than "<code title="">auto</code>".
 <a href="#refsBIDI">[BIDI]</a>
 
 
@@ -653,6 +643,7 @@ new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });
 <h2 class="no-num" id="acknowledgments">Acknowledgments</h2>
 
 <p>Thanks to
+Aharon (Vladimir) Lanin,
 Alex Russell,
 Doug Turner,
 Drew Wilson,
