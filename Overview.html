@@ -266,22 +266,21 @@ a <dfn id="list-of-active-notifications">list of active notifications</dfn>.
 
 <p>When a <a href="#concept-notification" title="concept-notification">notification</a> is closed,
 either by the underlying notifications platform or by the user, the
-<span>close steps</span> must be run.
+<a href="#close-steps">close steps</a> for it must be run.
 
-<p>The <span>close steps</span> are:
+<p>The <dfn id="close-steps">close steps</dfn> for a given <var title="">notification</var> are:
 
 <ol>
- <li><p>If <a href="#concept-notification" title="concept-notification">notification</a> is neither
- in the <a href="#list-of-pending-notifications">list of pending notifications</a> nor in the
+ <li><p>If <var title="">notification</var> is neither in the
+ <a href="#list-of-pending-notifications">list of pending notifications</a> nor in the
  <a href="#list-of-active-notifications">list of active notifications</a>, terminate these steps.
 
  <li><p><a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">Queue a task</a> to remove
- <a href="#concept-notification" title="concept-notification">notification</a> from either the
+ <var title="">notification</var> from either the
  <a href="#list-of-pending-notifications">list of pending notifications</a> or the
  <a href="#list-of-active-notifications">list of active notifications</a>, and
  <a class="external" href="http://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html#concept-event-fire" title="concept-event-fire">fire an event</a>
- named <code title="">close</code> on
- <a href="#concept-notification" title="concept-notification">notification</a>.
+ named <code title="">close</code> on <var title="">notification</var>.
 </ol>
 
 <h3 id="pending-notifications"><span class="secno">4.5 </span>Pending notifications</h3>
@@ -509,7 +508,7 @@ that must be supported as attributes by the <code><a href="#notification">Notifi
 </table>
 
 <p>The <dfn id="dom-notification-close" title="dom-Notification-close"><code>close()</code></dfn> method
-must run the <span>close steps</span> for the
+must run the <a href="#close-steps">close steps</a> for the
 <a href="#concept-notification" title="concept-notification">notification</a>.
 
 
