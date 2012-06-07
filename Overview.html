@@ -220,8 +220,8 @@ displayed if the user (or user agent on behalf of the user) has granted
  be displayed.
 </dl>
 
-<p class="note">The conceptual "<code title="">default</code>", but meaning
-"<code title="">granted</code>" does not exist. In that case
+<p class="note">There is no equivalent to "<code title="">default</code>"
+meaning "<code title="">granted</code>". In that case
 "<code title="">granted</code>" is simply returned as there would be no reason
 for the application to ask for <a href="#permission-0">permission</a>.
 
@@ -236,7 +236,9 @@ a <dfn id="list-of-active-notifications">list of active notifications</dfn>.
 <p>The <dfn id="show-steps">show steps</dfn> for a given <var title="">notification</var> are:
 
 <ol>
- <li><p>If notifications are not allowed, cancel any ongoing
+ <li><p>If <a href="#permission-0">permission</a> for the current
+ <a class="external" href="http://tools.ietf.org/html/rfc6454#section-4">origin</a> is not
+ "<code title="">granted</code>", cancel any ongoing
  <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/fetching-resources.html#fetch">fetch</a> for
  <var title="">notification</var>'s <a href="#icon-url">icon URL</a>,
  <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to

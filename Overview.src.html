@@ -198,8 +198,8 @@ displayed if the user (or user agent on behalf of the user) has granted
  be displayed.
 </dl>
 
-<p class=note>The conceptual "<code title>default</code>", but meaning
-"<code title>granted</code>" does not exist. In that case
+<p class=note>There is no equivalent to "<code title>default</code>"
+meaning "<code title>granted</code>". In that case
 "<code title>granted</code>" is simply returned as there would be no reason
 for the application to ask for <span>permission</span>.
 
@@ -214,7 +214,9 @@ a <dfn>list of active notifications</dfn>.
 <p>The <dfn>show steps</dfn> for a given <var title>notification</var> are:
 
 <ol>
- <li><p>If notifications are not allowed, cancel any ongoing
+ <li><p>If <span>permission</span> for the current
+ <span data-anolis-spec=origin>origin</span> is not
+ "<code title>granted</code>", cancel any ongoing
  <span data-anolis-spec=html>fetch</span> for
  <var title>notification</var>'s <span>icon URL</span>,
  <span data-anolis-spec=html>queue a task</span> to
