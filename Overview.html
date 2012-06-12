@@ -47,7 +47,7 @@
 <!--end-logo-->
 
 <h1>Web Notifications</h1>
-<h2 class="no-num no-toc" id="editor's-draft-11-june-2012">Editor's Draft 11 June 2012</h2>
+<h2 class="no-num no-toc" id="editor's-draft-12-june-2012">Editor's Draft 12 June 2012</h2>
 
 <dl>
  <dt>This Version:
@@ -109,8 +109,8 @@
  <li><a href="#examples"><span class="secno">7 </span>Examples</a>
   <ol class="toc">
    <li><a href="#using-events"><span class="secno">7.1 </span>Using events</a></li>
-   <li><a href="#tags-example"><span class="secno">7.2 </span>Using the tag attribute for multiple instances</a></li>
-   <li><a href="#using-the-tag-attribute-for-a-single-instance"><span class="secno">7.3 </span>Using the tag attribute for a single instance</a></ol></li>
+   <li><a href="#tags-example"><span class="secno">7.2 </span>Using the <code title="">tag</code> member for multiple instances</a></li>
+   <li><a href="#using-the-tag-member-for-a-single-instance"><span class="secno">7.3 </span>Using the <code title="">tag</code> member for a single instance</a></ol></li>
  <li><a class="no-num" href="#references">References</a></li>
  <li><a class="no-num" href="#acknowledgments">Acknowledgments</a></ol>
 <!--end-toc-->
@@ -577,12 +577,12 @@ other than "<code title="">auto</code>".
                  });</pre>
 
 
-<h3 id="tags-example"><span class="secno">7.2 </span>Using the tag attribute for multiple instances</h3>
+<h3 id="tags-example"><span class="secno">7.2 </span>Using the <code title="">tag</code> member for multiple instances</h3>
 
 <p>Web applications frequently operate concurrently in multiple instances, such as when a
 	user opens a mail application in multiple browser tabs.  Since the desktop is a shared
 	resource, Web Notifications provides a way for these instances to easily coordinate, by
-	using the <code><a href="#tag">tag</a></code> attribute.
+	using the <code title="">tag</code> member.
 
 <p>Notifications which represent the same conceptual event can be tagged in the same way,
 	and when both are shown, the user will only receive one notification.
@@ -602,9 +602,9 @@ new Notification("New mail from John Doe",   |
 <p>
 	The result of this situation, if the user agent follows the algorithms here, is a <strong>single</strong> notification "New mail from John Doe".
 
-<h3 id="using-the-tag-attribute-for-a-single-instance"><span class="secno">7.3 </span>Using the tag attribute for a single instance</h3>
+<h3 id="using-the-tag-member-for-a-single-instance"><span class="secno">7.3 </span>Using the <code title="">tag</code> member for a single instance</h3>
 
-<p>The tag attribute can also be used by a single instance of an application to keep its
+<p>The <code title="">tag</code> member can also be used by a single instance of an application to keep its
 	notifications as current as possible as state changes.
 
 <p>For example, if Alice is using a chat application with Bob, and Bob sends multiple

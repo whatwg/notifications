@@ -555,12 +555,12 @@ other than "<code title>auto</code>".
                  });</pre>
 
 
-<h3 id="tags-example">Using the tag attribute for multiple instances</h3>
+<h3 id="tags-example">Using the <code title>tag</code> member for multiple instances</h3>
 
 <p>Web applications frequently operate concurrently in multiple instances, such as when a
 	user opens a mail application in multiple browser tabs.  Since the desktop is a shared
 	resource, Web Notifications provides a way for these instances to easily coordinate, by
-	using the <code>tag</code> attribute.
+	using the <code title>tag</code> member.
 
 <p>Notifications which represent the same conceptual event can be tagged in the same way,
 	and when both are shown, the user will only receive one notification.
@@ -580,9 +580,9 @@ new Notification("New mail from John Doe",   |
 <p>
 	The result of this situation, if the user agent follows the algorithms here, is a <strong>single</strong> notification "New mail from John Doe".
 
-<h3>Using the tag attribute for a single instance</h3>
+<h3>Using the <code title>tag</code> member for a single instance</h3>
 
-<p>The tag attribute can also be used by a single instance of an application to keep its
+<p>The <code title>tag</code> member can also be used by a single instance of an application to keep its
 	notifications as current as possible as state changes.
 
 <p>For example, if Alice is using a chat application with Bob, and Bob sends multiple
