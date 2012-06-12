@@ -411,6 +411,10 @@ enum <dfn id="notificationdirection">NotificationDirection</dfn> {
   "rtl"
 };</pre>
 
+<p class="XXX">Web IDL is
+<a href="http://lists.w3.org/Archives/Public/public-script-coord/2012AprJun/0222.html">not yet updated</a>
+to allow for static attributes.
+
 <p>The
 <dfn id="dom-notification" title="dom-Notification"><code>Notification(<var title="">title</var>, <var title="">options</var>)</code></dfn>
 constructor must run these steps:
@@ -481,6 +485,11 @@ method must run these steps:
  <var title="">permission</var> and invoke <var title="">callback</var> with
  <var title="">permission</var> as single argument.
 </ol>
+
+<p class="warning">In designing the platform notifications are the one
+instance thus far where asking the user upfront makes sense. Specifications
+for other APIs should not use this pattern and instead employ one of the
+<a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">many more suitable alternatives</a>.
 
 <p>The following are the <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#event-handlers">event handlers</a>
 (and their corresponding
