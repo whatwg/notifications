@@ -562,39 +562,29 @@ other than "<code title>auto</code>".
 
 <h3>Using events</h3>
 
-<p>
-	Notification objects dispatch events during their lifecycle, which authors can use
-	to generate desired behaviors.
-      </p>
-      <p>
-	The <code>show</code> event occurs when the notification is shown to the user --
-	this may be at some time after the notification is created in the case
-	of limited display space and a queue.
-      </p>
+<p><code>Notification</code> objects dispatch events during their lifecycle,
+which developers can use to generate desired behaviors.
 
-      <p>
-	In the following example, this event is used to guarantee that regardless of when
-	the notification is shown, it is displayed for only 15 seconds.
-      </p>
+<p>The <code title=event-show>show</code> event dispatches when the
+<span title=concept-notification>notification</span> is shown to the user
+&mdash; this may be at some time after the notification is created in the
+case of limited display space and a queue.
 
-<pre class="example">new Notification("New Email Received",
-                 { iconUrl: "mail.png",
-                   onshow: function() { setTimeout(notification.close(), 15000); }
-                 });</pre>
+<p>In the following example, this event is used to guarantee that regardless
+of when the notification is shown, it is displayed for only 15 seconds.
 
-<p>The <code>close</code> events occurs when the notification is dismissed by the user.
-	Authors may use this event to perform actions when notifications are acknowledged.
+<pre class="example">var notification = new Notification("New Email Received", { iconUrl: "mail.png" })
+notification.onshow = function() { setTimeout(notification.close(), 15000) }</pre>
 
-<p>
-	In the following example, when a meeting reminder notification is acknowledged, the
-	application suppresses other forms of reminders.
-      </p>
+<p>The <code title=event-close>close</code> events dispatches when the
+notification is dismissed by the user. Developers may use this event to
+perform actions when notifications are acknowledged.
 
-<pre class="example">new Notification("Meeting about to begin",
-                 { iconUrl: "calendar.gif",
-                   body: "Room 101",
-                   onclose: function() { cancelReminders(event); }
-                 });</pre>
+<p>In the following example, when a meeting reminder notification is
+acknowledged, the application suppresses other forms of reminders.
+
+<pre class="example">var notification = new Notification("Meeting about to begin", { iconUrl: "calendar.gif", body: "Room 101" })
+notification.onclose = function(event) { cancelReminders(event) }</pre>
 
 
 <h3 id="tags-example">Using the <code title>tag</code> member for multiple instances</h3>
