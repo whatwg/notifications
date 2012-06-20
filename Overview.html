@@ -47,7 +47,7 @@
 <!--end-logo-->
 
 <h1>Web Notifications</h1>
-<h2 class="no-num no-toc" id="editor's-draft-15-june-2012">Editor's Draft 15 June 2012</h2>
+<h2 class="no-num no-toc" id="editor's-draft-20-june-2012">Editor's Draft 20 June 2012</h2>
 
 <dl>
  <dt>This Version:
@@ -94,7 +94,7 @@ W3C publications and the latest revision of this technical report can be
 found in the <a href="http://www.w3.org/TR/">W3C technical reports index</a>
 at http://www.w3.org/TR/.</em>
 
-<p>This is the 15 June 2012 Editor's Draft of Web Notifications.
+<p>This is the 20 June 2012 Editor's Draft of Web Notifications.
 Please send comments to
 <a href="mailto:public-web-notification@w3.org">public-web-notification@w3.org</a>
 (<a href="http://lists.w3.org/Archives/Public/public-web-notification/">archived</a>).
@@ -598,7 +598,7 @@ case of limited display space and a queue.
 of when the notification is shown, it is displayed for only 15 seconds.
 
 <pre class="example">var notification = new Notification("New Email Received", { iconUrl: "mail.png" })
-notification.onshow = function() { setTimeout(notification.close(), 15000) }</pre>
+notification.onshow = function() { setTimeout(notification.close, 15000) }</pre>
 
 <p>The <code title="event-close">close</code> events dispatches when the
 notification is dismissed by the user. Developers may use this event to
@@ -679,6 +679,7 @@ new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });
 <p>Thanks to
 Aharon (Vladimir) Lanin,
 Alex Russell,
+David Håsäther,
 Doug Turner,
 Drew Wilson,
 Edward O'Connor,

@@ -576,7 +576,7 @@ case of limited display space and a queue.
 of when the notification is shown, it is displayed for only 15 seconds.
 
 <pre class="example">var notification = new Notification("New Email Received", { iconUrl: "mail.png" })
-notification.onshow = function() { setTimeout(notification.close(), 15000) }</pre>
+notification.onshow = function() { setTimeout(notification.close, 15000) }</pre>
 
 <p>The <code title=event-close>close</code> events dispatches when the
 notification is dismissed by the user. Developers may use this event to
@@ -645,6 +645,7 @@ new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });
 <p>Thanks to
 Aharon (Vladimir) Lanin,
 Alex Russell,
+David Håsäther,
 Doug Turner,
 Drew Wilson,
 Edward O'Connor,
