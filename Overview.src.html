@@ -202,13 +202,15 @@ user outside the context of a web page of an occurrence, such as the
 delivery of email.
 
 <p>Each <span title=concept-notification>notification</span> has a
-<dfn>title</dfn>. For specification simplicity each
+<dfn>title</dfn> (string). For specification simplicity each
 <span title=concept-notification>notification</span> also has a
 <dfn>title direction</dfn> and <dfn>body direction</dfn>, both of which are
 initially "<code title>auto</code>".
 
 <p>Each <span title=concept-notification>notification</span> <em>can</em>
-have an associated <dfn>body</dfn>, <dfn>tag</dfn>, and <dfn>icon URL</dfn>.
+have an associated <dfn>body</dfn> (string),
+<dfn>tag</dfn>  ((string, <span data-anolis-spec=origin>origin</span>) tuple),
+and <dfn>icon URL</dfn> (<span data-anolis-spec=html>URL</span>).
 
 
 <h3>Permission</h3>
@@ -458,7 +460,8 @@ constructor must run these steps:
 
  <li><p>If <var title>options</var> is not omitted and its
  <code title>tag</code> is not null, set <var title>notification</var>'s
- <span>tag</span> to <code title>tag</code>.
+ <span>tag</span> to
+ (<code title>tag</code>, current <span data-anolis-spec=origin>origin</span>).
 
  <li><p>If <var title>options</var> is not omitted and its
  <code title>iconUrl</code> is not null, set <var title>notification</var>'s
@@ -651,6 +654,7 @@ Drew Wilson,
 Edward O'Connor,
 Ian Hickson,
 James Graham,
-Jon Lee, and
-Jonas Sicking
+Jon Lee,
+Jonas Sicking, and
+Olli Pettay,
 for being awesome.

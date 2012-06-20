@@ -224,13 +224,15 @@ user outside the context of a web page of an occurrence, such as the
 delivery of email.
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> has a
-<dfn id="title">title</dfn>. For specification simplicity each
+<dfn id="title">title</dfn> (string). For specification simplicity each
 <a href="#concept-notification" title="concept-notification">notification</a> also has a
 <dfn id="title-direction">title direction</dfn> and <dfn id="body-direction">body direction</dfn>, both of which are
 initially "<code title="">auto</code>".
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> <em>can</em>
-have an associated <dfn id="body">body</dfn>, <dfn id="tag">tag</dfn>, and <dfn id="icon-url">icon URL</dfn>.
+have an associated <dfn id="body">body</dfn> (string),
+<dfn id="tag">tag</dfn>  ((string, <a class="external" href="http://tools.ietf.org/html/rfc6454#section-4">origin</a>) tuple),
+and <dfn id="icon-url">icon URL</dfn> (<a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/urls.html#url">URL</a>).
 
 
 <h3 id="permission"><span class="secno">4.1 </span>Permission</h3>
@@ -480,7 +482,8 @@ constructor must run these steps:
 
  <li><p>If <var title="">options</var> is not omitted and its
  <code title="">tag</code> is not null, set <var title="">notification</var>'s
- <a href="#tag">tag</a> to <code title="">tag</code>.
+ <a href="#tag">tag</a> to
+ (<code title="">tag</code>, current <a class="external" href="http://tools.ietf.org/html/rfc6454#section-4">origin</a>).
 
  <li><p>If <var title="">options</var> is not omitted and its
  <code title="">iconUrl</code> is not null, set <var title="">notification</var>'s
@@ -685,6 +688,7 @@ Drew Wilson,
 Edward O'Connor,
 Ian Hickson,
 James Graham,
-Jon Lee, and
-Jonas Sicking
+Jon Lee,
+Jonas Sicking, and
+Olli Pettay,
 for being awesome.
