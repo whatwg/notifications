@@ -331,12 +331,25 @@ are:
  named <code title>error</code> on <var title>notification</var> and terminate
  these steps.
 
- <li><p><span data-anolis-spec=html>Queue a task</span> to display
- <var title>notification</var> on the device (e.g. by calling the
- appropriate notification platform), append <var title>notification</var> to the
- <span>list of active notifications</span>, and
- <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
- named <code title>show</code> on <var title>notification</var>.
+ <li>
+  <p><span data-anolis-spec=html>Queue a task</span> to run these substeps:
+
+  <ol>
+   <li><p>Display <var title>notification</var> on the device (e.g. by
+   calling the appropriate notification platform).
+
+   <li><p>If displaying fails (e.g. the notification platform returns an
+   error),
+   <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
+   named <code title>error</code> on <var title>notification</var> and
+   terminate these steps.
+
+   <li><p>Append <var title>notification</var> to the
+   <span>list of active notifications</span>.
+
+   <li><p><span data-anolis-spec=dom title=concept-event-fire>Fire an event</span>
+   named <code title>show</code> on <var title>notification</var>.
+  </ol>
 </ol>
 
 

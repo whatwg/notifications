@@ -353,12 +353,25 @@ are:
  named <code title="">error</code> on <var title="">notification</var> and terminate
  these steps.
 
- <li><p><a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">Queue a task</a> to display
- <var title="">notification</var> on the device (e.g. by calling the
- appropriate notification platform), append <var title="">notification</var> to the
- <a href="#list-of-active-notifications">list of active notifications</a>, and
- <a class="external" href="http://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html#concept-event-fire" title="concept-event-fire">fire an event</a>
- named <code title="">show</code> on <var title="">notification</var>.
+ <li>
+  <p><a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">Queue a task</a> to run these substeps:
+
+  <ol>
+   <li><p>Display <var title="">notification</var> on the device (e.g. by
+   calling the appropriate notification platform).
+
+   <li><p>If displaying fails (e.g. the notification platform returns an
+   error),
+   <a class="external" href="http://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html#concept-event-fire" title="concept-event-fire">fire an event</a>
+   named <code title="">error</code> on <var title="">notification</var> and
+   terminate these steps.
+
+   <li><p>Append <var title="">notification</var> to the
+   <a href="#list-of-active-notifications">list of active notifications</a>.
+
+   <li><p><a class="external" href="http://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html#concept-event-fire" title="concept-event-fire">Fire an event</a>
+   named <code title="">show</code> on <var title="">notification</var>.
+  </ol>
 </ol>
 
 
