@@ -208,7 +208,8 @@ delivery of email.
 initially "<code title>auto</code>".
 
 <p>Each <span title=concept-notification>notification</span> <em>can</em>
-have an associated <dfn>body</dfn>, <dfn>tag</dfn>, and <dfn>icon URL</dfn>.
+have an associated <dfn>body</dfn>, <dfn>tag</dfn>, <dfn>icon URL</dfn>, and
+<dfn>icon</dfn>.
 
 
 <h3>Permission</h3>
@@ -324,12 +325,10 @@ are:
  fully downloaded.
 
  <li><p>If <span data-anolis-spec=html title=fetch>fetching</span>
- <var title>notification</var>'s <span>icon URL</span> failed for some
- reason or the image format is not supported,
- <span data-anolis-spec=html>queue a task</span> to
- <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
- named <code title>error</code> on <var title>notification</var> and terminate
- these steps.
+ <var title>notification</var>'s <span>icon URL</span> finished and the
+ image format is supported, set <var title>notification</var>'s
+ <span>icon</span> to the decoded resource. (Otherwise
+ <var title>notification</var> has no <span>icon</span>.)
 
  <li>
   <p><span data-anolis-spec=html>Queue a task</span> to run these substeps:
@@ -367,12 +366,9 @@ are:
  fully downloaded.
 
  <li><p>If <span data-anolis-spec=html title=fetch>fetching</span>
- <var title>new</var>'s <span>icon URL</span> failed for some
- reason or the image format is not supported,
- <span data-anolis-spec=html>queue a task</span> to
- <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
- named <code title>error</code> on <var title>new</var> and terminate
- these steps.
+ <var title>new</var>'s <span>icon URL</span> finished and the  image format
+ is supported, set <var title>new</var>'s <span>icon</span> to the decoded
+ resource. (Otherwise <var title>new</var> has no <span>icon</span>.)
 
  <li><p>If <var title>old</var> is in the
  <span>list of pending notifications</span>,

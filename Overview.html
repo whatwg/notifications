@@ -47,7 +47,7 @@
 <!--end-logo-->
 
 <h1>Web Notifications</h1>
-<h2 class="no-num no-toc" id="editor's-draft-20-june-2012">Editor's Draft 20 June 2012</h2>
+<h2 class="no-num no-toc" id="editor's-draft-21-june-2012">Editor's Draft 21 June 2012</h2>
 
 <dl>
  <dt>This Version:
@@ -94,7 +94,7 @@ W3C publications and the latest revision of this technical report can be
 found in the <a href="http://www.w3.org/TR/">W3C technical reports index</a>
 at http://www.w3.org/TR/.</em>
 
-<p>This is the 20 June 2012 Editor's Draft of Web Notifications.
+<p>This is the 21 June 2012 Editor's Draft of Web Notifications.
 Please send comments to
 <a href="mailto:public-web-notification@w3.org">public-web-notification@w3.org</a>
 (<a href="http://lists.w3.org/Archives/Public/public-web-notification/">archived</a>).
@@ -230,7 +230,8 @@ delivery of email.
 initially "<code title="">auto</code>".
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> <em>can</em>
-have an associated <dfn id="body">body</dfn>, <dfn id="tag">tag</dfn>, and <dfn id="icon-url">icon URL</dfn>.
+have an associated <dfn id="body">body</dfn>, <dfn id="tag">tag</dfn>, <dfn id="icon-url">icon URL</dfn>, and
+<dfn id="icon">icon</dfn>.
 
 
 <h3 id="permission"><span class="secno">4.1 </span>Permission</h3>
@@ -346,12 +347,10 @@ are:
  fully downloaded.
 
  <li><p>If <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/fetching-resources.html#fetch" title="fetch">fetching</a>
- <var title="">notification</var>'s <a href="#icon-url">icon URL</a> failed for some
- reason or the image format is not supported,
- <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to
- <a class="external" href="http://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html#concept-event-fire" title="concept-event-fire">fire an event</a>
- named <code title="">error</code> on <var title="">notification</var> and terminate
- these steps.
+ <var title="">notification</var>'s <a href="#icon-url">icon URL</a> finished and the
+ image format is supported, set <var title="">notification</var>'s
+ <a href="#icon">icon</a> to the decoded resource. (Otherwise
+ <var title="">notification</var> has no <a href="#icon">icon</a>.)
 
  <li>
   <p><a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">Queue a task</a> to run these substeps:
@@ -389,12 +388,9 @@ are:
  fully downloaded.
 
  <li><p>If <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/fetching-resources.html#fetch" title="fetch">fetching</a>
- <var title="">new</var>'s <a href="#icon-url">icon URL</a> failed for some
- reason or the image format is not supported,
- <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to
- <a class="external" href="http://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html#concept-event-fire" title="concept-event-fire">fire an event</a>
- named <code title="">error</code> on <var title="">new</var> and terminate
- these steps.
+ <var title="">new</var>'s <a href="#icon-url">icon URL</a> finished and the  image format
+ is supported, set <var title="">new</var>'s <a href="#icon">icon</a> to the decoded
+ resource. (Otherwise <var title="">new</var> has no <a href="#icon">icon</a>.)
 
  <li><p>If <var title="">old</var> is in the
  <a href="#list-of-pending-notifications">list of pending notifications</a>,
