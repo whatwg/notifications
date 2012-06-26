@@ -205,8 +205,7 @@ delivery of email.
 <p>Each <span title=concept-notification>notification</span> has a
 <dfn>title</dfn> and an <dfn>origin</dfn>. For specification simplicity each
 <span title=concept-notification>notification</span> also has a
-<dfn>title direction</dfn> and <dfn>body direction</dfn>, both of which are
-initially "<code title>auto</code>".
+<dfn>title direction</dfn> and <dfn>body direction</dfn>.
 
 <p>Each <span title=concept-notification>notification</span> <em>can</em>
 have an associated <dfn>body</dfn>, <dfn>tag</dfn>, <dfn>icon URL</dfn>, and
@@ -420,9 +419,9 @@ interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span
 };
 
 dictionary <dfn>NotificationOptions</dfn> {
-  <span>NotificationDirection</span> titleDir;
+  <span>NotificationDirection</span> titleDir = "auto";
   DOMString body;
-  <span>NotificationDirection</span> bodyDir;
+  <span>NotificationDirection</span> bodyDir = "auto";
   DOMString tag;
   DOMString iconUrl;
 };
@@ -457,28 +456,23 @@ constructor must run these steps:
  <li><p>Set <var title>notifications</var>'s <span>origin</span> to the
  current <span data-anolis-spec=origin>origin</span>.
 
- <li><p>If <var title>options</var> is not omitted and its
- <code title>titleDir</code> member is not null, set
- <var title>notification</var>'s <span>title direction</span> to
- <code title>titleDir</code>.
+ <li><p>Set <var title>notification</var>'s <span>title direction</span> to
+ <var title>options</var>'s <code title>titleDir</code>.
 
- <li><p>If <var title>options</var> is not omitted and its
- <code title>body</code> is not null, set <var title>notification</var>'s
- <span>body</span> to <code title>body</code>,
+ <li><p>Set <var title>notification</var>'s <span>body direction</span> to
+ <var title>options</var>'s <code title>bodyDir</code>.
+
+ <li><p>If <var title>options</var>'s <code title>body</code> is present,
+ set <var title>notification</var>'s <span>body</span> to
+ <code title>body</code>,
  <span data-anolis-spec=webidl title="convert a DOMString to a sequence of Unicode characters">converted to Unicode</span>.
 
- <li><p>If <var title>options</var> is not omitted and its
- <code title>bodyDir</code> member is not null, set
- <var title>notification</var>'s <span>body direction</span> to
- <code title>bodyDir</code>.
+ <li><p>If <var title>options</var>'s <code title>tag</code> is present, set
+ <var title>notification</var>'s <span>tag</span> to <code title>tag</code>.
 
- <li><p>If <var title>options</var> is not omitted and its
- <code title>tag</code> is not null, set <var title>notification</var>'s
- <span>tag</span> to <code title>tag</code>.
-
- <li><p>If <var title>options</var> is not omitted and its
- <code title>iconUrl</code> is not null, set <var title>notification</var>'s
- <span>icon URL</span> to <code title>iconUrl</code>.
+ <li><p>If <var title>options</var>'s <code title>iconUrl</code> is present,
+ set <var title>notification</var>'s <span>icon URL</span> to
+ <code title>iconUrl</code>.
 
  <li><p>Return <var title>notification</var>, but continue running these
  steps asynchronouusly.

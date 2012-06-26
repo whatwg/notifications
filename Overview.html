@@ -47,7 +47,7 @@
 <!--end-logo-->
 
 <h1>Web Notifications</h1>
-<h2 class="no-num no-toc" id="editor's-draft-24-june-2012">Editor's Draft 24 June 2012</h2>
+<h2 class="no-num no-toc" id="editor's-draft-26-june-2012">Editor's Draft 26 June 2012</h2>
 
 <dl>
  <dt>This Version:
@@ -94,7 +94,7 @@ W3C publications and the latest revision of this technical report can be
 found in the <a href="http://www.w3.org/TR/">W3C technical reports index</a>
 at http://www.w3.org/TR/.</em>
 
-<p>This is the 24 June 2012 Editor's Draft of Web Notifications.
+<p>This is the 26 June 2012 Editor's Draft of Web Notifications.
 Please send comments to
 <a href="mailto:public-web-notification@w3.org">public-web-notification@w3.org</a>
 (<a href="http://lists.w3.org/Archives/Public/public-web-notification/">archived</a>).
@@ -227,8 +227,7 @@ delivery of email.
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> has a
 <dfn id="title">title</dfn> and an <dfn id="origin">origin</dfn>. For specification simplicity each
 <a href="#concept-notification" title="concept-notification">notification</a> also has a
-<dfn id="title-direction">title direction</dfn> and <dfn id="body-direction">body direction</dfn>, both of which are
-initially "<code title="">auto</code>".
+<dfn id="title-direction">title direction</dfn> and <dfn id="body-direction">body direction</dfn>.
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> <em>can</em>
 have an associated <dfn id="body">body</dfn>, <dfn id="tag">tag</dfn>, <dfn id="icon-url">icon URL</dfn>, and
@@ -442,9 +441,9 @@ interface <dfn id="notification">Notification</dfn> : <a class="external" href="
 };
 
 dictionary <dfn id="notificationoptions">NotificationOptions</dfn> {
-  <a href="#notificationdirection">NotificationDirection</a> titleDir;
+  <a href="#notificationdirection">NotificationDirection</a> titleDir = "auto";
   DOMString body;
-  <a href="#notificationdirection">NotificationDirection</a> bodyDir;
+  <a href="#notificationdirection">NotificationDirection</a> bodyDir = "auto";
   DOMString tag;
   DOMString iconUrl;
 };
@@ -479,28 +478,23 @@ constructor must run these steps:
  <li><p>Set <var title="">notifications</var>'s <a href="#origin">origin</a> to the
  current <a data-anolis-spec="origin" href="#origin">origin</a>.
 
- <li><p>If <var title="">options</var> is not omitted and its
- <code title="">titleDir</code> member is not null, set
- <var title="">notification</var>'s <a href="#title-direction">title direction</a> to
- <code title="">titleDir</code>.
+ <li><p>Set <var title="">notification</var>'s <a href="#title-direction">title direction</a> to
+ <var title="">options</var>'s <code title="">titleDir</code>.
 
- <li><p>If <var title="">options</var> is not omitted and its
- <code title="">body</code> is not null, set <var title="">notification</var>'s
- <a href="#body">body</a> to <code title="">body</code>,
+ <li><p>Set <var title="">notification</var>'s <a href="#body-direction">body direction</a> to
+ <var title="">options</var>'s <code title="">bodyDir</code>.
+
+ <li><p>If <var title="">options</var>'s <code title="">body</code> is present,
+ set <var title="">notification</var>'s <a href="#body">body</a> to
+ <code title="">body</code>,
  <a class="external" href="http://dev.w3.org/2006/webapi/WebIDL/#dfn-obtain-unicode" title="convert a DOMString to a sequence of Unicode characters">converted to Unicode</a>.
 
- <li><p>If <var title="">options</var> is not omitted and its
- <code title="">bodyDir</code> member is not null, set
- <var title="">notification</var>'s <a href="#body-direction">body direction</a> to
- <code title="">bodyDir</code>.
+ <li><p>If <var title="">options</var>'s <code title="">tag</code> is present, set
+ <var title="">notification</var>'s <a href="#tag">tag</a> to <code title="">tag</code>.
 
- <li><p>If <var title="">options</var> is not omitted and its
- <code title="">tag</code> is not null, set <var title="">notification</var>'s
- <a href="#tag">tag</a> to <code title="">tag</code>.
-
- <li><p>If <var title="">options</var> is not omitted and its
- <code title="">iconUrl</code> is not null, set <var title="">notification</var>'s
- <a href="#icon-url">icon URL</a> to <code title="">iconUrl</code>.
+ <li><p>If <var title="">options</var>'s <code title="">iconUrl</code> is present,
+ set <var title="">notification</var>'s <a href="#icon-url">icon URL</a> to
+ <code title="">iconUrl</code>.
 
  <li><p>Return <var title="">notification</var>, but continue running these
  steps asynchronouusly.
