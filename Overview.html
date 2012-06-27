@@ -47,7 +47,7 @@
 <!--end-logo-->
 
 <h1>Web Notifications</h1>
-<h2 class="no-num no-toc" id="editor's-draft-26-june-2012">Editor's Draft 26 June 2012</h2>
+<h2 class="no-num no-toc" id="editor's-draft-27-june-2012">Editor's Draft 27 June 2012</h2>
 
 <dl>
  <dt>This Version:
@@ -94,7 +94,7 @@ W3C publications and the latest revision of this technical report can be
 found in the <a href="http://www.w3.org/TR/">W3C technical reports index</a>
 at http://www.w3.org/TR/.</em>
 
-<p>This is the 26 June 2012 Editor's Draft of Web Notifications.
+<p>This is the 27 June 2012 Editor's Draft of Web Notifications.
 Please send comments to
 <a href="mailto:public-web-notification@w3.org">public-web-notification@w3.org</a>
 (<a href="http://lists.w3.org/Archives/Public/public-web-notification/">archived</a>).
@@ -432,10 +432,10 @@ interface <dfn id="notification">Notification</dfn> : <a class="external" href="
   static readonly attribute <a href="#notificationpermission">NotificationPermission</a> <a href="#dom-notification-permission" title="dom-Notification-permission">permission</a>;
   static void <a href="#dom-notification-requestpermission" title="dom-Notification-requestPermission">requestPermission</a>(<a href="#notificationpermissioncallback">NotificationPermissionCallback</a> <var title="">callback</var>);
 
-  [TreatNonCallableAsNull] attribute <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#function">Function</a>? <a href="#handler-onclick" title="handler-onclick">onclick</a>;
-  [TreatNonCallableAsNull] attribute <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#function">Function</a>? <a href="#handler-onshow" title="handler-onshow">onshow</a>;
-  [TreatNonCallableAsNull] attribute <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#function">Function</a>? <a href="#handler-onerror" title="handler-onerror">onerror</a>;
-  [TreatNonCallableAsNull] attribute <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#function">Function</a>? <a href="#handler-onclose" title="handler-onclose">onclose</a>;
+  attribute <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclick" title="handler-onclick">onclick</a>;
+  attribute <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onshow" title="handler-onshow">onshow</a>;
+  attribute <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onerror" title="handler-onerror">onerror</a>;
+  attribute <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclose" title="handler-onclose">onclose</a>;
 
   void <a href="#dom-notification-close" title="dom-Notification-close">close</a>();
 };
