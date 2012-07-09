@@ -47,7 +47,7 @@
 <!--end-logo-->
 
 <h1>Web Notifications</h1>
-<h2 class="no-num no-toc" id="editor's-draft-27-june-2012">Editor's Draft 27 June 2012</h2>
+<h2 class="no-num no-toc" id="editor's-draft-9-july-2012">Editor's Draft 9 July 2012</h2>
 
 <dl>
  <dt>This Version:
@@ -94,7 +94,7 @@ W3C publications and the latest revision of this technical report can be
 found in the <a href="http://www.w3.org/TR/">W3C technical reports index</a>
 at http://www.w3.org/TR/.</em>
 
-<p>This is the 27 June 2012 Editor's Draft of Web Notifications.
+<p>This is the 9 July 2012 Editor's Draft of Web Notifications.
 Please send comments to
 <a href="mailto:public-web-notification@w3.org">public-web-notification@w3.org</a>
 (<a href="http://lists.w3.org/Archives/Public/public-web-notification/">archived</a>).
@@ -445,7 +445,7 @@ dictionary <dfn id="notificationoptions">NotificationOptions</dfn> {
   DOMString body;
   <a href="#notificationdirection">NotificationDirection</a> bodyDir = "auto";
   DOMString tag;
-  DOMString iconUrl;
+  DOMString icon;
 };
 
 enum <dfn id="notificationpermission">NotificationPermission</dfn> {
@@ -492,9 +492,9 @@ constructor must run these steps:
  <li><p>If <var title="">options</var>'s <code title="">tag</code> is present, set
  <var title="">notification</var>'s <a href="#tag">tag</a> to <code title="">tag</code>.
 
- <li><p>If <var title="">options</var>'s <code title="">iconUrl</code> is present,
+ <li><p>If <var title="">options</var>'s <code title="">icon</code> is present,
  <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/urls.html#resolve-a-url" title="resolve a URL">resolve</a>
- <code title="">iconUrl</code> against the
+ <code title="">icon</code> against the
  <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#entry-script">entry script</a>'s
  <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#script's-base-url" title="script's base URL">base URL</a>, and
  if that does not fail, set
@@ -614,7 +614,7 @@ case of limited display space and a queue.
 <p>In the following example, this event is used to guarantee that regardless
 of when the notification is shown, it is displayed for only 15 seconds.
 
-<pre class="example">var notification = new Notification("New Email Received", { iconUrl: "mail.png" })
+<pre class="example">var notification = new Notification("New Email Received", { icon: "mail.png" })
 notification.onshow = function() { setTimeout(notification.close, 15000) }</pre>
 
 <p>The <code title="event-close">close</code> events dispatches when the
@@ -624,7 +624,7 @@ perform actions when notifications are acknowledged.
 <p>In the following example, when a meeting reminder notification is
 acknowledged, the application suppresses other forms of reminders.
 
-<pre class="example">var notification = new Notification("Meeting about to begin", { iconUrl: "calendar.gif", body: "Room 101" })
+<pre class="example">var notification = new Notification("Meeting about to begin", { icon: "calendar.gif", body: "Room 101" })
 notification.onclose = function(event) { cancelReminders(event) }</pre>
 
 
