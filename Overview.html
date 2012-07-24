@@ -47,7 +47,7 @@
 <!--end-logo-->
 
 <h1>Web Notifications</h1>
-<h2 class="no-num no-toc" id="editor's-draft-9-july-2012">Editor's Draft 9 July 2012</h2>
+<h2 class="no-num no-toc" id="editor's-draft-24-july-2012">Editor's Draft 24 July 2012</h2>
 
 <dl>
  <dt>This Version:
@@ -94,7 +94,7 @@ W3C publications and the latest revision of this technical report can be
 found in the <a href="http://www.w3.org/TR/">W3C technical reports index</a>
 at http://www.w3.org/TR/.</em>
 
-<p>This is the 9 July 2012 Editor's Draft of Web Notifications.
+<p>This is the 24 July 2012 Editor's Draft of Web Notifications.
 Please send comments to
 <a href="mailto:public-web-notification@w3.org">public-web-notification@w3.org</a>
 (<a href="http://lists.w3.org/Archives/Public/public-web-notification/">archived</a>).
@@ -132,20 +132,21 @@ must disclose the information in accordance with
  <li><a href="#terminology"><span class="secno">3 </span>Terminology</a></li>
  <li><a href="#model"><span class="secno">4 </span>Model</a>
   <ol class="toc">
-   <li><a href="#permission"><span class="secno">4.1 </span>Permission</a></li>
-   <li><a href="#notification-lists"><span class="secno">4.2 </span>Notification lists</a></li>
-   <li><a href="#showing-a-notification"><span class="secno">4.3 </span>Showing a notification</a></li>
-   <li><a href="#closing-a-notification"><span class="secno">4.4 </span>Closing a notification</a></li>
-   <li><a href="#pending-notifications"><span class="secno">4.5 </span>Pending notifications</a></li>
-   <li><a href="#displaying-notifications"><span class="secno">4.6 </span>Displaying notifications</a></li>
-   <li><a href="#replacing-a-notification"><span class="secno">4.7 </span>Replacing a notification</a></ol></li>
+   <li><a href="#direction"><span class="secno">4.1 </span>Direction</a></li>
+   <li><a href="#language"><span class="secno">4.2 </span>Language</a></li>
+   <li><a href="#permission"><span class="secno">4.3 </span>Permission</a></li>
+   <li><a href="#notification-lists"><span class="secno">4.4 </span>Notification lists</a></li>
+   <li><a href="#showing-a-notification"><span class="secno">4.5 </span>Showing a notification</a></li>
+   <li><a href="#closing-a-notification"><span class="secno">4.6 </span>Closing a notification</a></li>
+   <li><a href="#pending-notifications"><span class="secno">4.7 </span>Pending notifications</a></li>
+   <li><a href="#displaying-notifications"><span class="secno">4.8 </span>Displaying notifications</a></li>
+   <li><a href="#replacing-a-notification"><span class="secno">4.9 </span>Replacing a notification</a></ol></li>
  <li><a href="#api"><span class="secno">5 </span>API</a></li>
- <li><a href="#rendering"><span class="secno">6 </span>Rendering</a></li>
- <li><a href="#examples"><span class="secno">7 </span>Examples</a>
+ <li><a href="#examples"><span class="secno">6 </span>Examples</a>
   <ol class="toc">
-   <li><a href="#using-events"><span class="secno">7.1 </span>Using events</a></li>
-   <li><a href="#tags-example"><span class="secno">7.2 </span>Using the <code title="">tag</code> member for multiple instances</a></li>
-   <li><a href="#using-the-tag-member-for-a-single-instance"><span class="secno">7.3 </span>Using the <code title="">tag</code> member for a single instance</a></ol></li>
+   <li><a href="#using-events"><span class="secno">6.1 </span>Using events</a></li>
+   <li><a href="#tags-example"><span class="secno">6.2 </span>Using the <code title="">tag</code> member for multiple instances</a></li>
+   <li><a href="#using-the-tag-member-for-a-single-instance"><span class="secno">6.3 </span>Using the <code title="">tag</code> member for a single instance</a></ol></li>
  <li><a class="no-num" href="#references">References</a></li>
  <li><a class="no-num" href="#acknowledgments">Acknowledgments</a></ol>
 <!--end-toc-->
@@ -225,16 +226,50 @@ user outside the context of a web page of an occurrence, such as the
 delivery of email.
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> has a
-<dfn id="title">title</dfn> and an <dfn id="origin">origin</dfn>. For specification simplicity each
-<a href="#concept-notification" title="concept-notification">notification</a> also has a
-<dfn id="title-direction">title direction</dfn> and <dfn id="body-direction">body direction</dfn>.
+<dfn id="title">title</dfn>, <dfn id="direction-0">direction</dfn>, <dfn id="language-0">language</dfn>, and an
+<dfn id="origin">origin</dfn>.
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> <em>can</em>
 have an associated <dfn id="body">body</dfn>, <dfn id="tag">tag</dfn>, <dfn id="icon-url">icon URL</dfn>, and
 <dfn id="icon">icon</dfn>.
 
 
-<h3 id="permission"><span class="secno">4.1 </span>Permission</h3>
+<h3 id="direction"><span class="secno">4.1 </span>Direction</h3>
+
+<p>This section is written in terms equivalent to those used in the
+Rendering section of HTML. <a href="#refsHTML">[HTML]</a>
+
+<!-- keep this in sync with
+     http://www.whatwg.org/specs/web-apps/current-work/#text-rendered-in-native-user-interfaces -->
+
+<p>User agents are expected to honor the Unicode semantics of the text of a
+<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#title">title</a>
+and <a href="#body">body</a>. Each is expected to be treated as an independent set
+of one or more bidirectional algorithm paragraphs when displayed, as defined
+by the bidirectional algorithm's rules P1, P2, and P3, including, for
+instance, supporting the paragraph-breaking behaviour of
+U+000A LINE FEED (LF) characters. For each paragraph of the
+<a href="#title">title</a> and <a href="#body">body</a>, the
+<a href="#concept-notification" title="concept-notification">notification</a>'s
+<a href="#direction-0">direction</a> provides the higher-level override of rules P2 and P3
+if it has a value other than "<code title="">auto</code>".
+<a href="#refsBIDI">[BIDI]</a>
+
+
+<h3 id="language"><span class="secno">4.2 </span>Language</h3>
+
+<!-- keep this in sync with
+     http://www.whatwg.org/specs/web-apps/current-work/#attr-lang -->
+
+<p>The <a href="#concept-notification" title="concept-notification">notification</a>'s
+<a href="#language-0">language</a> specifies the primary language for the
+<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#title">title</a>
+and <a href="#body">body</a>. Its value is a valid BCP 47 language tag, or the
+empty string. The empty string indicates that the primary language is
+unknown. <a href="#refsLANG">[LANG]</a>
+
+
+<h3 id="permission"><span class="secno">4.3 </span>Permission</h3>
 
 <p><a href="#concept-notification" title="concept-notification">Notifications</a> can only be
 displayed if the user (or user agent on behalf of the user) has granted
@@ -262,12 +297,12 @@ meaning "<code title="">granted</code>". In that case
 for the application to ask for <a href="#permission-0">permission</a>.
 
 
-<h3 id="notification-lists"><span class="secno">4.2 </span>Notification lists</h3>
+<h3 id="notification-lists"><span class="secno">4.4 </span>Notification lists</h3>
 
 <p>The user agent must keep a <dfn id="list-of-pending-notifications">list of pending notifications</dfn> and
 a <dfn id="list-of-active-notifications">list of active notifications</dfn>.
 
-<h3 id="showing-a-notification"><span class="secno">4.3 </span>Showing a notification</h3>
+<h3 id="showing-a-notification"><span class="secno">4.5 </span>Showing a notification</h3>
 
 <p>The <dfn id="show-steps">show steps</dfn> for a given <var title="">notification</var> are:
 
@@ -300,7 +335,7 @@ a <dfn id="list-of-active-notifications">list of active notifications</dfn>.
  <a href="#list-of-pending-notifications">list of pending notifications</a>.
 </ol>
 
-<h3 id="closing-a-notification"><span class="secno">4.4 </span>Closing a notification</h3>
+<h3 id="closing-a-notification"><span class="secno">4.6 </span>Closing a notification</h3>
 
 <p>When a <a href="#concept-notification" title="concept-notification">notification</a> is closed,
 either by the underlying notifications platform or by the user, the
@@ -321,7 +356,7 @@ either by the underlying notifications platform or by the user, the
  named <code title="">close</code> on <var title="">notification</var>.
 </ol>
 
-<h3 id="pending-notifications"><span class="secno">4.5 </span>Pending notifications</h3>
+<h3 id="pending-notifications"><span class="secno">4.7 </span>Pending notifications</h3>
 
 <p>Whenever the <a href="#list-of-pending-notifications">list of pending notifications</a> is not empty, the
 user agent must wait and monitor changes in the available notification space
@@ -334,7 +369,7 @@ for the first <a href="#concept-notification" title="concept-notification">notif
 <a href="#list-of-pending-notifications">list of pending notifications</a> and then remove it from the
 <a href="#list-of-pending-notifications">list of pending notifications</a>.
 
-<h3 id="displaying-notifications"><span class="secno">4.6 </span>Displaying notifications</h3>
+<h3 id="displaying-notifications"><span class="secno">4.8 </span>Displaying notifications</h3>
 
 <p>The <dfn id="display-steps">display steps</dfn> for a given <var title="">notification</var>
 are:
@@ -374,7 +409,7 @@ are:
 </ol>
 
 
-<h3 id="replacing-a-notification"><span class="secno">4.7 </span>Replacing a notification</h3>
+<h3 id="replacing-a-notification"><span class="secno">4.9 </span>Replacing a notification</h3>
 
 <p>The <dfn id="replace-steps">replace steps</dfn> for replacing an <var title="">old</var>
 <a href="#concept-notification" title="concept-notification">notification</a> with a
@@ -441,9 +476,9 @@ interface <dfn id="notification">Notification</dfn> : <a class="external" href="
 };
 
 dictionary <dfn id="notificationoptions">NotificationOptions</dfn> {
-  <a href="#notificationdirection">NotificationDirection</a> titleDir = "auto";
+  <a href="#notificationdirection">NotificationDirection</a> dir = "auto";
+  DOMString lang = "";
   DOMString body;
-  <a href="#notificationdirection">NotificationDirection</a> bodyDir = "auto";
   DOMString tag;
   DOMString icon;
 };
@@ -475,14 +510,17 @@ constructor must run these steps:
  <var title="">title</var>,
  <a class="external" href="http://dev.w3.org/2006/webapi/WebIDL/#dfn-obtain-unicode" title="convert a DOMString to a sequence of Unicode characters">converted to Unicode</a>.
 
+ <li><p>Set <var title="">notification</var>'s <a href="#direction-0">direction</a> to
+ <var title="">options</var>'s <code title="">dir</code>.
+
+ <li><p>If <var title="">options</var>'s <code title="">lang</code> is a valid
+ BCP 47 language tag, or the empty string, set
+ <var title="">notification</var>'s <a href="#language-0">language</a> to
+ <var title="">options</var>'s <code title="">lang</code>, or set it to the empty
+ string otherwise. <a href="#refsLANG">[LANG]</a>
+
  <li><p>Set <var title="">notifications</var>'s <a href="#origin">origin</a> to the
  current <a data-anolis-spec="origin" href="#origin">origin</a>.
-
- <li><p>Set <var title="">notification</var>'s <a href="#title-direction">title direction</a> to
- <var title="">options</var>'s <code title="">titleDir</code>.
-
- <li><p>Set <var title="">notification</var>'s <a href="#body-direction">body direction</a> to
- <var title="">options</var>'s <code title="">bodyDir</code>.
 
  <li><p>If <var title="">options</var>'s <code title="">body</code> is present,
  set <var title="">notification</var>'s <a href="#body">body</a> to
@@ -576,32 +614,9 @@ must run the <a href="#close-steps">close steps</a> for the
 
 
 
-<h2 id="rendering"><span class="secno">6 </span>Rendering</h2>
+<h2 id="examples"><span class="secno">6 </span>Examples</h2>
 
-<p>This section is written in terms equivalent to those used in the
-Rendering section of HTML. <a href="#refsHTML">[HTML]</a>
-
-<!-- keep this in sync with
-     http://www.whatwg.org/specs/web-apps/current-work/#text-rendered-in-native-user-interfaces -->
-
-<p>User agents are expected to honor the Unicode semantics of the text of a
-<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#title">title</a>
-and <a href="#body">body</a>. Each is expected to be treated as an independent set
-of one or more bidirectional algorithm paragraphs when displayed, as defined
-by the bidirectional algorithm's rules P1, P2, and P3, including, for
-instance, supporting the paragraph-breaking behaviour of
-U+000A LINE FEED (LF) characters. For each paragraph of the
-<a href="#title">title</a> and <a href="#body">body</a>, the
-<a href="#concept-notification" title="concept-notification">notification</a>'s
-<a href="#title-direction">title direction</a> and <a href="#body-direction">body direction</a> respectively
-provide the higher-level override of rules P2 and P3 if they have a value
-other than "<code title="">auto</code>".
-<a href="#refsBIDI">[BIDI]</a>
-
-
-<h2 id="examples"><span class="secno">7 </span>Examples</h2>
-
-<h3 id="using-events"><span class="secno">7.1 </span>Using events</h3>
+<h3 id="using-events"><span class="secno">6.1 </span>Using events</h3>
 
 <p><code><a href="#notification">Notification</a></code> objects dispatch events during their lifecycle,
 which developers can use to generate desired behaviors.
@@ -628,7 +643,7 @@ acknowledged, the application suppresses other forms of reminders.
 notification.onclose = function(event) { cancelReminders(event) }</pre>
 
 
-<h3 id="tags-example"><span class="secno">7.2 </span>Using the <code title="">tag</code> member for multiple instances</h3>
+<h3 id="tags-example"><span class="secno">6.2 </span>Using the <code title="">tag</code> member for multiple instances</h3>
 
 <p>Web applications frequently operate concurrently in multiple instances, such as when a
 	user opens a mail application in multiple browser tabs.  Since the desktop is a shared
@@ -653,7 +668,7 @@ new Notification("New mail from John Doe",   |
 <p>
 	The result of this situation, if the user agent follows the algorithms here, is a <strong>single</strong> notification "New mail from John Doe".
 
-<h3 id="using-the-tag-member-for-a-single-instance"><span class="secno">7.3 </span>Using the <code title="">tag</code> member for a single instance</h3>
+<h3 id="using-the-tag-member-for-a-single-instance"><span class="secno">6.3 </span>Using the <code title="">tag</code> member for a single instance</h3>
 
 <p>The <code title="">tag</code> member can also be used by a single instance of an application to keep its
 	notifications as current as possible as state changes.
@@ -685,6 +700,9 @@ new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });
 
 <dt id="refsHTML">[HTML]
 <dd><cite><a href="http://www.whatwg.org/C">HTML</a></cite>, Ian Hickson. WHATWG.
+
+<dt id="refsLANG">[LANG]
+<dd><cite><a href="http://tools.ietf.org/html/bcp47">Tags for Identifying Languages; Matching of Language Tags</a></cite>, Addison Phillips and Mark Davis. IETF.
 
 <dt id="refsRFC2119">[RFC2119]
 <dd><cite><a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a></cite>, Scott Bradner. IETF.
