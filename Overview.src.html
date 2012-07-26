@@ -299,7 +299,7 @@ a <dfn>list of active notifications</dfn>.
  <span>list of active notifications</span> whose <span>tag</span> equals
  <var title>notification</var>'s <span>tag</span> and whose
  <span>origin</span> equals <var title>notification</var>'s
- <span>origin</span> , run the <span>replace steps</span> for that
+ <span>origin</span>, run the <span>replace steps</span> for that
  <span title=concept-notification>notification</span> and
  <var title>notification</var>, and then terminate these steps.
 
@@ -394,6 +394,7 @@ are:
 <var title>new</var> one are:
 
 <ol>
+ <li>
   <p>If the notification platform supports icons,
   <var title>new</var>'s <span>icon URL</span> is set and has not
   yet been <span data-anolis-spec=html title=fetch>fetched</span>,
@@ -610,7 +611,7 @@ of when the notification is shown, it is displayed for only 15 seconds.
 <pre class="example">var notification = new Notification("New Email Received", { icon: "mail.png" })
 notification.onshow = function() { setTimeout(notification.close, 15000) }</pre>
 
-<p>The <code title=event-close>close</code> events dispatches when the
+<p>The <code title=event-close>close</code> event dispatches when the
 notification is dismissed by the user. Developers may use this event to
 perform actions when notifications are acknowledged.
 

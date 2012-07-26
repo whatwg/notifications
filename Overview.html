@@ -47,7 +47,7 @@
 <!--end-logo-->
 
 <h1>Web Notifications</h1>
-<h2 class="no-num no-toc" id="editor's-draft-24-july-2012">Editor's Draft 24 July 2012</h2>
+<h2 class="no-num no-toc" id="editor's-draft-26-july-2012">Editor's Draft 26 July 2012</h2>
 
 <dl>
  <dt>This Version:
@@ -95,7 +95,7 @@ W3C publications and the latest revision of this technical report can be
 found in the <a href="http://www.w3.org/TR/">W3C technical reports index</a>
 at http://www.w3.org/TR/.</em>
 
-<p>This is the 24 July 2012 Editor's Draft of Web Notifications.
+<p>This is the 26 July 2012 Editor's Draft of Web Notifications.
 Please send comments to
 <a href="mailto:public-web-notification@w3.org">public-web-notification@w3.org</a>
 (<a href="http://lists.w3.org/Archives/Public/public-web-notification/">archived</a>).
@@ -322,7 +322,7 @@ a <dfn id="list-of-active-notifications">list of active notifications</dfn>.
  <a href="#list-of-active-notifications">list of active notifications</a> whose <a href="#tag">tag</a> equals
  <var title="">notification</var>'s <a href="#tag">tag</a> and whose
  <a href="#origin">origin</a> equals <var title="">notification</var>'s
- <a href="#origin">origin</a> , run the <a href="#replace-steps">replace steps</a> for that
+ <a href="#origin">origin</a>, run the <a href="#replace-steps">replace steps</a> for that
  <a href="#concept-notification" title="concept-notification">notification</a> and
  <var title="">notification</var>, and then terminate these steps.
 
@@ -417,6 +417,7 @@ are:
 <var title="">new</var> one are:
 
 <ol>
+ <li>
   <p>If the notification platform supports icons,
   <var title="">new</var>'s <a href="#icon-url">icon URL</a> is set and has not
   yet been <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/fetching-resources.html#fetch" title="fetch">fetched</a>,
@@ -428,7 +429,7 @@ are:
   <var title="">new</var>'s <a href="#icon">icon</a> to the decoded resource.
   (Otherwise <var title="">new</var> has no <a href="#icon">icon</a>.)
 
- </p><li><p>If <var title="">old</var> is in the
+ <li><p>If <var title="">old</var> is in the
  <a href="#list-of-pending-notifications">list of pending notifications</a>,
  <a class="external" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to replace
  <var title="">old</var> with <var title="">new</var>, in the same position, in
@@ -633,7 +634,7 @@ of when the notification is shown, it is displayed for only 15 seconds.
 <pre class="example">var notification = new Notification("New Email Received", { icon: "mail.png" })
 notification.onshow = function() { setTimeout(notification.close, 15000) }</pre>
 
-<p>The <code title="event-close">close</code> events dispatches when the
+<p>The <code title="event-close">close</code> event dispatches when the
 notification is dismissed by the user. Developers may use this event to
 perform actions when notifications are acknowledged.
 
