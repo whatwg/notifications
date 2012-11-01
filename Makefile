@@ -1,17 +1,12 @@
+# http://wiki.whatwg.org/wiki/GitHub#Makefile
+
 ANOLIS = anolis
 
-all: Overview.html data/xrefs/dom/notifications.json
+all: Overview.html ../xref/xrefs/dom/notifications.json
 
-Overview.html: Overview.src.html data Makefile
-	$(ANOLIS) --w3c-compat --omit-optional-tags --quote-attr-values \
-	--enable=xspecxref --enable=refs \
-	--filter=".publish" $< $@
+Overview.html: Overview.src.html ../xref Makefile
+	$(ANOLIS) --omit-optional-tags --quote-attr-values --xref="../xref" \
+	--enable=xspecxref --enable=refs $< $@
 
-data/xrefs/dom/notifications.json: Overview.src.html Makefile
+../xref/xrefs/dom/notifications.json: Overview.src.html Makefile
 	$(ANOLIS) --dump-xrefs=$@ $< /tmp/spec
-
-publish: Overview.src.html data Makefile
-	$(ANOLIS) --output-encoding=ascii --omit-optional-tags --quote-attr-values \
-	--w3c-compat --enable=xspecxref --enable=refs --w3c-shortname="notifications" \
-	--filter=".dontpublish" --pubdate="$(PUBDATE)" --w3c-status=WD \
-	$< TR.html
