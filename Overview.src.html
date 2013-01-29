@@ -366,7 +366,7 @@ a <code>Notification</code> object and can be created by its
 <pre class="idl">[<span title=dom-Notification>Constructor</span>(DOMString <var title>title</var>, optional <span>NotificationOptions</span> <var title>options</var>)]
 interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span> {
   static readonly attribute <span>NotificationPermission</span> <span title=dom-Notification-permission>permission</span>;
-  static void <span title=dom-Notification-requestPermission>requestPermission</span>(<span>NotificationPermissionCallback</span> <var title>callback</var>);
+  static void <span title=dom-Notification-requestPermission>requestPermission</span>(optional <span>NotificationPermissionCallback</span> <var title>callback</var>);
 
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onclick>onclick</span>;
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onshow>onshow</span>;
@@ -472,7 +472,7 @@ method must run these steps:
  <li><p><span data-anolis-spec=html>Queue a task</span> to set
  <span>permission</span> to <var title>permission</var> and invoke
  <var title>callback</var> with <var title>permission</var> as single
- argument.
+ argument if <var title>callback</var> is given.
 </ol>
 
 <p class=warning>In designing the platform notifications are the one
@@ -607,6 +607,7 @@ Doug Turner,
 Drew Wilson,
 Edward O'Connor,
 Ian Hickson,
+Jake Archibald,
 James Graham,
 Jon Lee,
 Jonas Sicking,
