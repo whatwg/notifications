@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//www.whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-29-january-2013">Living Standard — Last Updated 29 January 2013</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-18-july-2013">Living Standard — Last Updated 18 July 2013</h2>
 
 <dl>
  <dt>This Version:
@@ -23,17 +23,19 @@
 
  <dt>Editor:
  <dd><a href="http://annevankesteren.nl/">Anne van Kesteren</a>
+ (<a href="http://www.mozilla.org/">Mozilla</a>)
  &lt;<a href="mailto:annevk@annevk.nl">annevk@annevk.nl</a>&gt;
 
  <dt>Former editor:
- <dd>John Gregg (<a href="http://www.google.com/">Google</a>)
+ <dd>John Gregg
+ (<a href="http://www.google.com/">Google</a>)
  &lt;<a href="mailto:johnnyg@google.com">johnnyg@google.com</a>&gt;
 </dl>
 
 <p class="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="http://i.creativecommons.org/p/zero/1.0/80x15.png"></a>
 To the extent possible under law, the editors have waived all copyright and
 related or neighboring rights to this work. In addition, as of
-29 January 2013, the editors have made this specification available
+18 July 2013, the editors have made this specification available
 under the
 <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at
@@ -397,6 +399,12 @@ interface <dfn id="notification">Notification</dfn> : <a class="external" data-a
   attribute <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onerror" title="handler-onerror">onerror</a>;
   attribute <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclose" title="handler-onclose">onclose</a>;
 
+  readonly attribute <a href="#notificationdirection">NotificationDirection</a> <a href="#dom-notification-dir" title="dom-Notification-dir">dir</a>;
+  readonly attribute DOMString <a href="#dom-notification-dir" title="dom-Notification-dir">lang</a>;
+  readonly attribute DOMString <a href="#dom-notification-dir" title="dom-Notification-dir">body</a>;
+  readonly attribute DOMString <a href="#dom-notification-dir" title="dom-Notification-dir">tag</a>;
+  readonly attribute DOMString <a href="#dom-notification-dir" title="dom-Notification-dir">icon</a>;
+
   void <a href="#dom-notification-close" title="dom-Notification-close">close</a>();
 };
 
@@ -460,7 +468,7 @@ constructor must run these steps:
  <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#script's-base-url" title="script's base URL">base URL</a>, and
  if that does not fail, set
  <var title="">notification</var>'s <a href="#icon-url">icon URL</a> to the resulting
- <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/urls.html#absolute-url">absolute URL</a>. (Otherwise
+ <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/infrastructure.html#absolute-url">absolute URL</a>. (Otherwise
  <a href="#icon-url">icon URL</a> is not set.)
 
  <li><p>Return <var title="">notification</var>, but continue running these
@@ -533,7 +541,23 @@ that must be supported as attributes by the <a href="#notification"><code>Notifi
 must run the <a href="#close-steps">close steps</a> for the
 <a href="#concept-notification" title="concept-notification">notification</a>.
 
+<p>The <dfn id="dom-notification-dir" title="dom-Notification-dir"><code>dir</code></dfn> attribute must return the
+<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#direction">direction</a>.
 
+<p>The <dfn id="dom-notification-lang" title="dom-Notification-lang"><code>lang</code></dfn> attribute must return the
+<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#language">language</a>.
+
+<p>The <dfn id="dom-notification-body" title="dom-Notification-body"><code>body</code></dfn> attribute must return the
+<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#body">body</a> and the empty
+string otherwise.
+
+<p>The <dfn id="dom-notification-tag" title="dom-Notification-tag"><code>tag</code></dfn> attribute must return the
+<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#tag">tag</a> and the empty
+string otherwise.
+
+<p>The <dfn id="dom-notification-icon" title="dom-Notification-icon"><code>icon</code></dfn> attribute must return the
+<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#icon-url">icon URL</a> and the
+empty string otherwise.
 
 
 

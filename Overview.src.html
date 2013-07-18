@@ -25,10 +25,12 @@
 
  <dt>Editor:
  <dd><a href="http://annevankesteren.nl/">Anne van Kesteren</a>
+ (<a href="http://www.mozilla.org/">Mozilla</a>)
  &lt;<a href="mailto:annevk@annevk.nl">annevk@annevk.nl</a>&gt;
 
  <dt>Former editor:
- <dd>John Gregg (<a href="http://www.google.com/">Google</a>)
+ <dd>John Gregg
+ (<a href="http://www.google.com/">Google</a>)
  &lt;<a href="mailto:johnnyg@google.com">johnnyg@google.com</a>>
 </dl>
 
@@ -373,6 +375,12 @@ interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onerror>onerror</span>;
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onclose>onclose</span>;
 
+  readonly attribute <span>NotificationDirection</span> <span title=dom-Notification-dir>dir</span>;
+  readonly attribute DOMString <span title=dom-Notification-dir>lang</span>;
+  readonly attribute DOMString <span title=dom-Notification-dir>body</span>;
+  readonly attribute DOMString <span title=dom-Notification-dir>tag</span>;
+  readonly attribute DOMString <span title=dom-Notification-dir>icon</span>;
+
   void <span title=dom-Notification-close>close</span>();
 };
 
@@ -509,7 +517,23 @@ that must be supported as attributes by the <code>Notification</code> object.
 must run the <span>close steps</span> for the
 <span title=concept-notification>notification</span>.
 
+<p>The <dfn title=dom-Notification-dir><code>dir</code></dfn> attribute must return the
+<span title=concept-notification>notification</span>'s <span>direction</span>.
 
+<p>The <dfn title=dom-Notification-lang><code>lang</code></dfn> attribute must return the
+<span title=concept-notification>notification</span>'s <span>language</span>.
+
+<p>The <dfn title=dom-Notification-body><code>body</code></dfn> attribute must return the
+<span title=concept-notification>notification</span>'s <span>body</span> and the empty
+string otherwise.
+
+<p>The <dfn title=dom-Notification-tag><code>tag</code></dfn> attribute must return the
+<span title=concept-notification>notification</span>'s <span>tag</span> and the empty
+string otherwise.
+
+<p>The <dfn title=dom-Notification-icon><code>icon</code></dfn> attribute must return the
+<span title=concept-notification>notification</span>'s <span>icon URL</span> and the
+empty string otherwise.
 
 
 
