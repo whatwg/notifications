@@ -112,12 +112,14 @@ are desired; without this they could create a negative experience for the
 user.
 
 
+
 <h2>Terminology</h2>
 
-<p>Most terminology used in this specification is from DOM, IDL, and HTML.
+<p>Most terminology used in this specification is from DOM, HTML, IDL, and URL.
 <span data-anolis-ref>DOM</span>
-<span data-anolis-ref>WEBIDL</span>
 <span data-anolis-ref>HTML</span>
+<span data-anolis-ref>WEBIDL</span>
+<span data-anolis-ref>URL</span>
 
 
 
@@ -438,13 +440,12 @@ constructor must run these steps:
  <var title>notification</var>'s <span>tag</span> to <code title>tag</code>.
 
  <li><p>If <var title>options</var>'s <code title>icon</code> is present,
- <span title="resolve a URL" data-anolis-spec=html>resolve</span>
- <code title>icon</code> against the
+ <span title=concept-url-parser data-anolis-spec=url>parse</span>
+ <code title>icon</code> using the
  <span data-anolis-spec=html>entry script</span>'s
  <span title="script's base URL" data-anolis-spec=html>base URL</span>, and
- if that does not fail, set
- <var title>notification</var>'s <span>icon URL</span> to the resulting
- <span data-anolis-spec=html>absolute URL</span>. (Otherwise
+ if that does not return failure, set
+ <var title>notification</var>'s <span>icon URL</span> to the return value. (Otherwise
  <span>icon URL</span> is not set.)
 
  <li><p>Return <var title>notification</var>, but continue running these
@@ -532,7 +533,8 @@ string otherwise.
 string otherwise.
 
 <p>The <dfn title=dom-Notification-icon><code>icon</code></dfn> attribute must return the
-<span title=concept-notification>notification</span>'s <span>icon URL</span> and the
+<span title=concept-notification>notification</span>'s <span>icon URL</span>,
+<span title=concept-url-serializer data-anolis-spec=url>serialized</span>, and the
 empty string otherwise.
 
 

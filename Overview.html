@@ -136,12 +136,14 @@ are desired; without this they could create a negative experience for the
 user.
 
 
+
 <h2 id="terminology"><span class="secno">3 </span>Terminology</h2>
 
-<p>Most terminology used in this specification is from DOM, IDL, and HTML.
+<p>Most terminology used in this specification is from DOM, HTML, IDL, and URL.
 <a href="#refsDOM">[DOM]</a>
-<a href="#refsWEBIDL">[WEBIDL]</a>
 <a href="#refsHTML">[HTML]</a>
+<a href="#refsWEBIDL">[WEBIDL]</a>
+<a href="#refsURL">[URL]</a>
 
 
 
@@ -462,13 +464,12 @@ constructor must run these steps:
  <var title="">notification</var>'s <a href="#tag">tag</a> to <code title="">tag</code>.
 
  <li><p>If <var title="">options</var>'s <code title="">icon</code> is present,
- <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/urls.html#resolve-a-url" title="resolve a URL">resolve</a>
- <code title="">icon</code> against the
+ <a class="external" data-anolis-spec="url" href="http://url.spec.whatwg.org/#concept-url-parser" title="concept-url-parser">parse</a>
+ <code title="">icon</code> using the
  <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#entry-script">entry script</a>'s
  <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#script's-base-url" title="script's base URL">base URL</a>, and
- if that does not fail, set
- <var title="">notification</var>'s <a href="#icon-url">icon URL</a> to the resulting
- <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/infrastructure.html#absolute-url">absolute URL</a>. (Otherwise
+ if that does not return failure, set
+ <var title="">notification</var>'s <a href="#icon-url">icon URL</a> to the return value. (Otherwise
  <a href="#icon-url">icon URL</a> is not set.)
 
  <li><p>Return <var title="">notification</var>, but continue running these
@@ -556,7 +557,8 @@ string otherwise.
 string otherwise.
 
 <p>The <dfn id="dom-notification-icon" title="dom-Notification-icon"><code>icon</code></dfn> attribute must return the
-<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#icon-url">icon URL</a> and the
+<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#icon-url">icon URL</a>,
+<a class="external" data-anolis-spec="url" href="http://url.spec.whatwg.org/#concept-url-serializer" title="concept-url-serializer">serialized</a>, and the
 empty string otherwise.
 
 
@@ -655,6 +657,9 @@ new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });
 
 <dt id="refsRFC2119">[RFC2119]
 <dd><cite><a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a></cite>, Scott Bradner. IETF.
+
+<dt id="refsURL">[URL]
+<dd><cite><a href="http://url.spec.whatwg.org/">URL</a></cite>, Anne van Kesteren. WHATWG.
 
 <dt id="refsWEBIDL">[WEBIDL]
 <dd><cite><a href="http://dev.w3.org/2006/webapi/WebIDL/">Web IDL</a></cite>, Cameron McCormack. W3C.
