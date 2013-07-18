@@ -79,14 +79,12 @@ notification platforms as much as possible, but also to be
 platform-independent. Since the common platforms do not provide the same
 functionality, this spec will indicate what events are guaranteed and
 which are not. In particular, notifications as specified here only can
-contain text and icon content. In the future, notifications generated from
-web content may wish to contain web content themselves, but that is outside
-the scope of this document.
+contain text and icon content.
 
 <p>In general, the event model for notifications is best-effort; while the
 <code>Notification</code> object offers a <code title>click</code> event,
 applications may enhance their functionality by listening for that event,
-but <em>must not depend on receiving it</em>, in case the underlying
+but cannot depend on receiving it, in case the underlying
 notification platform does not provide that capability.
 
 
