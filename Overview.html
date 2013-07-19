@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//www.whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-18-july-2013">Living Standard — Last Updated 18 July 2013</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-19-july-2013">Living Standard — Last Updated 19 July 2013</h2>
 
 <dl>
  <dt>This Version:
@@ -35,7 +35,7 @@
 <p class="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="http://i.creativecommons.org/p/zero/1.0/80x15.png"></a>
 To the extent possible under law, the editors have waived all copyright and
 related or neighboring rights to this work. In addition, as of
-18 July 2013, the editors have made this specification available
+19 July 2013, the editors have made this specification available
 under the
 <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at
@@ -236,10 +236,11 @@ a <dfn id="list-of-active-notifications">list of active notifications</dfn>.
  <li><p>If <a href="#permission-0">permission</a> for <var title="">notification</var>'s
  <a href="#origin">origin</a> is not "<code title="">granted</code>", cancel any ongoing
  <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/fetching-resources.html#fetch">fetch</a> for
- <var title="">notification</var>'s <a href="#icon-url">icon URL</a>,
+ <var title="">notification</var>'s <a href="#icon-url">icon URL</a>, then for each
+ <a href="#notification"><code>Notification</code></a> object representing <var title="">notification</var>,
  <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to
  <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
- named <code title="">error</code> on <var title="">notification</var>, and
+ named <code title="">error</code> on the <a href="#notification"><code>Notification</code></a> object, and
  terminate these steps.
 
  <li><p>If there is a <a href="#concept-notification" title="concept-notification">notification</a>
@@ -274,12 +275,13 @@ either by the underlying notifications platform or by the user, the
  <a href="#list-of-pending-notifications">list of pending notifications</a> nor in the
  <a href="#list-of-active-notifications">list of active notifications</a>, terminate these steps.
 
- <li><p><a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">Queue a task</a> to remove
- <var title="">notification</var> from either the
+ <li><p>Remove <var title="">notification</var> from either the
  <a href="#list-of-pending-notifications">list of pending notifications</a> or the
- <a href="#list-of-active-notifications">list of active notifications</a>, and
+ <a href="#list-of-active-notifications">list of active notifications</a>, and then for each <a href="#notification"><code>Notification</code></a>
+ object representing <var title="">notification</var>,
+ <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to
  <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
- named <code title="">close</code> on <var title="">notification</var>.
+ named <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object.
 </ol>
 
 <h3 id="pending-notifications"><span class="secno">4.7 </span>Pending notifications</h3>
@@ -313,25 +315,22 @@ are:
   <var title="">notification</var>'s <a href="#icon">icon</a> to the decoded resource.
   (Otherwise <var title="">notification</var> has no <a href="#icon">icon</a>.)
 
- <li>
-  <p><a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">Queue a task</a> to run these substeps:
+ <li><p>Display <var title="">notification</var> on the device (e.g. by
+ calling the appropriate notification platform).
 
-  <ol>
-   <li><p>Display <var title="">notification</var> on the device (e.g. by
-   calling the appropriate notification platform).
+ <li><p>If displaying fails (e.g. the notification platform returns an error), for
+ each <a href="#notification"><code>Notification</code></a> object representing <var title="">notification</var>,
+ <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to
+ <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
+ <code title="">error</code> on <var title="">notification</var> and terminate these steps.
 
-   <li><p>If displaying fails (e.g. the notification platform returns an
-   error),
-   <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
-   named <code title="">error</code> on <var title="">notification</var> and
-   terminate these steps.
+ <li><p>Append <var title="">notification</var> to the
+ <a href="#list-of-active-notifications">list of active notifications</a>.
 
-   <li><p>Append <var title="">notification</var> to the
-   <a href="#list-of-active-notifications">list of active notifications</a>.
-
-   <li><p><a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">Fire an event</a>
-   named <code title="">show</code> on <var title="">notification</var>.
-  </ol>
+ <li><p>For each <a href="#notification"><code>Notification</code></a> object representing
+ <var title="">notification</var>, <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to
+ <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
+ <code title="">show</code> on the <a href="#notification"><code>Notification</code></a> object.
 </ol>
 
 
@@ -355,22 +354,25 @@ are:
   (Otherwise <var title="">new</var> has no <a href="#icon">icon</a>.)
 
  <li><p>If <var title="">old</var> is in the
- <a href="#list-of-pending-notifications">list of pending notifications</a>,
- <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to replace
+ <a href="#list-of-pending-notifications">list of pending notifications</a>, replace
  <var title="">old</var> with <var title="">new</var>, in the same position, in
- the <a href="#list-of-pending-notifications">list of pending notifications</a>, and
+ the <a href="#list-of-pending-notifications">list of pending notifications</a>, and then for each
+ <a href="#notification"><code>Notification</code></a> object representing <var title="">old</var>,
+ <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to
  <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
- named <code title="">close</code> on <var title="">old</var>.
+ named <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object.
 
  <li>
-  <p>Otherwise,
-  <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to replace
-  <var title="">old</var> with <var title="">new</var>, in the same position, in
-  the <a href="#list-of-active-notifications">list of active notifications</a>,
+  <p>Otherwise, replace <var title="">old</var> with <var title="">new</var>,
+  in the same position, in the <a href="#list-of-active-notifications">list of active notifications</a>, then
+  for each <a href="#notification"><code>Notification</code></a> object representing <var title="">old</var>,
+  <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to
   <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
-  named <code title="">close</code> on <var title="">old</var>, and
+  named <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object, and then for
+  each <a href="#notification"><code>Notification</code></a> object representing <var title="">new</var>,
+  <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to
   <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
-  named <code title="">show</code> on <var title="">new</var>.
+  named <code title="">show</code> on the <a href="#notification"><code>Notification</code></a> object.
 
   <p>If the notification platform does not support replacement this
   requirement may be addressed by running the <a href="#close-steps">close steps</a> for
@@ -385,14 +387,16 @@ are:
 
 <h2 id="api"><span class="secno">5 </span>API</h2>
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> is represented by
-a <a href="#notification"><code>Notification</code></a> object and can be created by its
-<a href="#dom-notification" title="dom-Notification">constructor</a>.
+<p>A <a href="#concept-notification" title="concept-notification">notification</a> is represented by at most one
+<a href="#notification"><code>Notification</code></a> object per global and can be created by
+<a href="#notification"><code>Notification</code></a>'s <a href="#dom-notification" title="dom-Notification">constructor</a>.
 
 <pre class="idl">[<a href="#dom-notification" title="dom-Notification">Constructor</a>(DOMString <var title="">title</var>, optional <a href="#notificationoptions">NotificationOptions</a> <var title="">options</var>)]
 interface <dfn id="notification">Notification</dfn> : <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
   static readonly attribute <a href="#notificationpermission">NotificationPermission</a> <a href="#dom-notification-permission" title="dom-Notification-permission">permission</a>;
   static void <a href="#dom-notification-requestpermission" title="dom-Notification-requestPermission">requestPermission</a>(optional <a href="#notificationpermissioncallback">NotificationPermissionCallback</a> <var title="">callback</var>);
+
+  static <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#promise">Promise</a> <a href="#dom-notification-get" title="dom-Notification-get">get</a>(optional <a href="#getnotificationsoptions">GetNotificationsOptions</a> <var title="">filter</var>);
 
   attribute <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclick" title="handler-onclick">onclick</a>;
   attribute <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onshow" title="handler-onshow">onshow</a>;
@@ -414,6 +418,10 @@ dictionary <dfn id="notificationoptions">NotificationOptions</dfn> {
   DOMString body;
   DOMString tag;
   DOMString icon;
+};
+
+dictionary <dfn id="getnotificationsoptions">GetNotificationsOptions</dfn> {
+  DOMString tag;
 };
 
 enum <dfn id="notificationpermission">NotificationPermission</dfn> {
@@ -510,6 +518,48 @@ method must run these steps:
 instance thus far where asking the user upfront makes sense. Specifications
 for other APIs should not use this pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">many more suitable alternatives</a>.
+
+<p>The static
+<dfn id="dom-notification-get" title="dom-Notification-get"><code>get(<var title="">filter</var>)</code></dfn> method
+must run these steps:
+
+<ol>
+ <li><p>Let <var title="">tag</var> be null.
+
+ <li><p>If <var title="">filter</var>'s <code title="">tag</code> is present, set
+ <var title="">tag</var> to <code title="">tag</code>.
+
+ <li><p>Let <var title="">promise</var> be a new
+ <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-promise" title="concept-promise">promise</a>.
+
+ <li><p>Return <var title="">promise</var> and continue running the remaining steps
+ asynchronously.
+
+ <li><p>Let <var title="">notifications</var> be a list of all
+ <a href="#concept-notification" title="concept-notification">notifications</a> in either the
+ <a href="#list-of-pending-notifications">list of pending notifications</a> or in the
+ <a href="#list-of-active-notifications">list of active notifications</a> whose <a href="#origin">origin</a> is the
+ current <a data-anolis-spec="origin" href="#origin">origin</a> and whose <a href="#tag">tag</a>, if
+ <var title="">tag</var> is non-null, is <var title="">tag</var>.
+
+ <li><p>Let <var title="">objects</var> be an empty JavaScript array.
+
+ <li>
+  <p>For each <a href="#concept-notification" title="concept-notification">notification</a> in
+  <var title="">notification</var>, in creation order, run these steps:
+
+  <ol>
+   <li><p>If the current global object already exposes the
+   <a href="#concept-notification" title="concept-notification">notification</a> as
+   <a href="#notification"><code>Notification</code></a> object, push that object to <var title="">objects</var>.
+
+   <li><p>Otherwise, create a new <a href="#notification"><code>Notification</code></a> object representing
+   <a href="#concept-notification" title="concept-notification">notification</a>.
+  </ol>
+
+ <li><p><a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-promise-fulfill" title="concept-promise-fulfill">Fulfill</a>
+ <var title="">promise</var> with <var title="">objects</var>.
+</ol>
 
 <p>The following are the <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#event-handlers">event handlers</a>
 (and their corresponding

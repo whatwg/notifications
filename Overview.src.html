@@ -212,10 +212,11 @@ a <dfn>list of active notifications</dfn>.
  <li><p>If <span>permission</span> for <var title>notification</var>'s
  <span>origin</span> is not "<code title>granted</code>", cancel any ongoing
  <span data-anolis-spec=html>fetch</span> for
- <var title>notification</var>'s <span>icon URL</span>,
+ <var title>notification</var>'s <span>icon URL</span>, then for each
+ <code>Notification</code> object representing <var title>notification</var>,
  <span data-anolis-spec=html>queue a task</span> to
  <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
- named <code title>error</code> on <var title>notification</var>, and
+ named <code title>error</code> on the <code>Notification</code> object, and
  terminate these steps.
 
  <li><p>If there is a <span title=concept-notification>notification</span>
@@ -250,12 +251,13 @@ either by the underlying notifications platform or by the user, the
  <span>list of pending notifications</span> nor in the
  <span>list of active notifications</span>, terminate these steps.
 
- <li><p><span data-anolis-spec=html>Queue a task</span> to remove
- <var title>notification</var> from either the
+ <li><p>Remove <var title>notification</var> from either the
  <span>list of pending notifications</span> or the
- <span>list of active notifications</span>, and
+ <span>list of active notifications</span>, and then for each <code>Notification</code>
+ object representing <var title>notification</var>,
+ <span data-anolis-spec=html>queue a task</span> to
  <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
- named <code title>close</code> on <var title>notification</var>.
+ named <code title>close</code> on the <code>Notification</code> object.
 </ol>
 
 <h3>Pending notifications</h3>
@@ -289,25 +291,22 @@ are:
   <var title>notification</var>'s <span>icon</span> to the decoded resource.
   (Otherwise <var title>notification</var> has no <span>icon</span>.)
 
- <li>
-  <p><span data-anolis-spec=html>Queue a task</span> to run these substeps:
+ <li><p>Display <var title>notification</var> on the device (e.g. by
+ calling the appropriate notification platform).
 
-  <ol>
-   <li><p>Display <var title>notification</var> on the device (e.g. by
-   calling the appropriate notification platform).
+ <li><p>If displaying fails (e.g. the notification platform returns an error), for
+ each <code>Notification</code> object representing <var title>notification</var>,
+ <span data-anolis-spec=html>queue a task</span> to
+ <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
+ <code title>error</code> on <var title>notification</var> and terminate these steps.
 
-   <li><p>If displaying fails (e.g. the notification platform returns an
-   error),
-   <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
-   named <code title>error</code> on <var title>notification</var> and
-   terminate these steps.
+ <li><p>Append <var title>notification</var> to the
+ <span>list of active notifications</span>.
 
-   <li><p>Append <var title>notification</var> to the
-   <span>list of active notifications</span>.
-
-   <li><p><span data-anolis-spec=dom title=concept-event-fire>Fire an event</span>
-   named <code title>show</code> on <var title>notification</var>.
-  </ol>
+ <li><p>For each <code>Notification</code> object representing
+ <var title>notification</var>, <span data-anolis-spec=html>queue a task</span> to
+ <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
+ <code title>show</code> on the <code>Notification</code> object.
 </ol>
 
 
@@ -331,22 +330,25 @@ are:
   (Otherwise <var title>new</var> has no <span>icon</span>.)
 
  <li><p>If <var title>old</var> is in the
- <span>list of pending notifications</span>,
- <span data-anolis-spec=html>queue a task</span> to replace
+ <span>list of pending notifications</span>, replace
  <var title>old</var> with <var title>new</var>, in the same position, in
- the <span>list of pending notifications</span>, and
+ the <span>list of pending notifications</span>, and then for each
+ <code>Notification</code> object representing <var title>old</var>,
+ <span data-anolis-spec=html>queue a task</span> to
  <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
- named <code title>close</code> on <var title>old</var>.
+ named <code title>close</code> on the <code>Notification</code> object.
 
  <li>
-  <p>Otherwise,
-  <span data-anolis-spec=html>queue a task</span> to replace
-  <var title>old</var> with <var title>new</var>, in the same position, in
-  the <span>list of active notifications</span>,
+  <p>Otherwise, replace <var title>old</var> with <var title>new</var>,
+  in the same position, in the <span>list of active notifications</span>, then
+  for each <code>Notification</code> object representing <var title>old</var>,
+  <span data-anolis-spec=html>queue a task</span> to
   <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
-  named <code title>close</code> on <var title>old</var>, and
+  named <code title>close</code> on the <code>Notification</code> object, and then for
+  each <code>Notification</code> object representing <var title>new</var>,
+  <span data-anolis-spec=html>queue a task</span> to
   <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
-  named <code title>show</code> on <var title>new</var>.
+  named <code title>show</code> on the <code>Notification</code> object.
 
   <p>If the notification platform does not support replacement this
   requirement may be addressed by running the <span>close steps</span> for
@@ -361,14 +363,16 @@ are:
 
 <h2>API</h2>
 
-<p>A <span title=concept-notification>notification</span> is represented by
-a <code>Notification</code> object and can be created by its
-<span title=dom-Notification>constructor</span>.
+<p>A <span title=concept-notification>notification</span> is represented by at most one
+<code>Notification</code> object per global and can be created by
+<code>Notification</code>'s <span title=dom-Notification>constructor</span>.
 
 <pre class="idl">[<span title=dom-Notification>Constructor</span>(DOMString <var title>title</var>, optional <span>NotificationOptions</span> <var title>options</var>)]
 interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span> {
   static readonly attribute <span>NotificationPermission</span> <span title=dom-Notification-permission>permission</span>;
   static void <span title=dom-Notification-requestPermission>requestPermission</span>(optional <span>NotificationPermissionCallback</span> <var title>callback</var>);
+
+  static <span data-anolis-spec=dom>Promise</span> <span title=dom-Notification-get>get</span>(optional <span>GetNotificationsOptions</span> <var title>filter</var>);
 
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onclick>onclick</span>;
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onshow>onshow</span>;
@@ -390,6 +394,10 @@ dictionary <dfn>NotificationOptions</dfn> {
   DOMString body;
   DOMString tag;
   DOMString icon;
+};
+
+dictionary <dfn>GetNotificationsOptions</dfn> {
+  DOMString tag;
 };
 
 enum <dfn>NotificationPermission</dfn> {
@@ -486,6 +494,48 @@ method must run these steps:
 instance thus far where asking the user upfront makes sense. Specifications
 for other APIs should not use this pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">many more suitable alternatives</a>.
+
+<p>The static
+<dfn title=dom-Notification-get><code>get(<var title>filter</var>)</code></dfn> method
+must run these steps:
+
+<ol>
+ <li><p>Let <var title>tag</var> be null.
+
+ <li><p>If <var title>filter</var>'s <code title>tag</code> is present, set
+ <var title>tag</var> to <code title>tag</code>.
+
+ <li><p>Let <var title>promise</var> be a new
+ <span title=concept-promise data-anolis-spec=dom>promise</span>.
+
+ <li><p>Return <var title>promise</var> and continue running the remaining steps
+ asynchronously.
+
+ <li><p>Let <var title>notifications</var> be a list of all
+ <span title=concept-notification>notifications</span> in either the
+ <span>list of pending notifications</span> or in the
+ <span>list of active notifications</span> whose <span>origin</span> is the
+ current <span data-anolis-spec=origin>origin</span> and whose <span>tag</span>, if
+ <var title>tag</var> is non-null, is <var title>tag</var>.
+
+ <li><p>Let <var title>objects</var> be an empty JavaScript array.
+
+ <li>
+  <p>For each <span title=concept-notification>notification</span> in
+  <var title>notification</var>, in creation order, run these steps:
+
+  <ol>
+   <li><p>If the current global object already exposes the
+   <span title=concept-notification>notification</span> as
+   <code>Notification</code> object, push that object to <var title>objects</var>.
+
+   <li><p>Otherwise, create a new <code>Notification</code> object representing
+   <span title=concept-notification>notification</span>.
+  </ol>
+
+ <li><p><span title=concept-promise-fulfill data-anolis-spec=dom>Fulfill</span>
+ <var title>promise</var> with <var title>objects</var>.
+</ol>
 
 <p>The following are the <span data-anolis-spec=html>event handlers</span>
 (and their corresponding
