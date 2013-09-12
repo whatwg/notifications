@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//www.whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-19-july-2013">Living Standard — Last Updated 19 July 2013</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-12-september-2013">Living Standard — Last Updated 12 September 2013</h2>
 
 <dl>
  <dt>This Version:
@@ -35,7 +35,7 @@
 <p class="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="http://i.creativecommons.org/p/zero/1.0/80x15.png"></a>
 To the extent possible under law, the editors have waived all copyright and
 related or neighboring rights to this work. In addition, as of
-19 July 2013, the editors have made this specification available
+12 September 2013, the editors have made this specification available
 under the
 <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at
@@ -396,13 +396,14 @@ interface <dfn id="notification">Notification</dfn> : <a class="external" data-a
   static readonly attribute <a href="#notificationpermission">NotificationPermission</a> <a href="#dom-notification-permission" title="dom-Notification-permission">permission</a>;
   static void <a href="#dom-notification-requestpermission" title="dom-Notification-requestPermission">requestPermission</a>(optional <a href="#notificationpermissioncallback">NotificationPermissionCallback</a> <var title="">callback</var>);
 
-  static <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#promise">Promise</a> <a href="#dom-notification-get" title="dom-Notification-get">get</a>(optional <a href="#getnotificationsoptions">GetNotificationsOptions</a> <var title="">filter</var>);
+  static <span>Promise</span> <a href="#dom-notification-get" title="dom-Notification-get">get</a>(optional <a href="#getnotificationsoptions">GetNotificationsOptions</a> <var title="">filter</var>);
 
   attribute <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclick" title="handler-onclick">onclick</a>;
   attribute <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onshow" title="handler-onshow">onshow</a>;
   attribute <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onerror" title="handler-onerror">onerror</a>;
   attribute <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclose" title="handler-onclose">onclose</a>;
 
+  readonly attribute DOMString <a href="#dom-notification-title" title="dom-Notification-title">title</a>;
   readonly attribute <a href="#notificationdirection">NotificationDirection</a> <a href="#dom-notification-dir" title="dom-Notification-dir">dir</a>;
   readonly attribute DOMString <a href="#dom-notification-dir" title="dom-Notification-dir">lang</a>;
   readonly attribute DOMString <a href="#dom-notification-dir" title="dom-Notification-dir">body</a>;
@@ -530,7 +531,7 @@ must run these steps:
  <var title="">tag</var> to <code title="">tag</code>.
 
  <li><p>Let <var title="">promise</var> be a new
- <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-promise" title="concept-promise">promise</a>.
+ <span title="concept-promise">promise</span>.
 
  <li><p>Return <var title="">promise</var> and continue running the remaining steps
  asynchronously.
@@ -557,7 +558,7 @@ must run these steps:
    <a href="#concept-notification" title="concept-notification">notification</a>.
   </ol>
 
- <li><p><a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-promise-fulfill" title="concept-promise-fulfill">Fulfill</a>
+ <li><p><span title="concept-promise-fulfill">Fulfill</span>
  <var title="">promise</var> with <var title="">objects</var>.
 </ol>
 
@@ -589,6 +590,9 @@ that must be supported as attributes by the <a href="#notification"><code>Notifi
 <p>The <dfn id="dom-notification-close" title="dom-Notification-close"><code>close()</code></dfn> method
 must run the <a href="#close-steps">close steps</a> for the
 <a href="#concept-notification" title="concept-notification">notification</a>.
+
+<p>The <dfn id="dom-notification-title" title="dom-Notification-title"><code>title</code></dfn> attribute must return
+the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#title">title</a>.
 
 <p>The <dfn id="dom-notification-dir" title="dom-Notification-dir"><code>dir</code></dfn> attribute must return the
 <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#direction">direction</a>.
@@ -730,6 +734,7 @@ Jake Archibald,
 James Graham,
 Jon Lee,
 Jonas Sicking,
+Michael Henretty,
 Olli Pettay, and
 Simon Pieters
 for being awesome.

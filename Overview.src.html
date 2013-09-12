@@ -372,13 +372,14 @@ interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span
   static readonly attribute <span>NotificationPermission</span> <span title=dom-Notification-permission>permission</span>;
   static void <span title=dom-Notification-requestPermission>requestPermission</span>(optional <span>NotificationPermissionCallback</span> <var title>callback</var>);
 
-  static <span data-anolis-spec=dom>Promise</span> <span title=dom-Notification-get>get</span>(optional <span>GetNotificationsOptions</span> <var title>filter</var>);
+  static <span>Promise</span> <span title=dom-Notification-get>get</span>(optional <span>GetNotificationsOptions</span> <var title>filter</var>);
 
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onclick>onclick</span>;
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onshow>onshow</span>;
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onerror>onerror</span>;
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onclose>onclose</span>;
 
+  readonly attribute DOMString <span title=dom-Notification-title>title</span>;
   readonly attribute <span>NotificationDirection</span> <span title=dom-Notification-dir>dir</span>;
   readonly attribute DOMString <span title=dom-Notification-dir>lang</span>;
   readonly attribute DOMString <span title=dom-Notification-dir>body</span>;
@@ -506,7 +507,7 @@ must run these steps:
  <var title>tag</var> to <code title>tag</code>.
 
  <li><p>Let <var title>promise</var> be a new
- <span title=concept-promise data-anolis-spec=dom>promise</span>.
+ <span title=concept-promise>promise</span>.
 
  <li><p>Return <var title>promise</var> and continue running the remaining steps
  asynchronously.
@@ -533,7 +534,7 @@ must run these steps:
    <span title=concept-notification>notification</span>.
   </ol>
 
- <li><p><span title=concept-promise-fulfill data-anolis-spec=dom>Fulfill</span>
+ <li><p><span title=concept-promise-fulfill>Fulfill</span>
  <var title>promise</var> with <var title>objects</var>.
 </ol>
 
@@ -565,6 +566,9 @@ that must be supported as attributes by the <code>Notification</code> object.
 <p>The <dfn title=dom-Notification-close><code>close()</code></dfn> method
 must run the <span>close steps</span> for the
 <span title=concept-notification>notification</span>.
+
+<p>The <dfn title=dom-Notification-title><code>title</code></dfn> attribute must return
+the <span title=concept-notification>notification</span>'s <span>title</span>.
 
 <p>The <dfn title=dom-Notification-dir><code>dir</code></dfn> attribute must return the
 <span title=concept-notification>notification</span>'s <span>direction</span>.
@@ -685,6 +689,7 @@ Jake Archibald,
 James Graham,
 Jon Lee,
 Jonas Sicking,
+Michael Henretty,
 Olli Pettay, and
 Simon Pieters
 for being awesome.
