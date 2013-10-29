@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//www.whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-12-september-2013">Living Standard — Last Updated 12 September 2013</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-29-october-2013">Living Standard — Last Updated 29 October 2013</h2>
 
 <dl>
  <dt>This Version:
@@ -35,7 +35,7 @@
 <p class="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="http://i.creativecommons.org/p/zero/1.0/80x15.png"></a>
 To the extent possible under law, the editors have waived all copyright and
 related or neighboring rights to this work. In addition, as of
-12 September 2013, the editors have made this specification available
+29 October 2013, the editors have made this specification available
 under the
 <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at
@@ -62,10 +62,11 @@ http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
    <li><a href="#permission"><span class="secno">4.3 </span>Permission</a></li>
    <li><a href="#notification-lists"><span class="secno">4.4 </span>Notification lists</a></li>
    <li><a href="#showing-a-notification"><span class="secno">4.5 </span>Showing a notification</a></li>
-   <li><a href="#closing-a-notification"><span class="secno">4.6 </span>Closing a notification</a></li>
-   <li><a href="#pending-notifications"><span class="secno">4.7 </span>Pending notifications</a></li>
-   <li><a href="#displaying-notifications"><span class="secno">4.8 </span>Displaying notifications</a></li>
-   <li><a href="#replacing-a-notification"><span class="secno">4.9 </span>Replacing a notification</a></ol></li>
+   <li><a href="#activating-a-notification"><span class="secno">4.6 </span>Activating a notification</a></li>
+   <li><a href="#closing-a-notification"><span class="secno">4.7 </span>Closing a notification</a></li>
+   <li><a href="#pending-notifications"><span class="secno">4.8 </span>Pending notifications</a></li>
+   <li><a href="#displaying-notifications"><span class="secno">4.9 </span>Displaying notifications</a></li>
+   <li><a href="#replacing-a-notification"><span class="secno">4.10 </span>Replacing a notification</a></ol></li>
  <li><a href="#api"><span class="secno">5 </span>API</a></li>
  <li><a href="#examples"><span class="secno">6 </span>Examples</a>
   <ol>
@@ -262,7 +263,19 @@ a <dfn id="list-of-active-notifications">list of active notifications</dfn>.
  <a href="#list-of-pending-notifications">list of pending notifications</a>.
 </ol>
 
-<h3 id="closing-a-notification"><span class="secno">4.6 </span>Closing a notification</h3>
+<h3 id="activating-a-notification"><span class="secno">4.6 </span>Activating a notification</h3>
+
+<p>When a <a href="#concept-notification" title="concept-notification">notification</a>
+<var title="">notification</var> is activated by the user, assuming the underlying
+notifications platform supports activation, the user agent must, for each
+<a href="#notification"><code>Notification</code></a> object representing <var title="">notification</var>,
+<a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#queue-a-task">queue a task</a> to
+<a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
+named <code title="">click</code> on the <a href="#notification"><code>Notification</code></a> object.
+
+<p class="note">Throughout the web platform "activate" is intentionally misnamed as "click".
+
+<h3 id="closing-a-notification"><span class="secno">4.7 </span>Closing a notification</h3>
 
 <p>When a <a href="#concept-notification" title="concept-notification">notification</a> is closed,
 either by the underlying notifications platform or by the user, the
@@ -284,7 +297,7 @@ either by the underlying notifications platform or by the user, the
  named <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object.
 </ol>
 
-<h3 id="pending-notifications"><span class="secno">4.7 </span>Pending notifications</h3>
+<h3 id="pending-notifications"><span class="secno">4.8 </span>Pending notifications</h3>
 
 <p>Whenever the <a href="#list-of-pending-notifications">list of pending notifications</a> is not empty, the
 user agent must wait and monitor changes in the available notification space
@@ -297,7 +310,7 @@ for the first <a href="#concept-notification" title="concept-notification">notif
 <a href="#list-of-pending-notifications">list of pending notifications</a> and then remove it from the
 <a href="#list-of-pending-notifications">list of pending notifications</a>.
 
-<h3 id="displaying-notifications"><span class="secno">4.8 </span>Displaying notifications</h3>
+<h3 id="displaying-notifications"><span class="secno">4.9 </span>Displaying notifications</h3>
 
 <p>The <dfn id="display-steps">display steps</dfn> for a given <var title="">notification</var>
 are:
@@ -334,7 +347,7 @@ are:
 </ol>
 
 
-<h3 id="replacing-a-notification"><span class="secno">4.9 </span>Replacing a notification</h3>
+<h3 id="replacing-a-notification"><span class="secno">4.10 </span>Replacing a notification</h3>
 
 <p>The <dfn id="replace-steps">replace steps</dfn> for replacing an <var title="">old</var>
 <a href="#concept-notification" title="concept-notification">notification</a> with a
@@ -729,6 +742,7 @@ David Håsäther,
 Doug Turner,
 Drew Wilson,
 Edward O'Connor,
+Frederick Hirsch,
 Ian Hickson,
 Jake Archibald,
 James Graham,

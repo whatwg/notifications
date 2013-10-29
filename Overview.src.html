@@ -238,6 +238,18 @@ a <dfn>list of active notifications</dfn>.
  <span>list of pending notifications</span>.
 </ol>
 
+<h3>Activating a notification</h3>
+
+<p>When a <span title=concept-notification>notification</span>
+<var title>notification</var> is activated by the user, assuming the underlying
+notifications platform supports activation, the user agent must, for each
+<code>Notification</code> object representing <var title>notification</var>,
+<span data-anolis-spec=html>queue a task</span> to
+<span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
+named <code title>click</code> on the <code>Notification</code> object.
+
+<p class=note>Throughout the web platform "activate" is intentionally misnamed as "click".
+
 <h3>Closing a notification</h3>
 
 <p>When a <span title=concept-notification>notification</span> is closed,
@@ -684,6 +696,7 @@ David Håsäther,
 Doug Turner,
 Drew Wilson,
 Edward O'Connor,
+Frederick Hirsch,
 Ian Hickson,
 Jake Archibald,
 James Graham,
