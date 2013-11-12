@@ -460,12 +460,10 @@ constructor must run these steps:
 
  <li><p>If <var title>options</var>'s <code title>icon</code> is present,
  <span title=concept-url-parser data-anolis-spec=url>parse</span>
- <code title>icon</code> using the
- <span data-anolis-spec=html>entry script</span>'s
- <span title="script's base URL" data-anolis-spec=html>base URL</span>, and
- if that does not return failure, set
- <var title>notification</var>'s <span>icon URL</span> to the return value. (Otherwise
- <span>icon URL</span> is not set.)
+ <code title>icon</code> using the <span data-anolis-spec=html>API base URL</span>
+ specified by the <span data-anolis-spec=html>entry settings object</span>, and if that
+ does not return failure, set <var title>notification</var>'s <span>icon URL</span> to the
+ return value. (Otherwise <span>icon URL</span> is not set.)
 
  <li><p>Return <var title>notification</var>, but continue running these
  steps asynchronouusly.
