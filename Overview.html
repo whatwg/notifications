@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//www.whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-12-november-2013">Living Standard — Last Updated 12 November 2013</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-18-november-2013">Living Standard — Last Updated 18 November 2013</h2>
 
 <dl>
  <dt>This Version:
@@ -35,7 +35,7 @@
 <p class="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="http://i.creativecommons.org/p/zero/1.0/80x15.png"></a>
 To the extent possible under law, the editors have waived all copyright and
 related or neighboring rights to this work. In addition, as of
-12 November 2013, the editors have made this specification available
+18 November 2013, the editors have made this specification available
 under the
 <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at
@@ -158,7 +158,7 @@ delivery of email.
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> <em>can</em>
 have an associated <dfn id="body">body</dfn>, <dfn id="tag">tag</dfn>, <dfn id="icon-url">icon URL</dfn>, and
-<dfn id="icon">icon</dfn>.
+<dfn id="icon-image">icon image</dfn>.
 
 
 <h3 id="direction-0"><span class="secno">4.1 </span>Direction</h3>
@@ -325,8 +325,8 @@ are:
 
   <p>Once <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/fetching-resources.html#fetch" title="fetch">fetching</a> has
   finished and the image format is supported, set
-  <var title="">notification</var>'s <a href="#icon">icon</a> to the decoded resource.
-  (Otherwise <var title="">notification</var> has no <a href="#icon">icon</a>.)
+  <var title="">notification</var>'s <a href="#icon-image">icon image</a> to the decoded resource.
+  (Otherwise <var title="">notification</var> has no <a href="#icon-image">icon image</a>.)
 
  <li><p>Display <var title="">notification</var> on the device (e.g. by
  calling the appropriate notification platform).
@@ -363,8 +363,8 @@ are:
 
   <p>Once <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/fetching-resources.html#fetch" title="fetch">fetching</a> has
   finished and the image format is supported, set
-  <var title="">new</var>'s <a href="#icon">icon</a> to the decoded resource.
-  (Otherwise <var title="">new</var> has no <a href="#icon">icon</a>.)
+  <var title="">new</var>'s <a href="#icon-image">icon image</a> to the decoded resource.
+  (Otherwise <var title="">new</var> has no <a href="#icon-image">icon image</a>.)
 
  <li><p>If <var title="">old</var> is in the
  <a href="#list-of-pending-notifications">list of pending notifications</a>, replace
