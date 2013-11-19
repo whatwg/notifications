@@ -129,12 +129,11 @@ user outside the context of a web page of an occurrence, such as the
 delivery of email.
 
 <p>Each <span title=concept-notification>notification</span> has a
-<dfn>title</dfn>, <dfn id=direction>direction</dfn>,
-<dfn id=language>language</dfn>, and an <dfn>origin</dfn>.
+<dfn>title</dfn>, <dfn>body</dfn>, <dfn id=direction>direction</dfn>,
+<dfn id=language>language</dfn>, <dfn>tag</dfn>, and an <dfn>origin</dfn>.
 
 <p>Each <span title=concept-notification>notification</span> <em>can</em>
-have an associated <dfn>body</dfn>, <dfn>tag</dfn>, <dfn>icon URL</dfn>, and
-<dfn>icon image</dfn>.
+have an associated <dfn>icon URL</dfn> and <dfn>icon image</dfn>.
 
 
 <h3>Direction</h3>
@@ -222,8 +221,8 @@ a <dfn>list of active notifications</dfn>.
 
  <li><p>If there is a <span title=concept-notification>notification</span>
  in the <span>list of pending notifications</span> or the
- <span>list of active notifications</span> whose <span>tag</span> equals
- <var title>notification</var>'s <span>tag</span> and whose
+ <span>list of active notifications</span> whose <span>tag</span> is not the empty string
+ and equals <var title>notification</var>'s <span>tag</span>, and whose
  <span>origin</span> equals <var title>notification</var>'s
  <span>origin</span>, run the <span>replace steps</span> for that
  <span title=concept-notification>notification</span> and
@@ -410,13 +409,13 @@ interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span
 dictionary <dfn>NotificationOptions</dfn> {
   <span>NotificationDirection</span> dir = "auto";
   DOMString lang = "";
-  DOMString body;
-  DOMString tag;
+  DOMString body = "";
+  DOMString tag = "";
   DOMString icon;
 };
 
 dictionary <dfn>GetNotificationsOptions</dfn> {
-  DOMString tag;
+  DOMString tag = "";
 };
 
 enum <dfn>NotificationPermission</dfn> {
@@ -457,12 +456,11 @@ constructor must run these steps:
  <li><p>Set <var title>notifications</var>'s <span>origin</span> to the
  current <span data-anolis-spec=origin>origin</span>.
 
- <li><p>If <var title>options</var>'s <code title>body</code> is present,
- set <var title>notification</var>'s <span>body</span> to
- <code title>body</code>.
+ <li><p>Set <var title>notification</var>'s <span>body</span> to
+ <var title>options</var>'s <code title>body</code>.
 
- <li><p>If <var title>options</var>'s <code title>tag</code> is present, set
- <var title>notification</var>'s <span>tag</span> to <code title>tag</code>.
+ <li><p>Set <var title>notification</var>'s <span>tag</span> to
+ <var title>options</var>'s <code title>tag</code>.
 
  <li><p>If <var title>options</var>'s <code title>icon</code> is present,
  <span title=concept-url-parser data-anolis-spec=url>parse</span>
@@ -517,23 +515,20 @@ for other APIs should not use this pattern and instead employ one of the
 must run these steps:
 
 <ol>
- <li><p>Let <var title>tag</var> be null.
-
- <li><p>If <var title>filter</var>'s <code title>tag</code> is present, set
- <var title>tag</var> to <code title>tag</code>.
-
  <li><p>Let <var title>promise</var> be a new
  <span title=concept-promise>promise</span>.
 
  <li><p>Return <var title>promise</var> and continue running the remaining steps
  asynchronously.
 
+ <li><p>Let <var title>tag</var> be <var title>filter</var>'s <code title>tag</code>.
+
  <li><p>Let <var title>notifications</var> be a list of all
  <span title=concept-notification>notifications</span> in either the
  <span>list of pending notifications</span> or in the
  <span>list of active notifications</span> whose <span>origin</span> is the
  current <span data-anolis-spec=origin>origin</span> and whose <span>tag</span>, if
- <var title>tag</var> is non-null, is <var title>tag</var>.
+ <var title>tag</var> is not the empty string, is <var title>tag</var>.
 
  <li><p>Let <var title>objects</var> be an empty JavaScript array.
 
@@ -593,17 +588,16 @@ the <span title=concept-notification>notification</span>'s <span>title</span>.
 <span title=concept-notification>notification</span>'s <span>language</span>.
 
 <p>The <dfn title=dom-Notification-body><code>body</code></dfn> attribute must return the
-<span title=concept-notification>notification</span>'s <span>body</span> and the empty
-string otherwise.
+<span title=concept-notification>notification</span>'s <span>body</span>.
 
 <p>The <dfn title=dom-Notification-tag><code>tag</code></dfn> attribute must return the
-<span title=concept-notification>notification</span>'s <span>tag</span> and the empty
-string otherwise.
+<span title=concept-notification>notification</span>'s <span>tag</span>.
 
 <p>The <dfn title=dom-Notification-icon><code>icon</code></dfn> attribute must return the
 <span title=concept-notification>notification</span>'s <span>icon URL</span>,
 <span title=concept-url-serializer data-anolis-spec=url>serialized</span>, and the
-empty string otherwise.
+empty string if there is no <span title=concept-notification>notification</span>'s
+<span>icon URL</span> otherwise.
 
 
 

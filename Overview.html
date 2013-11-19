@@ -154,12 +154,11 @@ user outside the context of a web page of an occurrence, such as the
 delivery of email.
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> has a
-<dfn id="title">title</dfn>, <dfn id="direction">direction</dfn>,
-<dfn id="language">language</dfn>, and an <dfn id="origin">origin</dfn>.
+<dfn id="title">title</dfn>, <dfn id="body">body</dfn>, <dfn id="direction">direction</dfn>,
+<dfn id="language">language</dfn>, <dfn id="tag">tag</dfn>, and an <dfn id="origin">origin</dfn>.
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> <em>can</em>
-have an associated <dfn id="body">body</dfn>, <dfn id="tag">tag</dfn>, <dfn id="icon-url">icon URL</dfn>, and
-<dfn id="icon-image">icon image</dfn>.
+have an associated <dfn id="icon-url">icon URL</dfn> and <dfn id="icon-image">icon image</dfn>.
 
 
 <h3 id="direction-0"><span class="secno">4.1 </span>Direction</h3>
@@ -247,8 +246,8 @@ a <dfn id="list-of-active-notifications">list of active notifications</dfn>.
 
  <li><p>If there is a <a href="#concept-notification" title="concept-notification">notification</a>
  in the <a href="#list-of-pending-notifications">list of pending notifications</a> or the
- <a href="#list-of-active-notifications">list of active notifications</a> whose <a href="#tag">tag</a> equals
- <var title="">notification</var>'s <a href="#tag">tag</a> and whose
+ <a href="#list-of-active-notifications">list of active notifications</a> whose <a href="#tag">tag</a> is not the empty string
+ and equals <var title="">notification</var>'s <a href="#tag">tag</a>, and whose
  <a href="#origin">origin</a> equals <var title="">notification</var>'s
  <a href="#origin">origin</a>, run the <a href="#replace-steps">replace steps</a> for that
  <a href="#concept-notification" title="concept-notification">notification</a> and
@@ -435,13 +434,13 @@ interface <dfn id="notification">Notification</dfn> : <a class="external" data-a
 dictionary <dfn id="notificationoptions">NotificationOptions</dfn> {
   <a href="#notificationdirection">NotificationDirection</a> dir = "auto";
   DOMString lang = "";
-  DOMString body;
-  DOMString tag;
+  DOMString body = "";
+  DOMString tag = "";
   DOMString icon;
 };
 
 dictionary <dfn id="getnotificationsoptions">GetNotificationsOptions</dfn> {
-  DOMString tag;
+  DOMString tag = "";
 };
 
 enum <dfn id="notificationpermission">NotificationPermission</dfn> {
@@ -482,12 +481,11 @@ constructor must run these steps:
  <li><p>Set <var title="">notifications</var>'s <a href="#origin">origin</a> to the
  current <a data-anolis-spec="origin" href="#origin">origin</a>.
 
- <li><p>If <var title="">options</var>'s <code title="">body</code> is present,
- set <var title="">notification</var>'s <a href="#body">body</a> to
- <code title="">body</code>.
+ <li><p>Set <var title="">notification</var>'s <a href="#body">body</a> to
+ <var title="">options</var>'s <code title="">body</code>.
 
- <li><p>If <var title="">options</var>'s <code title="">tag</code> is present, set
- <var title="">notification</var>'s <a href="#tag">tag</a> to <code title="">tag</code>.
+ <li><p>Set <var title="">notification</var>'s <a href="#tag">tag</a> to
+ <var title="">options</var>'s <code title="">tag</code>.
 
  <li><p>If <var title="">options</var>'s <code title="">icon</code> is present,
  <a class="external" data-anolis-spec="url" href="http://url.spec.whatwg.org/#concept-url-parser" title="concept-url-parser">parse</a>
@@ -542,23 +540,20 @@ for other APIs should not use this pattern and instead employ one of the
 must run these steps:
 
 <ol>
- <li><p>Let <var title="">tag</var> be null.
-
- <li><p>If <var title="">filter</var>'s <code title="">tag</code> is present, set
- <var title="">tag</var> to <code title="">tag</code>.
-
  <li><p>Let <var title="">promise</var> be a new
  <span title="concept-promise">promise</span>.
 
  <li><p>Return <var title="">promise</var> and continue running the remaining steps
  asynchronously.
 
+ <li><p>Let <var title="">tag</var> be <var title="">filter</var>'s <code title="">tag</code>.
+
  <li><p>Let <var title="">notifications</var> be a list of all
  <a href="#concept-notification" title="concept-notification">notifications</a> in either the
  <a href="#list-of-pending-notifications">list of pending notifications</a> or in the
  <a href="#list-of-active-notifications">list of active notifications</a> whose <a href="#origin">origin</a> is the
  current <a data-anolis-spec="origin" href="#origin">origin</a> and whose <a href="#tag">tag</a>, if
- <var title="">tag</var> is non-null, is <var title="">tag</var>.
+ <var title="">tag</var> is not the empty string, is <var title="">tag</var>.
 
  <li><p>Let <var title="">objects</var> be an empty JavaScript array.
 
@@ -618,17 +613,16 @@ the <a href="#concept-notification" title="concept-notification">notification</a
 <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#language">language</a>.
 
 <p>The <dfn id="dom-notification-body" title="dom-Notification-body"><code>body</code></dfn> attribute must return the
-<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#body">body</a> and the empty
-string otherwise.
+<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#body">body</a>.
 
 <p>The <dfn id="dom-notification-tag" title="dom-Notification-tag"><code>tag</code></dfn> attribute must return the
-<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#tag">tag</a> and the empty
-string otherwise.
+<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#tag">tag</a>.
 
 <p>The <dfn id="dom-notification-icon" title="dom-Notification-icon"><code>icon</code></dfn> attribute must return the
 <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#icon-url">icon URL</a>,
 <a class="external" data-anolis-spec="url" href="http://url.spec.whatwg.org/#concept-url-serializer" title="concept-url-serializer">serialized</a>, and the
-empty string otherwise.
+empty string if there is no <a href="#concept-notification" title="concept-notification">notification</a>'s
+<a href="#icon-url">icon URL</a> otherwise.
 
 
 
