@@ -16,8 +16,9 @@
  <dd><a href="http://notifications.spec.whatwg.org/">http://notifications.spec.whatwg.org/</a>
 
  <dt>Participate:</dt>
- <dd>Send feedback to
-  <a href="http://www.whatwg.org/mailing-list">whatwg@whatwg.org</a>
+ <dd>Send feedback to <a href="http://www.whatwg.org/mailing-list">whatwg@whatwg.org</a>
+ or <a href="https://github.com/whatwg/notifications/issues/new">file an issue</a>
+ (<a href="https://github.com/whatwg/notifications/issues">open issues</a>)
  <dd><a href="http://wiki.whatwg.org/wiki/IRC">IRC: #whatwg on Freenode</a>
 
  <dt>Version History:
@@ -249,6 +250,11 @@ notifications platform supports activation, the user agent must, for each
 named <code title>click</code> on the <code>Notification</code> object.
 
 <p class=note>Throughout the web platform "activate" is intentionally misnamed as "click".
+
+<p class=note>User agents are strongly encouraged to make
+<code data-anolis-spec=html title=dom-window-focus>window.focus()</code> work from within
+the event listener for the event named <code title>click</code> as a means of focusing the
+browsing context related to the notification.
 
 <h3>Closing a notification</h3>
 

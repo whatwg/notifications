@@ -7,15 +7,16 @@
 
 <p><a class="logo" href="//www.whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-18-november-2013">Living Standard — Last Updated 18 November 2013</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-19-november-2013">Living Standard — Last Updated 19 November 2013</h2>
 
 <dl>
  <dt>This Version:
  <dd><a href="http://notifications.spec.whatwg.org/">http://notifications.spec.whatwg.org/</a>
 
  <dt>Participate:</dt>
- <dd>Send feedback to
-  <a href="http://www.whatwg.org/mailing-list">whatwg@whatwg.org</a>
+ <dd>Send feedback to <a href="http://www.whatwg.org/mailing-list">whatwg@whatwg.org</a>
+ or <a href="https://github.com/whatwg/notifications/issues/new">file an issue</a>
+ (<a href="https://github.com/whatwg/notifications/issues">open issues</a>)
  <dd><a href="http://wiki.whatwg.org/wiki/IRC">IRC: #whatwg on Freenode</a>
 
  <dt>Version History:
@@ -35,7 +36,7 @@
 <p class="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="http://i.creativecommons.org/p/zero/1.0/80x15.png"></a>
 To the extent possible under law, the editors have waived all copyright and
 related or neighboring rights to this work. In addition, as of
-18 November 2013, the editors have made this specification available
+19 November 2013, the editors have made this specification available
 under the
 <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at
@@ -274,6 +275,11 @@ notifications platform supports activation, the user agent must, for each
 named <code title="">click</code> on the <a href="#notification"><code>Notification</code></a> object.
 
 <p class="note">Throughout the web platform "activate" is intentionally misnamed as "click".
+
+<p class="note">User agents are strongly encouraged to make
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/editing.html#dom-window-focus"><code class="external" data-anolis-spec="html" title="dom-window-focus">window.focus()</code></a> work from within
+the event listener for the event named <code title="">click</code> as a means of focusing the
+browsing context related to the notification.
 
 <h3 id="closing-a-notification"><span class="secno">4.7 </span>Closing a notification</h3>
 
