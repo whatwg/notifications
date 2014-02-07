@@ -114,8 +114,9 @@ user.
 
 <h2>Terminology</h2>
 
-<p>Most terminology used in this specification is from DOM, HTML, IDL, and URL.
+<p>Most terminology used in this specification is from DOM, Fetch HTML, IDL, and URL.
 <span data-anolis-ref>DOM</span>
+<span data-anolis-ref>FETCH</span>
 <span data-anolis-ref>HTML</span>
 <span data-anolis-ref>WEBIDL</span>
 <span data-anolis-ref>URL</span>
@@ -210,8 +211,9 @@ a <dfn>list of active notifications</dfn>.
 
 <ol>
  <li><p>If <span>permission</span> for <var title>notification</var>'s
- <span>origin</span> is not "<code title>granted</code>", cancel any ongoing
- <span data-anolis-spec=html>fetch</span> for
+ <span>origin</span> is not "<code title>granted</code>",
+ <span data-anolis-spec=fetch title=concept-fetch-terminate>terminate</span> any ongoing
+ <span data-anolis-spec=fetch title=concept-fetch>fetch</span> for
  <var title>notification</var>'s <span>icon URL</span>, then for each
  <code>Notification</code> object representing <var title>notification</var>,
  <span data-anolis-spec=html>queue a task</span> to
@@ -299,11 +301,16 @@ are:
  <li>
   <p>If the notification platform supports icons,
   <var title>notification</var>'s <span>icon URL</span> is set and has not
-  yet been <span data-anolis-spec=html title=fetch>fetched</span>,
-  <span data-anolis-spec=html>fetch</span> it and wait for the resource to
-  be fully downloaded.
+  yet been <span data-anolis-spec=fetch title=concept-fetch>fetched</span>,
+  <span data-anolis-spec=fetch title=concept-fetch>fetch</span> it and wait for the
+  <span data-anolis-spec=fetch title=concept-response>response</span>.
 
-  <p>Once <span data-anolis-spec=html title=fetch>fetching</span> has
+  <p>If the <span data-anolis-spec=fetch title=concept-response>response</span>'s
+  <span data-anolis-spec=fetch title=concept-internal-response>internal response</span>'s
+  <span data-anolis-spec=fetch title=concept-response-type>type</span> is
+  <i title>default</i>, attempt to decode the resource as image
+
+  Once <span data-anolis-spec=fetch title=concept-fetch>fetching</span> has
   finished and the image format is supported, set
   <var title>notification</var>'s <span>icon image</span> to the decoded resource.
   (Otherwise <var title>notification</var> has no <span>icon image</span>.)
@@ -337,11 +344,11 @@ are:
  <li>
   <p>If the notification platform supports icons,
   <var title>new</var>'s <span>icon URL</span> is set and has not
-  yet been <span data-anolis-spec=html title=fetch>fetched</span>,
-  <span data-anolis-spec=html>fetch</span> it and wait for the resource to
+  yet been <span data-anolis-spec=fetch title=concept-fetch>fetched</span>,
+  <span data-anolis-spec=fetch title=concept-fetch>fetch</span> it and wait for the resource to
   be fully downloaded.
 
-  <p>Once <span data-anolis-spec=html title=fetch>fetching</span> has
+  <p>Once <span data-anolis-spec=fetch title=concept-fetch>fetching</span> has
   finished and the image format is supported, set
   <var title>new</var>'s <span>icon image</span> to the decoded resource.
   (Otherwise <var title>new</var> has no <span>icon image</span>.)
@@ -384,7 +391,8 @@ are:
 <code>Notification</code> object per global and can be created by
 <code>Notification</code>'s <span title=dom-Notification>constructor</span>.
 
-<pre class="idl">[<span title=dom-Notification>Constructor</span>(DOMString <var title>title</var>, optional <span>NotificationOptions</span> <var title>options</var>)]
+<pre class="idl">[<span title=dom-Notification>Constructor</span>(DOMString <var title>title</var>, optional <span>NotificationOptions</span> <var title>options</var>),
+ Exposed=Window,Worker]
 interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span> {
   static readonly attribute <span>NotificationPermission</span> <span title=dom-Notification-permission>permission</span>;
   static void <span title=dom-Notification-requestPermission>requestPermission</span>(optional <span>NotificationPermissionCallback</span> <var title>callback</var>);
@@ -473,7 +481,7 @@ constructor must run these steps:
  steps asynchronouusly.
 
  <li><p>If the notification platform supports icons, the user agent may
- start <span data-anolis-spec=html title=fetch>fetching</span>
+ start <span data-anolis-spec=fetch title=concept-fetch>fetching</span>
  <var title>notification</var>'s <span>icon URL</span> at this point, if
  <span>icon URL</span> is set.
 
@@ -542,7 +550,8 @@ must run these steps:
    <code>Notification</code> object, push that object to <var title>objects</var>.
 
    <li><p>Otherwise, create a new <code>Notification</code> object representing
-   <span title=concept-notification>notification</span>.
+   <span title=concept-notification>notification</span> and push that object to
+   <var title>objects</var>.
   </ol>
 
  <li><p><span title=concept-promise-fulfill>Fulfill</span>
@@ -701,7 +710,8 @@ James Graham,
 Jon Lee,
 Jonas Sicking,
 Michael Henretty,
-Olli Pettay, and
+Olli Pettay,
+Reuben Morais, and
 Simon Pieters
 for being awesome.
 
