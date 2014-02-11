@@ -427,7 +427,7 @@ interface <dfn id="notification">Notification</dfn> : <a class="external" data-a
   static readonly attribute <a href="#notificationpermission">NotificationPermission</a> <a href="#dom-notification-permission" title="dom-Notification-permission">permission</a>;
   static void <a href="#dom-notification-requestpermission" title="dom-Notification-requestPermission">requestPermission</a>(optional <a href="#notificationpermissioncallback">NotificationPermissionCallback</a> <var title="">callback</var>);
 
-  static <span>Promise</span>&lt;sequence&lt;<a href="#notification">Notification</a>&gt;&gt; <a href="#dom-notification-getclones" title="dom-Notification-getClones">getClones</a>(optional <a href="#getnotificationclonesoptions">GetNotificationClonesOptions</a> <var title="">filter</var>);
+  static Promise&lt;sequence&lt;<a href="#notification">Notification</a>&gt;&gt; <a href="#dom-notification-getclones" title="dom-Notification-getClones">getClones</a>(optional <a href="#getnotificationclonesoptions">GetNotificationClonesOptions</a> <var title="">filter</var>);
 
   attribute <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclick" title="handler-onclick">onclick</a>;
   attribute <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onshow" title="handler-onshow">onshow</a>;
