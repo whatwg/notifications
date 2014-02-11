@@ -397,7 +397,7 @@ interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span
   static readonly attribute <span>NotificationPermission</span> <span title=dom-Notification-permission>permission</span>;
   static void <span title=dom-Notification-requestPermission>requestPermission</span>(optional <span>NotificationPermissionCallback</span> <var title>callback</var>);
 
-  static <span>Promise</span> <span title=dom-Notification-get>get</span>(optional <span>GetNotificationsOptions</span> <var title>filter</var>);
+  static <span>Promise</span>&lt;sequence&lt;<span>Notification</span>>> <span title=dom-Notification-getClones>getClones</span>(optional <span>GetNotificationClonesOptions</span> <var title>filter</var>);
 
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onclick>onclick</span>;
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onshow>onshow</span>;
@@ -422,7 +422,7 @@ dictionary <dfn>NotificationOptions</dfn> {
   DOMString icon;
 };
 
-dictionary <dfn>GetNotificationsOptions</dfn> {
+dictionary <dfn>GetNotificationClonesOptions</dfn> {
   DOMString tag = "";
 };
 
@@ -519,12 +519,11 @@ for other APIs should not use this pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">many more suitable alternatives</a>.
 
 <p>The static
-<dfn title=dom-Notification-get><code>get(<var title>filter</var>)</code></dfn> method
+<dfn title=dom-Notification-getClones><code>getClones(<var title>filter</var>)</code></dfn> method
 must run these steps:
 
 <ol>
- <li><p>Let <var title>promise</var> be a new
- <span title=concept-promise>promise</span>.
+ <li><p>Let <var title>promise</var> be a new promise.
 
  <li><p>Return <var title>promise</var> and continue running the remaining steps
  asynchronously.
@@ -540,22 +539,13 @@ must run these steps:
 
  <li><p>Let <var title>objects</var> be an empty JavaScript array.
 
- <li>
-  <p>For each <span title=concept-notification>notification</span> in
-  <var title>notification</var>, in creation order, run these steps:
+ <li><p>For each <span title=concept-notification>notification</span> in
+ <var title>notification</var>, in creation order, create a new
+ <code>Notification</code> object representing
+ <span title=concept-notification>notification</span> and push that object to
+ <var title>objects</var>.
 
-  <ol>
-   <li><p>If the current global object already exposes the
-   <span title=concept-notification>notification</span> as
-   <code>Notification</code> object, push that object to <var title>objects</var>.
-
-   <li><p>Otherwise, create a new <code>Notification</code> object representing
-   <span title=concept-notification>notification</span> and push that object to
-   <var title>objects</var>.
-  </ol>
-
- <li><p><span title=concept-promise-fulfill>Fulfill</span>
- <var title>promise</var> with <var title>objects</var>.
+ <li><p>Resolve <var title>promise</var> with <var title>objects</var>.
 </ol>
 
 <p>The following are the <span data-anolis-spec=html>event handlers</span>
