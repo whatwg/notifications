@@ -68,7 +68,12 @@ http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
    <li><a href="#pending-notifications"><span class="secno">4.8 </span>Pending notifications</a></li>
    <li><a href="#displaying-notifications"><span class="secno">4.9 </span>Displaying notifications</a></li>
    <li><a href="#replacing-a-notification"><span class="secno">4.10 </span>Replacing a notification</a></ol></li>
- <li><a href="#api"><span class="secno">5 </span>API</a></li>
+ <li><a href="#api"><span class="secno">5 </span>API</a>
+  <ol>
+   <li><a href="#garbage-collection"><span class="secno">5.1 </span>Garbage collection</a></li>
+   <li><a href="#constructors"><span class="secno">5.2 </span>Constructors</a></li>
+   <li><a href="#static-members"><span class="secno">5.3 </span>Static members</a></li>
+   <li><a href="#object-members"><span class="secno">5.4 </span>Object members</a></ol></li>
  <li><a href="#examples"><span class="secno">6 </span>Examples</a>
   <ol>
    <li><a href="#using-events"><span class="secno">6.1 </span>Using events</a></li>
@@ -465,6 +470,21 @@ enum <dfn id="notificationdirection">NotificationDirection</dfn> {
   "rtl"
 };</pre>
 
+
+<h3 id="garbage-collection"><span class="secno">5.1 </span>Garbage collection</h3>
+
+<p>A <a href="#notification"><code>Notification</code></a> object must not be garbage collected while its
+corresponding <a href="#concept-notification" title="concept-notification">notification</a> is in either the
+<a href="#list-of-pending-notifications">list of pending notifications</a> or in the
+<a href="#list-of-active-notifications">list of active notifications</a> and the <a href="#notification"><code>Notification</code></a> object in
+question has an
+<a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#concept-event-listener" title="concept-event-listener">event listener</a> whose
+<b>type</b> is <code title="">click</code>, <code title="">show</code>, <code title="">error</code>
+or <code title="">close</code>.
+
+
+<h3 id="constructors"><span class="secno">5.2 </span>Constructors</h3>
+
 <p>The
 <dfn id="dom-notification" title="dom-Notification"><code>Notification(<var title="">title</var>, <var title="">options</var>)</code></dfn>
 constructor must run these steps:
@@ -512,6 +532,9 @@ constructor must run these steps:
 
  <li><p>Run the <a href="#show-steps">show steps</a> for <var title="">notification</var>.
 </ol>
+
+
+<h3 id="static-members"><span class="secno">5.3 </span>Static members</h3>
 
 <p>The static
 <dfn id="dom-notification-permission" title="dom-Notification-permission"><code>permission</code></dfn>
@@ -572,6 +595,9 @@ must run these steps:
 
  <li><p>Resolve <var title="">promise</var> with <var title="">objects</var>.
 </ol>
+
+
+<h3 id="object-members"><span class="secno">5.4 </span>Object members</h3>
 
 <p>The following are the <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#event-handlers">event handlers</a>
 (and their corresponding

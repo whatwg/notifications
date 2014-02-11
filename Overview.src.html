@@ -440,6 +440,21 @@ enum <dfn>NotificationDirection</dfn> {
   "rtl"
 };</pre>
 
+
+<h3>Garbage collection</h3>
+
+<p>A <code>Notification</code> object must not be garbage collected while its
+corresponding <span title=concept-notification>notification</span> is in either the
+<span>list of pending notifications</span> or in the
+<span>list of active notifications</span> and the <code>Notification</code> object in
+question has an
+<span data-anolis-spec=dom title=concept-event-listener>event listener</span> whose
+<b>type</b> is <code title>click</code>, <code title>show</code>, <code title>error</code>
+or <code title>close</code>.
+
+
+<h3>Constructors</h3>
+
 <p>The
 <dfn title=dom-Notification><code>Notification(<var title>title</var>, <var title>options</var>)</code></dfn>
 constructor must run these steps:
@@ -487,6 +502,9 @@ constructor must run these steps:
 
  <li><p>Run the <span>show steps</span> for <var title>notification</var>.
 </ol>
+
+
+<h3>Static members</h3>
 
 <p>The static
 <dfn title=dom-Notification-permission><code>permission</code></dfn>
@@ -547,6 +565,9 @@ must run these steps:
 
  <li><p>Resolve <var title>promise</var> with <var title>objects</var>.
 </ol>
+
+
+<h3>Object members</h3>
 
 <p>The following are the <span data-anolis-spec=html>event handlers</span>
 (and their corresponding
