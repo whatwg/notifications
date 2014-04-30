@@ -235,7 +235,7 @@ a <dfn>list of active notifications</dfn>.
  the <span>display steps</span> and terminate these steps.
 
  <li><p>If the device has limitations on the number of concurrent
- notifications, either immediately call to a notifications platform which
+ notifications, either immediately call to a notification platform which
  natively supports queueing, or append <var title>notification</var> to the
  <span>list of pending notifications</span>.
 </ol>
@@ -244,7 +244,7 @@ a <dfn>list of active notifications</dfn>.
 
 <p>When a <span title=concept-notification>notification</span>
 <var title>notification</var> is activated by the user, assuming the underlying
-notifications platform supports activation, the user agent must, for each
+notification platform supports activation, the user agent must, for each
 <code>Notification</code> object representing <var title>notification</var>,
 <span data-anolis-spec=html>queue a task</span> to
 <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
@@ -260,7 +260,7 @@ browsing context related to the notification.
 <h3>Closing a notification</h3>
 
 <p>When a <span title=concept-notification>notification</span> is closed,
-either by the underlying notifications platform or by the user, the
+either by the underlying notification platform or by the user, the
 <span>close steps</span> for it must be run.
 
 <p>The <dfn>close steps</dfn> for a given <var title>notification</var> are:
