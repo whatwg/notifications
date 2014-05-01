@@ -111,7 +111,8 @@ delivery of email.
 
 <p>Each <span title=concept-notification>notification</span> has a
 <dfn>title</dfn>, <dfn>body</dfn>, <dfn id=direction>direction</dfn>,
-<dfn id=language>language</dfn>, <dfn>tag</dfn>, and an <dfn>origin</dfn>.
+<dfn id=language>language</dfn>, <dfn>tag</dfn>, <dfn>data</dfn>, and an
+<dfn>origin</dfn>.
 
 <p>Each <span title=concept-notification>notification</span> <em>can</em>
 have an associated <dfn>icon URL</dfn> and <dfn>icon image</dfn>.
@@ -390,6 +391,7 @@ interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span
   readonly attribute DOMString <span title=dom-Notification-dir>body</span>;
   readonly attribute DOMString <span title=dom-Notification-dir>tag</span>;
   readonly attribute DOMString <span title=dom-Notification-dir>icon</span>;
+  [SameObject] readonly attribute any <span title=dom-Notification-data>data</span>;
 
   void <span title=dom-Notification-close>close</span>();
 };
@@ -400,6 +402,7 @@ dictionary <dfn>NotificationOptions</dfn> {
   DOMString body = "";
   DOMString tag = "";
   DOMString icon;
+  any data = null;
 };
 
 dictionary <dfn>GetNotificationClonesOptions</dfn> {
@@ -471,6 +474,10 @@ constructor must run these steps:
  specified by the <span data-anolis-spec=html>entry settings object</span>, and if that
  does not return failure, set <var title>notification</var>'s <span>icon URL</span> to the
  return value. (Otherwise <span>icon URL</span> is not set.)
+
+ <li><p>Set <var title>notification</var>'s <span>data</span> to a
+ <span data-anolis-spec=html>structured clone</span> of
+ <var title>options</var>'s <code title>data</code>. Re-throw any exception.
 
  <li><p>Return <var title>notification</var>, but continue running these
  steps asynchronouusly.
@@ -598,6 +605,10 @@ the <span title=concept-notification>notification</span>'s <span>title</span>.
 <span title=concept-url-serializer data-anolis-spec=url>serialized</span>, and the
 empty string if there is no <span title=concept-notification>notification</span>'s
 <span>icon URL</span> otherwise.
+
+<p>The <dfn title=dom-Notification-data><code>data</code></dfn> attribute must return a
+<span data-anolis-spec=html>structured clone</span> of
+<span title=concept-notification>notification</span>'s <span>data</span>.
 
 
 

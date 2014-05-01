@@ -141,7 +141,8 @@ delivery of email.
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> has a
 <dfn id="title">title</dfn>, <dfn id="body">body</dfn>, <dfn id="direction">direction</dfn>,
-<dfn id="language">language</dfn>, <dfn id="tag">tag</dfn>, and an <dfn id="origin">origin</dfn>.
+<dfn id="language">language</dfn>, <dfn id="tag">tag</dfn>, <dfn id="data">data</dfn>, and an
+<dfn id="origin">origin</dfn>.
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> <em>can</em>
 have an associated <dfn id="icon-url">icon URL</dfn> and <dfn id="icon-image">icon image</dfn>.
@@ -420,6 +421,7 @@ interface <dfn id="notification">Notification</dfn> : <a class="external" data-a
   readonly attribute DOMString <a href="#dom-notification-dir" title="dom-Notification-dir">body</a>;
   readonly attribute DOMString <a href="#dom-notification-dir" title="dom-Notification-dir">tag</a>;
   readonly attribute DOMString <a href="#dom-notification-dir" title="dom-Notification-dir">icon</a>;
+  [SameObject] readonly attribute any <a href="#dom-notification-data" title="dom-Notification-data">data</a>;
 
   void <a href="#dom-notification-close" title="dom-Notification-close">close</a>();
 };
@@ -430,6 +432,7 @@ dictionary <dfn id="notificationoptions">NotificationOptions</dfn> {
   DOMString body = "";
   DOMString tag = "";
   DOMString icon;
+  any data = null;
 };
 
 dictionary <dfn id="getnotificationclonesoptions">GetNotificationClonesOptions</dfn> {
@@ -501,6 +504,10 @@ constructor must run these steps:
  specified by the <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#entry-settings-object">entry settings object</a>, and if that
  does not return failure, set <var title="">notification</var>'s <a href="#icon-url">icon URL</a> to the
  return value. (Otherwise <a href="#icon-url">icon URL</a> is not set.)
+
+ <li><p>Set <var title="">notification</var>'s <a href="#data">data</a> to a
+ <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/common-dom-interfaces.html#structured-clone">structured clone</a> of
+ <var title="">options</var>'s <code title="">data</code>. Re-throw any exception.
 
  <li><p>Return <var title="">notification</var>, but continue running these
  steps asynchronouusly.
@@ -628,6 +635,10 @@ the <a href="#concept-notification" title="concept-notification">notification</a
 <a class="external" data-anolis-spec="url" href="http://url.spec.whatwg.org/#concept-url-serializer" title="concept-url-serializer">serialized</a>, and the
 empty string if there is no <a href="#concept-notification" title="concept-notification">notification</a>'s
 <a href="#icon-url">icon URL</a> otherwise.
+
+<p>The <dfn id="dom-notification-data" title="dom-Notification-data"><code>data</code></dfn> attribute must return a
+<a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/common-dom-interfaces.html#structured-clone">structured clone</a> of
+<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#data">data</a>.
 
 
 
