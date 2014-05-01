@@ -87,36 +87,16 @@ http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0.
 
 <h2 id="introduction"><span class="secno">1 </span>Introduction</h2>
 
-<p>This specification provides an API to display notifications to alert
-users outside the context of a web page. It does not specify exactly how a
-user agent should display these notifications; the best presentation depends
-on the device where the user agent is run. When this specification refers
-to displaying notifications on the "desktop", it generally refers to some
-static display area outside the web page, but may take several forms,
-including:
+<p>This specification provides an API to display notifications to alert end users outside
+the context of a browsing context's viewport. It does not specify in detail how a
+user agent is to display these notifications; the best presentation depends on the
+output device.
 
-<ul>
- <li>A corner of the user's display.
- <li>An area within the chrome of the user agent.
- <li>The "home" screen of a mobile device.
-</ul>
+<p>This specification is designed to be compatible with existing notification platforms,
+while remaining platform-independent. In general, this specification is best-effort; e.g.
+while notifications can be activated, the underlying notification platform could not
+support that and so it cannot be relied upon.
 
-<p>This specification does not define exactly how the user agent should
-display the notification, and the API is designed to be flexible with
-respect to presentation options.
-
-<p>This specification is designed to be compatible with existing
-notification platforms as much as possible, but also to be
-platform-independent. Since the common platforms do not provide the same
-functionality, this spec will indicate what events are guaranteed and
-which are not. In particular, notifications as specified here only can
-contain text and icon content.
-
-<p>In general, the event model for notifications is best-effort; while the
-<a href="#notification"><code>Notification</code></a> object offers a <code title="">click</code> event,
-applications may enhance their functionality by listening for that event,
-but cannot depend on receiving it, in case the underlying
-notification platform does not provide that capability.
 
 
 <h2 id="conformance"><span class="secno">2 </span>Conformance</h2>
