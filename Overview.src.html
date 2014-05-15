@@ -105,9 +105,9 @@ user.
 
 <h2>Model</h2>
 
-<p>A <dfn title=concept-notification>notification</dfn> allows alerting the
-user outside the context of a web page of an occurrence, such as the
-delivery of email.
+<p>A <dfn title=concept-notification>notification</dfn> allows alerting the end user
+outside a <span data-anolis-spec=html>browsing context</span>'s viewport of an occurrence,
+such as the delivery of email.
 
 <p>Each <span title=concept-notification>notification</span> has a
 <dfn>title</dfn>, <dfn>body</dfn>, <dfn id=direction>direction</dfn>,
@@ -387,10 +387,10 @@ interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span
 
   readonly attribute DOMString <span title=dom-Notification-title>title</span>;
   readonly attribute <span>NotificationDirection</span> <span title=dom-Notification-dir>dir</span>;
-  readonly attribute DOMString <span title=dom-Notification-dir>lang</span>;
-  readonly attribute DOMString <span title=dom-Notification-dir>body</span>;
-  readonly attribute DOMString <span title=dom-Notification-dir>tag</span>;
-  readonly attribute DOMString <span title=dom-Notification-dir>icon</span>;
+  readonly attribute DOMString <span title=dom-Notification-lang>lang</span>;
+  readonly attribute DOMString <span title=dom-Notification-body>body</span>;
+  readonly attribute DOMString <span title=dom-Notification-tag>tag</span>;
+  readonly attribute DOMString <span title=dom-Notification-icon>icon</span>;
   [SameObject] readonly attribute any <span title=dom-Notification-data>data</span>;
 
   void <span title=dom-Notification-close>close</span>();
@@ -701,6 +701,7 @@ new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });
 <p>Thanks to
 Aharon (Vladimir) Lanin,
 Alex Russell,
+Arkadiusz Michalski,
 David Håsäther,
 Doug Turner,
 Drew Wilson,

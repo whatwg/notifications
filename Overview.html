@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//www.whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-1-may-2014">Living Standard — Last Updated 1 May 2014</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-15-may-2014">Living Standard — Last Updated 15 May 2014</h2>
 
 <dl>
  <dt>This Version:
@@ -36,7 +36,7 @@
 <p class="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="http://i.creativecommons.org/p/zero/1.0/80x15.png"></a>
 To the extent possible under law, the editors have waived all copyright and
 related or neighboring rights to this work. In addition, as of
-1 May 2014, the editors have made this specification available
+15 May 2014, the editors have made this specification available
 under the
 <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at
@@ -135,9 +135,9 @@ user.
 
 <h2 id="model"><span class="secno">4 </span>Model</h2>
 
-<p>A <dfn id="concept-notification" title="concept-notification">notification</dfn> allows alerting the
-user outside the context of a web page of an occurrence, such as the
-delivery of email.
+<p>A <dfn id="concept-notification" title="concept-notification">notification</dfn> allows alerting the end user
+outside a <a class="external" data-anolis-spec="html" href="http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#browsing-context">browsing context</a>'s viewport of an occurrence,
+such as the delivery of email.
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> has a
 <dfn id="title">title</dfn>, <dfn id="body">body</dfn>, <dfn id="direction">direction</dfn>,
@@ -417,10 +417,10 @@ interface <dfn id="notification">Notification</dfn> : <a class="external" data-a
 
   readonly attribute DOMString <a href="#dom-notification-title" title="dom-Notification-title">title</a>;
   readonly attribute <a href="#notificationdirection">NotificationDirection</a> <a href="#dom-notification-dir" title="dom-Notification-dir">dir</a>;
-  readonly attribute DOMString <a href="#dom-notification-dir" title="dom-Notification-dir">lang</a>;
-  readonly attribute DOMString <a href="#dom-notification-dir" title="dom-Notification-dir">body</a>;
-  readonly attribute DOMString <a href="#dom-notification-dir" title="dom-Notification-dir">tag</a>;
-  readonly attribute DOMString <a href="#dom-notification-dir" title="dom-Notification-dir">icon</a>;
+  readonly attribute DOMString <a href="#dom-notification-lang" title="dom-Notification-lang">lang</a>;
+  readonly attribute DOMString <a href="#dom-notification-body" title="dom-Notification-body">body</a>;
+  readonly attribute DOMString <a href="#dom-notification-tag" title="dom-Notification-tag">tag</a>;
+  readonly attribute DOMString <a href="#dom-notification-icon" title="dom-Notification-icon">icon</a>;
   [SameObject] readonly attribute any <a href="#dom-notification-data" title="dom-Notification-data">data</a>;
 
   void <a href="#dom-notification-close" title="dom-Notification-close">close</a>();
@@ -755,6 +755,7 @@ new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });
 <p>Thanks to
 Aharon (Vladimir) Lanin,
 Alex Russell,
+Arkadiusz Michalski,
 David Håsäther,
 Doug Turner,
 Drew Wilson,
