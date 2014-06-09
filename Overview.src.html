@@ -112,7 +112,7 @@ such as the delivery of email.
 <p>Each <span title=concept-notification>notification</span> has a
 <dfn>title</dfn>, <dfn>body</dfn>, <dfn id=direction>direction</dfn>,
 <dfn id=language>language</dfn>, <dfn>tag</dfn>, <dfn>data</dfn>, and an
-<dfn>origin</dfn>.
+<dfn title=concept-notification-origin>origin</dfn>.
 
 <p>Each <span title=concept-notification>notification</span> <em>can</em>
 have an associated <dfn>icon URL</dfn> and <dfn>icon image</dfn>.
@@ -159,7 +159,7 @@ unknown. <span data-anolis-ref>LANG</span>
 displayed if the user (or user agent on behalf of the user) has granted
 <dfn>permission</dfn>. The <span>permission</span> to display
 <span title=concept-notification>notifications</span> for a given
-<span data-anolis-spec=origin>origin</span> can be one of three strings:
+<span data-anolis-spec=html>origin</span> can be one of three strings:
 
 <dl>
  <dt>"<code title>default</code>"
@@ -192,7 +192,8 @@ a <dfn>list of active notifications</dfn>.
 
 <ol>
  <li><p>If <span>permission</span> for <var title>notification</var>'s
- <span>origin</span> is not "<code title>granted</code>",
+ <span title=concept-notification-origin>origin</span> is not
+ "<code title>granted</code>",
  <span data-anolis-spec=fetch title=concept-fetch-terminate>terminate</span> any ongoing
  <span data-anolis-spec=fetch title=concept-fetch>fetch</span> for
  <var title>notification</var>'s <span>icon URL</span>, then for each
@@ -206,14 +207,15 @@ a <dfn>list of active notifications</dfn>.
  in the <span>list of pending notifications</span> or the
  <span>list of active notifications</span> whose <span>tag</span> is not the empty string
  and equals <var title>notification</var>'s <span>tag</span>, and whose
- <span>origin</span> equals <var title>notification</var>'s
- <span>origin</span>, run the <span>replace steps</span> for that
+ <span title=concept-notification-origin>origin</span> equals
+ <var title>notification</var>'s <span title=concept-notification-origin>origin</span>,
+ run the <span>replace steps</span> for that
  <span title=concept-notification>notification</span> and
  <var title>notification</var>, and then terminate these steps.
 
- <li><p>If the device allows notifications to be displayed immediately
- without limitations on the number of concurrent notifications, run
- the <span>display steps</span> and terminate these steps.
+ <li><p>If the device allows notifications to be displayed immediately without limitations
+ on the number of concurrent notifications, run the <span>display steps</span> for
+ <var title>notification</var> and terminate these steps.
 
  <li><p>If the device has limitations on the number of concurrent
  notifications, either immediately call to a notification platform which
@@ -280,6 +282,7 @@ are:
 
 <ol>
  <li>
+  <!-- XXX replace with https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055 -->
   <p>If the notification platform supports icons,
   <var title>notification</var>'s <span>icon URL</span> is set and has not
   yet been <span data-anolis-spec=fetch title=concept-fetch>fetched</span>,
@@ -289,9 +292,9 @@ are:
   <p>If the <span data-anolis-spec=fetch title=concept-response>response</span>'s
   <span data-anolis-spec=fetch title=concept-internal-response>internal response</span>'s
   <span data-anolis-spec=fetch title=concept-response-type>type</span> is
-  <i title>default</i>, attempt to decode the resource as image
+  <i title>default</i>, attempt to decode the resource as image.
 
-  Once <span data-anolis-spec=fetch title=concept-fetch>fetching</span> has
+  <p>Once <span data-anolis-spec=fetch title=concept-fetch>fetching</span> has
   finished and the image format is supported, set
   <var title>notification</var>'s <span>icon image</span> to the decoded resource.
   (Otherwise <var title>notification</var> has no <span>icon image</span>.)
@@ -303,7 +306,8 @@ are:
  each <code>Notification</code> object representing <var title>notification</var>,
  <span data-anolis-spec=html>queue a task</span> to
  <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
- <code title>error</code> on <var title>notification</var> and terminate these steps.
+ <code title>error</code> on the <code>Notification</code> object and terminate these
+ steps.
 
  <li><p>Append <var title>notification</var> to the
  <span>list of active notifications</span>.
@@ -323,11 +327,17 @@ are:
 
 <ol>
  <li>
+  <!-- XXX replace with https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055 -->
   <p>If the notification platform supports icons,
   <var title>new</var>'s <span>icon URL</span> is set and has not
   yet been <span data-anolis-spec=fetch title=concept-fetch>fetched</span>,
-  <span data-anolis-spec=fetch title=concept-fetch>fetch</span> it and wait for the resource to
-  be fully downloaded.
+  <span data-anolis-spec=fetch title=concept-fetch>fetch</span> it and wait for the
+  <span data-anolis-spec=fetch title=concept-response>response</span>.
+
+  <p>If the <span data-anolis-spec=fetch title=concept-response>response</span>'s
+  <span data-anolis-spec=fetch title=concept-internal-response>internal response</span>'s
+  <span data-anolis-spec=fetch title=concept-response-type>type</span> is
+  <i title>default</i>, attempt to decode the resource as image.
 
   <p>Once <span data-anolis-spec=fetch title=concept-fetch>fetching</span> has
   finished and the image format is supported, set
@@ -459,8 +469,10 @@ constructor must run these steps:
  <var title>options</var>'s <code title>lang</code>, or set it to the empty
  string otherwise. <span data-anolis-ref>LANG</span>
 
- <li><p>Set <var title>notifications</var>'s <span>origin</span> to the
- current <span data-anolis-spec=origin>origin</span>.
+ <li><p>Set <var title>notifications</var>'s
+ <span title=concept-notification-origin>origin</span> to the
+ <span data-anolis-spec=html>entry settings object</span>'s
+ <span data-anolis-spec=html>origin</span>.
 
  <li><p>Set <var title>notification</var>'s <span>body</span> to
  <var title>options</var>'s <code title>body</code>.
@@ -506,10 +518,11 @@ method must run these steps:
 
  <li><p>Let <var title>permission</var> be <span>permission</span>.
 
- <li><p>If <var title>permission</var> is "<code title>default</code>",
- ask the user whether showing notifications for the current
- <span data-anolis-spec=origin>origin</span> is acceptable. If it is, set
- <var title>permission</var> to "<code title>granted</code>", or
+ <li><p>If <var title>permission</var> is "<code title>default</code>", ask the user
+ whether showing notifications for the
+ <span data-anolis-spec=html>entry settings object</span>'s
+ <span data-anolis-spec=html>origin</span> is acceptable. If it is, set
+ <var title>permission</var> to "<code title>granted</code>", and
  "<code title>denied</code>" otherwise.
 
  <li><p><span data-anolis-spec=html>Queue a task</span> to set
@@ -538,14 +551,16 @@ must run these steps:
  <li><p>Let <var title>notifications</var> be a list of all
  <span title=concept-notification>notifications</span> in either the
  <span>list of pending notifications</span> or in the
- <span>list of active notifications</span> whose <span>origin</span> is the
- current <span data-anolis-spec=origin>origin</span> and whose <span>tag</span>, if
+ <span>list of active notifications</span> whose
+ <span title=concept-notification-origin>origin</span> is the
+ <span data-anolis-spec=html>entry settings object</span>'s
+ <span data-anolis-spec=html>origin</span> and whose <span>tag</span>, if
  <var title>tag</var> is not the empty string, is <var title>tag</var>.
 
  <li><p>Let <var title>objects</var> be an empty JavaScript array.
 
  <li><p>For each <span title=concept-notification>notification</span> in
- <var title>notification</var>, in creation order, create a new
+ <var title>notifications</var>, in creation order, create a new
  <code>Notification</code> object representing
  <span title=concept-notification>notification</span> and push that object to
  <var title>objects</var>.
