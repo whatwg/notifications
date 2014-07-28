@@ -383,10 +383,10 @@ are:
 <code>Notification</code>'s <span title=dom-Notification>constructor</span>.
 
 <pre class="idl">[<span title=dom-Notification>Constructor</span>(DOMString <var title>title</var>, optional <span>NotificationOptions</span> <var title>options</var>),
- Exposed=Window,Worker]
+ Exposed=(Window,Worker)]
 interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span> {
   static readonly attribute <span>NotificationPermission</span> <span title=dom-Notification-permission>permission</span>;
-  static void <span title=dom-Notification-requestPermission>requestPermission</span>(optional <span>NotificationPermissionCallback</span> <var title>callback</var>);
+  [Exposed=Window] static void <span title=dom-Notification-requestPermission>requestPermission</span>(optional <span>NotificationPermissionCallback</span> <var title>callback</var>);
 
   static Promise&lt;sequence&lt;<span>Notification</span>>> <span title=dom-Notification-getClones>getClones</span>(optional <span>GetNotificationClonesOptions</span> <var title>filter</var>);
 

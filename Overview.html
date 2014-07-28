@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//www.whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-9-june-2014">Living Standard — Last Updated 9 June 2014</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-28-july-2014">Living Standard — Last Updated 28 July 2014</h2>
 
 <dl>
  <dt>This Version:
@@ -36,7 +36,7 @@
 <p class="copyright"><a href="http://creativecommons.org/publicdomain/zero/1.0/" rel="license"><img alt="CC0" src="http://i.creativecommons.org/p/zero/1.0/80x15.png"></a>
 To the extent possible under law, the editors have waived all copyright and
 related or neighboring rights to this work. In addition, as of
-9 June 2014, the editors have made this specification available
+28 July 2014, the editors have made this specification available
 under the
 <a href="http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0" rel="license">Open Web Foundation Agreement Version 1.0</a>,
 which is available at
@@ -413,10 +413,10 @@ are:
 <a href="#notification"><code>Notification</code></a>'s <a href="#dom-notification" title="dom-Notification">constructor</a>.
 
 <pre class="idl">[<a href="#dom-notification" title="dom-Notification">Constructor</a>(DOMString <var title="">title</var>, optional <a href="#notificationoptions">NotificationOptions</a> <var title="">options</var>),
- Exposed=Window,Worker]
+ Exposed=(Window,Worker)]
 interface <dfn id="notification">Notification</dfn> : <a class="external" data-anolis-spec="dom" href="http://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
   static readonly attribute <a href="#notificationpermission">NotificationPermission</a> <a href="#dom-notification-permission" title="dom-Notification-permission">permission</a>;
-  static void <a href="#dom-notification-requestpermission" title="dom-Notification-requestPermission">requestPermission</a>(optional <a href="#notificationpermissioncallback">NotificationPermissionCallback</a> <var title="">callback</var>);
+  [Exposed=Window] static void <a href="#dom-notification-requestpermission" title="dom-Notification-requestPermission">requestPermission</a>(optional <a href="#notificationpermissioncallback">NotificationPermissionCallback</a> <var title="">callback</var>);
 
   static Promise&lt;sequence&lt;<a href="#notification">Notification</a>&gt;&gt; <a href="#dom-notification-getclones" title="dom-Notification-getClones">getClones</a>(optional <a href="#getnotificationclonesoptions">GetNotificationClonesOptions</a> <var title="">filter</var>);
 
