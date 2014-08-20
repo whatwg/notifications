@@ -388,7 +388,7 @@ interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span
   static readonly attribute <span>NotificationPermission</span> <span title=dom-Notification-permission>permission</span>;
   [Exposed=Window] static void <span title=dom-Notification-requestPermission>requestPermission</span>(optional <span>NotificationPermissionCallback</span> <var title>callback</var>);
 
-  static Promise&lt;sequence&lt;<span>Notification</span>>> <span title=dom-Notification-getClones>getClones</span>(optional <span>GetNotificationClonesOptions</span> <var title>filter</var>);
+  static Promise&lt;sequence&lt;<span>Notification</span>>> <span title=dom-Notification-get>get</span>(optional <span>GetNotificationOptions</span> <var title>filter</var>);
 
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onclick>onclick</span>;
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onshow>onshow</span>;
@@ -415,7 +415,7 @@ dictionary <dfn>NotificationOptions</dfn> {
   any data = null;
 };
 
-dictionary <dfn>GetNotificationClonesOptions</dfn> {
+dictionary <dfn>GetNotificationOptions</dfn> {
   DOMString tag = "";
 };
 
@@ -537,7 +537,7 @@ for other APIs should not use this pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">many more suitable alternatives</a>.
 
 <p>The static
-<dfn title=dom-Notification-getClones><code>getClones(<var title>filter</var>)</code></dfn> method
+<dfn title=dom-Notification-get><code>get(<var title>filter</var>)</code></dfn> method
 must run these steps:
 
 <ol>
@@ -567,6 +567,10 @@ must run these steps:
 
  <li><p>Resolve <var title>promise</var> with <var title>objects</var>.
 </ol>
+
+<p class=note>This method returns zero or more new <code>Notification</code> objects which
+might represent the same underlying <span title=concept-notification>notification</span>
+of <code>Notification</code> objects already in existence.
 
 
 <h3>Object members</h3>
