@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang=en-US>
 <meta charset=utf-8>
-<link rel=stylesheet href=//www.whatwg.org/style/specification>
+<link rel=stylesheet href=//whatwg.org/style/specification>
 <link rel=icon href=//resources.whatwg.org/logo-notifications.svg>
 <title>Notifications API Standard</title>
 
 <div class=head>
 
-<p><a class=logo href=//www.whatwg.org/><img alt=WHATWG src=//resources.whatwg.org/logo-notifications.svg width=100 height=100></a></p>
+<p><a class=logo href=//whatwg.org/><img alt=WHATWG src=//resources.whatwg.org/logo-notifications.svg width=100 height=100></a></p>
 <h1>Notifications API</h1>
 <h2 class="no-num no-toc">Living Standard &mdash; Last Updated [DATE: 01 Jan 1901]</h2>
 
@@ -16,7 +16,7 @@
  <dd><a href="//notifications.spec.whatwg.org/">https://notifications.spec.whatwg.org/</a>
 
  <dt>Participate:</dt>
- <dd>Send feedback to <a href="//www.whatwg.org/mailing-list">whatwg@whatwg.org</a>
+ <dd>Send feedback to <a href="//whatwg.org/mailing-list">whatwg@whatwg.org</a>
  or <a href="https://github.com/whatwg/notifications/issues/new">file an issue</a>
  (<a href="https://github.com/whatwg/notifications/issues">open issues</a>)
  <dd><a href="//wiki.whatwg.org/wiki/IRC">IRC: #whatwg on Freenode</a>
@@ -124,7 +124,7 @@ have an associated <dfn>icon URL</dfn> and <dfn>icon image</dfn>.
 Rendering section of HTML. <span data-anolis-ref>HTML</span>
 
 <!-- keep this in sync with
-     https://www.whatwg.org/specs/web-apps/current-work/#text-rendered-in-native-user-interfaces -->
+     https://html.spec.whatwg.org/multipage/rendering.html#text-rendered-in-native-user-interfaces -->
 
 <p>User agents are expected to honor the Unicode semantics of the text of a
 <span title=concept-notification>notification</span>'s <span>title</span>
@@ -143,7 +143,7 @@ if it has a value other than "<code title>auto</code>".
 <h3>Language</h3>
 
 <!-- keep this in sync with
-     https://www.whatwg.org/specs/web-apps/current-work/#attr-lang -->
+     https://html.spec.whatwg.org/multipage/dom.html#attr-lang -->
 
 <p>The <span title=concept-notification>notification</span>'s
 <span>language</span> specifies the primary language for the
@@ -181,14 +181,26 @@ meaning "<code title>granted</code>". In that case
 for the application to ask for <span>permission</span>.
 
 
-<h3>Notification lists</h3>
+<h3>Notification persistence</h3>
 
 <p>The user agent must keep a <dfn>list of pending notifications</dfn> and
-a <dfn>list of active notifications</dfn>.
+a <dfn>list of active notifications</dfn>. User agents are recommended to persist the
+lifetime of these lists beyond that of the <code>Notification</code> object through which
+the <span title=concept-notification>notification</span> was created.
+
+<p class=warning>The <span>list of pending notifications</span>,
+<span>list of active notifications</span>, and cookies, have similar implications with
+respect to privacy (e.g. these lists can be used to revive cookies). Implementors are
+therefore encouraged to expose these lists in a manner related to HTTP cookies, allowing
+them to be expunged together with cookies and other origin-specific data.
+
+<!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
+
 
 <h3>Showing a notification</h3>
 
-<p>The <dfn>show steps</dfn> for a given <var title>notification</var> are:
+<p>The <dfn>show steps</dfn> for a given
+<span title=concept-notification>notification</span> <var title>notification</var> are:
 
 <ol>
  <li><p>If <span>permission</span> for <var title>notification</var>'s
@@ -737,4 +749,4 @@ Reuben Morais, and
 Simon Pieters
 for being awesome.
 
-<script id=head src=//www.whatwg.org/specs/web-apps/current-work/dfn.js></script>
+<script id=head src=//resources.whatwg.org/dfn.js></script>
