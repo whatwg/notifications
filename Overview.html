@@ -277,10 +277,11 @@ named <code title="">click</code> on the <a href="#notification"><code>Notificat
 
 <p class="note">Throughout the web platform "activate" is intentionally misnamed as "click".
 
-<p class="note">User agents are strongly encouraged to make
+<p class="note no-backref">When user agents do not automatically focus a
+<a href="#concept-notification" title="concept-notification">notification</a>'s related
+<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a>, they are encouraged to make
 <a href="https://html.spec.whatwg.org/multipage/interaction.html#dom-window-focus"><code class="external" data-anolis-spec="html" title="dom-window-focus">window.focus()</code></a> work from within
-the event listener for the event named <code title="">click</code> as a means of focusing the
-browsing context related to the notification.
+the event listener for the event named <code title="">click</code>.
 
 <h3 id="closing-a-notification"><span class="secno">4.7 </span>Closing a notification</h3>
 
