@@ -449,7 +449,7 @@ constructor must run these steps:
 
  <li><p>Set <var title="">notification</var>'s <a href="#data">data</a> to a
  <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structured-clone">structured clone</a> of
- <var title="">options</var>'s <code title="">data</code>. Re-throw any exception.
+ <var title="">options</var>'s <code title="">data</code>. Rethrow any exceptions.
 
  <li><p>Return <var title="">notification</var>, but continue running these
  steps asynchronouusly.
@@ -465,13 +465,12 @@ constructor must run these steps:
 
 <h3 id="static-members"><span class="secno">5.3 </span>Static members</h3>
 
-<p>The static
-<dfn id="dom-notification-permission" title="dom-Notification-permission"><code>permission</code></dfn>
-attribute must return <a href="#permission-0">permission</a>.
+<p>The static <dfn id="dom-notification-permission" title="dom-Notification-permission"><code>permission</code></dfn>
+attribute's getter must return <a href="#permission-0">permission</a>.
 
 <p>The static
 <dfn id="dom-notification-requestpermission" title="dom-Notification-requestPermission"><code>requestPermission(<var title="">callback</var>)</code></dfn>
-method must run these steps:
+method, when invoked, must run these steps:
 
 <ol>
  <li><p>Return, but continue running these steps asynchronously.
@@ -558,33 +557,33 @@ that must be supported as attributes by the <a href="#notification"><code>Notifi
    <td><code title="event-close">close</code>
 </table>
 
-<p>The <dfn id="dom-notification-close" title="dom-Notification-close"><code>close()</code></dfn> method
+<p>The <dfn id="dom-notification-close" title="dom-Notification-close"><code>close()</code></dfn> method, when invoked,
 must run the <a href="#close-steps">close steps</a> for the
 <a href="#concept-notification" title="concept-notification">notification</a>.
 
-<p>The <dfn id="dom-notification-title" title="dom-Notification-title"><code>title</code></dfn> attribute must return
-the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#title">title</a>.
+<p>The <dfn id="dom-notification-title" title="dom-Notification-title"><code>title</code></dfn> attribute's getter must
+return the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#title">title</a>.
 
-<p>The <dfn id="dom-notification-dir" title="dom-Notification-dir"><code>dir</code></dfn> attribute must return the
-<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#direction">direction</a>.
+<p>The <dfn id="dom-notification-dir" title="dom-Notification-dir"><code>dir</code></dfn> attribute's getter must
+return the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#direction">direction</a>.
 
-<p>The <dfn id="dom-notification-lang" title="dom-Notification-lang"><code>lang</code></dfn> attribute must return the
-<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#language">language</a>.
+<p>The <dfn id="dom-notification-lang" title="dom-Notification-lang"><code>lang</code></dfn> attribute's getter must
+return the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#language">language</a>.
 
-<p>The <dfn id="dom-notification-body" title="dom-Notification-body"><code>body</code></dfn> attribute must return the
-<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#body">body</a>.
+<p>The <dfn id="dom-notification-body" title="dom-Notification-body"><code>body</code></dfn> attribute's getter must
+return the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#body">body</a>.
 
-<p>The <dfn id="dom-notification-tag" title="dom-Notification-tag"><code>tag</code></dfn> attribute must return the
-<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#tag">tag</a>.
+<p>The <dfn id="dom-notification-tag" title="dom-Notification-tag"><code>tag</code></dfn> attribute's getter must
+return the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#tag">tag</a>.
 
-<p>The <dfn id="dom-notification-icon" title="dom-Notification-icon"><code>icon</code></dfn> attribute must return the
-<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#icon-url">icon URL</a>,
+<p>The <dfn id="dom-notification-icon" title="dom-Notification-icon"><code>icon</code></dfn> attribute's getter must
+return the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#icon-url">icon URL</a>,
 <a class="external" data-anolis-spec="url" href="https://url.spec.whatwg.org/#concept-url-serializer" title="concept-url-serializer">serialized</a>, and the
 empty string if there is no <a href="#concept-notification" title="concept-notification">notification</a>'s
 <a href="#icon-url">icon URL</a> otherwise.
 
-<p>The <dfn id="dom-notification-data" title="dom-Notification-data"><code>data</code></dfn> attribute must return a
-<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structured-clone">structured clone</a> of
+<p>The <dfn id="dom-notification-data" title="dom-Notification-data"><code>data</code></dfn> attribute's getter must
+return a <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structured-clone">structured clone</a> of
 <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#data">data</a>.
 
 

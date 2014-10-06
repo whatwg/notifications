@@ -421,7 +421,7 @@ constructor must run these steps:
 
  <li><p>Set <var title>notification</var>'s <span>data</span> to a
  <span data-anolis-spec=html>structured clone</span> of
- <var title>options</var>'s <code title>data</code>. Re-throw any exception.
+ <var title>options</var>'s <code title>data</code>. Rethrow any exceptions.
 
  <li><p>Return <var title>notification</var>, but continue running these
  steps asynchronouusly.
@@ -437,13 +437,12 @@ constructor must run these steps:
 
 <h3>Static members</h3>
 
-<p>The static
-<dfn title=dom-Notification-permission><code>permission</code></dfn>
-attribute must return <span>permission</span>.
+<p>The static <dfn title=dom-Notification-permission><code>permission</code></dfn>
+attribute's getter must return <span>permission</span>.
 
 <p>The static
 <dfn title=dom-Notification-requestPermission><code>requestPermission(<var title>callback</var>)</code></dfn>
-method must run these steps:
+method, when invoked, must run these steps:
 
 <ol>
  <li><p>Return, but continue running these steps asynchronously.
@@ -530,33 +529,33 @@ that must be supported as attributes by the <code>Notification</code> object.
    <td><code title=event-close>close</code>
 </table>
 
-<p>The <dfn title=dom-Notification-close><code>close()</code></dfn> method
+<p>The <dfn title=dom-Notification-close><code>close()</code></dfn> method, when invoked,
 must run the <span>close steps</span> for the
 <span title=concept-notification>notification</span>.
 
-<p>The <dfn title=dom-Notification-title><code>title</code></dfn> attribute must return
-the <span title=concept-notification>notification</span>'s <span>title</span>.
+<p>The <dfn title=dom-Notification-title><code>title</code></dfn> attribute's getter must
+return the <span title=concept-notification>notification</span>'s <span>title</span>.
 
-<p>The <dfn title=dom-Notification-dir><code>dir</code></dfn> attribute must return the
-<span title=concept-notification>notification</span>'s <span>direction</span>.
+<p>The <dfn title=dom-Notification-dir><code>dir</code></dfn> attribute's getter must
+return the <span title=concept-notification>notification</span>'s <span>direction</span>.
 
-<p>The <dfn title=dom-Notification-lang><code>lang</code></dfn> attribute must return the
-<span title=concept-notification>notification</span>'s <span>language</span>.
+<p>The <dfn title=dom-Notification-lang><code>lang</code></dfn> attribute's getter must
+return the <span title=concept-notification>notification</span>'s <span>language</span>.
 
-<p>The <dfn title=dom-Notification-body><code>body</code></dfn> attribute must return the
-<span title=concept-notification>notification</span>'s <span>body</span>.
+<p>The <dfn title=dom-Notification-body><code>body</code></dfn> attribute's getter must
+return the <span title=concept-notification>notification</span>'s <span>body</span>.
 
-<p>The <dfn title=dom-Notification-tag><code>tag</code></dfn> attribute must return the
-<span title=concept-notification>notification</span>'s <span>tag</span>.
+<p>The <dfn title=dom-Notification-tag><code>tag</code></dfn> attribute's getter must
+return the <span title=concept-notification>notification</span>'s <span>tag</span>.
 
-<p>The <dfn title=dom-Notification-icon><code>icon</code></dfn> attribute must return the
-<span title=concept-notification>notification</span>'s <span>icon URL</span>,
+<p>The <dfn title=dom-Notification-icon><code>icon</code></dfn> attribute's getter must
+return the <span title=concept-notification>notification</span>'s <span>icon URL</span>,
 <span title=concept-url-serializer data-anolis-spec=url>serialized</span>, and the
 empty string if there is no <span title=concept-notification>notification</span>'s
 <span>icon URL</span> otherwise.
 
-<p>The <dfn title=dom-Notification-data><code>data</code></dfn> attribute must return a
-<span data-anolis-spec=html>structured clone</span> of
+<p>The <dfn title=dom-Notification-data><code>data</code></dfn> attribute's getter must
+return a <span data-anolis-spec=html>structured clone</span> of
 <span title=concept-notification>notification</span>'s <span>data</span>.
 
 
