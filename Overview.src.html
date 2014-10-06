@@ -14,6 +14,7 @@
 <dl>
  <dt>Participate:</dt>
  <dd>Send feedback to <a href="//whatwg.org/mailing-list">whatwg@whatwg.org</a>
+ (<a href="http://lists.w3.org/Archives/Public/public-whatwg-archive/">archives</a>)
  or <a href="https://github.com/whatwg/notifications/issues/new">file an issue</a>
  (<a href="https://github.com/whatwg/notifications/issues">open issues</a>)
  <dd><a href="//wiki.whatwg.org/wiki/IRC">IRC: #whatwg on Freenode</a>
@@ -301,11 +302,6 @@ are:
 
  <li><p>Append <var title>notification</var> to the
  <span>list of active notifications</span>.
-
- <li><p>For each <code>Notification</code> object representing
- <var title>notification</var>, <span data-anolis-spec=html>queue a task</span> to
- <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
- <code title>show</code> on the <code>Notification</code> object.
 </ol>
 
 
@@ -349,11 +345,7 @@ are:
   for each <code>Notification</code> object representing <var title>old</var>,
   <span data-anolis-spec=html>queue a task</span> to
   <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
-  named <code title>close</code> on the <code>Notification</code> object, and then for
-  each <code>Notification</code> object representing <var title>new</var>,
-  <span data-anolis-spec=html>queue a task</span> to
-  <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
-  named <code title>show</code> on the <code>Notification</code> object.
+  named <code title>close</code> on the <code>Notification</code> object.
 
   <p>If the notification platform does not support replacement this
   requirement may be addressed by running the <span>close steps</span> for
@@ -381,7 +373,6 @@ interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span
   static Promise&lt;sequence&lt;<span>Notification</span>>> <span title=dom-Notification-get>get</span>(optional <span>GetNotificationOptions</span> <var title>filter</var>);
 
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onclick>onclick</span>;
-  attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onshow>onshow</span>;
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onerror>onerror</span>;
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onclose>onclose</span>;
 
@@ -432,8 +423,8 @@ corresponding <span title=concept-notification>notification</span> is in either 
 <span>list of active notifications</span> and the <code>Notification</code> object in
 question has an
 <span data-anolis-spec=dom title=concept-event-listener>event listener</span> whose
-<b>type</b> is <code title>click</code>, <code title>show</code>, <code title>error</code>
-or <code title>close</code>.
+<b>type</b> is <code title>click</code>, <code title>error</code> or
+<code title>close</code>.
 
 
 <h3>Constructors</h3>
@@ -580,9 +571,6 @@ that must be supported as attributes by the <code>Notification</code> object.
    <td><dfn title=handler-onclick><code>onclick</code></dfn>
    <td><code title=event-click>click</code>
   <tr>
-   <td><dfn title=handler-onshow><code>onshow</code></dfn>
-   <td><code title=event-show>show</code>
-  <tr>
    <td><dfn title=handler-onerror><code>onerror</code></dfn>
    <td><code title=event-error>error</code>
   <tr>
@@ -627,17 +615,6 @@ empty string if there is no <span title=concept-notification>notification</span>
 
 <p><code>Notification</code> objects dispatch events during their lifecycle,
 which developers can use to generate desired behaviors.
-
-<p>The <code title=event-show>show</code> event dispatches when the
-<span title=concept-notification>notification</span> is shown to the user
-&mdash; this may be at some time after the notification is created in the
-case of limited display space and a queue.
-
-<p>In the following example, this event is used to guarantee that regardless
-of when the notification is shown, it is displayed for only 15 seconds.
-
-<pre class="example">var notification = new Notification("New Email Received", { icon: "mail.png" })
-notification.onshow = function() { setTimeout(notification.close, 15000) }</pre>
 
 <p>The <code title=event-close>close</code> event dispatches when the
 notification is dismissed by the user. Developers may use this event to

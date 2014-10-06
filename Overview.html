@@ -7,11 +7,12 @@
 
 <p><a class="logo" href="//whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-30-september-2014">Living Standard — Last Updated 30 September 2014</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-6-october-2014">Living Standard — Last Updated 6 October 2014</h2>
 
 <dl>
  <dt>Participate:</dt>
  <dd>Send feedback to <a href="//whatwg.org/mailing-list">whatwg@whatwg.org</a>
+ (<a href="http://lists.w3.org/Archives/Public/public-whatwg-archive/">archives</a>)
  or <a href="https://github.com/whatwg/notifications/issues/new">file an issue</a>
  (<a href="https://github.com/whatwg/notifications/issues">open issues</a>)
  <dd><a href="//wiki.whatwg.org/wiki/IRC">IRC: #whatwg on Freenode</a>
@@ -332,11 +333,6 @@ are:
 
  <li><p>Append <var title="">notification</var> to the
  <a href="#list-of-active-notifications">list of active notifications</a>.
-
- <li><p>For each <a href="#notification"><code>Notification</code></a> object representing
- <var title="">notification</var>, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
- <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
- <code title="">show</code> on the <a href="#notification"><code>Notification</code></a> object.
 </ol>
 
 
@@ -380,11 +376,7 @@ are:
   for each <a href="#notification"><code>Notification</code></a> object representing <var title="">old</var>,
   <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
   <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
-  named <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object, and then for
-  each <a href="#notification"><code>Notification</code></a> object representing <var title="">new</var>,
-  <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
-  <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
-  named <code title="">show</code> on the <a href="#notification"><code>Notification</code></a> object.
+  named <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object.
 
   <p>If the notification platform does not support replacement this
   requirement may be addressed by running the <a href="#close-steps">close steps</a> for
@@ -412,7 +404,6 @@ interface <dfn id="notification">Notification</dfn> : <a class="external" data-a
   static Promise&lt;sequence&lt;<a href="#notification">Notification</a>&gt;&gt; <a href="#dom-notification-get" title="dom-Notification-get">get</a>(optional <a href="#getnotificationoptions">GetNotificationOptions</a> <var title="">filter</var>);
 
   attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclick" title="handler-onclick">onclick</a>;
-  attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onshow" title="handler-onshow">onshow</a>;
   attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onerror" title="handler-onerror">onerror</a>;
   attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclose" title="handler-onclose">onclose</a>;
 
@@ -463,8 +454,8 @@ corresponding <a href="#concept-notification" title="concept-notification">notif
 <a href="#list-of-active-notifications">list of active notifications</a> and the <a href="#notification"><code>Notification</code></a> object in
 question has an
 <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-listener" title="concept-event-listener">event listener</a> whose
-<b>type</b> is <code title="">click</code>, <code title="">show</code>, <code title="">error</code>
-or <code title="">close</code>.
+<b>type</b> is <code title="">click</code>, <code title="">error</code> or
+<code title="">close</code>.
 
 
 <h3 id="constructors"><span class="secno">5.2 </span>Constructors</h3>
@@ -611,9 +602,6 @@ that must be supported as attributes by the <a href="#notification"><code>Notifi
    <td><dfn id="handler-onclick" title="handler-onclick"><code>onclick</code></dfn>
    <td><code title="event-click">click</code>
   <tr>
-   <td><dfn id="handler-onshow" title="handler-onshow"><code>onshow</code></dfn>
-   <td><code title="event-show">show</code>
-  <tr>
    <td><dfn id="handler-onerror" title="handler-onerror"><code>onerror</code></dfn>
    <td><code title="event-error">error</code>
   <tr>
@@ -658,17 +646,6 @@ empty string if there is no <a href="#concept-notification" title="concept-notif
 
 <p><a href="#notification"><code>Notification</code></a> objects dispatch events during their lifecycle,
 which developers can use to generate desired behaviors.
-
-<p>The <code title="event-show">show</code> event dispatches when the
-<a href="#concept-notification" title="concept-notification">notification</a> is shown to the user
-— this may be at some time after the notification is created in the
-case of limited display space and a queue.
-
-<p>In the following example, this event is used to guarantee that regardless
-of when the notification is shown, it is displayed for only 15 seconds.
-
-<pre class="example">var notification = new Notification("New Email Received", { icon: "mail.png" })
-notification.onshow = function() { setTimeout(notification.close, 15000) }</pre>
 
 <p>The <code title="event-close">close</code> event dispatches when the
 notification is dismissed by the user. Developers may use this event to
