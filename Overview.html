@@ -107,7 +107,52 @@ an occurrence, such as the delivery of a message.
 <dfn id="concept-notification-origin" title="concept-notification-origin">origin</dfn>.
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> <em>can</em>
-have an associated <dfn id="icon-url">icon URL</dfn> and <dfn id="icon-image">icon image</dfn>.
+have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-image">icon image</dfn>, and
+<dfn id="concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</dfn>.
+
+<hr>
+
+<p>To <dfn id="concept-notification-create" title="concept-notification-create">create a notification</dfn>, given a
+<var title="">title</var> and <var title="">options</var>, run these steps:
+
+<ol>
+ <li><p>Let <var title="">notification</var> be a new
+ <a href="#concept-notification" title="concept-notification">notification</a>.
+
+ <li><p>Set <var title="">notification</var>'s <a href="#title">title</a> to <var title="">title</var>.
+
+ <li><p>Set <var title="">notification</var>'s <a href="#direction">direction</a> to
+ <var title="">options</var>'s <code title="">dir</code>.
+
+ <li><p>If <var title="">options</var>'s <code title="">lang</code> is either a valid
+ BCP 47 language tag or the empty string, set <var title="">notification</var>'s
+ <a href="#language">language</a> to <var title="">options</var>'s <code title="">lang</code>, and set it
+ to the empty string otherwise. <a href="#refsLANG">[LANG]</a>
+
+ <li><p>Set <var title="">notifications</var>'s
+ <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> to the
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
+
+ <li><p>Set <var title="">notification</var>'s <a href="#body">body</a> to
+ <var title="">options</var>'s <code title="">body</code>.
+
+ <li><p>Set <var title="">notification</var>'s <a href="#tag">tag</a> to
+ <var title="">options</var>'s <code title="">tag</code>.
+
+ <li><p>If <var title="">options</var>'s <code title="">icon</code> is present,
+ <a class="external" data-anolis-spec="url" href="https://url.spec.whatwg.org/#concept-url-parser" title="concept-url-parser">parse</a>
+ <code title="">icon</code> using the <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#api-base-url">API base URL</a>
+ specified by the <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>, and if that
+ does not return failure, set <var title="">notification</var>'s <a href="#icon-url">icon URL</a> to the
+ return value. (Otherwise <a href="#icon-url">icon URL</a> is not set.)
+
+ <li><p>Set <var title="">notification</var>'s <a href="#data">data</a> to a
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structured-clone">structured clone</a> of
+ <var title="">options</var>'s <code title="">data</code>. Rethrow any exceptions.
+
+ <li><p>Return <var title="">notification</var>.
+</ol>
 
 
 <h3 id="direction-0"><span class="secno">4.1 </span>Direction</h3>
@@ -405,56 +450,35 @@ question has an
 
 <p>The
 <dfn id="dom-notification" title="dom-Notification"><code>Notification(<var title="">title</var>, <var title="">options</var>)</code></dfn>
-constructor must run these steps:
+constructor, when invoked, must (unless otherwise indicated) run these steps:
 
 <ol>
- <li><p>Let <var title="">notification</var> be a new
- <a href="#concept-notification" title="concept-notification">notification</a> represented by a
- <a href="#notification"><code>Notification</code></a> object.
+ <li><p>Let <var title="">notification</var> be the result of
+ <a href="#concept-notification-create" title="concept-notification-create">creating a notification</a> given
+ <var title="">title</var> and <var title="">options</var>. Rethrow any exceptions.
 
- <li><p>Set <var title="">notification</var>'s <a href="#title">title</a> to
- <var title="">title</var>.
+ <li><p>Let <var title="">n</var> be a new <a href="#notification"><code>Notification</code></a> object associated with
+ <var title="">notification</var>.
 
- <li><p>Set <var title="">notification</var>'s <a href="#direction">direction</a> to
- <var title="">options</var>'s <code title="">dir</code>.
+ <li>
+  <p>Run these substeps <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
 
- <li><p>If <var title="">options</var>'s <code title="">lang</code> is a valid
- BCP 47 language tag, or the empty string, set
- <var title="">notification</var>'s <a href="#language">language</a> to
- <var title="">options</var>'s <code title="">lang</code>, or set it to the empty
- string otherwise. <a href="#refsLANG">[LANG]</a>
+  <ol>
+   <li><p>If <a href="#permission-0">permission</a> for <var title="">notification</var>'s
+   <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is not
+   "<code title="">granted</code>", <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
+   <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
+   <code title="">error</code> on <var title="">n</var>, and terminate these substeps.
 
- <li><p>Set <var title="">notifications</var>'s
- <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> to the
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
+   <li><p>If the notification platform supports icons, the user agent may start
+   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetching</a>
+   <var title="">notification</var>'s <a href="#icon-url">icon URL</a> at this point, if
+   <a href="#icon-url">icon URL</a> is set.
 
- <li><p>Set <var title="">notification</var>'s <a href="#body">body</a> to
- <var title="">options</var>'s <code title="">body</code>.
+   <li><p>Run the <a href="#show-steps">show steps</a> for <var title="">notification</var>.
+  </ol>
 
- <li><p>Set <var title="">notification</var>'s <a href="#tag">tag</a> to
- <var title="">options</var>'s <code title="">tag</code>.
-
- <li><p>If <var title="">options</var>'s <code title="">icon</code> is present,
- <a class="external" data-anolis-spec="url" href="https://url.spec.whatwg.org/#concept-url-parser" title="concept-url-parser">parse</a>
- <code title="">icon</code> using the <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#api-base-url">API base URL</a>
- specified by the <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>, and if that
- does not return failure, set <var title="">notification</var>'s <a href="#icon-url">icon URL</a> to the
- return value. (Otherwise <a href="#icon-url">icon URL</a> is not set.)
-
- <li><p>Set <var title="">notification</var>'s <a href="#data">data</a> to a
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structured-clone">structured clone</a> of
- <var title="">options</var>'s <code title="">data</code>. Rethrow any exceptions.
-
- <li><p>Return <var title="">notification</var>, but continue running these
- steps <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>.
-
- <li><p>If the notification platform supports icons, the user agent may
- start <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetching</a>
- <var title="">notification</var>'s <a href="#icon-url">icon URL</a> at this point, if
- <a href="#icon-url">icon URL</a> is set.
-
- <li><p>Run the <a href="#show-steps">show steps</a> for <var title="">notification</var>.
+ <li><p>Return <var title="">n</var>.
 </ol>
 
 
@@ -625,7 +649,7 @@ dictionary <dfn id="getnotificationoptions">GetNotificationOptions</dfn> {
 };
 
 partial interface <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-registration-interface">ServiceWorkerRegistration</a> {
-  Promise&lt;void&gt; <span title="dom-ServiceWorkerRegistration-showNotification">showNotification</span>(DOMString <var title="">title</var>, optional <a href="#notificationoptions">NotificationOptions</a> <var>options</var>);
+  Promise&lt;void&gt; <a href="#dom-serviceworkerregistration-shownotification" title="dom-ServiceWorkerRegistration-showNotification">showNotification</a>(DOMString <var title="">title</var>, optional <a href="#notificationoptions">NotificationOptions</a> <var>options</var>);
 };
 
 [<a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-constructor" title="concept-event-constructor">Constructor</a>(DOMString <var>type</var>, optional <a href="#serviceworkernotificationeventinit">ServiceWorkerNotificationEventInit</a> <var>eventInitDict</var>),
@@ -645,34 +669,81 @@ when invoked, must run these steps:
 <ol>
  <li><p>Let <var title="">promise</var> be a new promise.
 
- <li><p>Return <var title="">promise</var> and continue running the remaining steps
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>.
+ <li>
+  <p>Run these substeps <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
 
- <li><p>Let <var title="">tag</var> be <var title="">filter</var>'s <code title="">tag</code>.
+  <ol>
+   <li><p>Let <var title="">tag</var> be <var title="">filter</var>'s <code title="">tag</code>.
 
- <li><p>Let <var title="">notifications</var> be a list of all
- <a href="#concept-notification" title="concept-notification">notifications</a> in the
- <a href="#list-of-notifications">list of notifications</a> whose
- <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is the
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> and whose <a href="#tag">tag</a>, if
- <var title="">tag</var> is not the empty string, is <var title="">tag</var>.
- <span class="XXX">Also check for service worker member.</span>
+   <li><p>Let <var title="">notifications</var> be a list of all
+   <a href="#concept-notification" title="concept-notification">notifications</a> in the
+   <a href="#list-of-notifications">list of notifications</a> whose
+   <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is the
+   <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+   <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>, whose
+   <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a> is
+   <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/504">XXX</a>,
+   and whose <a href="#tag">tag</a>, if <var title="">tag</var> is not the empty string, is
+   <var title="">tag</var>.
 
- <li><p>Let <var title="">objects</var> be an empty JavaScript array.
+   <li><p>Let <var title="">objects</var> be an empty JavaScript array.
 
- <li><p>For each <a href="#concept-notification" title="concept-notification">notification</a> in
- <var title="">notifications</var>, in creation order, create a new
- <a href="#notification"><code>Notification</code></a> object representing
- <a href="#concept-notification" title="concept-notification">notification</a> and push that object to
- <var title="">objects</var>.
+   <li><p>For each <a href="#concept-notification" title="concept-notification">notification</a> in
+   <var title="">notifications</var>, in creation order, create a new
+   <a href="#notification"><code>Notification</code></a> object representing
+   <a href="#concept-notification" title="concept-notification">notification</a> and push that object to
+   <var title="">objects</var>.
 
- <li><p>Resolve <var title="">promise</var> with <var title="">objects</var>.
+   <li><p>Resolve <var title="">promise</var> with <var title="">objects</var>.
+  </ol>
+
+ <li><p>Return <var title="">promise</var>.
 </ol>
 
 <p class="note">This method returns zero or more new <a href="#notification"><code>Notification</code></a> objects which
 might represent the same underlying <a href="#concept-notification" title="concept-notification">notification</a>
 of <a href="#notification"><code>Notification</code></a> objects already in existence.
+
+<p>The
+<dfn id="dom-serviceworkerregistration-shownotification" title="dom-ServiceWorkerRegistration-showNotification"><code>showNotification(<var title="">title</var>, <var title="">options</var>)</code></dfn>
+method, when invoked, must return these steps:
+
+<ol>
+ <li><p>Let <var title="">promise</var> be a new promise.
+
+ <li><p>Let <var title="">notification</var> be the result of
+ <a href="#concept-notification-create" title="concept-notification-create">creating a notification</a> given
+ <var title="">title</var> and <var title="">options</var>. Rethrow any exceptions.
+
+ <li><p>If <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#context-object">context object</a> does not have an associated
+ <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#dfn-active-worker">active worker</a>, reject <var title="">promise</var> with a
+ <code title="">TypeError</code> exception.
+
+ <li><p>Set <var title="">notification</var>'s
+ <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>
+ to the <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#context-object">context object</a>.
+
+ <li>
+  <p>Run these substeps <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
+
+  <ol>
+   <li><p>If <a href="#permission-0">permission</a> for <var title="">notification</var>'s
+   <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is not
+   "<code title="">granted</code>", reject <var title="">promise</var> with a
+   <code title="">TypeError</code> exception, and terminate these substeps.
+
+   <li><p>Otherwise, resolve <var title="">promise</var> with undefined.
+
+   <li><p>If the notification platform supports icons, the user agent may start
+   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetching</a>
+   <var title="">notification</var>'s <a href="#icon-url">icon URL</a> at this point, if
+   <a href="#icon-url">icon URL</a> is set.
+
+   <li><p>Run the <a href="#show-steps">show steps</a> for <var title="">notification</var>.
+  </ol>
+
+ <li><p>Return <var title="">promise</var>.
+</ol>
 
 
 

@@ -78,7 +78,52 @@ an occurrence, such as the delivery of a message.
 <dfn title=concept-notification-origin>origin</dfn>.
 
 <p>Each <span title=concept-notification>notification</span> <em>can</em>
-have an associated <dfn>icon URL</dfn> and <dfn>icon image</dfn>.
+have an associated <dfn>icon URL</dfn>, <dfn>icon image</dfn>, and
+<dfn title=concept-notification-service-worker-registration>service worker registration</dfn>.
+
+<hr>
+
+<p>To <dfn title=concept-notification-create>create a notification</dfn>, given a
+<var title>title</var> and <var title>options</var>, run these steps:
+
+<ol>
+ <li><p>Let <var title>notification</var> be a new
+ <span title=concept-notification>notification</span>.
+
+ <li><p>Set <var title>notification</var>'s <span>title</span> to <var title>title</var>.
+
+ <li><p>Set <var title>notification</var>'s <span>direction</span> to
+ <var title>options</var>'s <code title>dir</code>.
+
+ <li><p>If <var title>options</var>'s <code title>lang</code> is either a valid
+ BCP 47 language tag or the empty string, set <var title>notification</var>'s
+ <span>language</span> to <var title>options</var>'s <code title>lang</code>, and set it
+ to the empty string otherwise. <span data-anolis-ref>LANG</span>
+
+ <li><p>Set <var title>notifications</var>'s
+ <span title=concept-notification-origin>origin</span> to the
+ <span data-anolis-spec=html>entry settings object</span>'s
+ <span data-anolis-spec=html>origin</span>.
+
+ <li><p>Set <var title>notification</var>'s <span>body</span> to
+ <var title>options</var>'s <code title>body</code>.
+
+ <li><p>Set <var title>notification</var>'s <span>tag</span> to
+ <var title>options</var>'s <code title>tag</code>.
+
+ <li><p>If <var title>options</var>'s <code title>icon</code> is present,
+ <span title=concept-url-parser data-anolis-spec=url>parse</span>
+ <code title>icon</code> using the <span data-anolis-spec=html>API base URL</span>
+ specified by the <span data-anolis-spec=html>entry settings object</span>, and if that
+ does not return failure, set <var title>notification</var>'s <span>icon URL</span> to the
+ return value. (Otherwise <span>icon URL</span> is not set.)
+
+ <li><p>Set <var title>notification</var>'s <span>data</span> to a
+ <span data-anolis-spec=html>structured clone</span> of
+ <var title>options</var>'s <code title>data</code>. Rethrow any exceptions.
+
+ <li><p>Return <var title>notification</var>.
+</ol>
 
 
 <h3>Direction</h3>
@@ -376,56 +421,35 @@ question has an
 
 <p>The
 <dfn title=dom-Notification><code>Notification(<var title>title</var>, <var title>options</var>)</code></dfn>
-constructor must run these steps:
+constructor, when invoked, must (unless otherwise indicated) run these steps:
 
 <ol>
- <li><p>Let <var title>notification</var> be a new
- <span title=concept-notification>notification</span> represented by a
- <code>Notification</code> object.
+ <li><p>Let <var title>notification</var> be the result of
+ <span title="concept-notification-create">creating a notification</span> given
+ <var title>title</var> and <var title>options</var>. Rethrow any exceptions.
 
- <li><p>Set <var title>notification</var>'s <span>title</span> to
- <var title>title</var>.
+ <li><p>Let <var title>n</var> be a new <code>Notification</code> object associated with
+ <var title>notification</var>.
 
- <li><p>Set <var title>notification</var>'s <span>direction</span> to
- <var title>options</var>'s <code title>dir</code>.
+ <li>
+  <p>Run these substeps <span data-anolis-spec=html>in parallel</span>:
 
- <li><p>If <var title>options</var>'s <code title>lang</code> is a valid
- BCP 47 language tag, or the empty string, set
- <var title>notification</var>'s <span>language</span> to
- <var title>options</var>'s <code title>lang</code>, or set it to the empty
- string otherwise. <span data-anolis-ref>LANG</span>
+  <ol>
+   <li><p>If <span>permission</span> for <var title>notification</var>'s
+   <span title=concept-notification-origin>origin</span> is not
+   "<code title>granted</code>", <span data-anolis-spec=html>queue a task</span> to
+   <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
+   <code title>error</code> on <var title>n</var>, and terminate these substeps.
 
- <li><p>Set <var title>notifications</var>'s
- <span title=concept-notification-origin>origin</span> to the
- <span data-anolis-spec=html>entry settings object</span>'s
- <span data-anolis-spec=html>origin</span>.
+   <li><p>If the notification platform supports icons, the user agent may start
+   <span data-anolis-spec=fetch title=concept-fetch>fetching</span>
+   <var title>notification</var>'s <span>icon URL</span> at this point, if
+   <span>icon URL</span> is set.
 
- <li><p>Set <var title>notification</var>'s <span>body</span> to
- <var title>options</var>'s <code title>body</code>.
+   <li><p>Run the <span>show steps</span> for <var title>notification</var>.
+  </ol>
 
- <li><p>Set <var title>notification</var>'s <span>tag</span> to
- <var title>options</var>'s <code title>tag</code>.
-
- <li><p>If <var title>options</var>'s <code title>icon</code> is present,
- <span title=concept-url-parser data-anolis-spec=url>parse</span>
- <code title>icon</code> using the <span data-anolis-spec=html>API base URL</span>
- specified by the <span data-anolis-spec=html>entry settings object</span>, and if that
- does not return failure, set <var title>notification</var>'s <span>icon URL</span> to the
- return value. (Otherwise <span>icon URL</span> is not set.)
-
- <li><p>Set <var title>notification</var>'s <span>data</span> to a
- <span data-anolis-spec=html>structured clone</span> of
- <var title>options</var>'s <code title>data</code>. Rethrow any exceptions.
-
- <li><p>Return <var title>notification</var>, but continue running these
- steps <span data-anolis-spec=html>in parallel</span>.
-
- <li><p>If the notification platform supports icons, the user agent may
- start <span data-anolis-spec=fetch title=concept-fetch>fetching</span>
- <var title>notification</var>'s <span>icon URL</span> at this point, if
- <span>icon URL</span> is set.
-
- <li><p>Run the <span>show steps</span> for <var title>notification</var>.
+ <li><p>Return <var title>n</var>.
 </ol>
 
 
@@ -616,34 +640,81 @@ when invoked, must run these steps:
 <ol>
  <li><p>Let <var title>promise</var> be a new promise.
 
- <li><p>Return <var title>promise</var> and continue running the remaining steps
- <span data-anolis-spec=html>in parallel</span>.
+ <li>
+  <p>Run these substeps <span data-anolis-spec=html>in parallel</span>:
 
- <li><p>Let <var title>tag</var> be <var title>filter</var>'s <code title>tag</code>.
+  <ol>
+   <li><p>Let <var title>tag</var> be <var title>filter</var>'s <code title>tag</code>.
 
- <li><p>Let <var title>notifications</var> be a list of all
- <span title=concept-notification>notifications</span> in the
- <span>list of notifications</span> whose
- <span title=concept-notification-origin>origin</span> is the
- <span data-anolis-spec=html>entry settings object</span>'s
- <span data-anolis-spec=html>origin</span> and whose <span>tag</span>, if
- <var title>tag</var> is not the empty string, is <var title>tag</var>.
- <span class=XXX>Also check for service worker member.</span>
+   <li><p>Let <var title>notifications</var> be a list of all
+   <span title=concept-notification>notifications</span> in the
+   <span>list of notifications</span> whose
+   <span title=concept-notification-origin>origin</span> is the
+   <span data-anolis-spec=html>entry settings object</span>'s
+   <span data-anolis-spec=html>origin</span>, whose
+   <span title=concept-notification-service-worker-registration>service worker registration</span> is
+   <a href="https://github.com/slightlyoff/ServiceWorker/issues/504" class=XXX>XXX</a>,
+   and whose <span>tag</span>, if <var title>tag</var> is not the empty string, is
+   <var title>tag</var>.
 
- <li><p>Let <var title>objects</var> be an empty JavaScript array.
+   <li><p>Let <var title>objects</var> be an empty JavaScript array.
 
- <li><p>For each <span title=concept-notification>notification</span> in
- <var title>notifications</var>, in creation order, create a new
- <code>Notification</code> object representing
- <span title=concept-notification>notification</span> and push that object to
- <var title>objects</var>.
+   <li><p>For each <span title=concept-notification>notification</span> in
+   <var title>notifications</var>, in creation order, create a new
+   <code>Notification</code> object representing
+   <span title=concept-notification>notification</span> and push that object to
+   <var title>objects</var>.
 
- <li><p>Resolve <var title>promise</var> with <var title>objects</var>.
+   <li><p>Resolve <var title>promise</var> with <var title>objects</var>.
+  </ol>
+
+ <li><p>Return <var title>promise</var>.
 </ol>
 
 <p class=note>This method returns zero or more new <code>Notification</code> objects which
 might represent the same underlying <span title=concept-notification>notification</span>
 of <code>Notification</code> objects already in existence.
+
+<p>The
+<dfn title=dom-ServiceWorkerRegistration-showNotification><code>showNotification(<var title>title</var>, <var title>options</var>)</code></dfn>
+method, when invoked, must return these steps:
+
+<ol>
+ <li><p>Let <var title>promise</var> be a new promise.
+
+ <li><p>Let <var title>notification</var> be the result of
+ <span title="concept-notification-create">creating a notification</span> given
+ <var title>title</var> and <var title>options</var>. Rethrow any exceptions.
+
+ <li><p>If <span data-anolis-spec=dom>context object</span> does not have an associated
+ <span data-anolis-spec=sw>active worker</span>, reject <var title>promise</var> with a
+ <code title>TypeError</code> exception.
+
+ <li><p>Set <var title>notification</var>'s
+ <span title=concept-notification-service-worker-registration>service worker registration</span>
+ to the <span data-anolis-spec=dom>context object</span>.
+
+ <li>
+  <p>Run these substeps <span data-anolis-spec=html>in parallel</span>:
+
+  <ol>
+   <li><p>If <span>permission</span> for <var title>notification</var>'s
+   <span title=concept-notification-origin>origin</span> is not
+   "<code title>granted</code>", reject <var title>promise</var> with a
+   <code title>TypeError</code> exception, and terminate these substeps.
+
+   <li><p>Otherwise, resolve <var title>promise</var> with undefined.
+
+   <li><p>If the notification platform supports icons, the user agent may start
+   <span data-anolis-spec=fetch title=concept-fetch>fetching</span>
+   <var title>notification</var>'s <span>icon URL</span> at this point, if
+   <span>icon URL</span> is set.
+
+   <li><p>Run the <span>show steps</span> for <var title>notification</var>.
+  </ol>
+
+ <li><p>Return <var title>promise</var>.
+</ol>
 
 
 
