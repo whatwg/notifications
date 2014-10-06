@@ -81,6 +81,16 @@ an occurrence, such as the delivery of a message.
 have an associated <dfn>icon URL</dfn>, <dfn>icon image</dfn>, and
 <dfn title=concept-notification-service-worker-registration>service worker registration</dfn>.
 
+<p class=warning>A <span title=concept-notification>notification</span> with an associated
+<span title=concept-notification-service-worker-registration>service worker registration</span>
+and HTTP cookies have similar implications with respect to privacy (e.g. they can be used
+to revive cookies). Implementors are therefore encouraged to expose these in a manner
+related to cookies, allowing them to be expunged together with cookies and other
+origin-specific data.
+
+<!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
+
+
 <hr>
 
 <p>To <dfn title=concept-notification-create>create a notification</dfn>, given a
@@ -192,17 +202,7 @@ for the application to ask for <span title=concept-permission>permission</span>.
 
 <h3>Notification list</h3>
 
-<p>The user agent must keep a <dfn>list of notifications</dfn>. User agents are
-recommended to persist the lifetime of these lists beyond that of the
-<code>Notification</code> object through which the <span title=concept-notification>notification</span> was created.
-
-<p class=warning>The <span>list of notifications</span> and cookies have similar
-implications with respect to privacy (e.g. these lists can be used to revive cookies).
-Implementors are therefore encouraged to expose these lists in a manner related to HTTP
-cookies, allowing them to be expunged together with cookies and other origin-specific
-data.
-
-<!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
+<p>The user agent must keep a <dfn>list of notifications</dfn>.
 
 
 <h3>Showing a notification</h3>
