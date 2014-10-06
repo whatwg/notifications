@@ -559,10 +559,9 @@ return a <span data-anolis-spec=html>structured clone</span> of
 <span title=concept-notification>notification</span>'s <span>data</span>.
 
 
+<h3>Examples</h3>
 
-<h2>Examples</h2>
-
-<h3>Using events</h3>
+<h4>Using events</h4>
 
 <p><code>Notification</code> objects dispatch events during their lifecycle,
 which developers can use to generate desired behaviors.
@@ -578,7 +577,7 @@ acknowledged, the application suppresses other forms of reminders.
 notification.onclose = function(event) { cancelReminders(event) }</pre>
 
 
-<h3 id="tags-example">Using the <code title>tag</code> member for multiple instances</h3>
+<h4 id="tags-example">Using the <code title>tag</code> member for multiple instances</h4>
 
 <p>Web applications frequently operate concurrently in multiple instances, such as when a
 	user opens a mail application in multiple browser tabs.  Since the desktop is a shared
@@ -603,7 +602,7 @@ new Notification("New mail from John Doe",   |
 <p>
 	The result of this situation, if the user agent follows the algorithms here, is a <strong>single</strong> notification "New mail from John Doe".
 
-<h3>Using the <code title>tag</code> member for a single instance</h3>
+<h4>Using the <code title>tag</code> member for a single instance</h4>
 
 <p>The <code title>tag</code> member can also be used by a single instance of an application to keep its
 	notifications as current as possible as state changes.

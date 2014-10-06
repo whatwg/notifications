@@ -49,12 +49,12 @@
    <li><a href="#garbage-collection"><span class="secno">5.1 </span>Garbage collection</a></li>
    <li><a href="#constructors"><span class="secno">5.2 </span>Constructors</a></li>
    <li><a href="#static-members"><span class="secno">5.3 </span>Static members</a></li>
-   <li><a href="#object-members"><span class="secno">5.4 </span>Object members</a></ol></li>
- <li><a href="#examples"><span class="secno">6 </span>Examples</a>
-  <ol>
-   <li><a href="#using-events"><span class="secno">6.1 </span>Using events</a></li>
-   <li><a href="#tags-example"><span class="secno">6.2 </span>Using the <code title="">tag</code> member for multiple instances</a></li>
-   <li><a href="#using-the-tag-member-for-a-single-instance"><span class="secno">6.3 </span>Using the <code title="">tag</code> member for a single instance</a></ol></li>
+   <li><a href="#object-members"><span class="secno">5.4 </span>Object members</a></li>
+   <li><a href="#examples"><span class="secno">5.5 </span>Examples</a>
+    <ol>
+     <li><a href="#using-events"><span class="secno">5.5.1 </span>Using events</a></li>
+     <li><a href="#tags-example"><span class="secno">5.5.2 </span>Using the <code title="">tag</code> member for multiple instances</a></li>
+     <li><a href="#using-the-tag-member-for-a-single-instance"><span class="secno">5.5.3 </span>Using the <code title="">tag</code> member for a single instance</a></ol></ol></li>
  <li><a class="no-num" href="#references">References</a></li>
  <li><a class="no-num" href="#acknowledgments">Acknowledgments</a></ol>
 <!--end-toc-->
@@ -587,10 +587,9 @@ return a <a class="external" data-anolis-spec="html" href="https://html.spec.wha
 <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#data">data</a>.
 
 
+<h3 id="examples"><span class="secno">5.5 </span>Examples</h3>
 
-<h2 id="examples"><span class="secno">6 </span>Examples</h2>
-
-<h3 id="using-events"><span class="secno">6.1 </span>Using events</h3>
+<h4 id="using-events"><span class="secno">5.5.1 </span>Using events</h4>
 
 <p><a href="#notification"><code>Notification</code></a> objects dispatch events during their lifecycle,
 which developers can use to generate desired behaviors.
@@ -606,7 +605,7 @@ acknowledged, the application suppresses other forms of reminders.
 notification.onclose = function(event) { cancelReminders(event) }</pre>
 
 
-<h3 id="tags-example"><span class="secno">6.2 </span>Using the <code title="">tag</code> member for multiple instances</h3>
+<h4 id="tags-example"><span class="secno">5.5.2 </span>Using the <code title="">tag</code> member for multiple instances</h4>
 
 <p>Web applications frequently operate concurrently in multiple instances, such as when a
 	user opens a mail application in multiple browser tabs.  Since the desktop is a shared
@@ -631,7 +630,7 @@ new Notification("New mail from John Doe",   |
 <p>
 	The result of this situation, if the user agent follows the algorithms here, is a <strong>single</strong> notification "New mail from John Doe".
 
-<h3 id="using-the-tag-member-for-a-single-instance"><span class="secno">6.3 </span>Using the <code title="">tag</code> member for a single instance</h3>
+<h4 id="using-the-tag-member-for-a-single-instance"><span class="secno">5.5.3 </span>Using the <code title="">tag</code> member for a single instance</h4>
 
 <p>The <code title="">tag</code> member can also be used by a single instance of an application to keep its
 	notifications as current as possible as state changes.
