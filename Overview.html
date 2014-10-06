@@ -194,7 +194,8 @@ unknown. <a href="#refsLANG">[LANG]</a>
 
 <p><a href="#concept-notification" title="concept-notification">Notifications</a> can only be
 displayed if the user (or user agent on behalf of the user) has granted
-<dfn id="permission-0">permission</dfn>. The <a href="#permission-0">permission</a> to display
+<dfn id="concept-permission" title="concept-permission">permission</dfn>. The
+<a href="#concept-permission" title="concept-permission">permission</a> to display
 <a href="#concept-notification" title="concept-notification">notifications</a> for a given
 <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> can be one of three strings:
 
@@ -215,7 +216,7 @@ displayed if the user (or user agent on behalf of the user) has granted
 <p class="note">There is no equivalent to "<code title="">default</code>"
 meaning "<code title="">granted</code>". In that case
 "<code title="">granted</code>" is simply returned as there would be no reason
-for the application to ask for <a href="#permission-0">permission</a>.
+for the application to ask for <a href="#concept-permission" title="concept-permission">permission</a>.
 
 
 <h3 id="notification-list"><span class="secno">4.4 </span>Notification list</h3>
@@ -481,7 +482,7 @@ constructor, when invoked, must (unless otherwise indicated) run these steps:
   <p>Run these substeps <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
 
   <ol>
-   <li><p>If <a href="#permission-0">permission</a> for <var title="">notification</var>'s
+   <li><p>If <a href="#concept-permission" title="concept-permission">permission</a> for <var title="">notification</var>'s
    <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is not
    "<code title="">granted</code>", <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
    <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
@@ -502,7 +503,7 @@ constructor, when invoked, must (unless otherwise indicated) run these steps:
 <h3 id="static-members"><span class="secno">5.3 </span>Static members</h3>
 
 <p>The static <dfn id="dom-notification-permission" title="dom-Notification-permission"><code>permission</code></dfn>
-attribute's getter must return <a href="#permission-0">permission</a>.
+attribute's getter must return <a href="#concept-permission" title="concept-permission">permission</a>.
 
 <p>The static
 <dfn id="dom-notification-requestpermission" title="dom-Notification-requestPermission"><code>requestPermission(<var title="">callback</var>)</code></dfn>
@@ -512,7 +513,7 @@ method, when invoked, must run these steps:
  <li><p>Return, but continue running these steps
  <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>.
 
- <li><p>Let <var title="">permission</var> be <a href="#permission-0">permission</a>.
+ <li><p>Let <var title="">permission</var> be <a href="#concept-permission" title="concept-permission">permission</a>.
 
  <li><p>If <var title="">permission</var> is "<code title="">default</code>", ask the user
  whether showing notifications for the
@@ -522,7 +523,7 @@ method, when invoked, must run these steps:
  "<code title="">denied</code>" otherwise.
 
  <li><p><a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">Queue a task</a> to set
- <a href="#permission-0">permission</a> to <var title="">permission</var> and invoke
+ <a href="#concept-permission" title="concept-permission">permission</a> to <var title="">permission</var> and invoke
  <var title="">callback</var> with <var title="">permission</var> as single
  argument if <var title="">callback</var> is given.
 </ol>
@@ -746,7 +747,7 @@ method, when invoked, must return these steps:
   <p>Run these substeps <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
 
   <ol>
-   <li><p>If <a href="#permission-0">permission</a> for <var title="">notification</var>'s
+   <li><p>If <a href="#concept-permission" title="concept-permission">permission</a> for <var title="">notification</var>'s
    <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is not
    "<code title="">granted</code>", reject <var title="">promise</var> with a
    <code title="">TypeError</code> exception, and terminate these substeps.

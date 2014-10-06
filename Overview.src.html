@@ -165,7 +165,8 @@ unknown. <span data-anolis-ref>LANG</span>
 
 <p><span title=concept-notification>Notifications</span> can only be
 displayed if the user (or user agent on behalf of the user) has granted
-<dfn>permission</dfn>. The <span>permission</span> to display
+<dfn title=concept-permission>permission</dfn>. The
+<span title=concept-permission>permission</span> to display
 <span title=concept-notification>notifications</span> for a given
 <span data-anolis-spec=html>origin</span> can be one of three strings:
 
@@ -186,7 +187,7 @@ displayed if the user (or user agent on behalf of the user) has granted
 <p class=note>There is no equivalent to "<code title>default</code>"
 meaning "<code title>granted</code>". In that case
 "<code title>granted</code>" is simply returned as there would be no reason
-for the application to ask for <span>permission</span>.
+for the application to ask for <span title=concept-permission>permission</span>.
 
 
 <h3>Notification list</h3>
@@ -452,7 +453,7 @@ constructor, when invoked, must (unless otherwise indicated) run these steps:
   <p>Run these substeps <span data-anolis-spec=html>in parallel</span>:
 
   <ol>
-   <li><p>If <span>permission</span> for <var title>notification</var>'s
+   <li><p>If <span title=concept-permission>permission</span> for <var title>notification</var>'s
    <span title=concept-notification-origin>origin</span> is not
    "<code title>granted</code>", <span data-anolis-spec=html>queue a task</span> to
    <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
@@ -473,7 +474,7 @@ constructor, when invoked, must (unless otherwise indicated) run these steps:
 <h3>Static members</h3>
 
 <p>The static <dfn title=dom-Notification-permission><code>permission</code></dfn>
-attribute's getter must return <span>permission</span>.
+attribute's getter must return <span title=concept-permission>permission</span>.
 
 <p>The static
 <dfn title=dom-Notification-requestPermission><code>requestPermission(<var title>callback</var>)</code></dfn>
@@ -483,7 +484,7 @@ method, when invoked, must run these steps:
  <li><p>Return, but continue running these steps
  <span data-anolis-spec=html>in parallel</span>.
 
- <li><p>Let <var title>permission</var> be <span>permission</span>.
+ <li><p>Let <var title>permission</var> be <span title=concept-permission>permission</span>.
 
  <li><p>If <var title>permission</var> is "<code title>default</code>", ask the user
  whether showing notifications for the
@@ -493,7 +494,7 @@ method, when invoked, must run these steps:
  "<code title>denied</code>" otherwise.
 
  <li><p><span data-anolis-spec=html>Queue a task</span> to set
- <span>permission</span> to <var title>permission</var> and invoke
+ <span title=concept-permission>permission</span> to <var title>permission</var> and invoke
  <var title>callback</var> with <var title>permission</var> as single
  argument if <var title>callback</var> is given.
 </ol>
@@ -717,7 +718,7 @@ method, when invoked, must return these steps:
   <p>Run these substeps <span data-anolis-spec=html>in parallel</span>:
 
   <ol>
-   <li><p>If <span>permission</span> for <var title>notification</var>'s
+   <li><p>If <span title=concept-permission>permission</span> for <var title>notification</var>'s
    <span title=concept-notification-origin>origin</span> is not
    "<code title>granted</code>", reject <var title>promise</var> with a
    <code title>TypeError</code> exception, and terminate these substeps.
