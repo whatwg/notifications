@@ -321,8 +321,6 @@ are:
 interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span> {
   static readonly attribute <span>NotificationPermission</span> <span title=dom-Notification-permission>permission</span>;
   [Exposed=Window] static void <span title=dom-Notification-requestPermission>requestPermission</span>(optional <span>NotificationPermissionCallback</span> <var title>callback</var>);
-<!--
-  static Promise&lt;sequence&lt;<span>Notification</span>>> <span title=dom-Notification-get>get</span>(optional <span>GetNotificationOptions</span> <var title>filter</var>);-->
 
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onclick>onclick</span>;
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onerror>onerror</span>;
@@ -346,10 +344,6 @@ dictionary <dfn>NotificationOptions</dfn> {
   DOMString tag = "";
   DOMString icon;
   any data = null;
-};
-
-dictionary <dfn>GetNotificationOptions</dfn> {
-  DOMString tag = "";
 };
 
 enum <dfn>NotificationPermission</dfn> {
@@ -467,42 +461,6 @@ instance thus far where asking the user upfront makes sense. Specifications
 for other APIs should not use this pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">many more suitable alternatives</a>.
 
-<!--
-<p>The static
-<dfn title=dom-Notification-get><code>get(<var title>filter</var>)</code></dfn> method
-must run these steps:
-
-<ol>
- <li><p>Let <var title>promise</var> be a new promise.
-
- <li><p>Return <var title>promise</var> and continue running the remaining steps
- asynchronously.
-
- <li><p>Let <var title>tag</var> be <var title>filter</var>'s <code title>tag</code>.
-
- <li><p>Let <var title>notifications</var> be a list of all
- <span title=concept-notification>notifications</span> in the
- <span>list of notifications</span> whose
- <span title=concept-notification-origin>origin</span> is the
- <span data-anolis-spec=html>entry settings object</span>'s
- <span data-anolis-spec=html>origin</span> and whose <span>tag</span>, if
- <var title>tag</var> is not the empty string, is <var title>tag</var>.
-
- <li><p>Let <var title>objects</var> be an empty JavaScript array.
-
- <li><p>For each <span title=concept-notification>notification</span> in
- <var title>notifications</var>, in creation order, create a new
- <code>Notification</code> object representing
- <span title=concept-notification>notification</span> and push that object to
- <var title>objects</var>.
-
- <li><p>Resolve <var title>promise</var> with <var title>objects</var>.
-</ol>
-
-<p class=note>This method returns zero or more new <code>Notification</code> objects which
-might represent the same underlying <span title=concept-notification>notification</span>
-of <code>Notification</code> objects already in existence.
--->
 
 
 <h3>Object members</h3>
@@ -623,6 +581,69 @@ new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });
 	position in the queue.  Platforms where the newest notifications are shown first,
 	a similar result could be achieved using the
 	<code title=dom-Notification-close>close()</code> method.
+
+
+
+<h2>Service worker API</h2>
+
+<pre class=idl>partial interface <span>Notification</span> {
+  [Exposed=ServiceWorker] static Promise&lt;sequence&lt;<span>Notification</span>>> <span title=dom-Notification-get>get</span>(optional <span>GetNotificationOptions</span> <var title>filter</var>);
+};
+
+dictionary <dfn>GetNotificationOptions</dfn> {
+  DOMString tag = "";
+};
+
+partial interface <span data-anolis-spec=sw>ServiceWorkerRegistration</span> {
+  Promise&lt;void> <span title=dom-ServiceWorkerRegistration-showNotification>showNotification</span>(DOMString <var title>title</var>, optional <span>NotificationOptions</span> <var>options</var>);
+};
+
+[<span data-anolis-spec=dom title=concept-event-constructor>Constructor</span>(DOMString <var>type</var>, optional <span>ServiceWorkerNotificationEventInit</span> <var>eventInitDict</var>),
+ Exposed=ServiceWorker]
+interface <dfn>ServiceWorkerNotificationEvent</dfn> : <span data-anolis-spec=dom>Event</span> {
+  readonly attribute <span>Notification</span> <span title=dom-ServiceWorkerNotificationEvent-notification>notification</span>;
+};
+
+dictionary <dfn>ServiceWorkerNotificationEventInit</dfn> : <span data-anolis-spec=dom>EventInit</span> {
+  required <span>Notification</span> notification;
+};</pre>
+
+<p>The static
+<dfn title=dom-Notification-get><code>get(<var title>filter</var>)</code></dfn> method,
+when invoked, must run these steps:
+
+<ol>
+ <li><p>Let <var title>promise</var> be a new promise.
+
+ <li><p>Return <var title>promise</var> and continue running the remaining steps
+ asynchronously.
+ <!-- XXX use in parallel -->
+
+ <li><p>Let <var title>tag</var> be <var title>filter</var>'s <code title>tag</code>.
+
+ <li><p>Let <var title>notifications</var> be a list of all
+ <span title=concept-notification>notifications</span> in the
+ <span>list of notifications</span> whose
+ <span title=concept-notification-origin>origin</span> is the
+ <span data-anolis-spec=html>entry settings object</span>'s
+ <span data-anolis-spec=html>origin</span> and whose <span>tag</span>, if
+ <var title>tag</var> is not the empty string, is <var title>tag</var>.
+ <span class=XXX>Also check for service worker member.</span>
+
+ <li><p>Let <var title>objects</var> be an empty JavaScript array.
+
+ <li><p>For each <span title=concept-notification>notification</span> in
+ <var title>notifications</var>, in creation order, create a new
+ <code>Notification</code> object representing
+ <span title=concept-notification>notification</span> and push that object to
+ <var title>objects</var>.
+
+ <li><p>Resolve <var title>promise</var> with <var title>objects</var>.
+</ol>
+
+<p class=note>This method returns zero or more new <code>Notification</code> objects which
+might represent the same underlying <span title=concept-notification>notification</span>
+of <code>Notification</code> objects already in existence.
 
 
 

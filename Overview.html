@@ -55,6 +55,7 @@
      <li><a href="#using-events"><span class="secno">5.5.1 </span>Using events</a></li>
      <li><a href="#tags-example"><span class="secno">5.5.2 </span>Using the <code title="">tag</code> member for multiple instances</a></li>
      <li><a href="#using-the-tag-member-for-a-single-instance"><span class="secno">5.5.3 </span>Using the <code title="">tag</code> member for a single instance</a></ol></ol></li>
+ <li><a href="#service-worker-api"><span class="secno">6 </span>Service worker API</a></li>
  <li><a class="no-num" href="#references">References</a></li>
  <li><a class="no-num" href="#acknowledgments">Acknowledgments</a></ol>
 <!--end-toc-->
@@ -349,8 +350,6 @@ are:
 interface <dfn id="notification">Notification</dfn> : <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
   static readonly attribute <a href="#notificationpermission">NotificationPermission</a> <a href="#dom-notification-permission" title="dom-Notification-permission">permission</a>;
   [Exposed=Window] static void <a href="#dom-notification-requestpermission" title="dom-Notification-requestPermission">requestPermission</a>(optional <a href="#notificationpermissioncallback">NotificationPermissionCallback</a> <var title="">callback</var>);
-<!--
-  static Promise&lt;sequence&lt;<span>Notification</span>>> <span title=dom-Notification-get>get</span>(optional <span>GetNotificationOptions</span> <var title>filter</var>);-->
 
   attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclick" title="handler-onclick">onclick</a>;
   attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onerror" title="handler-onerror">onerror</a>;
@@ -374,10 +373,6 @@ dictionary <dfn id="notificationoptions">NotificationOptions</dfn> {
   DOMString tag = "";
   DOMString icon;
   any data = null;
-};
-
-dictionary <dfn id="getnotificationoptions">GetNotificationOptions</dfn> {
-  DOMString tag = "";
 };
 
 enum <dfn id="notificationpermission">NotificationPermission</dfn> {
@@ -495,42 +490,6 @@ instance thus far where asking the user upfront makes sense. Specifications
 for other APIs should not use this pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">many more suitable alternatives</a>.
 
-<!--
-<p>The static
-<dfn title=dom-Notification-get><code>get(<var title>filter</var>)</code></dfn> method
-must run these steps:
-
-<ol>
- <li><p>Let <var title>promise</var> be a new promise.
-
- <li><p>Return <var title>promise</var> and continue running the remaining steps
- asynchronously.
-
- <li><p>Let <var title>tag</var> be <var title>filter</var>'s <code title>tag</code>.
-
- <li><p>Let <var title>notifications</var> be a list of all
- <span title=concept-notification>notifications</span> in the
- <span>list of notifications</span> whose
- <span title=concept-notification-origin>origin</span> is the
- <span data-anolis-spec=html>entry settings object</span>'s
- <span data-anolis-spec=html>origin</span> and whose <span>tag</span>, if
- <var title>tag</var> is not the empty string, is <var title>tag</var>.
-
- <li><p>Let <var title>objects</var> be an empty JavaScript array.
-
- <li><p>For each <span title=concept-notification>notification</span> in
- <var title>notifications</var>, in creation order, create a new
- <code>Notification</code> object representing
- <span title=concept-notification>notification</span> and push that object to
- <var title>objects</var>.
-
- <li><p>Resolve <var title>promise</var> with <var title>objects</var>.
-</ol>
-
-<p class=note>This method returns zero or more new <code>Notification</code> objects which
-might represent the same underlying <span title=concept-notification>notification</span>
-of <code>Notification</code> objects already in existence.
--->
 
 
 <h3 id="object-members"><span class="secno">5.4 </span>Object members</h3>
@@ -651,6 +610,69 @@ new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });
 	position in the queue.  Platforms where the newest notifications are shown first,
 	a similar result could be achieved using the
 	<a href="#dom-notification-close"><code title="dom-Notification-close">close()</code></a> method.
+
+
+
+<h2 id="service-worker-api"><span class="secno">6 </span>Service worker API</h2>
+
+<pre class="idl">partial interface <a href="#notification">Notification</a> {
+  [Exposed=ServiceWorker] static Promise&lt;sequence&lt;<a href="#notification">Notification</a>&gt;&gt; <a href="#dom-notification-get" title="dom-Notification-get">get</a>(optional <a href="#getnotificationoptions">GetNotificationOptions</a> <var title="">filter</var>);
+};
+
+dictionary <dfn id="getnotificationoptions">GetNotificationOptions</dfn> {
+  DOMString tag = "";
+};
+
+partial interface <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-registration-interface">ServiceWorkerRegistration</a> {
+  Promise&lt;void&gt; <span title="dom-ServiceWorkerRegistration-showNotification">showNotification</span>(DOMString <var title="">title</var>, optional <a href="#notificationoptions">NotificationOptions</a> <var>options</var>);
+};
+
+[<a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-constructor" title="concept-event-constructor">Constructor</a>(DOMString <var>type</var>, optional <a href="#serviceworkernotificationeventinit">ServiceWorkerNotificationEventInit</a> <var>eventInitDict</var>),
+ Exposed=ServiceWorker]
+interface <dfn id="serviceworkernotificationevent">ServiceWorkerNotificationEvent</dfn> : <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#event">Event</a> {
+  readonly attribute <a href="#notification">Notification</a> <span title="dom-ServiceWorkerNotificationEvent-notification">notification</span>;
+};
+
+dictionary <dfn id="serviceworkernotificationeventinit">ServiceWorkerNotificationEventInit</dfn> : <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#eventinit">EventInit</a> {
+  required <a href="#notification">Notification</a> notification;
+};</pre>
+
+<p>The static
+<dfn id="dom-notification-get" title="dom-Notification-get"><code>get(<var title="">filter</var>)</code></dfn> method,
+when invoked, must run these steps:
+
+<ol>
+ <li><p>Let <var title="">promise</var> be a new promise.
+
+ <li><p>Return <var title="">promise</var> and continue running the remaining steps
+ asynchronously.
+ <!-- XXX use in parallel -->
+
+ <li><p>Let <var title="">tag</var> be <var title="">filter</var>'s <code title="">tag</code>.
+
+ <li><p>Let <var title="">notifications</var> be a list of all
+ <a href="#concept-notification" title="concept-notification">notifications</a> in the
+ <a href="#list-of-notifications">list of notifications</a> whose
+ <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is the
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> and whose <a href="#tag">tag</a>, if
+ <var title="">tag</var> is not the empty string, is <var title="">tag</var>.
+ <span class="XXX">Also check for service worker member.</span>
+
+ <li><p>Let <var title="">objects</var> be an empty JavaScript array.
+
+ <li><p>For each <a href="#concept-notification" title="concept-notification">notification</a> in
+ <var title="">notifications</var>, in creation order, create a new
+ <a href="#notification"><code>Notification</code></a> object representing
+ <a href="#concept-notification" title="concept-notification">notification</a> and push that object to
+ <var title="">objects</var>.
+
+ <li><p>Resolve <var title="">promise</var> with <var title="">objects</var>.
+</ol>
+
+<p class="note">This method returns zero or more new <a href="#notification"><code>Notification</code></a> objects which
+might represent the same underlying <a href="#concept-notification" title="concept-notification">notification</a>
+of <a href="#notification"><code>Notification</code></a> objects already in existence.
 
 
 
