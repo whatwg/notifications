@@ -239,18 +239,6 @@ data.
 <a href="#concept-notification" title="concept-notification">notification</a> <var title="">notification</var> are:
 
 <ol>
- <li><p>If <a href="#permission-0">permission</a> for <var title="">notification</var>'s
- <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is not
- "<code title="">granted</code>",
- <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch-terminate" title="concept-fetch-terminate">terminate</a> any ongoing
- <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetch</a> for
- <var title="">notification</var>'s <a href="#icon-url">icon URL</a>, then for each
- <a href="#notification"><code>Notification</code></a> object representing <var title="">notification</var>,
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
- <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
- named <code title="">error</code> on the <a href="#notification"><code>Notification</code></a> object, and
- terminate these steps.
-
  <li><p>If there is a <a href="#concept-notification" title="concept-notification">notification</a>
  in the <a href="#list-of-notifications">list of notifications</a> whose <a href="#tag">tag</a> is not the empty
  string and equals <var title="">notification</var>'s <a href="#tag">tag</a>, and whose
@@ -267,11 +255,18 @@ data.
 
 <p>When a <a href="#concept-notification" title="concept-notification">notification</a>
 <var title="">notification</var> is activated by the user, assuming the underlying
-notification platform supports activation, the user agent must, for each
-<a href="#notification"><code>Notification</code></a> object representing <var title="">notification</var>,
-<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
-<a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
-named <code title="">click</code> on the <a href="#notification"><code>Notification</code></a> object.
+notification platform supports activation, the user agent must run these steps:
+
+<ol>
+ <li><p>If <var title="">notification</var> has a
+ <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>,
+ <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/505">XXX</a>.
+
+ <li><p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
+ <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
+ <code title="">click</code> on the <a href="#notification"><code>Notification</code></a> object representing
+ <var title="">notification</var>.
+</ol>
 
 <p class="note">Throughout the web platform "activate" is intentionally misnamed as "click".
 
@@ -294,12 +289,18 @@ either by the underlying notification platform or by the user, the
  <a href="#list-of-notifications">list of notifications</a>, terminate these steps.
 
  <li><p>Remove <var title="">notification</var> from the
- <a href="#list-of-notifications">list of notifications</a> and then for each <a href="#notification"><code>Notification</code></a>
- object representing <var title="">notification</var>,
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
- <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
- named <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object.
+ <a href="#list-of-notifications">list of notifications</a>.
+
+ <li><p>If <var title="">notification</var> has a
+ <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>,
+ <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/505">XXX</a>.
+
+ <li><p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
+ <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
+ <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object representing
+ <var title="">notification</var>.
 </ol>
+
 
 <h3 id="displaying-notifications"><span class="secno">4.8 </span>Displaying notifications</h3>
 
@@ -328,12 +329,20 @@ are:
  <li><p>Display <var title="">notification</var> on the device (e.g. by
  calling the appropriate notification platform).
 
- <li><p>If displaying fails (e.g. the notification platform returns an error), for
- each <a href="#notification"><code>Notification</code></a> object representing <var title="">notification</var>,
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
- <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
- <code title="">error</code> on the <a href="#notification"><code>Notification</code></a> object and terminate these
- steps.
+ <li>
+  <p>If displaying fails (e.g. the notification platform returns an error), run these
+  substeps
+
+  <ol>
+   <li><p>If <var title="">notification</var> has a
+   <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>,
+   <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/505">XXX</a>.
+
+   <li><p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
+   <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
+   <code title="">error</code> on the <a href="#notification"><code>Notification</code></a> object representing
+   <var title="">notification</var>.
+  </ol>
 
  <li><p>Append <var title="">notification</var> to the
  <a href="#list-of-notifications">list of notifications</a>.
@@ -367,11 +376,19 @@ are:
 
  <li>
   <p>Replace <var title="">old</var> with <var title="">new</var>,
-  in the same position, in the <a href="#list-of-notifications">list of notifications</a>, then
-  for each <a href="#notification"><code>Notification</code></a> object representing <var title="">old</var>,
-  <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
-  <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
-  named <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object.
+  in the same position, in the <a href="#list-of-notifications">list of notifications</a>, and then run these
+  substeps:
+
+  <ol>
+   <li><p>If <var title="">notification</var> has a
+   <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>,
+   <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/505">XXX</a>.
+
+   <li><p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
+   <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
+   <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object representing
+   <var title="">old</var>.
+  </ol>
 
   <p>If the notification platform does not support replacement this
   requirement may be addressed by running the <a href="#close-steps">close steps</a> for
@@ -655,7 +672,7 @@ partial interface <a class="external" data-anolis-spec="sw" href="https://slight
 [<a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-constructor" title="concept-event-constructor">Constructor</a>(DOMString <var>type</var>, optional <a href="#serviceworkernotificationeventinit">ServiceWorkerNotificationEventInit</a> <var>eventInitDict</var>),
  Exposed=ServiceWorker]
 interface <dfn id="serviceworkernotificationevent">ServiceWorkerNotificationEvent</dfn> : <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#event">Event</a> {
-  readonly attribute <a href="#notification">Notification</a> <span title="dom-ServiceWorkerNotificationEvent-notification">notification</span>;
+  readonly attribute <a href="#notification">Notification</a> <a href="#dom-serviceworkernotificationevent-notification" title="dom-ServiceWorkerNotificationEvent-notification">notification</a>;
 };
 
 dictionary <dfn id="serviceworkernotificationeventinit">ServiceWorkerNotificationEventInit</dfn> : <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#eventinit">EventInit</a> {
@@ -704,6 +721,8 @@ when invoked, must run these steps:
 might represent the same underlying <a href="#concept-notification" title="concept-notification">notification</a>
 of <a href="#notification"><code>Notification</code></a> objects already in existence.
 
+<hr>
+
 <p>The
 <dfn id="dom-serviceworkerregistration-shownotification" title="dom-ServiceWorkerRegistration-showNotification"><code>showNotification(<var title="">title</var>, <var title="">options</var>)</code></dfn>
 method, when invoked, must return these steps:
@@ -744,6 +763,12 @@ method, when invoked, must return these steps:
 
  <li><p>Return <var title="">promise</var>.
 </ol>
+
+<hr>
+
+<p>The
+<dfn id="dom-serviceworkernotificationevent-notification" title="dom-ServiceWorkerNotificationEvent-notification"><code>notification</code></dfn>
+attribute's getter must return the value it was initialized to.
 
 
 

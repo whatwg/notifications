@@ -210,18 +210,6 @@ data.
 <span title=concept-notification>notification</span> <var title>notification</var> are:
 
 <ol>
- <li><p>If <span>permission</span> for <var title>notification</var>'s
- <span title=concept-notification-origin>origin</span> is not
- "<code title>granted</code>",
- <span data-anolis-spec=fetch title=concept-fetch-terminate>terminate</span> any ongoing
- <span data-anolis-spec=fetch title=concept-fetch>fetch</span> for
- <var title>notification</var>'s <span>icon URL</span>, then for each
- <code>Notification</code> object representing <var title>notification</var>,
- <span data-anolis-spec=html>queue a task</span> to
- <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
- named <code title>error</code> on the <code>Notification</code> object, and
- terminate these steps.
-
  <li><p>If there is a <span title=concept-notification>notification</span>
  in the <span>list of notifications</span> whose <span>tag</span> is not the empty
  string and equals <var title>notification</var>'s <span>tag</span>, and whose
@@ -238,11 +226,18 @@ data.
 
 <p>When a <span title=concept-notification>notification</span>
 <var title>notification</var> is activated by the user, assuming the underlying
-notification platform supports activation, the user agent must, for each
-<code>Notification</code> object representing <var title>notification</var>,
-<span data-anolis-spec=html>queue a task</span> to
-<span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
-named <code title>click</code> on the <code>Notification</code> object.
+notification platform supports activation, the user agent must run these steps:
+
+<ol>
+ <li><p>If <var title>notification</var> has a
+ <span title=concept-notification-service-worker-registration>service worker registration</span>,
+ <a href=https://github.com/slightlyoff/ServiceWorker/issues/505 class=XXX>XXX</a>.
+
+ <li><p>Otherwise, <span data-anolis-spec=html>queue a task</span> to
+ <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
+ <code title>click</code> on the <code>Notification</code> object representing
+ <var title>notification</var>.
+</ol>
 
 <p class=note>Throughout the web platform "activate" is intentionally misnamed as "click".
 
@@ -265,12 +260,18 @@ either by the underlying notification platform or by the user, the
  <span>list of notifications</span>, terminate these steps.
 
  <li><p>Remove <var title>notification</var> from the
- <span>list of notifications</span> and then for each <code>Notification</code>
- object representing <var title>notification</var>,
- <span data-anolis-spec=html>queue a task</span> to
- <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
- named <code title>close</code> on the <code>Notification</code> object.
+ <span>list of notifications</span>.
+
+ <li><p>If <var title>notification</var> has a
+ <span title=concept-notification-service-worker-registration>service worker registration</span>,
+ <a href=https://github.com/slightlyoff/ServiceWorker/issues/505 class=XXX>XXX</a>.
+
+ <li><p>Otherwise, <span data-anolis-spec=html>queue a task</span> to
+ <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
+ <code title>close</code> on the <code>Notification</code> object representing
+ <var title>notification</var>.
 </ol>
+
 
 <h3>Displaying notifications</h3>
 
@@ -299,12 +300,20 @@ are:
  <li><p>Display <var title>notification</var> on the device (e.g. by
  calling the appropriate notification platform).
 
- <li><p>If displaying fails (e.g. the notification platform returns an error), for
- each <code>Notification</code> object representing <var title>notification</var>,
- <span data-anolis-spec=html>queue a task</span> to
- <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
- <code title>error</code> on the <code>Notification</code> object and terminate these
- steps.
+ <li>
+  <p>If displaying fails (e.g. the notification platform returns an error), run these
+  substeps
+
+  <ol>
+   <li><p>If <var title>notification</var> has a
+   <span title=concept-notification-service-worker-registration>service worker registration</span>,
+   <a href=https://github.com/slightlyoff/ServiceWorker/issues/505 class=XXX>XXX</a>.
+
+   <li><p>Otherwise, <span data-anolis-spec=html>queue a task</span> to
+   <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
+   <code title>error</code> on the <code>Notification</code> object representing
+   <var title>notification</var>.
+  </ol>
 
  <li><p>Append <var title>notification</var> to the
  <span>list of notifications</span>.
@@ -338,11 +347,19 @@ are:
 
  <li>
   <p>Replace <var title>old</var> with <var title>new</var>,
-  in the same position, in the <span>list of notifications</span>, then
-  for each <code>Notification</code> object representing <var title>old</var>,
-  <span data-anolis-spec=html>queue a task</span> to
-  <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
-  named <code title>close</code> on the <code>Notification</code> object.
+  in the same position, in the <span>list of notifications</span>, and then run these
+  substeps:
+
+  <ol>
+   <li><p>If <var title>notification</var> has a
+   <span title=concept-notification-service-worker-registration>service worker registration</span>,
+   <a href=https://github.com/slightlyoff/ServiceWorker/issues/505 class=XXX>XXX</a>.
+
+   <li><p>Otherwise, <span data-anolis-spec=html>queue a task</span> to
+   <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
+   <code title>close</code> on the <code>Notification</code> object representing
+   <var title>old</var>.
+  </ol>
 
   <p>If the notification platform does not support replacement this
   requirement may be addressed by running the <span>close steps</span> for
@@ -675,6 +692,8 @@ when invoked, must run these steps:
 might represent the same underlying <span title=concept-notification>notification</span>
 of <code>Notification</code> objects already in existence.
 
+<hr>
+
 <p>The
 <dfn title=dom-ServiceWorkerRegistration-showNotification><code>showNotification(<var title>title</var>, <var title>options</var>)</code></dfn>
 method, when invoked, must return these steps:
@@ -715,6 +734,12 @@ method, when invoked, must return these steps:
 
  <li><p>Return <var title>promise</var>.
 </ol>
+
+<hr>
+
+<p>The
+<dfn title=dom-ServiceWorkerNotificationEvent-notification><code>notification</code></dfn>
+attribute's getter must return the value it was initialized to.
 
 
 
