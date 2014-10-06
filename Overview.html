@@ -447,7 +447,7 @@ constructor must run these steps:
  <var title="">options</var>'s <code title="">data</code>. Rethrow any exceptions.
 
  <li><p>Return <var title="">notification</var>, but continue running these
- steps asynchronouusly.
+ steps <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>.
 
  <li><p>If the notification platform supports icons, the user agent may
  start <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetching</a>
@@ -468,7 +468,8 @@ attribute's getter must return <a href="#permission-0">permission</a>.
 method, when invoked, must run these steps:
 
 <ol>
- <li><p>Return, but continue running these steps asynchronously.
+ <li><p>Return, but continue running these steps
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>.
 
  <li><p>Let <var title="">permission</var> be <a href="#permission-0">permission</a>.
 
@@ -645,8 +646,7 @@ when invoked, must run these steps:
  <li><p>Let <var title="">promise</var> be a new promise.
 
  <li><p>Return <var title="">promise</var> and continue running the remaining steps
- asynchronously.
- <!-- XXX use in parallel -->
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>.
 
  <li><p>Let <var title="">tag</var> be <var title="">filter</var>'s <code title="">tag</code>.
 

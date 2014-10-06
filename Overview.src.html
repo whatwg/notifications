@@ -418,7 +418,7 @@ constructor must run these steps:
  <var title>options</var>'s <code title>data</code>. Rethrow any exceptions.
 
  <li><p>Return <var title>notification</var>, but continue running these
- steps asynchronouusly.
+ steps <span data-anolis-spec=html>in parallel</span>.
 
  <li><p>If the notification platform supports icons, the user agent may
  start <span data-anolis-spec=fetch title=concept-fetch>fetching</span>
@@ -439,7 +439,8 @@ attribute's getter must return <span>permission</span>.
 method, when invoked, must run these steps:
 
 <ol>
- <li><p>Return, but continue running these steps asynchronously.
+ <li><p>Return, but continue running these steps
+ <span data-anolis-spec=html>in parallel</span>.
 
  <li><p>Let <var title>permission</var> be <span>permission</span>.
 
@@ -616,8 +617,7 @@ when invoked, must run these steps:
  <li><p>Let <var title>promise</var> be a new promise.
 
  <li><p>Return <var title>promise</var> and continue running the remaining steps
- asynchronously.
- <!-- XXX use in parallel -->
+ <span data-anolis-spec=html>in parallel</span>.
 
  <li><p>Let <var title>tag</var> be <var title>filter</var>'s <code title>tag</code>.
 
