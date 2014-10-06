@@ -30,23 +30,20 @@
 
 <!--begin-toc-->
 <ol class="toc">
- <li><a href="#introduction"><span class="secno">1 </span>Introduction</a></li>
- <li><a href="#conformance"><span class="secno">2 </span>Conformance</a>
-  <ol>
-   <li><a href="#security"><span class="secno">2.1 </span>Security</a></ol></li>
+ <li><a href="#preface"><span class="secno">1 </span>Preface</a></li>
+ <li><a href="#conformance"><span class="secno">2 </span>Conformance</a></li>
  <li><a href="#terminology"><span class="secno">3 </span>Terminology</a></li>
  <li><a href="#model"><span class="secno">4 </span>Model</a>
   <ol>
    <li><a href="#direction-0"><span class="secno">4.1 </span>Direction</a></li>
    <li><a href="#language-0"><span class="secno">4.2 </span>Language</a></li>
    <li><a href="#permission"><span class="secno">4.3 </span>Permission</a></li>
-   <li><a href="#notification-persistence"><span class="secno">4.4 </span>Notification persistence</a></li>
+   <li><a href="#notification-list"><span class="secno">4.4 </span>Notification list</a></li>
    <li><a href="#showing-a-notification"><span class="secno">4.5 </span>Showing a notification</a></li>
    <li><a href="#activating-a-notification"><span class="secno">4.6 </span>Activating a notification</a></li>
    <li><a href="#closing-a-notification"><span class="secno">4.7 </span>Closing a notification</a></li>
-   <li><a href="#pending-notifications"><span class="secno">4.8 </span>Pending notifications</a></li>
-   <li><a href="#displaying-notifications"><span class="secno">4.9 </span>Displaying notifications</a></li>
-   <li><a href="#replacing-a-notification"><span class="secno">4.10 </span>Replacing a notification</a></ol></li>
+   <li><a href="#displaying-notifications"><span class="secno">4.8 </span>Displaying notifications</a></li>
+   <li><a href="#replacing-a-notification"><span class="secno">4.9 </span>Replacing a notification</a></ol></li>
  <li><a href="#api"><span class="secno">5 </span>API</a>
   <ol>
    <li><a href="#garbage-collection"><span class="secno">5.1 </span>Garbage collection</a></li>
@@ -64,17 +61,11 @@
 
 
 
-<h2 id="introduction"><span class="secno">1 </span>Introduction</h2>
+<h2 id="preface"><span class="secno">1 </span>Preface</h2>
 
-<p>This specification provides an API to display notifications to alert end users outside
-the context of a browsing context's viewport. It does not specify in detail how a
-user agent is to display these notifications; the best presentation depends on the
-output device.
-
-<p>This specification is designed to be compatible with existing notification platforms,
-while remaining platform-independent. In general, this specification is best-effort; e.g.
-while notifications can be activated, the underlying notification platform could not
-support that and so it cannot be relied upon.
+<p>This standard defines an API to display notifications to the end user, typically
+outside the top-level browsing context's viewport. It is designed to be compatible with
+existing notification systems, while remaining platform-independent.
 
 
 
@@ -93,14 +84,6 @@ not appear in all uppercase letters in this specification.
 
 
 
-<h3 id="security"><span class="secno">2.1 </span>Security</h3>
-
-<p>Notifications should only be presented when the user has indicated they
-are desired; without this they could create a negative experience for the
-user.
-
-
-
 <h2 id="terminology"><span class="secno">3 </span>Terminology</h2>
 
 <p>Most terminology used in this specification is from DOM, Fetch HTML, IDL, and URL.
@@ -114,9 +97,8 @@ user.
 
 <h2 id="model"><span class="secno">4 </span>Model</h2>
 
-<p>A <dfn id="concept-notification" title="concept-notification">notification</dfn> allows alerting the end user
-outside a <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a>'s viewport of an occurrence,
-such as the delivery of email.
+<p>A <dfn id="concept-notification" title="concept-notification">notification</dfn> is an abstract representation of
+an occurrence, such as the delivery of a message.
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> has a
 <dfn id="title">title</dfn>, <dfn id="body">body</dfn>, <dfn id="direction">direction</dfn>,
@@ -190,18 +172,17 @@ meaning "<code title="">granted</code>". In that case
 for the application to ask for <a href="#permission-0">permission</a>.
 
 
-<h3 id="notification-persistence"><span class="secno">4.4 </span>Notification persistence</h3>
+<h3 id="notification-list"><span class="secno">4.4 </span>Notification list</h3>
 
-<p>The user agent must keep a <dfn id="list-of-pending-notifications">list of pending notifications</dfn> and
-a <dfn id="list-of-active-notifications">list of active notifications</dfn>. User agents are recommended to persist the
-lifetime of these lists beyond that of the <a href="#notification"><code>Notification</code></a> object through which
-the <a href="#concept-notification" title="concept-notification">notification</a> was created.
+<p>The user agent must keep a <dfn id="list-of-notifications">list of notifications</dfn>. User agents are
+recommended to persist the lifetime of these lists beyond that of the
+<a href="#notification"><code>Notification</code></a> object through which the <a href="#concept-notification" title="concept-notification">notification</a> was created.
 
-<p class="warning">The <a href="#list-of-pending-notifications">list of pending notifications</a>,
-<a href="#list-of-active-notifications">list of active notifications</a>, and cookies, have similar implications with
-respect to privacy (e.g. these lists can be used to revive cookies). Implementors are
-therefore encouraged to expose these lists in a manner related to HTTP cookies, allowing
-them to be expunged together with cookies and other origin-specific data.
+<p class="warning">The <a href="#list-of-notifications">list of notifications</a> and cookies have similar
+implications with respect to privacy (e.g. these lists can be used to revive cookies).
+Implementors are therefore encouraged to expose these lists in a manner related to HTTP
+cookies, allowing them to be expunged together with cookies and other origin-specific
+data.
 
 <!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
 
@@ -225,23 +206,15 @@ them to be expunged together with cookies and other origin-specific data.
  terminate these steps.
 
  <li><p>If there is a <a href="#concept-notification" title="concept-notification">notification</a>
- in the <a href="#list-of-pending-notifications">list of pending notifications</a> or the
- <a href="#list-of-active-notifications">list of active notifications</a> whose <a href="#tag">tag</a> is not the empty string
- and equals <var title="">notification</var>'s <a href="#tag">tag</a>, and whose
+ in the <a href="#list-of-notifications">list of notifications</a> whose <a href="#tag">tag</a> is not the empty
+ string and equals <var title="">notification</var>'s <a href="#tag">tag</a>, and whose
  <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> equals
  <var title="">notification</var>'s <a href="#concept-notification-origin" title="concept-notification-origin">origin</a>,
  run the <a href="#replace-steps">replace steps</a> for that
  <a href="#concept-notification" title="concept-notification">notification</a> and
  <var title="">notification</var>, and then terminate these steps.
 
- <li><p>If the device allows notifications to be displayed immediately without limitations
- on the number of concurrent notifications, run the <a href="#display-steps">display steps</a> for
- <var title="">notification</var> and terminate these steps.
-
- <li><p>If the device has limitations on the number of concurrent
- notifications, either immediately call to a notification platform which
- natively supports queueing, or append <var title="">notification</var> to the
- <a href="#list-of-pending-notifications">list of pending notifications</a>.
+ <li><p>Run the <a href="#display-steps">display steps</a> for <var title="">notification</var> and terminate these steps.
 </ol>
 
 <h3 id="activating-a-notification"><span class="secno">4.6 </span>Activating a notification</h3>
@@ -271,33 +244,18 @@ either by the underlying notification platform or by the user, the
 <p>The <dfn id="close-steps">close steps</dfn> for a given <var title="">notification</var> are:
 
 <ol>
- <li><p>If <var title="">notification</var> is neither in the
- <a href="#list-of-pending-notifications">list of pending notifications</a> nor in the
- <a href="#list-of-active-notifications">list of active notifications</a>, terminate these steps.
+ <li><p>If <var title="">notification</var> is not in the
+ <a href="#list-of-notifications">list of notifications</a>, terminate these steps.
 
- <li><p>Remove <var title="">notification</var> from either the
- <a href="#list-of-pending-notifications">list of pending notifications</a> or the
- <a href="#list-of-active-notifications">list of active notifications</a>, and then for each <a href="#notification"><code>Notification</code></a>
+ <li><p>Remove <var title="">notification</var> from the
+ <a href="#list-of-notifications">list of notifications</a> and then for each <a href="#notification"><code>Notification</code></a>
  object representing <var title="">notification</var>,
  <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
  <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
  named <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object.
 </ol>
 
-<h3 id="pending-notifications"><span class="secno">4.8 </span>Pending notifications</h3>
-
-<p>Whenever the <a href="#list-of-pending-notifications">list of pending notifications</a> is not empty, the
-user agent must wait and monitor changes in the available notification space
-on the device.
-
-<p>When the available display space changes on the device such that a new
-notification can be displayed, for example due to a previous notification
-being dismissed, the user agent should run the <a href="#display-steps">display steps</a>
-for the first <a href="#concept-notification" title="concept-notification">notification</a> in the
-<a href="#list-of-pending-notifications">list of pending notifications</a> and then remove it from the
-<a href="#list-of-pending-notifications">list of pending notifications</a>.
-
-<h3 id="displaying-notifications"><span class="secno">4.9 </span>Displaying notifications</h3>
+<h3 id="displaying-notifications"><span class="secno">4.8 </span>Displaying notifications</h3>
 
 <p>The <dfn id="display-steps">display steps</dfn> for a given <var title="">notification</var>
 are:
@@ -332,11 +290,11 @@ are:
  steps.
 
  <li><p>Append <var title="">notification</var> to the
- <a href="#list-of-active-notifications">list of active notifications</a>.
+ <a href="#list-of-notifications">list of notifications</a>.
 </ol>
 
 
-<h3 id="replacing-a-notification"><span class="secno">4.10 </span>Replacing a notification</h3>
+<h3 id="replacing-a-notification"><span class="secno">4.9 </span>Replacing a notification</h3>
 
 <p>The <dfn id="replace-steps">replace steps</dfn> for replacing an <var title="">old</var>
 <a href="#concept-notification" title="concept-notification">notification</a> with a
@@ -361,18 +319,9 @@ are:
   <var title="">new</var>'s <a href="#icon-image">icon image</a> to the decoded resource.
   (Otherwise <var title="">new</var> has no <a href="#icon-image">icon image</a>.)
 
- <li><p>If <var title="">old</var> is in the
- <a href="#list-of-pending-notifications">list of pending notifications</a>, replace
- <var title="">old</var> with <var title="">new</var>, in the same position, in
- the <a href="#list-of-pending-notifications">list of pending notifications</a>, and then for each
- <a href="#notification"><code>Notification</code></a> object representing <var title="">old</var>,
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
- <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
- named <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object.
-
  <li>
-  <p>Otherwise, replace <var title="">old</var> with <var title="">new</var>,
-  in the same position, in the <a href="#list-of-active-notifications">list of active notifications</a>, then
+  <p>Replace <var title="">old</var> with <var title="">new</var>,
+  in the same position, in the <a href="#list-of-notifications">list of notifications</a>, then
   for each <a href="#notification"><code>Notification</code></a> object representing <var title="">old</var>,
   <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
   <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a>
@@ -400,8 +349,8 @@ are:
 interface <dfn id="notification">Notification</dfn> : <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
   static readonly attribute <a href="#notificationpermission">NotificationPermission</a> <a href="#dom-notification-permission" title="dom-Notification-permission">permission</a>;
   [Exposed=Window] static void <a href="#dom-notification-requestpermission" title="dom-Notification-requestPermission">requestPermission</a>(optional <a href="#notificationpermissioncallback">NotificationPermissionCallback</a> <var title="">callback</var>);
-
-  static Promise&lt;sequence&lt;<a href="#notification">Notification</a>&gt;&gt; <a href="#dom-notification-get" title="dom-Notification-get">get</a>(optional <a href="#getnotificationoptions">GetNotificationOptions</a> <var title="">filter</var>);
+<!--
+  static Promise&lt;sequence&lt;<span>Notification</span>>> <span title=dom-Notification-get>get</span>(optional <span>GetNotificationOptions</span> <var title>filter</var>);-->
 
   attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclick" title="handler-onclick">onclick</a>;
   attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onerror" title="handler-onerror">onerror</a>;
@@ -449,9 +398,8 @@ enum <dfn id="notificationdirection">NotificationDirection</dfn> {
 <h3 id="garbage-collection"><span class="secno">5.1 </span>Garbage collection</h3>
 
 <p>A <a href="#notification"><code>Notification</code></a> object must not be garbage collected while its
-corresponding <a href="#concept-notification" title="concept-notification">notification</a> is in either the
-<a href="#list-of-pending-notifications">list of pending notifications</a> or in the
-<a href="#list-of-active-notifications">list of active notifications</a> and the <a href="#notification"><code>Notification</code></a> object in
+corresponding <a href="#concept-notification" title="concept-notification">notification</a> is in the
+<a href="#list-of-notifications">list of notifications</a> and the <a href="#notification"><code>Notification</code></a> object in
 question has an
 <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-listener" title="concept-event-listener">event listener</a> whose
 <b>type</b> is <code title="">click</code>, <code title="">error</code> or
@@ -548,41 +496,42 @@ instance thus far where asking the user upfront makes sense. Specifications
 for other APIs should not use this pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">many more suitable alternatives</a>.
 
+<!--
 <p>The static
-<dfn id="dom-notification-get" title="dom-Notification-get"><code>get(<var title="">filter</var>)</code></dfn> method
+<dfn title=dom-Notification-get><code>get(<var title>filter</var>)</code></dfn> method
 must run these steps:
 
 <ol>
- <li><p>Let <var title="">promise</var> be a new promise.
+ <li><p>Let <var title>promise</var> be a new promise.
 
- <li><p>Return <var title="">promise</var> and continue running the remaining steps
+ <li><p>Return <var title>promise</var> and continue running the remaining steps
  asynchronously.
 
- <li><p>Let <var title="">tag</var> be <var title="">filter</var>'s <code title="">tag</code>.
+ <li><p>Let <var title>tag</var> be <var title>filter</var>'s <code title>tag</code>.
 
- <li><p>Let <var title="">notifications</var> be a list of all
- <a href="#concept-notification" title="concept-notification">notifications</a> in either the
- <a href="#list-of-pending-notifications">list of pending notifications</a> or in the
- <a href="#list-of-active-notifications">list of active notifications</a> whose
- <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is the
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> and whose <a href="#tag">tag</a>, if
- <var title="">tag</var> is not the empty string, is <var title="">tag</var>.
+ <li><p>Let <var title>notifications</var> be a list of all
+ <span title=concept-notification>notifications</span> in the
+ <span>list of notifications</span> whose
+ <span title=concept-notification-origin>origin</span> is the
+ <span data-anolis-spec=html>entry settings object</span>'s
+ <span data-anolis-spec=html>origin</span> and whose <span>tag</span>, if
+ <var title>tag</var> is not the empty string, is <var title>tag</var>.
 
- <li><p>Let <var title="">objects</var> be an empty JavaScript array.
+ <li><p>Let <var title>objects</var> be an empty JavaScript array.
 
- <li><p>For each <a href="#concept-notification" title="concept-notification">notification</a> in
- <var title="">notifications</var>, in creation order, create a new
- <a href="#notification"><code>Notification</code></a> object representing
- <a href="#concept-notification" title="concept-notification">notification</a> and push that object to
- <var title="">objects</var>.
+ <li><p>For each <span title=concept-notification>notification</span> in
+ <var title>notifications</var>, in creation order, create a new
+ <code>Notification</code> object representing
+ <span title=concept-notification>notification</span> and push that object to
+ <var title>objects</var>.
 
- <li><p>Resolve <var title="">promise</var> with <var title="">objects</var>.
+ <li><p>Resolve <var title>promise</var> with <var title>objects</var>.
 </ol>
 
-<p class="note">This method returns zero or more new <a href="#notification"><code>Notification</code></a> objects which
-might represent the same underlying <a href="#concept-notification" title="concept-notification">notification</a>
-of <a href="#notification"><code>Notification</code></a> objects already in existence.
+<p class=note>This method returns zero or more new <code>Notification</code> objects which
+might represent the same underlying <span title=concept-notification>notification</span>
+of <code>Notification</code> objects already in existence.
+-->
 
 
 <h3 id="object-members"><span class="secno">5.4 </span>Object members</h3>

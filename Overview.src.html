@@ -33,17 +33,11 @@
 
 
 
-<h2>Introduction</h2>
+<h2>Preface</h2>
 
-<p>This specification provides an API to display notifications to alert end users outside
-the context of a browsing context's viewport. It does not specify in detail how a
-user agent is to display these notifications; the best presentation depends on the
-output device.
-
-<p>This specification is designed to be compatible with existing notification platforms,
-while remaining platform-independent. In general, this specification is best-effort; e.g.
-while notifications can be activated, the underlying notification platform could not
-support that and so it cannot be relied upon.
+<p>This standard defines an API to display notifications to the end user, typically
+outside the top-level browsing context's viewport. It is designed to be compatible with
+existing notification systems, while remaining platform-independent.
 
 
 
@@ -62,14 +56,6 @@ not appear in all uppercase letters in this specification.
 
 
 
-<h3>Security</h3>
-
-<p>Notifications should only be presented when the user has indicated they
-are desired; without this they could create a negative experience for the
-user.
-
-
-
 <h2>Terminology</h2>
 
 <p>Most terminology used in this specification is from DOM, Fetch HTML, IDL, and URL.
@@ -83,9 +69,8 @@ user.
 
 <h2>Model</h2>
 
-<p>A <dfn title=concept-notification>notification</dfn> allows alerting the end user
-outside a <span data-anolis-spec=html>browsing context</span>'s viewport of an occurrence,
-such as the delivery of email.
+<p>A <dfn title=concept-notification>notification</dfn> is an abstract representation of
+an occurrence, such as the delivery of a message.
 
 <p>Each <span title=concept-notification>notification</span> has a
 <dfn>title</dfn>, <dfn>body</dfn>, <dfn id=direction>direction</dfn>,
@@ -159,18 +144,17 @@ meaning "<code title>granted</code>". In that case
 for the application to ask for <span>permission</span>.
 
 
-<h3>Notification persistence</h3>
+<h3>Notification list</h3>
 
-<p>The user agent must keep a <dfn>list of pending notifications</dfn> and
-a <dfn>list of active notifications</dfn>. User agents are recommended to persist the
-lifetime of these lists beyond that of the <code>Notification</code> object through which
-the <span title=concept-notification>notification</span> was created.
+<p>The user agent must keep a <dfn>list of notifications</dfn>. User agents are
+recommended to persist the lifetime of these lists beyond that of the
+<code>Notification</code> object through which the <span title=concept-notification>notification</span> was created.
 
-<p class=warning>The <span>list of pending notifications</span>,
-<span>list of active notifications</span>, and cookies, have similar implications with
-respect to privacy (e.g. these lists can be used to revive cookies). Implementors are
-therefore encouraged to expose these lists in a manner related to HTTP cookies, allowing
-them to be expunged together with cookies and other origin-specific data.
+<p class=warning>The <span>list of notifications</span> and cookies have similar
+implications with respect to privacy (e.g. these lists can be used to revive cookies).
+Implementors are therefore encouraged to expose these lists in a manner related to HTTP
+cookies, allowing them to be expunged together with cookies and other origin-specific
+data.
 
 <!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
 
@@ -194,23 +178,15 @@ them to be expunged together with cookies and other origin-specific data.
  terminate these steps.
 
  <li><p>If there is a <span title=concept-notification>notification</span>
- in the <span>list of pending notifications</span> or the
- <span>list of active notifications</span> whose <span>tag</span> is not the empty string
- and equals <var title>notification</var>'s <span>tag</span>, and whose
+ in the <span>list of notifications</span> whose <span>tag</span> is not the empty
+ string and equals <var title>notification</var>'s <span>tag</span>, and whose
  <span title=concept-notification-origin>origin</span> equals
  <var title>notification</var>'s <span title=concept-notification-origin>origin</span>,
  run the <span>replace steps</span> for that
  <span title=concept-notification>notification</span> and
  <var title>notification</var>, and then terminate these steps.
 
- <li><p>If the device allows notifications to be displayed immediately without limitations
- on the number of concurrent notifications, run the <span>display steps</span> for
- <var title>notification</var> and terminate these steps.
-
- <li><p>If the device has limitations on the number of concurrent
- notifications, either immediately call to a notification platform which
- natively supports queueing, or append <var title>notification</var> to the
- <span>list of pending notifications</span>.
+ <li><p>Run the <span>display steps</span> for <var title>notification</var> and terminate these steps.
 </ol>
 
 <h3>Activating a notification</h3>
@@ -240,31 +216,16 @@ either by the underlying notification platform or by the user, the
 <p>The <dfn>close steps</dfn> for a given <var title>notification</var> are:
 
 <ol>
- <li><p>If <var title>notification</var> is neither in the
- <span>list of pending notifications</span> nor in the
- <span>list of active notifications</span>, terminate these steps.
+ <li><p>If <var title>notification</var> is not in the
+ <span>list of notifications</span>, terminate these steps.
 
- <li><p>Remove <var title>notification</var> from either the
- <span>list of pending notifications</span> or the
- <span>list of active notifications</span>, and then for each <code>Notification</code>
+ <li><p>Remove <var title>notification</var> from the
+ <span>list of notifications</span> and then for each <code>Notification</code>
  object representing <var title>notification</var>,
  <span data-anolis-spec=html>queue a task</span> to
  <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
  named <code title>close</code> on the <code>Notification</code> object.
 </ol>
-
-<h3>Pending notifications</h3>
-
-<p>Whenever the <span>list of pending notifications</span> is not empty, the
-user agent must wait and monitor changes in the available notification space
-on the device.
-
-<p>When the available display space changes on the device such that a new
-notification can be displayed, for example due to a previous notification
-being dismissed, the user agent should run the <span>display steps</span>
-for the first <span title=concept-notification>notification</span> in the
-<span>list of pending notifications</span> and then remove it from the
-<span>list of pending notifications</span>.
 
 <h3>Displaying notifications</h3>
 
@@ -301,7 +262,7 @@ are:
  steps.
 
  <li><p>Append <var title>notification</var> to the
- <span>list of active notifications</span>.
+ <span>list of notifications</span>.
 </ol>
 
 
@@ -330,18 +291,9 @@ are:
   <var title>new</var>'s <span>icon image</span> to the decoded resource.
   (Otherwise <var title>new</var> has no <span>icon image</span>.)
 
- <li><p>If <var title>old</var> is in the
- <span>list of pending notifications</span>, replace
- <var title>old</var> with <var title>new</var>, in the same position, in
- the <span>list of pending notifications</span>, and then for each
- <code>Notification</code> object representing <var title>old</var>,
- <span data-anolis-spec=html>queue a task</span> to
- <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
- named <code title>close</code> on the <code>Notification</code> object.
-
  <li>
-  <p>Otherwise, replace <var title>old</var> with <var title>new</var>,
-  in the same position, in the <span>list of active notifications</span>, then
+  <p>Replace <var title>old</var> with <var title>new</var>,
+  in the same position, in the <span>list of notifications</span>, then
   for each <code>Notification</code> object representing <var title>old</var>,
   <span data-anolis-spec=html>queue a task</span> to
   <span data-anolis-spec=dom title=concept-event-fire>fire an event</span>
@@ -369,8 +321,8 @@ are:
 interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span> {
   static readonly attribute <span>NotificationPermission</span> <span title=dom-Notification-permission>permission</span>;
   [Exposed=Window] static void <span title=dom-Notification-requestPermission>requestPermission</span>(optional <span>NotificationPermissionCallback</span> <var title>callback</var>);
-
-  static Promise&lt;sequence&lt;<span>Notification</span>>> <span title=dom-Notification-get>get</span>(optional <span>GetNotificationOptions</span> <var title>filter</var>);
+<!--
+  static Promise&lt;sequence&lt;<span>Notification</span>>> <span title=dom-Notification-get>get</span>(optional <span>GetNotificationOptions</span> <var title>filter</var>);-->
 
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onclick>onclick</span>;
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onerror>onerror</span>;
@@ -418,9 +370,8 @@ enum <dfn>NotificationDirection</dfn> {
 <h3>Garbage collection</h3>
 
 <p>A <code>Notification</code> object must not be garbage collected while its
-corresponding <span title=concept-notification>notification</span> is in either the
-<span>list of pending notifications</span> or in the
-<span>list of active notifications</span> and the <code>Notification</code> object in
+corresponding <span title=concept-notification>notification</span> is in the
+<span>list of notifications</span> and the <code>Notification</code> object in
 question has an
 <span data-anolis-spec=dom title=concept-event-listener>event listener</span> whose
 <b>type</b> is <code title>click</code>, <code title>error</code> or
@@ -517,6 +468,7 @@ instance thus far where asking the user upfront makes sense. Specifications
 for other APIs should not use this pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">many more suitable alternatives</a>.
 
+<!--
 <p>The static
 <dfn title=dom-Notification-get><code>get(<var title>filter</var>)</code></dfn> method
 must run these steps:
@@ -530,9 +482,8 @@ must run these steps:
  <li><p>Let <var title>tag</var> be <var title>filter</var>'s <code title>tag</code>.
 
  <li><p>Let <var title>notifications</var> be a list of all
- <span title=concept-notification>notifications</span> in either the
- <span>list of pending notifications</span> or in the
- <span>list of active notifications</span> whose
+ <span title=concept-notification>notifications</span> in the
+ <span>list of notifications</span> whose
  <span title=concept-notification-origin>origin</span> is the
  <span data-anolis-spec=html>entry settings object</span>'s
  <span data-anolis-spec=html>origin</span> and whose <span>tag</span>, if
@@ -552,6 +503,7 @@ must run these steps:
 <p class=note>This method returns zero or more new <code>Notification</code> objects which
 might represent the same underlying <span title=concept-notification>notification</span>
 of <code>Notification</code> objects already in existence.
+-->
 
 
 <h3>Object members</h3>
