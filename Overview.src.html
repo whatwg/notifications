@@ -81,8 +81,15 @@ an occurrence, such as the delivery of a message.
 have an associated <dfn>icon URL</dfn>, <dfn>icon image</dfn>, and
 <dfn title=concept-notification-service-worker-registration>service worker registration</dfn>.
 
-<p class=warning>A <span title=concept-notification>notification</span> with an associated
-<span title=concept-notification-service-worker-registration>service worker registration</span>
+<p>A <dfn title=concept-non-persistent-notification>non-persistent notification</dfn> is a
+<span title=concept-notification>notification</span> without an associated
+<span title=concept-notification-service-worker-registration>service worker registration</span>.
+
+<p>A <dfn title=concept-persistent-notification>persistent notification</dfn> is a
+<span title=concept-notification>notification</span> with an associated
+<span title=concept-notification-service-worker-registration>service worker registration</span>.
+
+<p class=warning>A <span title=concept-persistent-notification>persistent notification</span>
 and HTTP cookies have similar implications with respect to privacy (e.g. they can be used
 to revive cookies). Implementors are therefore encouraged to expose these in a manner
 related to cookies, allowing them to be expunged together with cookies and other
@@ -375,10 +382,6 @@ are:
 
 <h2>API</h2>
 
-<p>A <span title=concept-notification>notification</span> is represented by zero or more
-<code>Notification</code> objects and can be created by
-<code>Notification</code>'s <span title=dom-Notification>constructor</span>.
-
 <pre class="idl">[<span title=dom-Notification>Constructor</span>(DOMString <var title>title</var>, optional <span>NotificationOptions</span> <var title>options</var>),
  Exposed=(Window,Worker)]
 interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span> {
@@ -422,6 +425,15 @@ enum <dfn>NotificationDirection</dfn> {
   "ltr",
   "rtl"
 };</pre>
+
+<p>A <span title=concept-non-persistent-notification>non-persistent notification</span> is
+represented one <code>Notification</code> objects and can be created through
+<code>Notification</code>'s <span title=dom-Notification>constructor</span>.
+
+<p>A <span title=concept-persistent-notification>persistent notification</span> is
+represented by zero or more <code>Notification</code> objects can be created through the
+<code title=dom-ServiceWorkerRegistration-showNotification>showNotification()</code>
+method.
 
 
 <h3>Garbage collection</h3>

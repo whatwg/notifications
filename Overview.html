@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-6-october-2014">Living Standard — Last Updated 6 October 2014</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-7-october-2014">Living Standard — Last Updated 7 October 2014</h2>
 
 <dl>
  <dt>Participate:</dt>
@@ -110,8 +110,15 @@ an occurrence, such as the delivery of a message.
 have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-image">icon image</dfn>, and
 <dfn id="concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</dfn>.
 
-<p class="warning">A <a href="#concept-notification" title="concept-notification">notification</a> with an associated
-<a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>
+<p>A <dfn id="concept-non-persistent-notification" title="concept-non-persistent-notification">non-persistent notification</dfn> is a
+<a href="#concept-notification" title="concept-notification">notification</a> without an associated
+<a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>.
+
+<p>A <dfn id="concept-persistent-notification" title="concept-persistent-notification">persistent notification</dfn> is a
+<a href="#concept-notification" title="concept-notification">notification</a> with an associated
+<a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>.
+
+<p class="warning">A <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>
 and HTTP cookies have similar implications with respect to privacy (e.g. they can be used
 to revive cookies). Implementors are therefore encouraged to expose these in a manner
 related to cookies, allowing them to be expunged together with cookies and other
@@ -404,10 +411,6 @@ are:
 
 <h2 id="api"><span class="secno">5 </span>API</h2>
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> is represented by zero or more
-<a href="#notification"><code>Notification</code></a> objects and can be created by
-<a href="#notification"><code>Notification</code></a>'s <a href="#dom-notification" title="dom-Notification">constructor</a>.
-
 <pre class="idl">[<a href="#dom-notification" title="dom-Notification">Constructor</a>(DOMString <var title="">title</var>, optional <a href="#notificationoptions">NotificationOptions</a> <var title="">options</var>),
  Exposed=(Window,Worker)]
 interface <dfn id="notification">Notification</dfn> : <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
@@ -451,6 +454,15 @@ enum <dfn id="notificationdirection">NotificationDirection</dfn> {
   "ltr",
   "rtl"
 };</pre>
+
+<p>A <a href="#concept-non-persistent-notification" title="concept-non-persistent-notification">non-persistent notification</a> is
+represented one <a href="#notification"><code>Notification</code></a> objects and can be created through
+<a href="#notification"><code>Notification</code></a>'s <a href="#dom-notification" title="dom-Notification">constructor</a>.
+
+<p>A <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a> is
+represented by zero or more <a href="#notification"><code>Notification</code></a> objects can be created through the
+<a href="#dom-serviceworkerregistration-shownotification"><code title="dom-ServiceWorkerRegistration-showNotification">showNotification()</code></a>
+method.
 
 
 <h3 id="garbage-collection"><span class="secno">5.1 </span>Garbage collection</h3>
