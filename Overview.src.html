@@ -183,9 +183,9 @@ unknown. <span data-anolis-ref>LANG</span>
 <p><span title=concept-notification>Notifications</span> can only be
 displayed if the user (or user agent on behalf of the user) has granted
 <dfn title=concept-permission>permission</dfn>. The
-<span title=concept-permission>permission</span> to display
+<span title=concept-permission>permission</span> to show
 <span title=concept-notification>notifications</span> for a given
-<span data-anolis-spec=html>origin</span> can be one of three strings:
+<span data-anolis-spec=html>origin</span> is one of three strings:
 
 <dl>
  <dt>"<code title>default</code>"
@@ -227,7 +227,7 @@ for the application to ask for <span title=concept-permission>permission</span>.
  <span title=concept-notification>notification</span> and
  <var title>notification</var>, and then terminate these steps.
 
- <li><p>Run the <span>display steps</span> for <var title>notification</var> and terminate these steps.
+ <li><p>Otherwise, run the <span>display steps</span> for <var title>notification</var>.
 </ol>
 
 <h3>Activating a notification</h3>
@@ -237,8 +237,8 @@ for the application to ask for <span title=concept-permission>permission</span>.
 notification platform supports activation, the user agent must run these steps:
 
 <ol>
- <li><p>If <var title>notification</var> has a
- <span title=concept-notification-service-worker-registration>service worker registration</span>,
+ <li><p>If <var title>notification</var> is a
+ <span title=concept-persistent-notification>persistent notification</span>,
  <a href=https://github.com/slightlyoff/ServiceWorker/issues/505 class=XXX>XXX</a>.
 
  <li><p>Otherwise, <span data-anolis-spec=html>queue a task</span> to
@@ -270,8 +270,8 @@ either by the underlying notification platform or by the user, the
  <li><p>Remove <var title>notification</var> from the
  <span>list of notifications</span>.
 
- <li><p>If <var title>notification</var> has a
- <span title=concept-notification-service-worker-registration>service worker registration</span>,
+ <li><p>If <var title>notification</var> is a
+ <span title=concept-persistent-notification>persistent notification</span>,
  <a href=https://github.com/slightlyoff/ServiceWorker/issues/505 class=XXX>XXX</a>.
 
  <li><p>Otherwise, <span data-anolis-spec=html>queue a task</span> to
@@ -313,8 +313,8 @@ are:
   substeps
 
   <ol>
-   <li><p>If <var title>notification</var> has a
-   <span title=concept-notification-service-worker-registration>service worker registration</span>,
+   <li><p>If <var title>notification</var> is a
+   <span title=concept-persistent-notification>persistent notification</span>,
    <a href=https://github.com/slightlyoff/ServiceWorker/issues/505 class=XXX>XXX</a>.
 
    <li><p>Otherwise, <span data-anolis-spec=html>queue a task</span> to
@@ -359,8 +359,8 @@ are:
   substeps:
 
   <ol>
-   <li><p>If <var title>notification</var> has a
-   <span title=concept-notification-service-worker-registration>service worker registration</span>,
+   <li><p>If <var title>old</var> is a
+   <span title=concept-persistent-notification>persistent notification</span>,
    <a href=https://github.com/slightlyoff/ServiceWorker/issues/505 class=XXX>XXX</a>.
 
    <li><p>Otherwise, <span data-anolis-spec=html>queue a task</span> to
@@ -718,9 +718,9 @@ method, when invoked, must return these steps:
  <span title="concept-notification-create">creating a notification</span> given
  <var title>title</var> and <var title>options</var>. Rethrow any exceptions.
 
- <li><p>If <span data-anolis-spec=dom>context object</span> does not have an associated
- <span data-anolis-spec=sw>active worker</span>, reject <var title>promise</var> with a
- <code title>TypeError</code> exception.
+ <li><p>If <span data-anolis-spec=dom>context object</span>'s
+ <span data-anolis-spec=sw>active worker</span> is null, reject <var title>promise</var>
+ with a <code title>TypeError</code> exception.
 
  <li><p>Set <var title>notification</var>'s
  <span title=concept-notification-service-worker-registration>service worker registration</span>

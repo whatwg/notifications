@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-7-october-2014">Living Standard — Last Updated 7 October 2014</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-8-october-2014">Living Standard — Last Updated 8 October 2014</h2>
 
 <dl>
  <dt>Participate:</dt>
@@ -212,9 +212,9 @@ unknown. <a href="#refsLANG">[LANG]</a>
 <p><a href="#concept-notification" title="concept-notification">Notifications</a> can only be
 displayed if the user (or user agent on behalf of the user) has granted
 <dfn id="concept-permission" title="concept-permission">permission</dfn>. The
-<a href="#concept-permission" title="concept-permission">permission</a> to display
+<a href="#concept-permission" title="concept-permission">permission</a> to show
 <a href="#concept-notification" title="concept-notification">notifications</a> for a given
-<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> can be one of three strings:
+<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> is one of three strings:
 
 <dl>
  <dt>"<code title="">default</code>"
@@ -256,7 +256,7 @@ for the application to ask for <a href="#concept-permission" title="concept-perm
  <a href="#concept-notification" title="concept-notification">notification</a> and
  <var title="">notification</var>, and then terminate these steps.
 
- <li><p>Run the <a href="#display-steps">display steps</a> for <var title="">notification</var> and terminate these steps.
+ <li><p>Otherwise, run the <a href="#display-steps">display steps</a> for <var title="">notification</var>.
 </ol>
 
 <h3 id="activating-a-notification"><span class="secno">4.6 </span>Activating a notification</h3>
@@ -266,8 +266,8 @@ for the application to ask for <a href="#concept-permission" title="concept-perm
 notification platform supports activation, the user agent must run these steps:
 
 <ol>
- <li><p>If <var title="">notification</var> has a
- <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>,
+ <li><p>If <var title="">notification</var> is a
+ <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>,
  <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/505">XXX</a>.
 
  <li><p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
@@ -299,8 +299,8 @@ either by the underlying notification platform or by the user, the
  <li><p>Remove <var title="">notification</var> from the
  <a href="#list-of-notifications">list of notifications</a>.
 
- <li><p>If <var title="">notification</var> has a
- <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>,
+ <li><p>If <var title="">notification</var> is a
+ <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>,
  <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/505">XXX</a>.
 
  <li><p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
@@ -342,8 +342,8 @@ are:
   substeps
 
   <ol>
-   <li><p>If <var title="">notification</var> has a
-   <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>,
+   <li><p>If <var title="">notification</var> is a
+   <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>,
    <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/505">XXX</a>.
 
    <li><p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
@@ -388,8 +388,8 @@ are:
   substeps:
 
   <ol>
-   <li><p>If <var title="">notification</var> has a
-   <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>,
+   <li><p>If <var title="">old</var> is a
+   <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>,
    <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/505">XXX</a>.
 
    <li><p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
@@ -747,9 +747,9 @@ method, when invoked, must return these steps:
  <a href="#concept-notification-create" title="concept-notification-create">creating a notification</a> given
  <var title="">title</var> and <var title="">options</var>. Rethrow any exceptions.
 
- <li><p>If <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#context-object">context object</a> does not have an associated
- <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#dfn-active-worker">active worker</a>, reject <var title="">promise</var> with a
- <code title="">TypeError</code> exception.
+ <li><p>If <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#context-object">context object</a>'s
+ <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#dfn-active-worker">active worker</a> is null, reject <var title="">promise</var>
+ with a <code title="">TypeError</code> exception.
 
  <li><p>Set <var title="">notification</var>'s
  <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>
