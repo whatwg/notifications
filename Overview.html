@@ -286,9 +286,23 @@ notification platform supports activation, the user agent must (unless otherwise
 specified) run these steps:
 
 <ol>
- <li><p>If <var title="">notification</var> is a
- <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>,
- <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/505">XXX</a>.
+ <li>
+  <p>If <var title="">notification</var> is a
+  <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>, run these
+  substeps:
+
+  <ol>
+   <li><p>Let <var title="">callback</var> be an algorithm that when invoked with a
+   <var title="">global</var>,
+   <a href="#concept-event-fire-service-worker-notification" title="concept-event-fire-service-worker-notification">fires a service worker notification event</a>
+   named <code title="">notificationclick</code> given <var title="">notification</var> on
+   <var title="">global</var>.
+
+   <li><p>Then run <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#handle-functional-event-algorithm">Handle Functional Event</a> with
+   <var title="">notification</var>'s
+   <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>
+   and <var title="">callback</var>.
+  </ol>
 
  <li>
   <p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to run these substeps:
@@ -373,9 +387,23 @@ are:
   substeps
 
   <ol>
-   <li><p>If <var title="">notification</var> is a
-   <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>,
-   <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/505">XXX</a>.
+   <li>
+    <p>If <var title="">notification</var> is a
+    <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>, run these
+    substeps:
+
+    <ol>
+     <li><p>Let <var title="">callback</var> be an algorithm that when invoked with a
+     <var title="">global</var>,
+     <a href="#concept-event-fire-service-worker-notification" title="concept-event-fire-service-worker-notification">fires a service worker notification event</a>
+     named <code title="">notificationerror</code> given <var title="">notification</var> on
+     <var title="">global</var>.
+
+     <li><p>Then run <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#handle-functional-event-algorithm">Handle Functional Event</a> with
+     <var title="">notification</var>'s
+     <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>
+     and <var title="">callback</var>.
+    </ol>
 
    <li><p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
    <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
@@ -816,6 +844,16 @@ method, when invoked, must return these steps:
 </ol>
 
 <hr>
+
+<p>To
+<dfn id="concept-event-fire-service-worker-notification" title="concept-event-fire-service-worker-notification">fire a service worker notification event named <var title="">e</var></dfn>
+given <var title="">notification</var>,
+<a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event named <var title="">e</var></a>
+with an <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event" title="concept-event">event</a> using the
+<a href="#serviceworkernotificationevent"><code>ServiceWorkerNotificationEvent</code></a> interface whose
+<a href="#dom-serviceworkernotificationevent-notification"><code title="dom-ServiceWorkerNotificationEvent-notification">notification</code></a> attribute
+is initialized to a new <a href="#notification"><code>Notification</code></a> object representing
+<var title="">notification</var>.
 
 <p>The
 <dfn id="dom-serviceworkernotificationevent-notification" title="dom-ServiceWorkerNotificationEvent-notification"><code>notification</code></dfn>

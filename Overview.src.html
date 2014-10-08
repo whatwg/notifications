@@ -257,9 +257,23 @@ notification platform supports activation, the user agent must (unless otherwise
 specified) run these steps:
 
 <ol>
- <li><p>If <var title>notification</var> is a
- <span title=concept-persistent-notification>persistent notification</span>,
- <a href=https://github.com/slightlyoff/ServiceWorker/issues/505 class=XXX>XXX</a>.
+ <li>
+  <p>If <var title>notification</var> is a
+  <span title=concept-persistent-notification>persistent notification</span>, run these
+  substeps:
+
+  <ol>
+   <li><p>Let <var title>callback</var> be an algorithm that when invoked with a
+   <var title>global</var>,
+   <span title=concept-event-fire-service-worker-notification>fires a service worker notification event</span>
+   named <code title>notificationclick</code> given <var title>notification</var> on
+   <var title>global</var>.
+
+   <li><p>Then run <span data-anolis-spec=sw>Handle Functional Event</span> with
+   <var title>notification</var>'s
+   <span title=concept-notification-service-worker-registration>service worker registration</span>
+   and <var title>callback</var>.
+  </ol>
 
  <li>
   <p>Otherwise, <span data-anolis-spec=html>queue a task</span> to run these substeps:
@@ -344,9 +358,23 @@ are:
   substeps
 
   <ol>
-   <li><p>If <var title>notification</var> is a
-   <span title=concept-persistent-notification>persistent notification</span>,
-   <a href=https://github.com/slightlyoff/ServiceWorker/issues/505 class=XXX>XXX</a>.
+   <li>
+    <p>If <var title>notification</var> is a
+    <span title=concept-persistent-notification>persistent notification</span>, run these
+    substeps:
+
+    <ol>
+     <li><p>Let <var title>callback</var> be an algorithm that when invoked with a
+     <var title>global</var>,
+     <span title=concept-event-fire-service-worker-notification>fires a service worker notification event</span>
+     named <code title>notificationerror</code> given <var title>notification</var> on
+     <var title>global</var>.
+
+     <li><p>Then run <span data-anolis-spec=sw>Handle Functional Event</span> with
+     <var title>notification</var>'s
+     <span title=concept-notification-service-worker-registration>service worker registration</span>
+     and <var title>callback</var>.
+    </ol>
 
    <li><p>Otherwise, <span data-anolis-spec=html>queue a task</span> to
    <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
@@ -787,6 +815,16 @@ method, when invoked, must return these steps:
 </ol>
 
 <hr>
+
+<p>To
+<dfn title=concept-event-fire-service-worker-notification>fire a service worker notification event named <var title>e</var></dfn>
+given <var title>notification</var>,
+<span data-anolis-spec=dom title=concept-event-fire>fire an event named <var title>e</var></span>
+with an <span data-anolis-spec=dom title=concept-event>event</span> using the
+<code>ServiceWorkerNotificationEvent</code> interface whose
+<code title=dom-ServiceWorkerNotificationEvent-notification>notification</code> attribute
+is initialized to a new <code>Notification</code> object representing
+<var title>notification</var>.
 
 <p>The
 <dfn title=dom-ServiceWorkerNotificationEvent-notification><code>notification</code></dfn>
