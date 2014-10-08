@@ -35,10 +35,10 @@
  <li><a href="#terminology"><span class="secno">3 </span>Terminology</a></li>
  <li><a href="#model"><span class="secno">4 </span>Model</a>
   <ol>
-   <li><a href="#direction-0"><span class="secno">4.1 </span>Direction</a></li>
-   <li><a href="#language-0"><span class="secno">4.2 </span>Language</a></li>
-   <li><a href="#permission"><span class="secno">4.3 </span>Permission</a></li>
-   <li><a href="#notification-list"><span class="secno">4.4 </span>Notification list</a></li>
+   <li><a href="#lifetime"><span class="secno">4.1 </span>Lifetime</a></li>
+   <li><a href="#direction-0"><span class="secno">4.2 </span>Direction</a></li>
+   <li><a href="#language-0"><span class="secno">4.3 </span>Language</a></li>
+   <li><a href="#permission"><span class="secno">4.4 </span>Permission</a></li>
    <li><a href="#showing-a-notification"><span class="secno">4.5 </span>Showing a notification</a></li>
    <li><a href="#activating-a-notification"><span class="secno">4.6 </span>Activating a notification</a></li>
    <li><a href="#closing-a-notification"><span class="secno">4.7 </span>Closing a notification</a></li>
@@ -118,12 +118,6 @@ have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-image">icon 
 <a href="#concept-notification" title="concept-notification">notification</a> with an associated
 <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>.
 
-<p class="warning">A <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>
-and HTTP cookies have similar implications with respect to privacy (e.g. they can be used
-to revive cookies). Implementors are therefore encouraged to expose these in a manner
-related to cookies, allowing them to be expunged together with cookies and other
-origin-specific data.
-
 <!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
 
 
@@ -172,7 +166,26 @@ origin-specific data.
 </ol>
 
 
-<h3 id="direction-0"><span class="secno">4.1 </span>Direction</h3>
+<h3 id="lifetime"><span class="secno">4.1 </span>Lifetime</h3>
+
+<p>The user agent must keep a <dfn id="list-of-notifications">list of notifications</dfn>.
+
+<p>User agents should run the <a href="#close-steps">close steps</a> for a
+<a href="#concept-non-persistent-notification" title="concept-non-persistent-notification">non-persistent notification</a> a
+couple of seconds after they have been
+<span title="create a notification">created</span>.
+
+<p>User agents should persist
+<a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notifications</a> until they are
+removed from the <a href="#list-of-notifications">list of notifications</a>.
+
+<p class="example">A
+<a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a> could have its
+<a href="#dom-notification-close"><code title="dom-Notification-close">close()</code></a> method invoked on one of its
+<a href="#notification"><code>Notification</code></a> objects it is represented by.
+
+
+<h3 id="direction-0"><span class="secno">4.2 </span>Direction</h3>
 
 <p>This section is written in terms equivalent to those used in the
 Rendering section of HTML. <a href="#refsHTML">[HTML]</a>
@@ -194,7 +207,7 @@ if it has a value other than "<code title="">auto</code>".
 <a href="#refsBIDI">[BIDI]</a>
 
 
-<h3 id="language-0"><span class="secno">4.2 </span>Language</h3>
+<h3 id="language-0"><span class="secno">4.3 </span>Language</h3>
 
 <!-- keep this in sync with
      https://html.spec.whatwg.org/multipage/dom.html#attr-lang -->
@@ -207,7 +220,7 @@ empty string. The empty string indicates that the primary language is
 unknown. <a href="#refsLANG">[LANG]</a>
 
 
-<h3 id="permission"><span class="secno">4.3 </span>Permission</h3>
+<h3 id="permission"><span class="secno">4.4 </span>Permission</h3>
 
 <p><a href="#concept-notification" title="concept-notification">Notifications</a> can only be
 displayed if the user (or user agent on behalf of the user) has granted
@@ -234,11 +247,6 @@ displayed if the user (or user agent on behalf of the user) has granted
 meaning "<code title="">granted</code>". In that case
 "<code title="">granted</code>" is simply returned as there would be no reason
 for the application to ask for <a href="#concept-permission" title="concept-permission">permission</a>.
-
-
-<h3 id="notification-list"><span class="secno">4.4 </span>Notification list</h3>
-
-<p>The user agent must keep a <dfn id="list-of-notifications">list of notifications</dfn>.
 
 
 <h3 id="showing-a-notification"><span class="secno">4.5 </span>Showing a notification</h3>

@@ -89,12 +89,6 @@ have an associated <dfn>icon URL</dfn>, <dfn>icon image</dfn>, and
 <span title=concept-notification>notification</span> with an associated
 <span title=concept-notification-service-worker-registration>service worker registration</span>.
 
-<p class=warning>A <span title=concept-persistent-notification>persistent notification</span>
-and HTTP cookies have similar implications with respect to privacy (e.g. they can be used
-to revive cookies). Implementors are therefore encouraged to expose these in a manner
-related to cookies, allowing them to be expunged together with cookies and other
-origin-specific data.
-
 <!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
 
 
@@ -141,6 +135,25 @@ origin-specific data.
 
  <li><p>Return <var title>notification</var>.
 </ol>
+
+
+<h3>Lifetime</h3>
+
+<p>The user agent must keep a <dfn>list of notifications</dfn>.
+
+<p>User agents should run the <span>close steps</span> for a
+<span title=concept-non-persistent-notification>non-persistent notification</span> a
+couple of seconds after they have been
+<span title="create a notification">created</span>.
+
+<p>User agents should persist
+<span title=concept-persistent-notification>persistent notifications</span> until they are
+removed from the <span>list of notifications</span>.
+
+<p class=example>A
+<span title=concept-persistent-notification>persistent notification</span> could have its
+<code title=dom-Notification-close>close()</code> method invoked on one of its
+<code>Notification</code> objects it is represented by.
 
 
 <h3>Direction</h3>
@@ -205,11 +218,6 @@ displayed if the user (or user agent on behalf of the user) has granted
 meaning "<code title>granted</code>". In that case
 "<code title>granted</code>" is simply returned as there would be no reason
 for the application to ask for <span title=concept-permission>permission</span>.
-
-
-<h3>Notification list</h3>
-
-<p>The user agent must keep a <dfn>list of notifications</dfn>.
 
 
 <h3>Showing a notification</h3>
