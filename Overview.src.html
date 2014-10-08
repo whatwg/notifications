@@ -691,9 +691,14 @@ partial interface <span data-anolis-spec=sw>ServiceWorkerRegistration</span> {
 interface <dfn>ServiceWorkerNotificationEvent</dfn> : <span data-anolis-spec=dom>Event</span> {
   readonly attribute <span>Notification</span> <span title=dom-ServiceWorkerNotificationEvent-notification>notification</span>;
 };
-
+<!-- XXX ExtendableEvent -->
 dictionary <dfn>ServiceWorkerNotificationEventInit</dfn> : <span data-anolis-spec=dom>EventInit</span> {
   required <span>Notification</span> notification;
+};
+
+partial interface <span data-anolis-spec=sw>ServiceWorkerGlobalScope</span> {
+  attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-ServiceWorkerGlobalScope-onnotification>onnotificationclick</span>;
+  attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-ServiceWorkerGlobalScope-onnotification>onnotificationerror</span>;
 };</pre>
 
 <p>The static

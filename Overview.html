@@ -720,9 +720,14 @@ partial interface <a class="external" data-anolis-spec="sw" href="https://slight
 interface <dfn id="serviceworkernotificationevent">ServiceWorkerNotificationEvent</dfn> : <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#event">Event</a> {
   readonly attribute <a href="#notification">Notification</a> <a href="#dom-serviceworkernotificationevent-notification" title="dom-ServiceWorkerNotificationEvent-notification">notification</a>;
 };
-
+<!-- XXX ExtendableEvent -->
 dictionary <dfn id="serviceworkernotificationeventinit">ServiceWorkerNotificationEventInit</dfn> : <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#eventinit">EventInit</a> {
   required <a href="#notification">Notification</a> notification;
+};
+
+partial interface <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-global-scope-interface">ServiceWorkerGlobalScope</a> {
+  attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <span title="handler-ServiceWorkerGlobalScope-onnotification">onnotificationclick</span>;
+  attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <span title="handler-ServiceWorkerGlobalScope-onnotification">onnotificationerror</span>;
 };</pre>
 
 <p>The static
