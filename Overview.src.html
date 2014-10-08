@@ -139,7 +139,7 @@ have an associated <dfn>icon URL</dfn>, <dfn>icon image</dfn>, and
 </ol>
 
 
-<h3>Lifetime</h3>
+<h3>Lifetime and UI integration</h3>
 
 <p>The user agent must keep a <dfn>list of notifications</dfn>.
 
@@ -148,14 +148,22 @@ have an associated <dfn>icon URL</dfn>, <dfn>icon image</dfn>, and
 couple of seconds after they have been
 <span title="create a notification">created</span>.
 
+<p>User agents should not display
+<span title=concept-non-persistent-notification>non-persistent notification</span> in a
+platform's "notification center" (if available).
+
 <p>User agents should persist
 <span title=concept-persistent-notification>persistent notifications</span> until they are
 removed from the <span>list of notifications</span>.
 
 <p class=example>A
-<span title=concept-persistent-notification>persistent notification</span> could have its
-<code title=dom-Notification-close>close()</code> method invoked on one of its
-<code>Notification</code> objects it is represented by.
+<span title=concept-persistent-notification>persistent notification</span> could have the
+<code title=dom-Notification-close>close()</code> method invoked of one of its
+<code>Notification</code> objects.
+
+<p>User agents should display
+<span title=concept-persistent-notification>persistent notification</span> in a
+platform's "notification center" (if available).
 
 
 <h3>Permission model</h3>
