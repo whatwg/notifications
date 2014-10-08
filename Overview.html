@@ -170,7 +170,8 @@ have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-image">icon 
 
 <h3 id="lifetime-and-ui-integration"><span class="secno">4.1 </span>Lifetime and UI integration</h3>
 
-<p>The user agent must keep a <dfn id="list-of-notifications">list of notifications</dfn>.
+<p>The user agent must keep a <dfn id="list-of-notifications">list of notifications</dfn> that consists of zero or
+more <a href="#concept-notification" title="concept-notification">notifications</a>.
 
 <p>User agents should run the <a href="#close-steps">close steps</a> for a
 <a href="#concept-non-persistent-notification" title="concept-non-persistent-notification">non-persistent notification</a> a
@@ -281,26 +282,38 @@ unknown. <a href="#refsLANG">[LANG]</a>
 
 <p>When a <a href="#concept-notification" title="concept-notification">notification</a>
 <var title="">notification</var> is activated by the user, assuming the underlying
-notification platform supports activation, the user agent must run these steps:
+notification platform supports activation, the user agent must (unless otherwise
+specified) run these steps:
 
 <ol>
  <li><p>If <var title="">notification</var> is a
  <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>,
  <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/505">XXX</a>.
 
- <li><p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
- <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
- <code title="">click</code> on the <a href="#notification"><code>Notification</code></a> object representing
- <var title="">notification</var>.
+ <li>
+  <p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to run these substeps:
+
+  <ol>
+   <li>
+    <p><a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">Fire an event</a> named
+    <code title="">click</code> with its
+    <a href="https://dom.spec.whatwg.org/#dom-event-cancelable"><code class="external" data-anolis-spec="dom" title="dom-Event-cancelable">cancelable</code></a> attribute
+    initialized to true on the <a href="#notification"><code>Notification</code></a> object representing
+    <var title="">notification</var>.
+
+    <p class="note no-backref">User agents are encouraged to make
+    <a href="https://html.spec.whatwg.org/multipage/interaction.html#dom-window-focus"><code class="external" data-anolis-spec="html" title="dom-window-focus">window.focus()</code></a> work from
+    within the event listener for the event named <code title="">click</code>.
+
+   <li><p>If the <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event" title="concept-event">event</a>'s
+   <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#canceled-flag">canceled flag</a> is unset, the user agent should bring
+   the <var title="">notification</var>'s related
+   <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a>'s viewport into focus.
+  </ol>
 </ol>
 
 <p class="note">Throughout the web platform "activate" is intentionally misnamed as "click".
 
-<p class="note no-backref">When user agents do not automatically focus a
-<a href="#concept-notification" title="concept-notification">notification</a>'s related
-<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a>, they are encouraged to make
-<a href="https://html.spec.whatwg.org/multipage/interaction.html#dom-window-focus"><code class="external" data-anolis-spec="html" title="dom-window-focus">window.focus()</code></a> work from within
-the event listener for the event named <code title="">click</code>.
 
 <h3 id="closing-a-notification"><span class="secno">4.7 </span>Closing a notification</h3>
 
