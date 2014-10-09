@@ -314,15 +314,6 @@ either by the underlying notification platform or by the user, the
 
  <li><p>Remove <var title>notification</var> from the
  <span>list of notifications</span>.
-
- <li><p>If <var title>notification</var> is a
- <span title=concept-persistent-notification>persistent notification</span>,
- <a href=https://github.com/slightlyoff/ServiceWorker/issues/505 class=XXX>XXX</a>.
-
- <li><p>Otherwise, <span data-anolis-spec=html>queue a task</span> to
- <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
- <code title>close</code> on the <code>Notification</code> object representing
- <var title>notification</var>.
 </ol>
 
 
@@ -414,19 +405,7 @@ are:
 
  <li>
   <p>Replace <var title>old</var> with <var title>new</var>,
-  in the same position, in the <span>list of notifications</span>, and then run these
-  substeps:
-
-  <ol>
-   <li><p>If <var title>old</var> is a
-   <span title=concept-persistent-notification>persistent notification</span>,
-   <a href=https://github.com/slightlyoff/ServiceWorker/issues/505 class=XXX>XXX</a>.
-
-   <li><p>Otherwise, <span data-anolis-spec=html>queue a task</span> to
-   <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
-   <code title>close</code> on the <code>Notification</code> object representing
-   <var title>old</var>.
-  </ol>
+  in the same position, in the <span>list of notifications</span>.
 
   <p>If the notification platform does not support replacement this
   requirement may be addressed by running the <span>close steps</span> for
@@ -449,7 +428,6 @@ interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span
 
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onclick>onclick</span>;
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onerror>onerror</span>;
-  attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-onclose>onclose</span>;
 
   readonly attribute DOMString <span title=dom-Notification-title>title</span>;
   readonly attribute <span>NotificationDirection</span> <span title=dom-Notification-dir>dir</span>;
@@ -502,8 +480,7 @@ corresponding <span title=concept-notification>notification</span> is in the
 <span>list of notifications</span> and the <code>Notification</code> object in
 question has an
 <span data-anolis-spec=dom title=concept-event-listener>event listener</span> whose
-<b>type</b> is <code title>click</code>, <code title>error</code> or
-<code title>close</code>.
+<b>type</b> is <code title>click</code> or <code title>error</code>.
 
 
 <h3>Constructors</h3>
@@ -596,9 +573,6 @@ that must be supported as attributes by the <code>Notification</code> object.
   <tr>
    <td><dfn title=handler-onerror><code>onerror</code></dfn>
    <td><code title=event-error>error</code>
-  <tr>
-   <td><dfn title=handler-onclose><code>onclose</code></dfn>
-   <td><code title=event-close>close</code>
 </table>
 
 <p>The <dfn title=dom-Notification-close><code>close()</code></dfn> method, when invoked,
@@ -640,15 +614,11 @@ return a <span data-anolis-spec=html>structured clone</span> of
 <p><code>Notification</code> objects dispatch events during their lifecycle,
 which developers can use to generate desired behaviors.
 
-<p>The <code title=event-close>close</code> event dispatches when the
-notification is dismissed by the user. Developers may use this event to
-perform actions when notifications are acknowledged.
+<p>The <code title=event-close>click</code> event dispatches when the user activates a
+notification.
 
-<p>In the following example, when a meeting reminder notification is
-acknowledged, the application suppresses other forms of reminders.
-
-<pre class="example">var notification = new Notification("Meeting about to begin", { icon: "calendar.gif", body: "Room 101" })
-notification.onclose = function(event) { cancelReminders(event) }</pre>
+<pre class="example">var not = new Notification("Gebrünn Gebrünn by Paul Kalkbrenner", { icon: "newsong.svg", tag: "song" })
+notification.onclick = function() { displaySong(this) }</pre>
 
 
 <h4 id="tags-example">Using the <code title>tag</code> member for multiple instances</h4>
@@ -673,17 +643,17 @@ new Notification("New mail from John Doe",   |
                                              |  new Notification("New mail from John Doe",
                                              |                   { tag: 'message1' });</pre>
 
-<p>
-	The result of this situation, if the user agent follows the algorithms here, is a <strong>single</strong> notification "New mail from John Doe".
+<p>The result of this situation, if the user agent follows the algorithms here, is a
+<strong>single</strong> notification "New mail from John Doe".
 
 <h4>Using the <code title>tag</code> member for a single instance</h4>
 
-<p>The <code title>tag</code> member can also be used by a single instance of an application to keep its
-	notifications as current as possible as state changes.
+<p>The <code title>tag</code> member can also be used by a single instance of an
+application to keep its notifications as current as possible as state changes.
 
 <p>For example, if Alice is using a chat application with Bob, and Bob sends multiple
-	messages while Alice is idle, the application may prefer that Alice not see a
-	desktop notification for each message.
+messages while Alice is idle, the application may prefer that Alice not see a desktop
+notification for each message.
 
 <pre class="example">// Bob says "Hi"
 new Notification("Bob: Hi", { tag: 'chat_Bob' });
@@ -691,12 +661,11 @@ new Notification("Bob: Hi", { tag: 'chat_Bob' });
 // Bob says "Are you free this afternoon?"
 new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });</pre>
 
-<p>The result of this situation is a <em>single</em> notification; the second one
-	replaces the first having the same tag.  In a platform that queues notifications
-	(first-in-first-out), using the tag allows the notification to also maintain its
-	position in the queue.  Platforms where the newest notifications are shown first,
-	a similar result could be achieved using the
-	<code title=dom-Notification-close>close()</code> method.
+<p>The result of this situation is a <em>single</em> notification; the second one replaces
+the first having the same tag.  In a platform that queues notifications
+(first-in-first-out), using the tag allows the notification to also maintain its position
+in the queue.  Platforms where the newest notifications are shown first, a similar result
+could be achieved using the <code title=dom-Notification-close>close()</code> method.
 
 
 
@@ -829,6 +798,26 @@ is initialized to a new <code>Notification</code> object representing
 <p>The
 <dfn title=dom-ServiceWorkerNotificationEvent-notification><code>notification</code></dfn>
 attribute's getter must return the value it was initialized to.
+
+<p>The following are the <span data-anolis-spec=html>event handlers</span>
+(and their corresponding
+<span data-anolis-spec=html title="event handler event type">event handler event types</span>)
+that must be supported as attributes by the
+<code data-anolis-spec=sw>ServiceWorkerGlobalScope</code> object.
+
+<table>
+ <thead>
+  <tr>
+   <th><span data-anolis-spec=html title="event handlers">event handler</span>
+   <th><span data-anolis-spec=html>event handler event type</span>
+ <tbody>
+  <tr>
+   <td><dfn title=handler-ServiceWorkerGlobalScope-onnotificationclick><code>onnotificationclick</code></dfn>
+   <td><code title=event-notificationclick>notificationclick</code>
+  <tr>
+   <td><dfn title=handler-ServiceWorkerGlobalScope-onnotificationerror><code>onnotificationerror</code></dfn>
+   <td><code title=event-notificationerror>notificationerror</code>
+</table>
 
 
 

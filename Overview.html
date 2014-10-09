@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-8-october-2014">Living Standard — Last Updated 8 October 2014</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-9-october-2014">Living Standard — Last Updated 9 October 2014</h2>
 
 <dl>
  <dt>Participate:</dt>
@@ -343,15 +343,6 @@ either by the underlying notification platform or by the user, the
 
  <li><p>Remove <var title="">notification</var> from the
  <a href="#list-of-notifications">list of notifications</a>.
-
- <li><p>If <var title="">notification</var> is a
- <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>,
- <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/505">XXX</a>.
-
- <li><p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
- <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
- <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object representing
- <var title="">notification</var>.
 </ol>
 
 
@@ -443,19 +434,7 @@ are:
 
  <li>
   <p>Replace <var title="">old</var> with <var title="">new</var>,
-  in the same position, in the <a href="#list-of-notifications">list of notifications</a>, and then run these
-  substeps:
-
-  <ol>
-   <li><p>If <var title="">old</var> is a
-   <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>,
-   <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/505">XXX</a>.
-
-   <li><p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
-   <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
-   <code title="">close</code> on the <a href="#notification"><code>Notification</code></a> object representing
-   <var title="">old</var>.
-  </ol>
+  in the same position, in the <a href="#list-of-notifications">list of notifications</a>.
 
   <p>If the notification platform does not support replacement this
   requirement may be addressed by running the <a href="#close-steps">close steps</a> for
@@ -478,7 +457,6 @@ interface <dfn id="notification">Notification</dfn> : <a class="external" data-a
 
   attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclick" title="handler-onclick">onclick</a>;
   attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onerror" title="handler-onerror">onerror</a>;
-  attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclose" title="handler-onclose">onclose</a>;
 
   readonly attribute DOMString <a href="#dom-notification-title" title="dom-Notification-title">title</a>;
   readonly attribute <a href="#notificationdirection">NotificationDirection</a> <a href="#dom-notification-dir" title="dom-Notification-dir">dir</a>;
@@ -531,8 +509,7 @@ corresponding <a href="#concept-notification" title="concept-notification">notif
 <a href="#list-of-notifications">list of notifications</a> and the <a href="#notification"><code>Notification</code></a> object in
 question has an
 <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-listener" title="concept-event-listener">event listener</a> whose
-<b>type</b> is <code title="">click</code>, <code title="">error</code> or
-<code title="">close</code>.
+<b>type</b> is <code title="">click</code> or <code title="">error</code>.
 
 
 <h3 id="constructors"><span class="secno">5.2 </span>Constructors</h3>
@@ -625,9 +602,6 @@ that must be supported as attributes by the <a href="#notification"><code>Notifi
   <tr>
    <td><dfn id="handler-onerror" title="handler-onerror"><code>onerror</code></dfn>
    <td><code title="event-error">error</code>
-  <tr>
-   <td><dfn id="handler-onclose" title="handler-onclose"><code>onclose</code></dfn>
-   <td><code title="event-close">close</code>
 </table>
 
 <p>The <dfn id="dom-notification-close" title="dom-Notification-close"><code>close()</code></dfn> method, when invoked,
@@ -669,15 +643,11 @@ return a <a class="external" data-anolis-spec="html" href="https://html.spec.wha
 <p><a href="#notification"><code>Notification</code></a> objects dispatch events during their lifecycle,
 which developers can use to generate desired behaviors.
 
-<p>The <code title="event-close">close</code> event dispatches when the
-notification is dismissed by the user. Developers may use this event to
-perform actions when notifications are acknowledged.
+<p>The <code title="event-close">click</code> event dispatches when the user activates a
+notification.
 
-<p>In the following example, when a meeting reminder notification is
-acknowledged, the application suppresses other forms of reminders.
-
-<pre class="example">var notification = new Notification("Meeting about to begin", { icon: "calendar.gif", body: "Room 101" })
-notification.onclose = function(event) { cancelReminders(event) }</pre>
+<pre class="example">var not = new Notification("Gebrünn Gebrünn by Paul Kalkbrenner", { icon: "newsong.svg", tag: "song" })
+notification.onclick = function() { displaySong(this) }</pre>
 
 
 <h4 id="tags-example"><span class="secno">5.5.2 </span>Using the <code title="">tag</code> member for multiple instances</h4>
@@ -702,17 +672,17 @@ new Notification("New mail from John Doe",   |
                                              |  new Notification("New mail from John Doe",
                                              |                   { tag: 'message1' });</pre>
 
-<p>
-	The result of this situation, if the user agent follows the algorithms here, is a <strong>single</strong> notification "New mail from John Doe".
+<p>The result of this situation, if the user agent follows the algorithms here, is a
+<strong>single</strong> notification "New mail from John Doe".
 
 <h4 id="using-the-tag-member-for-a-single-instance"><span class="secno">5.5.3 </span>Using the <code title="">tag</code> member for a single instance</h4>
 
-<p>The <code title="">tag</code> member can also be used by a single instance of an application to keep its
-	notifications as current as possible as state changes.
+<p>The <code title="">tag</code> member can also be used by a single instance of an
+application to keep its notifications as current as possible as state changes.
 
 <p>For example, if Alice is using a chat application with Bob, and Bob sends multiple
-	messages while Alice is idle, the application may prefer that Alice not see a
-	desktop notification for each message.
+messages while Alice is idle, the application may prefer that Alice not see a desktop
+notification for each message.
 
 <pre class="example">// Bob says "Hi"
 new Notification("Bob: Hi", { tag: 'chat_Bob' });
@@ -720,12 +690,11 @@ new Notification("Bob: Hi", { tag: 'chat_Bob' });
 // Bob says "Are you free this afternoon?"
 new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });</pre>
 
-<p>The result of this situation is a <em>single</em> notification; the second one
-	replaces the first having the same tag.  In a platform that queues notifications
-	(first-in-first-out), using the tag allows the notification to also maintain its
-	position in the queue.  Platforms where the newest notifications are shown first,
-	a similar result could be achieved using the
-	<a href="#dom-notification-close"><code title="dom-Notification-close">close()</code></a> method.
+<p>The result of this situation is a <em>single</em> notification; the second one replaces
+the first having the same tag.  In a platform that queues notifications
+(first-in-first-out), using the tag allows the notification to also maintain its position
+in the queue.  Platforms where the newest notifications are shown first, a similar result
+could be achieved using the <a href="#dom-notification-close"><code title="dom-Notification-close">close()</code></a> method.
 
 
 
@@ -858,6 +827,26 @@ is initialized to a new <a href="#notification"><code>Notification</code></a> ob
 <p>The
 <dfn id="dom-serviceworkernotificationevent-notification" title="dom-ServiceWorkerNotificationEvent-notification"><code>notification</code></dfn>
 attribute's getter must return the value it was initialized to.
+
+<p>The following are the <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handlers</a>
+(and their corresponding
+<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type" title="event handler event type">event handler event types</a>)
+that must be supported as attributes by the
+<a href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-global-scope-interface"><code class="external" data-anolis-spec="sw">ServiceWorkerGlobalScope</code></a> object.
+
+<table>
+ <thead>
+  <tr>
+   <th><a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers" title="event handlers">event handler</a>
+   <th><a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">event handler event type</a>
+ <tbody>
+  <tr>
+   <td><dfn id="handler-serviceworkerglobalscope-onnotificationclick" title="handler-ServiceWorkerGlobalScope-onnotificationclick"><code>onnotificationclick</code></dfn>
+   <td><code title="event-notificationclick">notificationclick</code>
+  <tr>
+   <td><dfn id="handler-serviceworkerglobalscope-onnotificationerror" title="handler-ServiceWorkerGlobalScope-onnotificationerror"><code>onnotificationerror</code></dfn>
+   <td><code title="event-notificationerror">notificationerror</code>
+</table>
 
 
 
