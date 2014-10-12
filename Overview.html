@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-9-october-2014">Living Standard — Last Updated 9 October 2014</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-12-october-2014">Living Standard — Last Updated 12 October 2014</h2>
 
 <dl>
  <dt>Participate:</dt>
@@ -712,13 +712,13 @@ partial interface <a class="external" data-anolis-spec="sw" href="https://slight
   Promise&lt;void&gt; <a href="#dom-serviceworkerregistration-shownotification" title="dom-ServiceWorkerRegistration-showNotification">showNotification</a>(DOMString <var title="">title</var>, optional <a href="#notificationoptions">NotificationOptions</a> <var>options</var>);
 };
 
-[<a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-constructor" title="concept-event-constructor">Constructor</a>(DOMString <var>type</var>, optional <a href="#serviceworkernotificationeventinit">ServiceWorkerNotificationEventInit</a> <var>eventInitDict</var>),
+[<a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-constructor" title="concept-event-constructor">Constructor</a>(DOMString <var>type</var>, optional <a href="#notificationeventinit">NotificationEventInit</a> <var>eventInitDict</var>),
  Exposed=ServiceWorker]
-interface <dfn id="serviceworkernotificationevent">ServiceWorkerNotificationEvent</dfn> : <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#event">Event</a> {
-  readonly attribute <a href="#notification">Notification</a> <a href="#dom-serviceworkernotificationevent-notification" title="dom-ServiceWorkerNotificationEvent-notification">notification</a>;
+interface <dfn id="notificationevent">NotificationEvent</dfn> : <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendable-event-interface">ExtendableEvent</a> {
+  readonly attribute <a href="#notification">Notification</a> <a href="#dom-notificationevent-notification" title="dom-NotificationEvent-notification">notification</a>;
 };
-<!-- XXX ExtendableEvent -->
-dictionary <dfn id="serviceworkernotificationeventinit">ServiceWorkerNotificationEventInit</dfn> : <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#eventinit">EventInit</a> {
+
+dictionary <dfn id="notificationeventinit">NotificationEventInit</dfn> : <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendable-event-init-dictionary">ExtendableEventInit</a> {
   required <a href="#notification">Notification</a> notification;
 };
 
@@ -819,13 +819,13 @@ method, when invoked, must return these steps:
 given <var title="">notification</var>,
 <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event named <var title="">e</var></a>
 with an <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event" title="concept-event">event</a> using the
-<a href="#serviceworkernotificationevent"><code>ServiceWorkerNotificationEvent</code></a> interface whose
-<a href="#dom-serviceworkernotificationevent-notification"><code title="dom-ServiceWorkerNotificationEvent-notification">notification</code></a> attribute
+<a href="#notificationevent"><code>NotificationEvent</code></a> interface whose
+<a href="#dom-notificationevent-notification"><code title="dom-NotificationEvent-notification">notification</code></a> attribute
 is initialized to a new <a href="#notification"><code>Notification</code></a> object representing
 <var title="">notification</var>.
 
 <p>The
-<dfn id="dom-serviceworkernotificationevent-notification" title="dom-ServiceWorkerNotificationEvent-notification"><code>notification</code></dfn>
+<dfn id="dom-notificationevent-notification" title="dom-NotificationEvent-notification"><code>notification</code></dfn>
 attribute's getter must return the value it was initialized to.
 
 <p>The following are the <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handlers</a>

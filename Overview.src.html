@@ -683,13 +683,13 @@ partial interface <span data-anolis-spec=sw>ServiceWorkerRegistration</span> {
   Promise&lt;void> <span title=dom-ServiceWorkerRegistration-showNotification>showNotification</span>(DOMString <var title>title</var>, optional <span>NotificationOptions</span> <var>options</var>);
 };
 
-[<span data-anolis-spec=dom title=concept-event-constructor>Constructor</span>(DOMString <var>type</var>, optional <span>ServiceWorkerNotificationEventInit</span> <var>eventInitDict</var>),
+[<span data-anolis-spec=dom title=concept-event-constructor>Constructor</span>(DOMString <var>type</var>, optional <span>NotificationEventInit</span> <var>eventInitDict</var>),
  Exposed=ServiceWorker]
-interface <dfn>ServiceWorkerNotificationEvent</dfn> : <span data-anolis-spec=dom>Event</span> {
-  readonly attribute <span>Notification</span> <span title=dom-ServiceWorkerNotificationEvent-notification>notification</span>;
+interface <dfn>NotificationEvent</dfn> : <span data-anolis-spec=sw>ExtendableEvent</span> {
+  readonly attribute <span>Notification</span> <span title=dom-NotificationEvent-notification>notification</span>;
 };
-<!-- XXX ExtendableEvent -->
-dictionary <dfn>ServiceWorkerNotificationEventInit</dfn> : <span data-anolis-spec=dom>EventInit</span> {
+
+dictionary <dfn>NotificationEventInit</dfn> : <span data-anolis-spec=sw>ExtendableEventInit</span> {
   required <span>Notification</span> notification;
 };
 
@@ -790,13 +790,13 @@ method, when invoked, must return these steps:
 given <var title>notification</var>,
 <span data-anolis-spec=dom title=concept-event-fire>fire an event named <var title>e</var></span>
 with an <span data-anolis-spec=dom title=concept-event>event</span> using the
-<code>ServiceWorkerNotificationEvent</code> interface whose
-<code title=dom-ServiceWorkerNotificationEvent-notification>notification</code> attribute
+<code>NotificationEvent</code> interface whose
+<code title=dom-NotificationEvent-notification>notification</code> attribute
 is initialized to a new <code>Notification</code> object representing
 <var title>notification</var>.
 
 <p>The
-<dfn title=dom-ServiceWorkerNotificationEvent-notification><code>notification</code></dfn>
+<dfn title=dom-NotificationEvent-notification><code>notification</code></dfn>
 attribute's getter must return the value it was initialized to.
 
 <p>The following are the <span data-anolis-spec=html>event handlers</span>
