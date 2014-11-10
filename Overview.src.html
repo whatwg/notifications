@@ -422,7 +422,7 @@ are:
 
 <h2>API</h2>
 
-<pre class="idl">[<span title=dom-Notification>Constructor</span>(DOMString <var title>title</var>, optional <span>NotificationOptions</span> <var title>options</var>),
+<pre class=idl>[<span title=dom-Notification>Constructor</span>(DOMString <var title>title</var>, optional <span>NotificationOptions</span> <var title>options</var>),
  Exposed=(Window,Worker)]
 interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span> {
   static readonly attribute <span>NotificationPermission</span> <span title=dom-Notification-permission>permission</span>;
@@ -436,7 +436,7 @@ interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span
   readonly attribute DOMString <span title=dom-Notification-lang>lang</span>;
   readonly attribute DOMString <span title=dom-Notification-body>body</span>;
   readonly attribute DOMString <span title=dom-Notification-tag>tag</span>;
-  readonly attribute DOMString <span title=dom-Notification-icon>icon</span>;
+  readonly attribute USVString <span title=dom-Notification-icon>icon</span>;
   [SameObject] readonly attribute any <span title=dom-Notification-data>data</span>;
 
   void <span title=dom-Notification-close>close</span>();
@@ -447,7 +447,7 @@ dictionary <dfn>NotificationOptions</dfn> {
   DOMString lang = "";
   DOMString body = "";
   DOMString tag = "";
-  DOMString icon;
+  USVString icon;
   any data = null;
 };
 

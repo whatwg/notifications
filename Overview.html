@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-5-november-2014">Living Standard — Last Updated 5 November 2014</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-10-november-2014">Living Standard — Last Updated 10 November 2014</h2>
 
 <dl>
  <dt>Participate:</dt>
@@ -465,7 +465,7 @@ interface <dfn id="notification">Notification</dfn> : <a class="external" data-a
   readonly attribute DOMString <a href="#dom-notification-lang" title="dom-Notification-lang">lang</a>;
   readonly attribute DOMString <a href="#dom-notification-body" title="dom-Notification-body">body</a>;
   readonly attribute DOMString <a href="#dom-notification-tag" title="dom-Notification-tag">tag</a>;
-  readonly attribute DOMString <a href="#dom-notification-icon" title="dom-Notification-icon">icon</a>;
+  readonly attribute USVString <a href="#dom-notification-icon" title="dom-Notification-icon">icon</a>;
   [SameObject] readonly attribute any <a href="#dom-notification-data" title="dom-Notification-data">data</a>;
 
   void <a href="#dom-notification-close" title="dom-Notification-close">close</a>();
@@ -476,7 +476,7 @@ dictionary <dfn id="notificationoptions">NotificationOptions</dfn> {
   DOMString lang = "";
   DOMString body = "";
   DOMString tag = "";
-  DOMString icon;
+  USVString icon;
   any data = null;
 };
 
