@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-10-november-2014">Living Standard — Last Updated 10 November 2014</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-13-november-2014">Living Standard — Last Updated 13 November 2014</h2>
 
 <dl>
  <dt>Participate:</dt>
@@ -41,11 +41,12 @@
    <li><a href="#permission-model"><span class="secno">4.2 </span>Permission model</a></li>
    <li><a href="#direction"><span class="secno">4.3 </span>Direction</a></li>
    <li><a href="#language"><span class="secno">4.4 </span>Language</a></li>
-   <li><a href="#showing-a-notification"><span class="secno">4.5 </span>Showing a notification</a></li>
-   <li><a href="#activating-a-notification"><span class="secno">4.6 </span>Activating a notification</a></li>
-   <li><a href="#closing-a-notification"><span class="secno">4.7 </span>Closing a notification</a></li>
-   <li><a href="#displaying-notifications"><span class="secno">4.8 </span>Displaying notifications</a></li>
-   <li><a href="#replacing-a-notification"><span class="secno">4.9 </span>Replacing a notification</a></ol></li>
+   <li><a href="#resources"><span class="secno">4.5 </span>Resources</a></li>
+   <li><a href="#showing-a-notification"><span class="secno">4.6 </span>Showing a notification</a></li>
+   <li><a href="#activating-a-notification"><span class="secno">4.7 </span>Activating a notification</a></li>
+   <li><a href="#closing-a-notification"><span class="secno">4.8 </span>Closing a notification</a></li>
+   <li><a href="#displaying-notifications"><span class="secno">4.9 </span>Displaying notifications</a></li>
+   <li><a href="#replacing-a-notification"><span class="secno">4.10 </span>Replacing a notification</a></ol></li>
  <li><a href="#api"><span class="secno">5 </span>API</a>
   <ol>
    <li><a href="#garbage-collection"><span class="secno">5.1 </span>Garbage collection</a></li>
@@ -109,7 +110,8 @@ an occurrence, such as the delivery of a message.
 an <dfn id="concept-notification-origin" title="concept-notification-origin">origin</dfn>.
 
 <p>Each <a href="#concept-notification" title="concept-notification">notification</a> <em>can</em>
-have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-image">icon image</dfn>, and
+have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-resource">icon resource</dfn>, <dfn id="sound-url">sound URL</dfn>,
+<dfn id="sound-resource">sound resource</dfn>, and
 <dfn id="concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</dfn>.
 
 <p>A <dfn id="concept-non-persistent-notification" title="concept-non-persistent-notification">non-persistent notification</dfn> is a
@@ -155,12 +157,22 @@ have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-image">icon 
  <li><p>Set <var title="">notification</var>'s <a href="#tag">tag</a> to
  <var title="">options</var>'s <code title="">tag</code>.
 
+ <li><p>Let <var title="">baseURL</var> be the
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#api-base-url">API base URL</a> specified by the
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>.
+ <span class="XXX">Or incumbent?</span>
+
  <li><p>If <var title="">options</var>'s <code title="">icon</code> is present,
- <a class="external" data-anolis-spec="url" href="https://url.spec.whatwg.org/#concept-url-parser" title="concept-url-parser">parse</a>
- <code title="">icon</code> using the <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#api-base-url">API base URL</a>
- specified by the <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>, and if that
- does not return failure, set <var title="">notification</var>'s <a href="#icon-url">icon URL</a> to the
- return value. (Otherwise <a href="#icon-url">icon URL</a> is not set.)
+ <a class="external" data-anolis-spec="url" href="https://url.spec.whatwg.org/#concept-url-parser" title="concept-url-parser">parse</a> <code title="">icon</code>
+ using <var title="">baseURL</var>, and if that does not return failure, set
+ <var title="">notification</var>'s <a href="#icon-url">icon URL</a> to the return value. (Otherwise
+ <a href="#icon-url">icon URL</a> is not set.)
+
+ <li><p>If <var title="">options</var>'s <code title="">sound</code> is present,
+ <a class="external" data-anolis-spec="url" href="https://url.spec.whatwg.org/#concept-url-parser" title="concept-url-parser">parse</a> <code title="">sound</code>
+ using <var title="">baseURL</var>, and if that does not return failure, set
+ <var title="">notification</var>'s <a href="#sound-url">sound URL</a> to the return value. (Otherwise
+ <a href="#sound-url">sound URL</a> is not set.)
 
  <li><p>Set <var title="">notification</var>'s <a href="#data">data</a> to a
  <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structured-clone">structured clone</a> of
@@ -262,7 +274,60 @@ empty string. The empty string indicates that the primary language is
 unknown. <a href="#refsLANG">[LANG]</a>
 
 
-<h3 id="showing-a-notification"><span class="secno">4.5 </span>Showing a notification</h3>
+<h3 id="resources"><span class="secno">4.5 </span>Resources</h3>
+
+<p>The <dfn id="fetch-steps">fetch steps</dfn> for a given
+<a href="#concept-notification" title="concept-notification">notification</a> <var title="">notification</var> are:
+
+<ol>
+ <li>
+  <!-- XXX https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055 -->
+  <p>If the notification platform supports icons,
+  <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetch</a>
+  <var title="">notification</var>'s <a href="#icon-url">icon URL</a>, if <a href="#icon-url">icon URL</a> is set.
+
+  <p>Then, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
+
+  <ol>
+   <li><p>Wait for the
+   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response" title="concept-response">response</a>.
+
+   <li><p>If the <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response" title="concept-response">response</a>'s
+   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-internal-response" title="concept-internal-response">internal response</a>'s
+   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response-type" title="concept-response-type">type</a> is
+   <i title="">default</i>, attempt to decode the resource as image.
+
+   <li><p>If the image format is supported, set <var title="">notification</var>'s
+   <a href="#icon-resource">icon resource</a> to the decoded resource. (Otherwise
+   <var title="">notification</var> has no <a href="#icon-resource">icon resource</a>.)
+  </ol>
+
+ <li>
+  <p>If the notification platform supports sounds,
+  <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetch</a>
+  <var title="">notification</var>'s <a href="#sound-url">sound URL</a>, if <a href="#sound-url">sound URL</a> is
+  set.
+
+  <p>Then, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
+
+  <ol>
+   <li><p>Wait for the
+   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response" title="concept-response">response</a>.
+
+   <li><p>If the <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response" title="concept-response">response</a>'s
+   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-internal-response" title="concept-internal-response">internal response</a>'s
+   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response-type" title="concept-response-type">type</a> is
+   <i title="">default</i>, attempt to decode the resource as sound.
+   <!-- XXX xref -->
+
+   <li><p>If the sound format is supported, set <var title="">notification</var>'s
+   <a href="#sound-resource">sound resource</a> to the decoded resource. (Otherwise
+   <var title="">notification</var> has no <a href="#sound-resource">sound resource</a>.)
+  </ol>
+</ol>
+
+
+<h3 id="showing-a-notification"><span class="secno">4.6 </span>Showing a notification</h3>
 
 <p>The <dfn id="show-steps">show steps</dfn> for a given
 <a href="#concept-notification" title="concept-notification">notification</a> <var title="">notification</var> are:
@@ -280,7 +345,7 @@ unknown. <a href="#refsLANG">[LANG]</a>
  <li><p>Otherwise, run the <a href="#display-steps">display steps</a> for <var title="">notification</var>.
 </ol>
 
-<h3 id="activating-a-notification"><span class="secno">4.6 </span>Activating a notification</h3>
+<h3 id="activating-a-notification"><span class="secno">4.7 </span>Activating a notification</h3>
 
 <p>When a <a href="#concept-notification" title="concept-notification">notification</a>
 <var title="">notification</var> is activated by the user, assuming the underlying
@@ -331,7 +396,7 @@ specified) run these steps:
 <p class="note">Throughout the web platform "activate" is intentionally misnamed as "click".
 
 
-<h3 id="closing-a-notification"><span class="secno">4.7 </span>Closing a notification</h3>
+<h3 id="closing-a-notification"><span class="secno">4.8 </span>Closing a notification</h3>
 
 <p>When a <a href="#concept-notification" title="concept-notification">notification</a> is closed,
 either by the underlying notification platform or by the user, the
@@ -348,29 +413,14 @@ either by the underlying notification platform or by the user, the
 </ol>
 
 
-<h3 id="displaying-notifications"><span class="secno">4.8 </span>Displaying notifications</h3>
+<h3 id="displaying-notifications"><span class="secno">4.9 </span>Displaying notifications</h3>
 
-<p>The <dfn id="display-steps">display steps</dfn> for a given <var title="">notification</var>
-are:
+<p>The <dfn id="display-steps">display steps</dfn> for a given <var title="">notification</var> are:
 
 <ol>
- <li>
-  <!-- XXX replace with https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055 -->
-  <p>If the notification platform supports icons,
-  <var title="">notification</var>'s <a href="#icon-url">icon URL</a> is set and has not
-  yet been <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetched</a>,
-  <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetch</a> it and wait for the
-  <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response" title="concept-response">response</a>.
-
-  <p>If the <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response" title="concept-response">response</a>'s
-  <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-internal-response" title="concept-internal-response">internal response</a>'s
-  <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response-type" title="concept-response-type">type</a> is
-  <i title="">default</i>, attempt to decode the resource as image.
-
-  <p>Once <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetching</a> has
-  finished and the image format is supported, set
-  <var title="">notification</var>'s <a href="#icon-image">icon image</a> to the decoded resource.
-  (Otherwise <var title="">notification</var> has no <a href="#icon-image">icon image</a>.)
+ <li><p>Wait for any <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetches</a> to
+ complete and <var title="">notification</var>'s <a href="#icon-resource">icon resource</a> and
+ <a href="#sound-resource">sound resource</a> to be set (if any).
 
  <li><p>Display <var title="">notification</var> on the device (e.g. by
  calling the appropriate notification platform).
@@ -409,30 +459,16 @@ are:
 </ol>
 
 
-<h3 id="replacing-a-notification"><span class="secno">4.9 </span>Replacing a notification</h3>
+<h3 id="replacing-a-notification"><span class="secno">4.10 </span>Replacing a notification</h3>
 
 <p>The <dfn id="replace-steps">replace steps</dfn> for replacing an <var title="">old</var>
 <a href="#concept-notification" title="concept-notification">notification</a> with a
 <var title="">new</var> one are:
 
 <ol>
- <li>
-  <!-- XXX replace with https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055 -->
-  <p>If the notification platform supports icons,
-  <var title="">new</var>'s <a href="#icon-url">icon URL</a> is set and has not
-  yet been <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetched</a>,
-  <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetch</a> it and wait for the
-  <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response" title="concept-response">response</a>.
-
-  <p>If the <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response" title="concept-response">response</a>'s
-  <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-internal-response" title="concept-internal-response">internal response</a>'s
-  <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response-type" title="concept-response-type">type</a> is
-  <i title="">default</i>, attempt to decode the resource as image.
-
-  <p>Once <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetching</a> has
-  finished and the image format is supported, set
-  <var title="">new</var>'s <a href="#icon-image">icon image</a> to the decoded resource.
-  (Otherwise <var title="">new</var> has no <a href="#icon-image">icon image</a>.)
+ <li><p>Wait for any <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetches</a> to
+ complete and <var title="">notification</var>'s <a href="#icon-resource">icon resource</a> and
+ <a href="#sound-resource">sound resource</a> to be set (if any).
 
  <li>
   <p>Replace <var title="">old</var> with <var title="">new</var>,
@@ -466,6 +502,7 @@ interface <dfn id="notification">Notification</dfn> : <a class="external" data-a
   readonly attribute DOMString <a href="#dom-notification-body" title="dom-Notification-body">body</a>;
   readonly attribute DOMString <a href="#dom-notification-tag" title="dom-Notification-tag">tag</a>;
   readonly attribute USVString <a href="#dom-notification-icon" title="dom-Notification-icon">icon</a>;
+  readonly attribute USVString <a href="#dom-notification-sound" title="dom-Notification-sound">sound</a>;
   [SameObject] readonly attribute any <a href="#dom-notification-data" title="dom-Notification-data">data</a>;
 
   void <a href="#dom-notification-close" title="dom-Notification-close">close</a>();
@@ -477,6 +514,7 @@ dictionary <dfn id="notificationoptions">NotificationOptions</dfn> {
   DOMString body = "";
   DOMString tag = "";
   USVString icon;
+  USVString sound;
   any data = null;
 };
 
@@ -538,10 +576,7 @@ constructor, when invoked, must (unless otherwise indicated) run these steps:
    <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
    <code title="">error</code> on <var title="">n</var>, and terminate these substeps.
 
-   <li><p>If the notification platform supports icons, the user agent may start
-   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetching</a>
-   <var title="">notification</var>'s <a href="#icon-url">icon URL</a> at this point, if
-   <a href="#icon-url">icon URL</a> is set.
+   <li><p>Run the <a href="#fetch-steps">fetch steps</a> for <var title="">notification</var>.
 
    <li><p>Run the <a href="#show-steps">show steps</a> for <var title="">notification</var>.
   </ol>
@@ -632,6 +667,12 @@ return the <a href="#concept-notification" title="concept-notification">notifica
 <a class="external" data-anolis-spec="url" href="https://url.spec.whatwg.org/#concept-url-serializer" title="concept-url-serializer">serialized</a>, and the
 empty string if there is no <a href="#concept-notification" title="concept-notification">notification</a>'s
 <a href="#icon-url">icon URL</a> otherwise.
+
+<p>The <dfn id="dom-notification-sound" title="dom-Notification-sound"><code>sound</code></dfn> attribute's getter must
+return the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#sound-url">sound URL</a>,
+<a class="external" data-anolis-spec="url" href="https://url.spec.whatwg.org/#concept-url-serializer" title="concept-url-serializer">serialized</a>, and the
+empty string if there is no <a href="#concept-notification" title="concept-notification">notification</a>'s
+<a href="#sound-url">sound URL</a> otherwise.
 
 <p>The <dfn id="dom-notification-data" title="dom-Notification-data"><code>data</code></dfn> attribute's getter must
 return a <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structured-clone">structured clone</a> of
@@ -803,10 +844,7 @@ method, when invoked, must return these steps:
 
    <li><p>Otherwise, resolve <var title="">promise</var> with undefined.
 
-   <li><p>If the notification platform supports icons, the user agent may start
-   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetching</a>
-   <var title="">notification</var>'s <a href="#icon-url">icon URL</a> at this point, if
-   <a href="#icon-url">icon URL</a> is set.
+   <li><p>Run the <a href="#fetch-steps">fetch steps</a> for <var title="">notification</var>.
 
    <li><p>Run the <a href="#show-steps">show steps</a> for <var title="">notification</var>.
   </ol>
