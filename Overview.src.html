@@ -60,13 +60,14 @@ not appear in all uppercase letters in this specification.
 
 <h2>Terminology</h2>
 
-<p>Most terminology used in this specification is from DOM, Fetch HTML, IDL, and URL.
+<p>Terminology used in this specification is from DOM, Fetch, HTML, IDL, URL, and
+Vibration API.
 <span data-anolis-ref>DOM</span>
 <span data-anolis-ref>FETCH</span>
 <span data-anolis-ref>HTML</span>
 <span data-anolis-ref>WEBIDL</span>
 <span data-anolis-ref>URL</span>
-
+<span data-anolis-ref>VIBRATION</span>
 
 
 <h2>Notifications</h2>
@@ -81,7 +82,7 @@ an <dfn title=concept-notification-origin>origin</dfn>.
 
 <p>Each <span title=concept-notification>notification</span> <em>can</em>
 have an associated <dfn>icon URL</dfn>, <dfn>icon resource</dfn>, <dfn>sound URL</dfn>,
-<dfn>sound resource</dfn>, and
+<dfn>sound resource</dfn>, <dfn>vibration pattern</dfn>, and
 <dfn title=concept-notification-service-worker-registration>service worker registration</dfn>.
 
 <p>A <dfn title=concept-non-persistent-notification>non-persistent notification</dfn> is a
@@ -133,16 +134,21 @@ have an associated <dfn>icon URL</dfn>, <dfn>icon resource</dfn>, <dfn>sound URL
  <span class=XXX>Or incumbent?</span>
 
  <li><p>If <var title>options</var>'s <code title>icon</code> is present,
- <span title=concept-url-parser data-anolis-spec=url>parse</span> <code title>icon</code>
- using <var title>baseURL</var>, and if that does not return failure, set
+ <span title=concept-url-parser data-anolis-spec=url>parse</span> it using
+ <var title>baseURL</var>, and if that does not return failure, set
  <var title>notification</var>'s <span>icon URL</span> to the return value. (Otherwise
  <span>icon URL</span> is not set.)
 
  <li><p>If <var title>options</var>'s <code title>sound</code> is present,
- <span title=concept-url-parser data-anolis-spec=url>parse</span> <code title>sound</code>
+ <span title=concept-url-parser data-anolis-spec=url>parse</span> it
  using <var title>baseURL</var>, and if that does not return failure, set
  <var title>notification</var>'s <span>sound URL</span> to the return value. (Otherwise
  <span>sound URL</span> is not set.)
+
+ <li><p>If <var title>options</var>'s <code title>vibrate</code> is present,
+ <span data-anolis-spec=vibration>validate and normalize</span> it and set
+ <var title>notification</var>'s <span>vibration pattern</span> to the return value.
+ (Otherwise <span>vibration pattern</span> is not set.)
 
  <li><p>Set <var title>notification</var>'s <span>data</span> to a
  <span data-anolis-spec=html>structured clone</span> of
@@ -392,8 +398,13 @@ either by the underlying notification platform or by the user, the
  complete and <var title>notification</var>'s <span>icon resource</span> and
  <span>sound resource</span> to be set (if any).
 
- <li><p>Display <var title>notification</var> on the device (e.g. by
- calling the appropriate notification platform).
+ <li>
+  <p>Display <var title>notification</var> on the device (e.g. by calling the appropriate
+  notification platform).
+
+  <p>At this point also play <var title>notification</var>'s <span>sound resource</span>,
+  if any, and run <span data-anolis-spec=vibration>perform vibration</span> using
+  <var title>notification</var>'s <span>vibration pattern</span>, if any.
 
  <li>
   <p>If displaying fails (e.g. the notification platform returns an error), run these
@@ -473,6 +484,7 @@ interface <dfn>Notification</dfn> : <span data-anolis-spec=dom>EventTarget</span
   readonly attribute DOMString <span title=dom-Notification-tag>tag</span>;
   readonly attribute USVString <span title=dom-Notification-icon>icon</span>;
   readonly attribute USVString <span title=dom-Notification-sound>sound</span>;
+  // vibrate not exposed for now; see <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=23682" title="Fix the current [ArrayClass], [] and sequence&lt;T> mess">bug 23682</a>
   [SameObject] readonly attribute any <span title=dom-Notification-data>data</span>;
 
   void <span title=dom-Notification-close>close</span>();
@@ -485,6 +497,7 @@ dictionary <dfn>NotificationOptions</dfn> {
   DOMString tag = "";
   USVString icon;
   USVString sound;
+  <span data-anolis-spec=vibration>VibratePattern</span> vibrate;
   any data = null;
 };
 
