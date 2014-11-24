@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-19-november-2014">Living Standard — Last Updated 19 November 2014</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-24-november-2014">Living Standard — Last Updated 24 November 2014</h2>
 
 <dl>
  <dt>Participate:</dt>
@@ -342,7 +342,8 @@ unknown. <a href="#refsLANG">[LANG]</a>
  <li><p>If there is a <a href="#concept-notification" title="concept-notification">notification</a>
  in the <a href="#list-of-notifications">list of notifications</a> whose <a href="#tag">tag</a> is not the empty
  string and equals <var title="">notification</var>'s <a href="#tag">tag</a>, and whose
- <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> equals
+ <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin">same origin</a> with
  <var title="">notification</var>'s <a href="#concept-notification-origin" title="concept-notification-origin">origin</a>,
  run the <a href="#replace-steps">replace steps</a> for that
  <a href="#concept-notification" title="concept-notification">notification</a> and
@@ -601,7 +602,9 @@ constructor, when invoked, must (unless otherwise indicated) run these steps:
 <h3 id="static-members"><span class="secno">5.3 </span>Static members</h3>
 
 <p>The static <dfn id="dom-notification-permission" title="dom-Notification-permission"><code>permission</code></dfn>
-attribute's getter must return <a href="#concept-permission" title="concept-permission">permission</a>.
+attribute's getter must return <a href="#concept-permission" title="concept-permission">permission</a> for
+<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
 
 <p>The static
 <dfn id="dom-notification-requestpermission" title="dom-Notification-requestPermission"><code>requestPermission(<var title="">callback</var>)</code></dfn>
@@ -611,7 +614,10 @@ method, when invoked, must run these steps:
  <li><p>Return, but continue running these steps
  <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>.
 
- <li><p>Let <var title="">permission</var> be <a href="#concept-permission" title="concept-permission">permission</a>.
+ <li><p>Let <var title="">permission</var> be
+ <a href="#concept-permission" title="concept-permission">permission</a> for
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
 
  <li><p>If <var title="">permission</var> is "<code title="">default</code>", ask the user
  whether showing notifications for the
@@ -621,7 +627,9 @@ method, when invoked, must run these steps:
  "<code title="">denied</code>" otherwise.
 
  <li><p><a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">Queue a task</a> to set
- <a href="#concept-permission" title="concept-permission">permission</a> to <var title="">permission</var> and invoke
+ <a href="#concept-permission" title="concept-permission">permission</a> for
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> to <var title="">permission</var> and invoke
  <var title="">callback</var> with <var title="">permission</var> as single
  argument if <var title="">callback</var> is given.
 </ol>

@@ -312,7 +312,8 @@ unknown. <span data-anolis-ref>LANG</span>
  <li><p>If there is a <span title=concept-notification>notification</span>
  in the <span>list of notifications</span> whose <span>tag</span> is not the empty
  string and equals <var title>notification</var>'s <span>tag</span>, and whose
- <span title=concept-notification-origin>origin</span> equals
+ <span title=concept-notification-origin>origin</span> is
+ <span data-anolis-spec=html>same origin</span> with
  <var title>notification</var>'s <span title=concept-notification-origin>origin</span>,
  run the <span>replace steps</span> for that
  <span title=concept-notification>notification</span> and
@@ -571,7 +572,9 @@ constructor, when invoked, must (unless otherwise indicated) run these steps:
 <h3>Static members</h3>
 
 <p>The static <dfn title=dom-Notification-permission><code>permission</code></dfn>
-attribute's getter must return <span title=concept-permission>permission</span>.
+attribute's getter must return <span title=concept-permission>permission</span> for
+<span data-anolis-spec=html>entry settings object</span>'s
+<span data-anolis-spec=html>origin</span>.
 
 <p>The static
 <dfn title=dom-Notification-requestPermission><code>requestPermission(<var title>callback</var>)</code></dfn>
@@ -581,7 +584,10 @@ method, when invoked, must run these steps:
  <li><p>Return, but continue running these steps
  <span data-anolis-spec=html>in parallel</span>.
 
- <li><p>Let <var title>permission</var> be <span title=concept-permission>permission</span>.
+ <li><p>Let <var title>permission</var> be
+ <span title=concept-permission>permission</span> for
+ <span data-anolis-spec=html>entry settings object</span>'s
+ <span data-anolis-spec=html>origin</span>.
 
  <li><p>If <var title>permission</var> is "<code title>default</code>", ask the user
  whether showing notifications for the
@@ -591,7 +597,9 @@ method, when invoked, must run these steps:
  "<code title>denied</code>" otherwise.
 
  <li><p><span data-anolis-spec=html>Queue a task</span> to set
- <span title=concept-permission>permission</span> to <var title>permission</var> and invoke
+ <span title=concept-permission>permission</span> for
+ <span data-anolis-spec=html>entry settings object</span>'s
+ <span data-anolis-spec=html>origin</span> to <var title>permission</var> and invoke
  <var title>callback</var> with <var title>permission</var> as single
  argument if <var title>callback</var> is given.
 </ol>
