@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-24-november-2014">Living Standard — Last Updated 24 November 2014</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-25-november-2014">Living Standard — Last Updated 25 November 2014</h2>
 
 <dl>
  <dt>Participate:</dt>
@@ -105,12 +105,48 @@ Vibration API.
 <p>A <dfn id="concept-notification" title="concept-notification">notification</dfn> is an abstract representation of
 an occurrence, such as the delivery of a message.
 
-<p>Each <a href="#concept-notification" title="concept-notification">notification</a> has a
-<dfn id="title">title</dfn>, <dfn id="body">body</dfn>, <dfn id="concept-notification-direction">direction</dfn>,
-<dfn id="concept-notification-language">language</dfn>, <dfn id="tag">tag</dfn>, <dfn id="data">data</dfn>, and
-an <dfn id="concept-notification-origin" title="concept-notification-origin">origin</dfn>.
+<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<dfn id="title">title</dfn> which is a DOMString.
 
-<p>Each <a href="#concept-notification" title="concept-notification">notification</a> <em>can</em>
+<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<dfn id="body">body</dfn> which is a DOMString.
+
+<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<dfn id="concept-notification-direction" title="concept-notification-direction">direction</dfn> which is one of
+<i title="">auto</i>, <i title="">ltr</i>, and <i title="">rtl</i>.
+
+<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<dfn id="concept-notification-language" title="concept-notification-language">language</dfn> which is a DOMString representing
+either a valid BCP 47 language tag or the empty string.
+
+<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<dfn id="tag">tag</dfn> which is a DOMString.
+
+<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<dfn id="data">data</dfn>.
+
+<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<dfn id="concept-notification-origin" title="concept-notification-origin">origin</dfn>.
+
+<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<dfn id="renotify-preference-flag">renotify preference flag</dfn> which is initially unset. When set indicates that the
+end user should be alerted after the <a href="#replace-steps">replace steps</a> have run.
+
+<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<dfn id="silent-preference-flag">silent preference flag</dfn> which is initially unset. When set indicates that no
+sound should be made.
+
+<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<dfn id="screen-off-preference-flag">screen off preference flag</dfn> which is initially unset. When set indicates that
+the screen of the device should not be enabled.
+
+<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<dfn id="sticky-preference-flag">sticky preference flag</dfn> which is initially unset. When set indicates that the
+end user should not be able to easily clear the
+<a href="#concept-notification" title="concept-notification">notification</a>. <span class="note">Only makes sense
+for <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notifications</a>.</span>
+
+<p>A <a href="#concept-notification" title="concept-notification">notification</a> <em>can</em>
 have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-resource">icon resource</dfn>, <dfn id="sound-url">sound URL</dfn>,
 <dfn id="sound-resource">sound resource</dfn>, <dfn id="vibration-pattern">vibration pattern</dfn>, and
 <dfn id="concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</dfn>.
@@ -125,7 +161,6 @@ have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-resource">ic
 
 <!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
 
-
 <hr>
 
 <p>To <dfn id="concept-notification-create" title="concept-notification-create">create a notification</dfn>, given a
@@ -135,15 +170,30 @@ have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-resource">ic
  <li><p>Let <var title="">notification</var> be a new
  <a href="#concept-notification" title="concept-notification">notification</a>.
 
+ <!-- handle exception throwing stuff early -->
+ <li><p>If <var title="">options</var>'s <code title="">silent</code> is true, and either
+ <var title="">options</var>'s <code title="">sound</code> is present or
+ <var title="">options</var>'s <code title="">vibrate</code> is present,
+ <a class="external" data-anolis-spec="webidl" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception.
+
+ <li><p>If <var title="">options</var>'s <code title="">renotify</code> is true and
+ <var title="">options</var>'s <code title="">tag</code> is the empty string,
+ <a class="external" data-anolis-spec="webidl" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception.
+
+ <li><p>Set <var title="">notification</var>'s <a href="#data">data</a> to a
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structured-clone">structured clone</a> of
+ <var title="">options</var>'s <code title="">data</code>. Rethrow any exceptions.
+ <!-- end handling exception throwing stuff -->
+
  <li><p>Set <var title="">notification</var>'s <a href="#title">title</a> to <var title="">title</var>.
 
  <li><p>Set <var title="">notification</var>'s
- <span title="concept-notification-direction">direction</span> to <var title="">options</var>'s
+ <a href="#concept-notification-direction" title="concept-notification-direction">direction</a> to <var title="">options</var>'s
  <code title="">dir</code>.
 
  <li><p>If <var title="">options</var>'s <code title="">lang</code> is either a valid
  BCP 47 language tag or the empty string, set <var title="">notification</var>'s
- <span title="concept-notification-language">language</span> to <var title="">options</var>'s
+ <a href="#concept-notification-language" title="concept-notification-language">language</a> to <var title="">options</var>'s
  <code title="">lang</code>, and set it to the empty string otherwise.
  <a href="#refsLANG">[LANG]</a>
 
@@ -180,9 +230,17 @@ have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-resource">ic
  <var title="">notification</var>'s <a href="#vibration-pattern">vibration pattern</a> to the return value.
  (Otherwise <a href="#vibration-pattern">vibration pattern</a> is not set.)
 
- <li><p>Set <var title="">notification</var>'s <a href="#data">data</a> to a
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structured-clone">structured clone</a> of
- <var title="">options</var>'s <code title="">data</code>. Rethrow any exceptions.
+ <li><p>If <var title="">options</var>'s <code title="">renotify</code> is true, set
+ <var title="">notification</var>'s <a href="#renotify-preference-flag">renotify preference flag</a>.
+
+ <li><p>If <var title="">options</var>'s <code title="">silent</code> is true, set
+ <var title="">notification</var>'s <a href="#silent-preference-flag">silent preference flag</a>.
+
+ <li><p>If <var title="">options</var>'s <code title="">noscreen</code> is true, set
+ <var title="">notification</var>'s <a href="#screen-off-preference-flag">screen off preference flag</a>.
+
+ <li><p>If <var title="">options</var>'s <code title="">sticky</code> is true, set
+ <var title="">notification</var>'s <a href="#sticky-preference-flag">sticky preference flag</a>.
 
  <li><p>Return <var title="">notification</var>.
 </ol>
@@ -262,7 +320,7 @@ instance, supporting the paragraph-breaking behaviour of
 U+000A LINE FEED (LF) characters. For each paragraph of the
 <a href="#title">title</a> and <a href="#body">body</a>, the
 <a href="#concept-notification" title="concept-notification">notification</a>'s
-<span title="concept-notification-direction">direction</span> provides the higher-level
+<a href="#concept-notification-direction" title="concept-notification-direction">direction</a> provides the higher-level
 override of rules P2 and P3 if it has a value other than "<code title="">auto</code>".
 <a href="#refsBIDI">[BIDI]</a>
 
@@ -273,7 +331,7 @@ override of rules P2 and P3 if it has a value other than "<code title="">auto</c
      https://html.spec.whatwg.org/multipage/dom.html#attr-lang -->
 
 <p>The <a href="#concept-notification" title="concept-notification">notification</a>'s
-<span title="concept-notification-language">language</span> specifies the primary language
+<a href="#concept-notification-language" title="concept-notification-language">language</a> specifies the primary language
 for the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#title">title</a>
 and <a href="#body">body</a>. Its value is a valid BCP 47 language tag, or the
 empty string. The empty string indicates that the primary language is
@@ -529,6 +587,10 @@ dictionary <dfn id="notificationoptions">NotificationOptions</dfn> {
   USVString icon;
   USVString sound;
   <a class="external" data-anolis-spec="vibration" href="http://dev.w3.org/2009/dap/vibration/#idl-def-VibratePattern">VibratePattern</a> vibrate;
+  boolean renotify = false;
+  boolean silent = false;
+  boolean noscreen = false;
+  boolean sticky = false;
   any data = null;
 };
 
@@ -573,6 +635,9 @@ question has an
 constructor, when invoked, must (unless otherwise indicated) run these steps:
 
 <ol>
+ <li><p>If <var title="">options</var>'s <code title="">sticky</code> is present,
+ <a class="external" data-anolis-spec="webidl" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception.
+
  <li><p>Let <var title="">notification</var> be the result of
  <a href="#concept-notification-create" title="concept-notification-create">creating a notification</a> given
  <var title="">title</var> and <var title="">options</var>. Rethrow any exceptions.
@@ -671,11 +736,11 @@ return the <a href="#concept-notification" title="concept-notification">notifica
 
 <p>The <dfn id="dom-notification-dir" title="dom-Notification-dir"><code>dir</code></dfn> attribute's getter must
 return the <a href="#concept-notification" title="concept-notification">notification</a>'s
-<span title="concept-notification-direction">direction</span>.
+<a href="#concept-notification-direction" title="concept-notification-direction">direction</a>.
 
 <p>The <dfn id="dom-notification-lang" title="dom-Notification-lang"><code>lang</code></dfn> attribute's getter must
 return the <a href="#concept-notification" title="concept-notification">notification</a>'s
-<span title="concept-notification-language">language</span>.
+<a href="#concept-notification-language" title="concept-notification-language">language</a>.
 
 <p>The <dfn id="dom-notification-body" title="dom-Notification-body"><code>body</code></dfn> attribute's getter must
 return the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#body">body</a>.

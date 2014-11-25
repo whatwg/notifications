@@ -75,12 +75,48 @@ Vibration API.
 <p>A <dfn title=concept-notification>notification</dfn> is an abstract representation of
 an occurrence, such as the delivery of a message.
 
-<p>Each <span title=concept-notification>notification</span> has a
-<dfn>title</dfn>, <dfn>body</dfn>, <dfn id=concept-notification-direction>direction</dfn>,
-<dfn id=concept-notification-language>language</dfn>, <dfn>tag</dfn>, <dfn>data</dfn>, and
-an <dfn title=concept-notification-origin>origin</dfn>.
+<p>A <span title=concept-notification>notification</span> has an associated
+<dfn>title</dfn> which is a DOMString.
 
-<p>Each <span title=concept-notification>notification</span> <em>can</em>
+<p>A <span title=concept-notification>notification</span> has an associated
+<dfn>body</dfn> which is a DOMString.
+
+<p>A <span title=concept-notification>notification</span> has an associated
+<dfn title=concept-notification-direction>direction</dfn> which is one of
+<i title>auto</i>, <i title>ltr</i>, and <i title>rtl</i>.
+
+<p>A <span title=concept-notification>notification</span> has an associated
+<dfn title=concept-notification-language>language</dfn> which is a DOMString representing
+either a valid BCP 47 language tag or the empty string.
+
+<p>A <span title=concept-notification>notification</span> has an associated
+<dfn>tag</dfn> which is a DOMString.
+
+<p>A <span title=concept-notification>notification</span> has an associated
+<dfn>data</dfn>.
+
+<p>A <span title=concept-notification>notification</span> has an associated
+<dfn title=concept-notification-origin>origin</dfn>.
+
+<p>A <span title=concept-notification>notification</span> has an associated
+<dfn>renotify preference flag</dfn> which is initially unset. When set indicates that the
+end user should be alerted after the <span>replace steps</span> have run.
+
+<p>A <span title=concept-notification>notification</span> has an associated
+<dfn>silent preference flag</dfn> which is initially unset. When set indicates that no
+sound should be made.
+
+<p>A <span title=concept-notification>notification</span> has an associated
+<dfn>screen off preference flag</dfn> which is initially unset. When set indicates that
+the screen of the device should not be enabled.
+
+<p>A <span title=concept-notification>notification</span> has an associated
+<dfn>sticky preference flag</dfn> which is initially unset. When set indicates that the
+end user should not be able to easily clear the
+<span title=concept-notification>notification</span>. <span class=note>Only makes sense
+for <span title=concept-persistent-notification>persistent notifications</span>.</span>
+
+<p>A <span title=concept-notification>notification</span> <em>can</em>
 have an associated <dfn>icon URL</dfn>, <dfn>icon resource</dfn>, <dfn>sound URL</dfn>,
 <dfn>sound resource</dfn>, <dfn>vibration pattern</dfn>, and
 <dfn title=concept-notification-service-worker-registration>service worker registration</dfn>.
@@ -95,7 +131,6 @@ have an associated <dfn>icon URL</dfn>, <dfn>icon resource</dfn>, <dfn>sound URL
 
 <!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
 
-
 <hr>
 
 <p>To <dfn title=concept-notification-create>create a notification</dfn>, given a
@@ -104,6 +139,21 @@ have an associated <dfn>icon URL</dfn>, <dfn>icon resource</dfn>, <dfn>sound URL
 <ol>
  <li><p>Let <var title>notification</var> be a new
  <span title=concept-notification>notification</span>.
+
+ <!-- handle exception throwing stuff early -->
+ <li><p>If <var title>options</var>'s <code title>silent</code> is true, and either
+ <var title>options</var>'s <code title>sound</code> is present or
+ <var title>options</var>'s <code title>vibrate</code> is present,
+ <span data-anolis-spec=webidl>throw</span> a <code>TypeError</code> exception.
+
+ <li><p>If <var title>options</var>'s <code title>renotify</code> is true and
+ <var title>options</var>'s <code title>tag</code> is the empty string,
+ <span data-anolis-spec=webidl>throw</span> a <code>TypeError</code> exception.
+
+ <li><p>Set <var title>notification</var>'s <span>data</span> to a
+ <span data-anolis-spec=html>structured clone</span> of
+ <var title>options</var>'s <code title>data</code>. Rethrow any exceptions.
+ <!-- end handling exception throwing stuff -->
 
  <li><p>Set <var title>notification</var>'s <span>title</span> to <var title>title</var>.
 
@@ -150,9 +200,17 @@ have an associated <dfn>icon URL</dfn>, <dfn>icon resource</dfn>, <dfn>sound URL
  <var title>notification</var>'s <span>vibration pattern</span> to the return value.
  (Otherwise <span>vibration pattern</span> is not set.)
 
- <li><p>Set <var title>notification</var>'s <span>data</span> to a
- <span data-anolis-spec=html>structured clone</span> of
- <var title>options</var>'s <code title>data</code>. Rethrow any exceptions.
+ <li><p>If <var title>options</var>'s <code title>renotify</code> is true, set
+ <var title>notification</var>'s <span>renotify preference flag</span>.
+
+ <li><p>If <var title>options</var>'s <code title>silent</code> is true, set
+ <var title>notification</var>'s <span>silent preference flag</span>.
+
+ <li><p>If <var title>options</var>'s <code title>noscreen</code> is true, set
+ <var title>notification</var>'s <span>screen off preference flag</span>.
+
+ <li><p>If <var title>options</var>'s <code title>sticky</code> is true, set
+ <var title>notification</var>'s <span>sticky preference flag</span>.
 
  <li><p>Return <var title>notification</var>.
 </ol>
@@ -499,6 +557,10 @@ dictionary <dfn>NotificationOptions</dfn> {
   USVString icon;
   USVString sound;
   <span data-anolis-spec=vibration>VibratePattern</span> vibrate;
+  boolean renotify = false;
+  boolean silent = false;
+  boolean noscreen = false;
+  boolean sticky = false;
   any data = null;
 };
 
@@ -543,6 +605,9 @@ question has an
 constructor, when invoked, must (unless otherwise indicated) run these steps:
 
 <ol>
+ <li><p>If <var title>options</var>'s <code title>sticky</code> is present,
+ <span data-anolis-spec=webidl>throw</span> a <code>TypeError</code> exception.
+
  <li><p>Let <var title>notification</var> be the result of
  <span title="concept-notification-create">creating a notification</span> given
  <var title>title</var> and <var title>options</var>. Rethrow any exceptions.
