@@ -638,6 +638,11 @@ constructor, when invoked, must (unless otherwise indicated) run these steps:
  <li><p>If <var title="">options</var>'s <code title="">sticky</code> is present,
  <a class="external" data-anolis-spec="webidl" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception.
 
+ <li><p>If <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object">global object</a> is a
+ <a href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-global-scope-interface"><code class="external" data-anolis-spec="sw">ServiceWorkerGlobalScope</code></a> object,
+ <a class="external" data-anolis-spec="webidl" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception.
+
  <li><p>Let <var title="">notification</var> be the result of
  <a href="#concept-notification-create" title="concept-notification-create">creating a notification</a> given
  <var title="">title</var> and <var title="">options</var>. Rethrow any exceptions.
@@ -1023,6 +1028,7 @@ Frederick Hirsch,
 Ian Hickson,
 Jake Archibald,
 James Graham,
+John Mellor,
 Jon Lee,
 Jonas Sicking,
 Michael Henretty,

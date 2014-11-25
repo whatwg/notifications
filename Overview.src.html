@@ -608,6 +608,11 @@ constructor, when invoked, must (unless otherwise indicated) run these steps:
  <li><p>If <var title>options</var>'s <code title>sticky</code> is present,
  <span data-anolis-spec=webidl>throw</span> a <code>TypeError</code> exception.
 
+ <li><p>If <span data-anolis-spec=html>entry settings object</span>'s
+ <span data-anolis-spec=html>global object</span> is a
+ <code data-anolis-spec=sw>ServiceWorkerGlobalScope</code> object,
+ <span data-anolis-spec=webidl>throw</span> a <code>TypeError</code> exception.
+
  <li><p>Let <var title>notification</var> be the result of
  <span title="concept-notification-create">creating a notification</span> given
  <var title>title</var> and <var title>options</var>. Rethrow any exceptions.
@@ -966,6 +971,7 @@ Frederick Hirsch,
 Ian Hickson,
 Jake Archibald,
 James Graham,
+John Mellor,
 Jon Lee,
 Jonas Sicking,
 Michael Henretty,
