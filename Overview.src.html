@@ -671,7 +671,8 @@ method, when invoked, must run these steps:
  <span data-anolis-spec=html>entry settings object</span>'s
  <span data-anolis-spec=html>origin</span> to <var title>permission</var> and invoke
  <var title>callback</var> with <var title>permission</var> as single
- argument if <var title>callback</var> is given.
+ argument if <var title>callback</var> is given. If this throws an exception,
+ <span data-anolis-spec=html>report the exception</span>.
 </ol>
 
 <p class=warning>In designing the platform notifications are the one
@@ -963,6 +964,7 @@ that must be supported as attributes by the
 Aharon (Vladimir) Lanin,
 Alex Russell,
 Arkadiusz Michalski,
+Boris Zbarsky,
 David Håsäther,
 Doug Turner,
 Drew Wilson,

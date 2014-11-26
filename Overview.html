@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-25-november-2014">Living Standard — Last Updated 25 November 2014</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-26-november-2014">Living Standard — Last Updated 26 November 2014</h2>
 
 <dl>
  <dt>Participate:</dt>
@@ -701,7 +701,8 @@ method, when invoked, must run these steps:
  <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
  <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> to <var title="">permission</var> and invoke
  <var title="">callback</var> with <var title="">permission</var> as single
- argument if <var title="">callback</var> is given.
+ argument if <var title="">callback</var> is given. If this throws an exception,
+ <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#report-the-exception">report the exception</a>.
 </ol>
 
 <p class="warning">In designing the platform notifications are the one
@@ -1020,6 +1021,7 @@ that must be supported as attributes by the
 Aharon (Vladimir) Lanin,
 Alex Russell,
 Arkadiusz Michalski,
+Boris Zbarsky,
 David Håsäther,
 Doug Turner,
 Drew Wilson,
