@@ -467,35 +467,6 @@ either by the underlying notification platform or by the user, the
   if any, and run <span data-anolis-spec=vibration>perform vibration</span> using
   <var title>notification</var>'s <span>vibration pattern</span>, if any.
 
- <li>
-  <p>If displaying fails (e.g. the notification platform returns an error), run these
-  substeps
-
-  <ol>
-   <li>
-    <p>If <var title>notification</var> is a
-    <span title=concept-persistent-notification>persistent notification</span>, run these
-    substeps:
-
-    <ol>
-     <li><p>Let <var title>callback</var> be an algorithm that when invoked with a
-     <var title>global</var>,
-     <span title=concept-event-fire-service-worker-notification>fires a service worker notification event</span>
-     named <code title>notificationerror</code> given <var title>notification</var> on
-     <var title>global</var>.
-
-     <li><p>Then run <span data-anolis-spec=sw>Handle Functional Event</span> with
-     <var title>notification</var>'s
-     <span title=concept-notification-service-worker-registration>service worker registration</span>
-     and <var title>callback</var>.
-    </ol>
-
-   <li><p>Otherwise, <span data-anolis-spec=html>queue a task</span> to
-   <span data-anolis-spec=dom title=concept-event-fire>fire an event</span> named
-   <code title>error</code> on the <code>Notification</code> object representing
-   <var title>notification</var>.
-  </ol>
-
  <li><p>Append <var title>notification</var> to the
  <span>list of notifications</span>.
 </ol>
@@ -831,7 +802,6 @@ dictionary <dfn>NotificationEventInit</dfn> : <span data-anolis-spec=sw>Extendab
 
 partial interface <span data-anolis-spec=sw>ServiceWorkerGlobalScope</span> {
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-ServiceWorkerGlobalScope-onnotificationclick>onnotificationclick</span>;
-  attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-ServiceWorkerGlobalScope-onnotificationerror>onnotificationerror</span>;
 };</pre>
 
 <p>The static
@@ -932,11 +902,11 @@ is initialized to a new <code>Notification</code> object representing
 <dfn title=dom-NotificationEvent-notification><code>notification</code></dfn>
 attribute's getter must return the value it was initialized to.
 
-<p>The following are the <span data-anolis-spec=html>event handlers</span>
-(and their corresponding
-<span data-anolis-spec=html title="event handler event type">event handler event types</span>)
-that must be supported as attributes by the
-<code data-anolis-spec=sw>ServiceWorkerGlobalScope</code> object.
+<p>The following is the
+<span data-anolis-spec=html title="event handlers">event handler</span>
+(and its corresponding <span data-anolis-spec=html>event handler event type</span>)
+that must be supported as attribute by the
+<code data-anolis-spec=sw>ServiceWorkerGlobalScope</code> object:
 
 <table>
  <thead>
@@ -947,9 +917,6 @@ that must be supported as attributes by the
   <tr>
    <td><dfn title=handler-ServiceWorkerGlobalScope-onnotificationclick><code>onnotificationclick</code></dfn>
    <td><code title=event-notificationclick>notificationclick</code>
-  <tr>
-   <td><dfn title=handler-ServiceWorkerGlobalScope-onnotificationerror><code>onnotificationerror</code></dfn>
-   <td><code title=event-notificationerror>notificationerror</code>
 </table>
 
 

@@ -1,13 +1,13 @@
 <!DOCTYPE html><html lang="en-US"><meta charset="utf-8">
-<link href="//whatwg.org/style/specification" rel="stylesheet">
-<link href="//resources.whatwg.org/logo-notifications.svg" rel="icon">
+<link rel="stylesheet" href="//whatwg.org/style/specification">
+<link rel="icon" href="//resources.whatwg.org/logo-notifications.svg">
 <title>Notifications API Standard</title>
 
 <div class="head">
 
-<p><a class="logo" href="//whatwg.org/"><img alt="WHATWG" height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100"></a></p>
+<p><a class="logo" href="//whatwg.org/"><img height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100" alt="WHATWG"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-26-november-2014">Living Standard — Last Updated 26 November 2014</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-16-december-2014">Living Standard — Last Updated 16 December 2014</h2>
 
 <dl>
  <dt>Participate:</dt>
@@ -104,105 +104,105 @@ Vibration API.
 
 <h2 id="notifications"><span class="secno">4 </span>Notifications</h2>
 
-<p>A <dfn id="concept-notification" title="concept-notification">notification</dfn> is an abstract representation of
+<p>A <dfn title="concept-notification" id="concept-notification">notification</dfn> is an abstract representation of
 an occurrence, such as the delivery of a message.
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<p>A <a title="concept-notification" href="#concept-notification">notification</a> has an associated
 <dfn id="title">title</dfn> which is a DOMString.
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<p>A <a title="concept-notification" href="#concept-notification">notification</a> has an associated
 <dfn id="body">body</dfn> which is a DOMString.
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
-<dfn id="concept-notification-direction" title="concept-notification-direction">direction</dfn> which is one of
+<p>A <a title="concept-notification" href="#concept-notification">notification</a> has an associated
+<dfn title="concept-notification-direction" id="concept-notification-direction">direction</dfn> which is one of
 <i title="">auto</i>, <i title="">ltr</i>, and <i title="">rtl</i>.
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
-<dfn id="concept-notification-language" title="concept-notification-language">language</dfn> which is a DOMString representing
+<p>A <a title="concept-notification" href="#concept-notification">notification</a> has an associated
+<dfn title="concept-notification-language" id="concept-notification-language">language</dfn> which is a DOMString representing
 either a valid BCP 47 language tag or the empty string.
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<p>A <a title="concept-notification" href="#concept-notification">notification</a> has an associated
 <dfn id="tag">tag</dfn> which is a DOMString.
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<p>A <a title="concept-notification" href="#concept-notification">notification</a> has an associated
 <dfn id="data">data</dfn>.
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
-<dfn id="concept-notification-origin" title="concept-notification-origin">origin</dfn>.
+<p>A <a title="concept-notification" href="#concept-notification">notification</a> has an associated
+<dfn title="concept-notification-origin" id="concept-notification-origin">origin</dfn>.
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<p>A <a title="concept-notification" href="#concept-notification">notification</a> has an associated
 <dfn id="renotify-preference-flag">renotify preference flag</dfn> which is initially unset. When set indicates that the
 end user should be alerted after the <a href="#replace-steps">replace steps</a> have run.
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<p>A <a title="concept-notification" href="#concept-notification">notification</a> has an associated
 <dfn id="silent-preference-flag">silent preference flag</dfn> which is initially unset. When set indicates that no
 sound should be made.
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<p>A <a title="concept-notification" href="#concept-notification">notification</a> has an associated
 <dfn id="screen-off-preference-flag">screen off preference flag</dfn> which is initially unset. When set indicates that
 the screen of the device should not be enabled.
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> has an associated
+<p>A <a title="concept-notification" href="#concept-notification">notification</a> has an associated
 <dfn id="sticky-preference-flag">sticky preference flag</dfn> which is initially unset. When set indicates that the
 end user should not be able to easily clear the
-<a href="#concept-notification" title="concept-notification">notification</a>. <span class="note">Only makes sense
-for <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notifications</a>.</span>
+<a title="concept-notification" href="#concept-notification">notification</a>. <span class="note">Only makes sense
+for <a title="concept-persistent-notification" href="#concept-persistent-notification">persistent notifications</a>.</span>
 
-<p>A <a href="#concept-notification" title="concept-notification">notification</a> <em>can</em>
+<p>A <a title="concept-notification" href="#concept-notification">notification</a> <em>can</em>
 have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-resource">icon resource</dfn>, <dfn id="sound-url">sound URL</dfn>,
 <dfn id="sound-resource">sound resource</dfn>, <dfn id="vibration-pattern">vibration pattern</dfn>, and
-<dfn id="concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</dfn>.
+<dfn title="concept-notification-service-worker-registration" id="concept-notification-service-worker-registration">service worker registration</dfn>.
 
-<p>A <dfn id="concept-non-persistent-notification" title="concept-non-persistent-notification">non-persistent notification</dfn> is a
-<a href="#concept-notification" title="concept-notification">notification</a> without an associated
-<a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>.
+<p>A <dfn title="concept-non-persistent-notification" id="concept-non-persistent-notification">non-persistent notification</dfn> is a
+<a title="concept-notification" href="#concept-notification">notification</a> without an associated
+<a title="concept-notification-service-worker-registration" href="#concept-notification-service-worker-registration">service worker registration</a>.
 
-<p>A <dfn id="concept-persistent-notification" title="concept-persistent-notification">persistent notification</dfn> is a
-<a href="#concept-notification" title="concept-notification">notification</a> with an associated
-<a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>.
+<p>A <dfn title="concept-persistent-notification" id="concept-persistent-notification">persistent notification</dfn> is a
+<a title="concept-notification" href="#concept-notification">notification</a> with an associated
+<a title="concept-notification-service-worker-registration" href="#concept-notification-service-worker-registration">service worker registration</a>.
 
 <!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
 
 <hr>
 
-<p>To <dfn id="concept-notification-create" title="concept-notification-create">create a notification</dfn>, given a
+<p>To <dfn title="concept-notification-create" id="concept-notification-create">create a notification</dfn>, given a
 <var title="">title</var> and <var title="">options</var>, run these steps:
 
 <ol>
  <li><p>Let <var title="">notification</var> be a new
- <a href="#concept-notification" title="concept-notification">notification</a>.
+ <a title="concept-notification" href="#concept-notification">notification</a>.
 
  <!-- handle exception throwing stuff early -->
  <li><p>If <var title="">options</var>'s <code title="">silent</code> is true, and either
  <var title="">options</var>'s <code title="">sound</code> is present or
  <var title="">options</var>'s <code title="">vibrate</code> is present,
- <a class="external" data-anolis-spec="webidl" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception.
+ <a data-anolis-spec="webidl" class="external" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception.
 
  <li><p>If <var title="">options</var>'s <code title="">renotify</code> is true and
  <var title="">options</var>'s <code title="">tag</code> is the empty string,
- <a class="external" data-anolis-spec="webidl" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception.
+ <a data-anolis-spec="webidl" class="external" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception.
 
  <li><p>Set <var title="">notification</var>'s <a href="#data">data</a> to a
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structured-clone">structured clone</a> of
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structured-clone">structured clone</a> of
  <var title="">options</var>'s <code title="">data</code>. Rethrow any exceptions.
  <!-- end handling exception throwing stuff -->
 
  <li><p>Set <var title="">notification</var>'s <a href="#title">title</a> to <var title="">title</var>.
 
  <li><p>Set <var title="">notification</var>'s
- <a href="#concept-notification-direction" title="concept-notification-direction">direction</a> to <var title="">options</var>'s
+ <a title="concept-notification-direction" href="#concept-notification-direction">direction</a> to <var title="">options</var>'s
  <code title="">dir</code>.
 
  <li><p>If <var title="">options</var>'s <code title="">lang</code> is either a valid
  BCP 47 language tag or the empty string, set <var title="">notification</var>'s
- <a href="#concept-notification-language" title="concept-notification-language">language</a> to <var title="">options</var>'s
+ <a title="concept-notification-language" href="#concept-notification-language">language</a> to <var title="">options</var>'s
  <code title="">lang</code>, and set it to the empty string otherwise.
  <a href="#refsLANG">[LANG]</a>
 
  <li><p>Set <var title="">notifications</var>'s
- <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> to the
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
+ <a title="concept-notification-origin" href="#concept-notification-origin">origin</a> to the
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
 
  <li><p>Set <var title="">notification</var>'s <a href="#body">body</a> to
  <var title="">options</var>'s <code title="">body</code>.
@@ -211,24 +211,24 @@ have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-resource">ic
  <var title="">options</var>'s <code title="">tag</code>.
 
  <li><p>Let <var title="">baseURL</var> be the
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#api-base-url">API base URL</a> specified by the
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>.
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#api-base-url">API base URL</a> specified by the
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>.
  <span class="XXX">Or incumbent?</span>
 
  <li><p>If <var title="">options</var>'s <code title="">icon</code> is present,
- <a class="external" data-anolis-spec="url" href="https://url.spec.whatwg.org/#concept-url-parser" title="concept-url-parser">parse</a> it using
+ <a data-anolis-spec="url" title="concept-url-parser" class="external" href="https://url.spec.whatwg.org/#concept-url-parser">parse</a> it using
  <var title="">baseURL</var>, and if that does not return failure, set
  <var title="">notification</var>'s <a href="#icon-url">icon URL</a> to the return value. (Otherwise
  <a href="#icon-url">icon URL</a> is not set.)
 
  <li><p>If <var title="">options</var>'s <code title="">sound</code> is present,
- <a class="external" data-anolis-spec="url" href="https://url.spec.whatwg.org/#concept-url-parser" title="concept-url-parser">parse</a> it
+ <a data-anolis-spec="url" title="concept-url-parser" class="external" href="https://url.spec.whatwg.org/#concept-url-parser">parse</a> it
  using <var title="">baseURL</var>, and if that does not return failure, set
  <var title="">notification</var>'s <a href="#sound-url">sound URL</a> to the return value. (Otherwise
  <a href="#sound-url">sound URL</a> is not set.)
 
  <li><p>If <var title="">options</var>'s <code title="">vibrate</code> is present,
- <a class="external" data-anolis-spec="vibration" href="http://dev.w3.org/2009/dap/vibration/#dfn-validate-and-normalize">validate and normalize</a> it and set
+ <a data-anolis-spec="vibration" class="external" href="http://dev.w3.org/2009/dap/vibration/#dfn-validate-and-normalize">validate and normalize</a> it and set
  <var title="">notification</var>'s <a href="#vibration-pattern">vibration pattern</a> to the return value.
  (Otherwise <a href="#vibration-pattern">vibration pattern</a> is not set.)
 
@@ -251,39 +251,39 @@ have an associated <dfn id="icon-url">icon URL</dfn>, <dfn id="icon-resource">ic
 <h3 id="lifetime-and-ui-integration"><span class="secno">4.1 </span>Lifetime and UI integration</h3>
 
 <p>The user agent must keep a <dfn id="list-of-notifications">list of notifications</dfn> that consists of zero or
-more <a href="#concept-notification" title="concept-notification">notifications</a>.
+more <a title="concept-notification" href="#concept-notification">notifications</a>.
 
 <p>User agents should run the <a href="#close-steps">close steps</a> for a
-<a href="#concept-non-persistent-notification" title="concept-non-persistent-notification">non-persistent notification</a> a
+<a title="concept-non-persistent-notification" href="#concept-non-persistent-notification">non-persistent notification</a> a
 couple of seconds after they have been
 <span title="create a notification">created</span>.
 
 <p>User agents should not display
-<a href="#concept-non-persistent-notification" title="concept-non-persistent-notification">non-persistent notification</a> in a
+<a title="concept-non-persistent-notification" href="#concept-non-persistent-notification">non-persistent notification</a> in a
 platform's "notification center" (if available).
 
 <p>User agents should persist
-<a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notifications</a> until they are
+<a title="concept-persistent-notification" href="#concept-persistent-notification">persistent notifications</a> until they are
 removed from the <a href="#list-of-notifications">list of notifications</a>.
 
 <p class="example">A
-<a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a> could have the
+<a title="concept-persistent-notification" href="#concept-persistent-notification">persistent notification</a> could have the
 <a href="#dom-notification-close"><code title="dom-Notification-close">close()</code></a> method invoked of one of its
 <a href="#notification"><code>Notification</code></a> objects.
 
 <p>User agents should display
-<a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a> in a
+<a title="concept-persistent-notification" href="#concept-persistent-notification">persistent notification</a> in a
 platform's "notification center" (if available).
 
 
 <h3 id="permission-model"><span class="secno">4.2 </span>Permission model</h3>
 
-<p><a href="#concept-notification" title="concept-notification">Notifications</a> can only be
+<p><a title="concept-notification" href="#concept-notification">Notifications</a> can only be
 displayed if the user (or user agent on behalf of the user) has granted
-<dfn id="concept-permission" title="concept-permission">permission</dfn>. The
-<a href="#concept-permission" title="concept-permission">permission</a> to show
-<a href="#concept-notification" title="concept-notification">notifications</a> for a given
-<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> is one of three strings:
+<dfn title="concept-permission" id="concept-permission">permission</dfn>. The
+<a title="concept-permission" href="#concept-permission">permission</a> to show
+<a title="concept-notification" href="#concept-notification">notifications</a> for a given
+<a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> is one of three strings:
 
 <dl>
  <dt>"<code title="">default</code>"
@@ -292,17 +292,17 @@ displayed if the user (or user agent on behalf of the user) has granted
 
  <dt>"<code title="">denied</code>"
  <dd><p>This means the user does not want
- <a href="#concept-notification" title="concept-notification">notifications</a>.
+ <a title="concept-notification" href="#concept-notification">notifications</a>.
 
  <dt>"<code title="">granted</code>"
- <dd><p>This means <a href="#concept-notification" title="concept-notification">notifications</a> can
+ <dd><p>This means <a title="concept-notification" href="#concept-notification">notifications</a> can
  be displayed.
 </dl>
 
 <p class="note">There is no equivalent to "<code title="">default</code>"
 meaning "<code title="">granted</code>". In that case
 "<code title="">granted</code>" is simply returned as there would be no reason
-for the application to ask for <a href="#concept-permission" title="concept-permission">permission</a>.
+for the application to ask for <a title="concept-permission" href="#concept-permission">permission</a>.
 
 
 <h3 id="direction"><span class="secno">4.3 </span>Direction</h3>
@@ -314,15 +314,15 @@ Rendering section of HTML. <a href="#refsHTML">[HTML]</a>
      https://html.spec.whatwg.org/multipage/rendering.html#text-rendered-in-native-user-interfaces -->
 
 <p>User agents are expected to honor the Unicode semantics of the text of a
-<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#title">title</a>
+<a title="concept-notification" href="#concept-notification">notification</a>'s <a href="#title">title</a>
 and <a href="#body">body</a>. Each is expected to be treated as an independent set
 of one or more bidirectional algorithm paragraphs when displayed, as defined
 by the bidirectional algorithm's rules P1, P2, and P3, including, for
 instance, supporting the paragraph-breaking behaviour of
 U+000A LINE FEED (LF) characters. For each paragraph of the
 <a href="#title">title</a> and <a href="#body">body</a>, the
-<a href="#concept-notification" title="concept-notification">notification</a>'s
-<a href="#concept-notification-direction" title="concept-notification-direction">direction</a> provides the higher-level
+<a title="concept-notification" href="#concept-notification">notification</a>'s
+<a title="concept-notification-direction" href="#concept-notification-direction">direction</a> provides the higher-level
 override of rules P2 and P3 if it has a value other than "<code title="">auto</code>".
 <a href="#refsBIDI">[BIDI]</a>
 
@@ -332,9 +332,9 @@ override of rules P2 and P3 if it has a value other than "<code title="">auto</c
 <!-- keep this in sync with
      https://html.spec.whatwg.org/multipage/dom.html#attr-lang -->
 
-<p>The <a href="#concept-notification" title="concept-notification">notification</a>'s
-<a href="#concept-notification-language" title="concept-notification-language">language</a> specifies the primary language
-for the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#title">title</a>
+<p>The <a title="concept-notification" href="#concept-notification">notification</a>'s
+<a title="concept-notification-language" href="#concept-notification-language">language</a> specifies the primary language
+for the <a title="concept-notification" href="#concept-notification">notification</a>'s <a href="#title">title</a>
 and <a href="#body">body</a>. Its value is a valid BCP 47 language tag, or the
 empty string. The empty string indicates that the primary language is
 unknown. <a href="#refsLANG">[LANG]</a>
@@ -343,24 +343,24 @@ unknown. <a href="#refsLANG">[LANG]</a>
 <h3 id="resources"><span class="secno">4.5 </span>Resources</h3>
 
 <p>The <dfn id="fetch-steps">fetch steps</dfn> for a given
-<a href="#concept-notification" title="concept-notification">notification</a> <var title="">notification</var> are:
+<a title="concept-notification" href="#concept-notification">notification</a> <var title="">notification</var> are:
 
 <ol>
  <li>
   <!-- XXX https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055 -->
   <p>If the notification platform supports icons,
-  <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetch</a>
+  <a title="concept-fetch" data-anolis-spec="fetch" class="external" href="https://fetch.spec.whatwg.org/#concept-fetch">fetch</a>
   <var title="">notification</var>'s <a href="#icon-url">icon URL</a>, if <a href="#icon-url">icon URL</a> is set.
 
-  <p>Then, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
+  <p>Then, <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
 
   <ol>
    <li><p>Wait for the
-   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response" title="concept-response">response</a>.
+   <a title="concept-response" data-anolis-spec="fetch" class="external" href="https://fetch.spec.whatwg.org/#concept-response">response</a>.
 
-   <li><p>If the <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response" title="concept-response">response</a>'s
-   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-internal-response" title="concept-internal-response">internal response</a>'s
-   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response-type" title="concept-response-type">type</a> is
+   <li><p>If the <a title="concept-response" data-anolis-spec="fetch" class="external" href="https://fetch.spec.whatwg.org/#concept-response">response</a>'s
+   <a title="concept-internal-response" data-anolis-spec="fetch" class="external" href="https://fetch.spec.whatwg.org/#concept-internal-response">internal response</a>'s
+   <a title="concept-response-type" data-anolis-spec="fetch" class="external" href="https://fetch.spec.whatwg.org/#concept-response-type">type</a> is
    <i title="">default</i>, attempt to decode the resource as image.
 
    <li><p>If the image format is supported, set <var title="">notification</var>'s
@@ -370,19 +370,19 @@ unknown. <a href="#refsLANG">[LANG]</a>
 
  <li>
   <p>If the notification platform supports sounds,
-  <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetch</a>
+  <a title="concept-fetch" data-anolis-spec="fetch" class="external" href="https://fetch.spec.whatwg.org/#concept-fetch">fetch</a>
   <var title="">notification</var>'s <a href="#sound-url">sound URL</a>, if <a href="#sound-url">sound URL</a> is
   set.
 
-  <p>Then, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
+  <p>Then, <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
 
   <ol>
    <li><p>Wait for the
-   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response" title="concept-response">response</a>.
+   <a title="concept-response" data-anolis-spec="fetch" class="external" href="https://fetch.spec.whatwg.org/#concept-response">response</a>.
 
-   <li><p>If the <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response" title="concept-response">response</a>'s
-   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-internal-response" title="concept-internal-response">internal response</a>'s
-   <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-response-type" title="concept-response-type">type</a> is
+   <li><p>If the <a title="concept-response" data-anolis-spec="fetch" class="external" href="https://fetch.spec.whatwg.org/#concept-response">response</a>'s
+   <a title="concept-internal-response" data-anolis-spec="fetch" class="external" href="https://fetch.spec.whatwg.org/#concept-internal-response">internal response</a>'s
+   <a title="concept-response-type" data-anolis-spec="fetch" class="external" href="https://fetch.spec.whatwg.org/#concept-response-type">type</a> is
    <i title="">default</i>, attempt to decode the resource as sound.
    <!-- XXX xref -->
 
@@ -396,17 +396,17 @@ unknown. <a href="#refsLANG">[LANG]</a>
 <h3 id="showing-a-notification"><span class="secno">4.6 </span>Showing a notification</h3>
 
 <p>The <dfn id="show-steps">show steps</dfn> for a given
-<a href="#concept-notification" title="concept-notification">notification</a> <var title="">notification</var> are:
+<a title="concept-notification" href="#concept-notification">notification</a> <var title="">notification</var> are:
 
 <ol>
- <li><p>If there is a <a href="#concept-notification" title="concept-notification">notification</a>
+ <li><p>If there is a <a title="concept-notification" href="#concept-notification">notification</a>
  in the <a href="#list-of-notifications">list of notifications</a> whose <a href="#tag">tag</a> is not the empty
  string and equals <var title="">notification</var>'s <a href="#tag">tag</a>, and whose
- <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin">same origin</a> with
- <var title="">notification</var>'s <a href="#concept-notification-origin" title="concept-notification-origin">origin</a>,
+ <a title="concept-notification-origin" href="#concept-notification-origin">origin</a> is
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin">same origin</a> with
+ <var title="">notification</var>'s <a title="concept-notification-origin" href="#concept-notification-origin">origin</a>,
  run the <a href="#replace-steps">replace steps</a> for that
- <a href="#concept-notification" title="concept-notification">notification</a> and
+ <a title="concept-notification" href="#concept-notification">notification</a> and
  <var title="">notification</var>, and then terminate these steps.
 
  <li><p>Otherwise, run the <a href="#display-steps">display steps</a> for <var title="">notification</var>.
@@ -414,7 +414,7 @@ unknown. <a href="#refsLANG">[LANG]</a>
 
 <h3 id="activating-a-notification"><span class="secno">4.7 </span>Activating a notification</h3>
 
-<p>When a <a href="#concept-notification" title="concept-notification">notification</a>
+<p>When a <a title="concept-notification" href="#concept-notification">notification</a>
 <var title="">notification</var> is activated by the user, assuming the underlying
 notification platform supports activation, the user agent must (unless otherwise
 specified) run these steps:
@@ -422,41 +422,41 @@ specified) run these steps:
 <ol>
  <li>
   <p>If <var title="">notification</var> is a
-  <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>, run these
+  <a title="concept-persistent-notification" href="#concept-persistent-notification">persistent notification</a>, run these
   substeps:
 
   <ol>
    <li><p>Let <var title="">callback</var> be an algorithm that when invoked with a
    <var title="">global</var>,
-   <a href="#concept-event-fire-service-worker-notification" title="concept-event-fire-service-worker-notification">fires a service worker notification event</a>
+   <a title="concept-event-fire-service-worker-notification" href="#concept-event-fire-service-worker-notification">fires a service worker notification event</a>
    named <code title="">notificationclick</code> given <var title="">notification</var> on
    <var title="">global</var>.
 
-   <li><p>Then run <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#handle-functional-event-algorithm">Handle Functional Event</a> with
+   <li><p>Then run <a data-anolis-spec="sw" class="external" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#handle-functional-event-algorithm">Handle Functional Event</a> with
    <var title="">notification</var>'s
-   <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>
+   <a title="concept-notification-service-worker-registration" href="#concept-notification-service-worker-registration">service worker registration</a>
    and <var title="">callback</var>.
   </ol>
 
  <li>
-  <p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to run these substeps:
+  <p>Otherwise, <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to run these substeps:
 
   <ol>
    <li>
-    <p><a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">Fire an event</a> named
+    <p><a title="concept-event-fire" data-anolis-spec="dom" class="external" href="https://dom.spec.whatwg.org/#concept-event-fire">Fire an event</a> named
     <code title="">click</code> with its
-    <a href="https://dom.spec.whatwg.org/#dom-event-cancelable"><code class="external" data-anolis-spec="dom" title="dom-Event-cancelable">cancelable</code></a> attribute
+    <a href="https://dom.spec.whatwg.org/#dom-event-cancelable"><code title="dom-Event-cancelable" data-anolis-spec="dom" class="external">cancelable</code></a> attribute
     initialized to true on the <a href="#notification"><code>Notification</code></a> object representing
     <var title="">notification</var>.
 
     <p class="note no-backref">User agents are encouraged to make
-    <a href="https://html.spec.whatwg.org/multipage/interaction.html#dom-window-focus"><code class="external" data-anolis-spec="html" title="dom-window-focus">window.focus()</code></a> work from
+    <a href="https://html.spec.whatwg.org/multipage/interaction.html#dom-window-focus"><code title="dom-window-focus" data-anolis-spec="html" class="external">window.focus()</code></a> work from
     within the event listener for the event named <code title="">click</code>.
 
-   <li><p>If the <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event" title="concept-event">event</a>'s
-   <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#canceled-flag">canceled flag</a> is unset, the user agent should bring
+   <li><p>If the <a title="concept-event" data-anolis-spec="dom" class="external" href="https://dom.spec.whatwg.org/#concept-event">event</a>'s
+   <a data-anolis-spec="dom" class="external" href="https://dom.spec.whatwg.org/#canceled-flag">canceled flag</a> is unset, the user agent should bring
    the <var title="">notification</var>'s related
-   <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a>'s viewport into focus.
+   <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a>'s viewport into focus.
   </ol>
 </ol>
 
@@ -465,7 +465,7 @@ specified) run these steps:
 
 <h3 id="closing-a-notification"><span class="secno">4.8 </span>Closing a notification</h3>
 
-<p>When a <a href="#concept-notification" title="concept-notification">notification</a> is closed,
+<p>When a <a title="concept-notification" href="#concept-notification">notification</a> is closed,
 either by the underlying notification platform or by the user, the
 <a href="#close-steps">close steps</a> for it must be run.
 
@@ -485,7 +485,7 @@ either by the underlying notification platform or by the user, the
 <p>The <dfn id="display-steps">display steps</dfn> for a given <var title="">notification</var> are:
 
 <ol>
- <li><p>Wait for any <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetches</a> to
+ <li><p>Wait for any <a title="concept-fetch" data-anolis-spec="fetch" class="external" href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> to
  complete and <var title="">notification</var>'s <a href="#icon-resource">icon resource</a> and
  <a href="#sound-resource">sound resource</a> to be set (if any).
 
@@ -494,37 +494,8 @@ either by the underlying notification platform or by the user, the
   notification platform).
 
   <p>At this point also play <var title="">notification</var>'s <a href="#sound-resource">sound resource</a>,
-  if any, and run <a class="external" data-anolis-spec="vibration" href="http://dev.w3.org/2009/dap/vibration/#dfn-perform-vibration">perform vibration</a> using
+  if any, and run <a data-anolis-spec="vibration" class="external" href="http://dev.w3.org/2009/dap/vibration/#dfn-perform-vibration">perform vibration</a> using
   <var title="">notification</var>'s <a href="#vibration-pattern">vibration pattern</a>, if any.
-
- <li>
-  <p>If displaying fails (e.g. the notification platform returns an error), run these
-  substeps
-
-  <ol>
-   <li>
-    <p>If <var title="">notification</var> is a
-    <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a>, run these
-    substeps:
-
-    <ol>
-     <li><p>Let <var title="">callback</var> be an algorithm that when invoked with a
-     <var title="">global</var>,
-     <a href="#concept-event-fire-service-worker-notification" title="concept-event-fire-service-worker-notification">fires a service worker notification event</a>
-     named <code title="">notificationerror</code> given <var title="">notification</var> on
-     <var title="">global</var>.
-
-     <li><p>Then run <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#handle-functional-event-algorithm">Handle Functional Event</a> with
-     <var title="">notification</var>'s
-     <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>
-     and <var title="">callback</var>.
-    </ol>
-
-   <li><p>Otherwise, <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
-   <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
-   <code title="">error</code> on the <a href="#notification"><code>Notification</code></a> object representing
-   <var title="">notification</var>.
-  </ol>
 
  <li><p>Append <var title="">notification</var> to the
  <a href="#list-of-notifications">list of notifications</a>.
@@ -534,11 +505,11 @@ either by the underlying notification platform or by the user, the
 <h3 id="replacing-a-notification"><span class="secno">4.10 </span>Replacing a notification</h3>
 
 <p>The <dfn id="replace-steps">replace steps</dfn> for replacing an <var title="">old</var>
-<a href="#concept-notification" title="concept-notification">notification</a> with a
+<a title="concept-notification" href="#concept-notification">notification</a> with a
 <var title="">new</var> one are:
 
 <ol>
- <li><p>Wait for any <a class="external" data-anolis-spec="fetch" href="https://fetch.spec.whatwg.org/#concept-fetch" title="concept-fetch">fetches</a> to
+ <li><p>Wait for any <a title="concept-fetch" data-anolis-spec="fetch" class="external" href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> to
  complete and <var title="">notification</var>'s <a href="#icon-resource">icon resource</a> and
  <a href="#sound-resource">sound resource</a> to be set (if any).
 
@@ -559,26 +530,26 @@ either by the underlying notification platform or by the user, the
 
 <h2 id="api"><span class="secno">5 </span>API</h2>
 
-<pre class="idl">[<a href="#dom-notification" title="dom-Notification">Constructor</a>(DOMString <var title="">title</var>, optional <a href="#notificationoptions">NotificationOptions</a> <var title="">options</var>),
+<pre class="idl">[<a title="dom-Notification" href="#dom-notification">Constructor</a>(DOMString <var title="">title</var>, optional <a href="#notificationoptions">NotificationOptions</a> <var title="">options</var>),
  Exposed=(Window,Worker)]
-interface <dfn id="notification">Notification</dfn> : <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
-  static readonly attribute <a href="#notificationpermission">NotificationPermission</a> <a href="#dom-notification-permission" title="dom-Notification-permission">permission</a>;
-  [Exposed=Window] static void <a href="#dom-notification-requestpermission" title="dom-Notification-requestPermission">requestPermission</a>(optional <a href="#notificationpermissioncallback">NotificationPermissionCallback</a> <var title="">callback</var>);
+interface <dfn id="notification">Notification</dfn> : <a data-anolis-spec="dom" class="external" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
+  static readonly attribute <a href="#notificationpermission">NotificationPermission</a> <a title="dom-Notification-permission" href="#dom-notification-permission">permission</a>;
+  [Exposed=Window] static void <a title="dom-Notification-requestPermission" href="#dom-notification-requestpermission">requestPermission</a>(optional <a href="#notificationpermissioncallback">NotificationPermissionCallback</a> <var title="">callback</var>);
 
-  attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onclick" title="handler-onclick">onclick</a>;
-  attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-onerror" title="handler-onerror">onerror</a>;
+  attribute <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a title="handler-onclick" href="#handler-onclick">onclick</a>;
+  attribute <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a title="handler-onerror" href="#handler-onerror">onerror</a>;
 
-  readonly attribute DOMString <a href="#dom-notification-title" title="dom-Notification-title">title</a>;
-  readonly attribute <a href="#notificationdirection">NotificationDirection</a> <a href="#dom-notification-dir" title="dom-Notification-dir">dir</a>;
-  readonly attribute DOMString <a href="#dom-notification-lang" title="dom-Notification-lang">lang</a>;
-  readonly attribute DOMString <a href="#dom-notification-body" title="dom-Notification-body">body</a>;
-  readonly attribute DOMString <a href="#dom-notification-tag" title="dom-Notification-tag">tag</a>;
-  readonly attribute USVString <a href="#dom-notification-icon" title="dom-Notification-icon">icon</a>;
-  readonly attribute USVString <a href="#dom-notification-sound" title="dom-Notification-sound">sound</a>;
-  // vibrate not exposed for now; see <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=23682" title="Fix the current [ArrayClass], [] and sequence<T> mess">bug 23682</a>
-  [SameObject] readonly attribute any <a href="#dom-notification-data" title="dom-Notification-data">data</a>;
+  readonly attribute DOMString <a title="dom-Notification-title" href="#dom-notification-title">title</a>;
+  readonly attribute <a href="#notificationdirection">NotificationDirection</a> <a title="dom-Notification-dir" href="#dom-notification-dir">dir</a>;
+  readonly attribute DOMString <a title="dom-Notification-lang" href="#dom-notification-lang">lang</a>;
+  readonly attribute DOMString <a title="dom-Notification-body" href="#dom-notification-body">body</a>;
+  readonly attribute DOMString <a title="dom-Notification-tag" href="#dom-notification-tag">tag</a>;
+  readonly attribute USVString <a title="dom-Notification-icon" href="#dom-notification-icon">icon</a>;
+  readonly attribute USVString <a title="dom-Notification-sound" href="#dom-notification-sound">sound</a>;
+  // vibrate not exposed for now; see <a title="Fix the current [ArrayClass], [] and sequence<T> mess" href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=23682">bug 23682</a>
+  [SameObject] readonly attribute any <a title="dom-Notification-data" href="#dom-notification-data">data</a>;
 
-  void <a href="#dom-notification-close" title="dom-Notification-close">close</a>();
+  void <a title="dom-Notification-close" href="#dom-notification-close">close</a>();
 };
 
 dictionary <dfn id="notificationoptions">NotificationOptions</dfn> {
@@ -588,7 +559,7 @@ dictionary <dfn id="notificationoptions">NotificationOptions</dfn> {
   DOMString tag = "";
   USVString icon;
   USVString sound;
-  <a class="external" data-anolis-spec="vibration" href="http://dev.w3.org/2009/dap/vibration/#idl-def-VibratePattern">VibratePattern</a> vibrate;
+  <a data-anolis-spec="vibration" class="external" href="http://dev.w3.org/2009/dap/vibration/#idl-def-VibratePattern">VibratePattern</a> vibrate;
   boolean renotify = false;
   boolean silent = false;
   boolean noscreen = false;
@@ -610,11 +581,11 @@ enum <dfn id="notificationdirection">NotificationDirection</dfn> {
   "rtl"
 };</pre>
 
-<p>A <a href="#concept-non-persistent-notification" title="concept-non-persistent-notification">non-persistent notification</a> is
+<p>A <a title="concept-non-persistent-notification" href="#concept-non-persistent-notification">non-persistent notification</a> is
 represented one <a href="#notification"><code>Notification</code></a> objects and can be created through
-<a href="#notification"><code>Notification</code></a>'s <a href="#dom-notification" title="dom-Notification">constructor</a>.
+<a href="#notification"><code>Notification</code></a>'s <a title="dom-Notification" href="#dom-notification">constructor</a>.
 
-<p>A <a href="#concept-persistent-notification" title="concept-persistent-notification">persistent notification</a> is
+<p>A <a title="concept-persistent-notification" href="#concept-persistent-notification">persistent notification</a> is
 represented by zero or more <a href="#notification"><code>Notification</code></a> objects can be created through the
 <a href="#dom-serviceworkerregistration-shownotification"><code title="dom-ServiceWorkerRegistration-showNotification">showNotification()</code></a>
 method.
@@ -623,43 +594,43 @@ method.
 <h3 id="garbage-collection"><span class="secno">5.1 </span>Garbage collection</h3>
 
 <p>A <a href="#notification"><code>Notification</code></a> object must not be garbage collected while its
-corresponding <a href="#concept-notification" title="concept-notification">notification</a> is in the
+corresponding <a title="concept-notification" href="#concept-notification">notification</a> is in the
 <a href="#list-of-notifications">list of notifications</a> and the <a href="#notification"><code>Notification</code></a> object in
 question has an
-<a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-listener" title="concept-event-listener">event listener</a> whose
+<a title="concept-event-listener" data-anolis-spec="dom" class="external" href="https://dom.spec.whatwg.org/#concept-event-listener">event listener</a> whose
 <b>type</b> is <code title="">click</code> or <code title="">error</code>.
 
 
 <h3 id="constructors"><span class="secno">5.2 </span>Constructors</h3>
 
 <p>The
-<dfn id="dom-notification" title="dom-Notification"><code>Notification(<var title="">title</var>, <var title="">options</var>)</code></dfn>
+<dfn title="dom-Notification" id="dom-notification"><code>Notification(<var title="">title</var>, <var title="">options</var>)</code></dfn>
 constructor, when invoked, must (unless otherwise indicated) run these steps:
 
 <ol>
  <li><p>If <var title="">options</var>'s <code title="">sticky</code> is present,
- <a class="external" data-anolis-spec="webidl" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception.
+ <a data-anolis-spec="webidl" class="external" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception.
 
- <li><p>If <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object">global object</a> is a
- <a href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-global-scope-interface"><code class="external" data-anolis-spec="sw">ServiceWorkerGlobalScope</code></a> object,
- <a class="external" data-anolis-spec="webidl" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception.
+ <li><p>If <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object">global object</a> is a
+ <a href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-global-scope-interface"><code data-anolis-spec="sw" class="external">ServiceWorkerGlobalScope</code></a> object,
+ <a data-anolis-spec="webidl" class="external" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception.
 
  <li><p>Let <var title="">notification</var> be the result of
- <a href="#concept-notification-create" title="concept-notification-create">creating a notification</a> given
+ <a title="concept-notification-create" href="#concept-notification-create">creating a notification</a> given
  <var title="">title</var> and <var title="">options</var>. Rethrow any exceptions.
 
  <li><p>Let <var title="">n</var> be a new <a href="#notification"><code>Notification</code></a> object associated with
  <var title="">notification</var>.
 
  <li>
-  <p>Run these substeps <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
+  <p>Run these substeps <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
 
   <ol>
-   <li><p>If <a href="#concept-permission" title="concept-permission">permission</a> for <var title="">notification</var>'s
-   <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is not
-   "<code title="">granted</code>", <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
-   <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event</a> named
+   <li><p>If <a title="concept-permission" href="#concept-permission">permission</a> for <var title="">notification</var>'s
+   <a title="concept-notification-origin" href="#concept-notification-origin">origin</a> is not
+   "<code title="">granted</code>", <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to
+   <a title="concept-event-fire" data-anolis-spec="dom" class="external" href="https://dom.spec.whatwg.org/#concept-event-fire">fire an event</a> named
    <code title="">error</code> on <var title="">n</var>, and terminate these substeps.
 
    <li><p>Run the <a href="#fetch-steps">fetch steps</a> for <var title="">notification</var>.
@@ -673,38 +644,38 @@ constructor, when invoked, must (unless otherwise indicated) run these steps:
 
 <h3 id="static-members"><span class="secno">5.3 </span>Static members</h3>
 
-<p>The static <dfn id="dom-notification-permission" title="dom-Notification-permission"><code>permission</code></dfn>
-attribute's getter must return <a href="#concept-permission" title="concept-permission">permission</a> for
-<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
-<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
+<p>The static <dfn title="dom-Notification-permission" id="dom-notification-permission"><code>permission</code></dfn>
+attribute's getter must return <a title="concept-permission" href="#concept-permission">permission</a> for
+<a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+<a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
 
 <p>The static
-<dfn id="dom-notification-requestpermission" title="dom-Notification-requestPermission"><code>requestPermission(<var title="">callback</var>)</code></dfn>
+<dfn title="dom-Notification-requestPermission" id="dom-notification-requestpermission"><code>requestPermission(<var title="">callback</var>)</code></dfn>
 method, when invoked, must run these steps:
 
 <ol>
  <li><p>Return, but continue running these steps
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>.
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>.
 
  <li><p>Let <var title="">permission</var> be
- <a href="#concept-permission" title="concept-permission">permission</a> for
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
+ <a title="concept-permission" href="#concept-permission">permission</a> for
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
 
  <li><p>If <var title="">permission</var> is "<code title="">default</code>", ask the user
  whether showing notifications for the
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> is acceptable. If it is, set
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> is acceptable. If it is, set
  <var title="">permission</var> to "<code title="">granted</code>", and
  "<code title="">denied</code>" otherwise.
 
- <li><p><a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">Queue a task</a> to set
- <a href="#concept-permission" title="concept-permission">permission</a> for
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> to <var title="">permission</var> and invoke
+ <li><p><a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">Queue a task</a> to set
+ <a title="concept-permission" href="#concept-permission">permission</a> for
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> to <var title="">permission</var> and invoke
  <var title="">callback</var> with <var title="">permission</var> as single
  argument if <var title="">callback</var> is given. If this throws an exception,
- <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#report-the-exception">report the exception</a>.
+ <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#report-the-exception">report the exception</a>.
 </ol>
 
 <p class="warning">In designing the platform notifications are the one
@@ -716,61 +687,61 @@ for other APIs should not use this pattern and instead employ one of the
 
 <h3 id="object-members"><span class="secno">5.4 </span>Object members</h3>
 
-<p>The following are the <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handlers</a>
+<p>The following are the <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handlers</a>
 (and their corresponding
-<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type" title="event handler event type">event handler event types</a>)
+<a title="event handler event type" data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">event handler event types</a>)
 that must be supported as attributes by the <a href="#notification"><code>Notification</code></a> object.
 
 <table>
  <thead>
   <tr>
-   <th><a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers" title="event handlers">event handler</a>
-   <th><a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">event handler event type</a>
+   <th><a title="event handlers" data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handler</a>
+   <th><a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">event handler event type</a>
  <tbody>
   <tr>
-   <td><dfn id="handler-onclick" title="handler-onclick"><code>onclick</code></dfn>
+   <td><dfn title="handler-onclick" id="handler-onclick"><code>onclick</code></dfn>
    <td><code title="event-click">click</code>
   <tr>
-   <td><dfn id="handler-onerror" title="handler-onerror"><code>onerror</code></dfn>
+   <td><dfn title="handler-onerror" id="handler-onerror"><code>onerror</code></dfn>
    <td><code title="event-error">error</code>
 </table>
 
-<p>The <dfn id="dom-notification-close" title="dom-Notification-close"><code>close()</code></dfn> method, when invoked,
+<p>The <dfn title="dom-Notification-close" id="dom-notification-close"><code>close()</code></dfn> method, when invoked,
 must run the <a href="#close-steps">close steps</a> for the
-<a href="#concept-notification" title="concept-notification">notification</a>.
+<a title="concept-notification" href="#concept-notification">notification</a>.
 
-<p>The <dfn id="dom-notification-title" title="dom-Notification-title"><code>title</code></dfn> attribute's getter must
-return the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#title">title</a>.
+<p>The <dfn title="dom-Notification-title" id="dom-notification-title"><code>title</code></dfn> attribute's getter must
+return the <a title="concept-notification" href="#concept-notification">notification</a>'s <a href="#title">title</a>.
 
-<p>The <dfn id="dom-notification-dir" title="dom-Notification-dir"><code>dir</code></dfn> attribute's getter must
-return the <a href="#concept-notification" title="concept-notification">notification</a>'s
-<a href="#concept-notification-direction" title="concept-notification-direction">direction</a>.
+<p>The <dfn title="dom-Notification-dir" id="dom-notification-dir"><code>dir</code></dfn> attribute's getter must
+return the <a title="concept-notification" href="#concept-notification">notification</a>'s
+<a title="concept-notification-direction" href="#concept-notification-direction">direction</a>.
 
-<p>The <dfn id="dom-notification-lang" title="dom-Notification-lang"><code>lang</code></dfn> attribute's getter must
-return the <a href="#concept-notification" title="concept-notification">notification</a>'s
-<a href="#concept-notification-language" title="concept-notification-language">language</a>.
+<p>The <dfn title="dom-Notification-lang" id="dom-notification-lang"><code>lang</code></dfn> attribute's getter must
+return the <a title="concept-notification" href="#concept-notification">notification</a>'s
+<a title="concept-notification-language" href="#concept-notification-language">language</a>.
 
-<p>The <dfn id="dom-notification-body" title="dom-Notification-body"><code>body</code></dfn> attribute's getter must
-return the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#body">body</a>.
+<p>The <dfn title="dom-Notification-body" id="dom-notification-body"><code>body</code></dfn> attribute's getter must
+return the <a title="concept-notification" href="#concept-notification">notification</a>'s <a href="#body">body</a>.
 
-<p>The <dfn id="dom-notification-tag" title="dom-Notification-tag"><code>tag</code></dfn> attribute's getter must
-return the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#tag">tag</a>.
+<p>The <dfn title="dom-Notification-tag" id="dom-notification-tag"><code>tag</code></dfn> attribute's getter must
+return the <a title="concept-notification" href="#concept-notification">notification</a>'s <a href="#tag">tag</a>.
 
-<p>The <dfn id="dom-notification-icon" title="dom-Notification-icon"><code>icon</code></dfn> attribute's getter must
-return the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#icon-url">icon URL</a>,
-<a class="external" data-anolis-spec="url" href="https://url.spec.whatwg.org/#concept-url-serializer" title="concept-url-serializer">serialized</a>, and the
-empty string if there is no <a href="#concept-notification" title="concept-notification">notification</a>'s
+<p>The <dfn title="dom-Notification-icon" id="dom-notification-icon"><code>icon</code></dfn> attribute's getter must
+return the <a title="concept-notification" href="#concept-notification">notification</a>'s <a href="#icon-url">icon URL</a>,
+<a data-anolis-spec="url" title="concept-url-serializer" class="external" href="https://url.spec.whatwg.org/#concept-url-serializer">serialized</a>, and the
+empty string if there is no <a title="concept-notification" href="#concept-notification">notification</a>'s
 <a href="#icon-url">icon URL</a> otherwise.
 
-<p>The <dfn id="dom-notification-sound" title="dom-Notification-sound"><code>sound</code></dfn> attribute's getter must
-return the <a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#sound-url">sound URL</a>,
-<a class="external" data-anolis-spec="url" href="https://url.spec.whatwg.org/#concept-url-serializer" title="concept-url-serializer">serialized</a>, and the
-empty string if there is no <a href="#concept-notification" title="concept-notification">notification</a>'s
+<p>The <dfn title="dom-Notification-sound" id="dom-notification-sound"><code>sound</code></dfn> attribute's getter must
+return the <a title="concept-notification" href="#concept-notification">notification</a>'s <a href="#sound-url">sound URL</a>,
+<a data-anolis-spec="url" title="concept-url-serializer" class="external" href="https://url.spec.whatwg.org/#concept-url-serializer">serialized</a>, and the
+empty string if there is no <a title="concept-notification" href="#concept-notification">notification</a>'s
 <a href="#sound-url">sound URL</a> otherwise.
 
-<p>The <dfn id="dom-notification-data" title="dom-Notification-data"><code>data</code></dfn> attribute's getter must
-return a <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structured-clone">structured clone</a> of
-<a href="#concept-notification" title="concept-notification">notification</a>'s <a href="#data">data</a>.
+<p>The <dfn title="dom-Notification-data" id="dom-notification-data"><code>data</code></dfn> attribute's getter must
+return a <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/infrastructure.html#structured-clone">structured clone</a> of
+<a title="concept-notification" href="#concept-notification">notification</a>'s <a href="#data">data</a>.
 
 
 <h3 id="examples"><span class="secno">5.5 </span>Examples</h3>
@@ -798,7 +769,7 @@ notification.onclick = function() { displaySong(this) }</pre>
 	and when both are shown, the user will only receive one notification.
       </p>
 
-<pre class="example" title="">Instance 1                                   | Instance 2
+<pre title="" class="example">Instance 1                                   | Instance 2
                                              |
 // Instance notices there is new mail.       |
 new Notification("New mail from John Doe",   |
@@ -838,62 +809,61 @@ could be achieved using the <a href="#dom-notification-close"><code title="dom-N
 <h2 id="service-worker-api"><span class="secno">6 </span>Service worker API</h2>
 
 <pre class="idl">partial interface <a href="#notification">Notification</a> {
-  [Exposed=ServiceWorker] static Promise&lt;sequence&lt;<a href="#notification">Notification</a>&gt;&gt; <a href="#dom-notification-get" title="dom-Notification-get">get</a>(optional <a href="#getnotificationoptions">GetNotificationOptions</a> <var title="">filter</var>);
+  [Exposed=ServiceWorker] static Promise&lt;sequence&lt;<a href="#notification">Notification</a>&gt;&gt; <a title="dom-Notification-get" href="#dom-notification-get">get</a>(optional <a href="#getnotificationoptions">GetNotificationOptions</a> <var title="">filter</var>);
 };
 
 dictionary <dfn id="getnotificationoptions">GetNotificationOptions</dfn> {
   DOMString tag = "";
 };
 
-partial interface <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-registration-interface">ServiceWorkerRegistration</a> {
-  Promise&lt;void&gt; <a href="#dom-serviceworkerregistration-shownotification" title="dom-ServiceWorkerRegistration-showNotification">showNotification</a>(DOMString <var title="">title</var>, optional <a href="#notificationoptions">NotificationOptions</a> <var>options</var>);
+partial interface <a data-anolis-spec="sw" class="external" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-registration-interface">ServiceWorkerRegistration</a> {
+  Promise&lt;void&gt; <a title="dom-ServiceWorkerRegistration-showNotification" href="#dom-serviceworkerregistration-shownotification">showNotification</a>(DOMString <var title="">title</var>, optional <a href="#notificationoptions">NotificationOptions</a> <var>options</var>);
 };
 
-[<a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-constructor" title="concept-event-constructor">Constructor</a>(DOMString <var>type</var>, optional <a href="#notificationeventinit">NotificationEventInit</a> <var>eventInitDict</var>),
+[<a title="concept-event-constructor" data-anolis-spec="dom" class="external" href="https://dom.spec.whatwg.org/#concept-event-constructor">Constructor</a>(DOMString <var>type</var>, optional <a href="#notificationeventinit">NotificationEventInit</a> <var>eventInitDict</var>),
  Exposed=ServiceWorker]
-interface <dfn id="notificationevent">NotificationEvent</dfn> : <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendable-event-interface">ExtendableEvent</a> {
-  readonly attribute <a href="#notification">Notification</a> <a href="#dom-notificationevent-notification" title="dom-NotificationEvent-notification">notification</a>;
+interface <dfn id="notificationevent">NotificationEvent</dfn> : <a data-anolis-spec="sw" class="external" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendable-event-interface">ExtendableEvent</a> {
+  readonly attribute <a href="#notification">Notification</a> <a title="dom-NotificationEvent-notification" href="#dom-notificationevent-notification">notification</a>;
 };
 
-dictionary <dfn id="notificationeventinit">NotificationEventInit</dfn> : <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendable-event-init-dictionary">ExtendableEventInit</a> {
+dictionary <dfn id="notificationeventinit">NotificationEventInit</dfn> : <a data-anolis-spec="sw" class="external" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendable-event-init-dictionary">ExtendableEventInit</a> {
   required <a href="#notification">Notification</a> notification;
 };
 
-partial interface <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-global-scope-interface">ServiceWorkerGlobalScope</a> {
-  attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-serviceworkerglobalscope-onnotificationclick" title="handler-ServiceWorkerGlobalScope-onnotificationclick">onnotificationclick</a>;
-  attribute <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a href="#handler-serviceworkerglobalscope-onnotificationerror" title="handler-ServiceWorkerGlobalScope-onnotificationerror">onnotificationerror</a>;
+partial interface <a data-anolis-spec="sw" class="external" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-global-scope-interface">ServiceWorkerGlobalScope</a> {
+  attribute <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a title="handler-ServiceWorkerGlobalScope-onnotificationclick" href="#handler-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a>;
 };</pre>
 
 <p>The static
-<dfn id="dom-notification-get" title="dom-Notification-get"><code>get(<var title="">filter</var>)</code></dfn> method,
+<dfn title="dom-Notification-get" id="dom-notification-get"><code>get(<var title="">filter</var>)</code></dfn> method,
 when invoked, must run these steps:
 
 <ol>
  <li><p>Let <var title="">promise</var> be a new promise.
 
  <li>
-  <p>Run these substeps <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
+  <p>Run these substeps <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
 
   <ol>
    <li><p>Let <var title="">tag</var> be <var title="">filter</var>'s <code title="">tag</code>.
 
    <li><p>Let <var title="">notifications</var> be a list of all
-   <a href="#concept-notification" title="concept-notification">notifications</a> in the
+   <a title="concept-notification" href="#concept-notification">notifications</a> in the
    <a href="#list-of-notifications">list of notifications</a> whose
-   <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is the
-   <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
-   <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>, whose
-   <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a> is
+   <a title="concept-notification-origin" href="#concept-notification-origin">origin</a> is the
+   <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+   <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>, whose
+   <a title="concept-notification-service-worker-registration" href="#concept-notification-service-worker-registration">service worker registration</a> is
    <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/504">XXX</a>,
    and whose <a href="#tag">tag</a>, if <var title="">tag</var> is not the empty string, is
    <var title="">tag</var>.
 
    <li><p>Let <var title="">objects</var> be an empty JavaScript array.
 
-   <li><p>For each <a href="#concept-notification" title="concept-notification">notification</a> in
+   <li><p>For each <a title="concept-notification" href="#concept-notification">notification</a> in
    <var title="">notifications</var>, in creation order, create a new
    <a href="#notification"><code>Notification</code></a> object representing
-   <a href="#concept-notification" title="concept-notification">notification</a> and push that object to
+   <a title="concept-notification" href="#concept-notification">notification</a> and push that object to
    <var title="">objects</var>.
 
    <li><p>Resolve <var title="">promise</var> with <var title="">objects</var>.
@@ -903,36 +873,36 @@ when invoked, must run these steps:
 </ol>
 
 <p class="note">This method returns zero or more new <a href="#notification"><code>Notification</code></a> objects which
-might represent the same underlying <a href="#concept-notification" title="concept-notification">notification</a>
+might represent the same underlying <a title="concept-notification" href="#concept-notification">notification</a>
 of <a href="#notification"><code>Notification</code></a> objects already in existence.
 
 <hr>
 
 <p>The
-<dfn id="dom-serviceworkerregistration-shownotification" title="dom-ServiceWorkerRegistration-showNotification"><code>showNotification(<var title="">title</var>, <var title="">options</var>)</code></dfn>
+<dfn title="dom-ServiceWorkerRegistration-showNotification" id="dom-serviceworkerregistration-shownotification"><code>showNotification(<var title="">title</var>, <var title="">options</var>)</code></dfn>
 method, when invoked, must return these steps:
 
 <ol>
  <li><p>Let <var title="">promise</var> be a new promise.
 
  <li><p>Let <var title="">notification</var> be the result of
- <a href="#concept-notification-create" title="concept-notification-create">creating a notification</a> given
+ <a title="concept-notification-create" href="#concept-notification-create">creating a notification</a> given
  <var title="">title</var> and <var title="">options</var>. Rethrow any exceptions.
 
- <li><p>If <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#context-object">context object</a>'s
- <a class="external" data-anolis-spec="sw" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#dfn-active-worker">active worker</a> is null, reject <var title="">promise</var>
+ <li><p>If <a data-anolis-spec="dom" class="external" href="https://dom.spec.whatwg.org/#context-object">context object</a>'s
+ <a data-anolis-spec="sw" class="external" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#dfn-active-worker">active worker</a> is null, reject <var title="">promise</var>
  with a <code title="">TypeError</code> exception.
 
  <li><p>Set <var title="">notification</var>'s
- <a href="#concept-notification-service-worker-registration" title="concept-notification-service-worker-registration">service worker registration</a>
- to the <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#context-object">context object</a>.
+ <a title="concept-notification-service-worker-registration" href="#concept-notification-service-worker-registration">service worker registration</a>
+ to the <a data-anolis-spec="dom" class="external" href="https://dom.spec.whatwg.org/#context-object">context object</a>.
 
  <li>
-  <p>Run these substeps <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
+  <p>Run these substeps <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
 
   <ol>
-   <li><p>If <a href="#concept-permission" title="concept-permission">permission</a> for <var title="">notification</var>'s
-   <a href="#concept-notification-origin" title="concept-notification-origin">origin</a> is not
+   <li><p>If <a title="concept-permission" href="#concept-permission">permission</a> for <var title="">notification</var>'s
+   <a title="concept-notification-origin" href="#concept-notification-origin">origin</a> is not
    "<code title="">granted</code>", reject <var title="">promise</var> with a
    <code title="">TypeError</code> exception, and terminate these substeps.
 
@@ -949,37 +919,34 @@ method, when invoked, must return these steps:
 <hr>
 
 <p>To
-<dfn id="concept-event-fire-service-worker-notification" title="concept-event-fire-service-worker-notification">fire a service worker notification event named <var title="">e</var></dfn>
+<dfn title="concept-event-fire-service-worker-notification" id="concept-event-fire-service-worker-notification">fire a service worker notification event named <var title="">e</var></dfn>
 given <var title="">notification</var>,
-<a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event-fire" title="concept-event-fire">fire an event named <var title="">e</var></a>
-with an <a class="external" data-anolis-spec="dom" href="https://dom.spec.whatwg.org/#concept-event" title="concept-event">event</a> using the
+<a title="concept-event-fire" data-anolis-spec="dom" class="external" href="https://dom.spec.whatwg.org/#concept-event-fire">fire an event named <var title="">e</var></a>
+with an <a title="concept-event" data-anolis-spec="dom" class="external" href="https://dom.spec.whatwg.org/#concept-event">event</a> using the
 <a href="#notificationevent"><code>NotificationEvent</code></a> interface whose
 <a href="#dom-notificationevent-notification"><code title="dom-NotificationEvent-notification">notification</code></a> attribute
 is initialized to a new <a href="#notification"><code>Notification</code></a> object representing
 <var title="">notification</var>.
 
 <p>The
-<dfn id="dom-notificationevent-notification" title="dom-NotificationEvent-notification"><code>notification</code></dfn>
+<dfn title="dom-NotificationEvent-notification" id="dom-notificationevent-notification"><code>notification</code></dfn>
 attribute's getter must return the value it was initialized to.
 
-<p>The following are the <a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handlers</a>
-(and their corresponding
-<a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type" title="event handler event type">event handler event types</a>)
-that must be supported as attributes by the
-<a href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-global-scope-interface"><code class="external" data-anolis-spec="sw">ServiceWorkerGlobalScope</code></a> object.
+<p>The following is the
+<a title="event handlers" data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handler</a>
+(and its corresponding <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">event handler event type</a>)
+that must be supported as attribute by the
+<a href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-global-scope-interface"><code data-anolis-spec="sw" class="external">ServiceWorkerGlobalScope</code></a> object:
 
 <table>
  <thead>
   <tr>
-   <th><a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers" title="event handlers">event handler</a>
-   <th><a class="external" data-anolis-spec="html" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">event handler event type</a>
+   <th><a title="event handlers" data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handler</a>
+   <th><a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">event handler event type</a>
  <tbody>
   <tr>
-   <td><dfn id="handler-serviceworkerglobalscope-onnotificationclick" title="handler-ServiceWorkerGlobalScope-onnotificationclick"><code>onnotificationclick</code></dfn>
+   <td><dfn title="handler-ServiceWorkerGlobalScope-onnotificationclick" id="handler-serviceworkerglobalscope-onnotificationclick"><code>onnotificationclick</code></dfn>
    <td><code title="event-notificationclick">notificationclick</code>
-  <tr>
-   <td><dfn id="handler-serviceworkerglobalscope-onnotificationerror" title="handler-ServiceWorkerGlobalScope-onnotificationerror"><code>onnotificationerror</code></dfn>
-   <td><code title="event-notificationerror">notificationerror</code>
 </table>
 
 
@@ -1042,13 +1009,13 @@ Simon Pieters
 for being awesome.
 
 <p>This standard is written by
-<a href="//annevankesteren.nl/" lang="nl">Anne van Kesteren</a>
+<a lang="nl" href="//annevankesteren.nl/">Anne van Kesteren</a>
 (<a href="//www.mozilla.org/">Mozilla</a>,
 <a href="mailto:annevk@annevk.nl">annevk@annevk.nl</a>). An earlier iteration was written by
 John Gregg (<a href="//www.google.com/">Google</a>,
 <a href="mailto:johnnyg@google.com">johnnyg@google.com</a>).
 
-<p>Per <a href="//creativecommons.org/publicdomain/zero/1.0/" rel="license">CC0</a>, to
+<p>Per <a rel="license" href="//creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to
 the extent possible under law, the editors have waived all copyright and related or
 neighboring rights to this work.
 
