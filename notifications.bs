@@ -1,0 +1,142 @@
+<pre class="metadata">
+Title: Notifications API
+Group: WHATWG
+H1: Notifications API
+Shortname: notifications
+Status: LS
+No Editor: true
+Abstract: This standard defines an API to display notifications to the end user, typically outside the top-level browsing context's viewport. It is designed to be compatible with existing notification systems, while remaining platform-independent.
+Logo: https://resources.whatwg.org/logo-notifications.svg
+!Version History: <a href="https://github.com/whatwg/notifications/commits">https://github.com/whatwg/notifications/commits</a> <a href="https://twitter.com/notifyapi">@notifyapi</a>
+!Participate: <a href="https://github.com/whatwg/notifications/issues/new">file a bug</a> (<a href="https://github.com/whatwg/notifications/issues">open bugs</a>)
+!Participate: <a href="https://whatwg.org/mailing-list">whatwg@whatwg.org</a> (<a href="https://whatwg.org/mailing-list#specs">archives</a>)
+!Participate: <a href="http://wiki.whatwg.org/wiki/IRC">IRC: #whatwg on Freenode</a>
+Indent: 2
+</pre>
+
+<h2 id=terminology>Terminology</h2>
+
+<p>Some terms used in this specification are defined in the DOM, Fetch,
+HTML, IDL, URL and Vibration API Standards.
+[[!DOM]]
+[[!FETCH]]
+[[!HTML]]
+[[!WEBIDL]]
+[[!URL]]
+[[!VIBRATION]]
+
+
+<h2 id=notifications>Notifications</h2>
+
+<h3 id=lifetime-and-ui-integrations>Lifetime and UI integration</h3>
+
+<h3 id=permission-model>Permission model</h3>
+
+<h3 id=direction>Direction</h3>
+
+<h3 id=language>Language</h3>
+
+<h3 id=resources>Resources</h3>
+
+<h3 id=showing-a-notification>Showing a notification</h3>
+
+<h3 id=activating-a-notification>Activating a notification</h3>
+
+<h3 id=closing-a-notification>Closing a notification</h3>
+
+<h3 id=displaying-notification>Displaying notifications</h3>
+
+<h3 id=replacing-a-notification>Replacing a notification</h3>
+
+
+<h2 id=api>API</h2>
+
+<h3 id=garbage-collection>Garbage collection</h3>
+
+<h3 id=constructors>Constructors</h3>
+
+<h3 id=static-members>Static members</h3>
+
+<h3 id=object-members>Object members</h3>
+
+<h3 id=examples>Examples</h3>
+
+<h4 id=using-events>Using events</h4>
+
+<h4 id=tags-example>Using the <code>tag</code> member for multiple instances</h4>
+
+<h4 id=using-the-tag-member-for-a-single-instance>Using the <code>tag</code> member for a single instance</h4>
+
+
+<h2 id=service-worker-api>Service Worker API</h2>
+
+
+<h2 id=acknowledgments class=no-num>Acknowledgments</h2>
+
+<p>Thanks to
+Aharon (Vladimir) Lanin,
+Alex Russell,
+Arkadiusz Michalski,
+Boris Zbarsky,
+David Håsäther,
+Doug Turner,
+Drew Wilson,
+Edward O'Connor,
+Frederick Hirsch,
+Ian Hickson,
+Jake Archibald,
+James Graham,
+John Mellor,
+Jon Lee,
+Jonas Sicking,
+Michael Cooper,
+Michael Henretty,
+Olli Pettay,
+Peter Beverloo,
+Reuben Morais, and
+Simon Pieters
+for being awesome.
+
+<p>This standard is written by
+<a lang=nl href=//annevankesteren.nl/>Anne van Kesteren</a>
+(<a href=//www.mozilla.org/>Mozilla</a>,
+<a href=mailto:annevk@annevk.nl>annevk@annevk.nl</a>). An earlier iteration was written
+by John Gregg (<a href=//www.google.com/>Google</a>,
+<a href=mailto:johnnyg@google.com>johnnyg@google.com</a>).
+
+<p>Per <a rel="license" href="//creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to
+the extent possible under law, the editors have waived all copyright and related or
+neighboring rights to this work.
+
+<pre class="biblio">
+{
+    "DOM": {
+        "authors": [
+            "Anne van Kesteren",
+            "Aryeh Gregor",
+            "Ms2ger"
+        ],
+        "href": "https://dom.spec.whatwg.org/",
+        "title": "DOM",
+        "publisher": "WHATWG"
+    },
+    "WEBIDL": {
+        "authors": [
+            "Cameron McCormack",
+            "Jonas Sicking"
+        ],
+        "href": "http://heycam.github.io/webidl/",
+        "title": "Web IDL",
+        "publisher": "W3C"
+    },
+    "URL": {
+        "authors": [
+            "Anne van Kesteren",
+            "Sam Ruby"
+        ],
+        "href": "https://url.spec.whatwg.org/",
+        "title": "URL",
+        "publisher": "WHATWG"
+    }
+}
+</pre>

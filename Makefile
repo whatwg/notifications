@@ -1,12 +1,4 @@
-# http://wiki.whatwg.org/wiki/GitHub#Makefile
+all: notifications.html
 
-ANOLIS = anolis
-
-all: Overview.html ../xref/xrefs/dom/notifications.json
-
-Overview.html: Overview.src.html ../xref Makefile
-	$(ANOLIS) --omit-optional-tags --quote-attr-values --xref="../xref" \
-	--enable=xspecxref --enable=refs $< $@
-
-../xref/xrefs/dom/notifications.json: Overview.src.html Makefile
-	$(ANOLIS) --dump-xrefs=$@ $< /tmp/spec
+notifications.html: notifications.bs Makefile
+	curl -s https://api.csswg.org/bikeshed/ -F file=@notifications.bs > notifications.html

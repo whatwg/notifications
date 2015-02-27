@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  
+  
+  <title>Notifications API</title>
+  
+  
+  <link href="https://www.whatwg.org/style/specification" rel="stylesheet">
+  
+  
+  <link href="https://resources.whatwg.org/bikeshed.css" rel="stylesheet">
+  
+  
+  <link href="https://resources.whatwg.org/logo-notifications.svg" rel="icon">
+  
+
+  <meta content="Bikeshed 1.0.0" name="generator">
+ </head>
+ <body class="h-entry status-LS">
+
+  <div class="head">
+  
+   <p data-fill-with="logo"><a class="logo" href="http://whatwg.org/">
+    <img alt="WHATWG" height="100" src="https://resources.whatwg.org/logo-notifications.svg">
+</a>
+</p>
+  
+   <h1 class="p-name no-ref" id="title">Notifications API</h1>
+  
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated
+    <time class="dt-updated" datetime="2015-02-27">27 February 2015</time></span></h2>
+  
+   <div data-fill-with="spec-metadata">
+    <dl>
+     <dt>Version History:
+     <dd><span><a href="https://github.com/whatwg/notifications/commits">https://github.com/whatwg/notifications/commits</a> <a href="https://twitter.com/notifyapi">@notifyapi</a></span>
+     <dt>Participate:
+     <dd><span><a href="https://github.com/whatwg/notifications/issues/new">file a bug</a> (<a href="https://github.com/whatwg/notifications/issues">open bugs</a>)</span>
+     <dd><span><a href="https://whatwg.org/mailing-list">whatwg@whatwg.org</a> (<a href="https://whatwg.org/mailing-list#specs">archives</a>)</span>
+     <dd><span><a href="http://wiki.whatwg.org/wiki/IRC">IRC: #whatwg on Freenode</a></span>
+    </dl>
+   </div>
+  
+   <div data-fill-with="warning"></div>
+</div>
+  
+
+
+  <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
+  
+
+  <div class="p-summary" data-fill-with="abstract">
+   <p>This standard defines an API to display notifications to the end user, typically outside the top-level browsing context’s viewport. It is designed to be compatible with existing notification systems, while remaining platform-independent.</p>
+
+</div>
+  
+
+  <div data-fill-with="at-risk"></div>
+  
+
+
+  <h2 class="no-num no-toc no-ref heading settled" id="contents"><span class="content">Table of Contents</span></h2>
+  
+
+  <div data-fill-with="table-of-contents" role="navigation">
+   <ul class="toc" role="directory">
+    <li><a href="#terminology"><span class="secno">1</span> <span class="content">Terminology</span></a>
+    <li><a href="#notifications"><span class="secno">2</span> <span class="content">Notifications</span></a>
+     <ul class="toc">
+      <li><a href="#lifetime-and-ui-integrations"><span class="secno">2.1</span> <span class="content">Lifetime and UI integration</span></a>
+      <li><a href="#permission-model"><span class="secno">2.2</span> <span class="content">Permission model</span></a>
+      <li><a href="#direction"><span class="secno">2.3</span> <span class="content">Direction</span></a>
+      <li><a href="#language"><span class="secno">2.4</span> <span class="content">Language</span></a>
+      <li><a href="#resources"><span class="secno">2.5</span> <span class="content">Resources</span></a>
+      <li><a href="#showing-a-notification"><span class="secno">2.6</span> <span class="content">Showing a notification</span></a>
+      <li><a href="#activating-a-notification"><span class="secno">2.7</span> <span class="content">Activating a notification</span></a>
+      <li><a href="#closing-a-notification"><span class="secno">2.8</span> <span class="content">Closing a notification</span></a>
+      <li><a href="#displaying-notification"><span class="secno">2.9</span> <span class="content">Displaying notifications</span></a>
+      <li><a href="#replacing-a-notification"><span class="secno">2.10</span> <span class="content">Replacing a notification</span></a>
+     </ul>
+    <li><a href="#api"><span class="secno">3</span> <span class="content">API</span></a>
+     <ul class="toc">
+      <li><a href="#garbage-collection"><span class="secno">3.1</span> <span class="content">Garbage collection</span></a>
+      <li><a href="#constructors"><span class="secno">3.2</span> <span class="content">Constructors</span></a>
+      <li><a href="#static-members"><span class="secno">3.3</span> <span class="content">Static members</span></a>
+      <li><a href="#object-members"><span class="secno">3.4</span> <span class="content">Object members</span></a>
+      <li><a href="#examples"><span class="secno">3.5</span> <span class="content">Examples</span></a>
+       <ul class="toc">
+        <li><a href="#using-events"><span class="secno">3.5.1</span> <span class="content">Using events</span></a>
+        <li><a href="#tags-example"><span class="secno">3.5.2</span> <span class="content">Using the <code>tag</code> member for multiple instances</span></a>
+        <li><a href="#using-the-tag-member-for-a-single-instance"><span class="secno">3.5.3</span> <span class="content">Using the <code>tag</code> member for a single instance</span></a>
+       </ul>
+     </ul>
+    <li><a href="#service-worker-api"><span class="secno">4</span> <span class="content">Service Worker API</span></a>
+    <li><a href="#acknowledgments"><span class="secno"></span> <span class="content">Acknowledgments</span></a>
+    <li><a href="#conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
+    <li><a href="#references"><span class="secno"></span> <span class="content">References</span></a>
+     <ul class="toc">
+      <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
+     </ul>
+   </ul></div>
+  
+
+  <main>
+
+
+
+   <h2 class="heading settled" data-level="1" id="terminology"><span class="secno">1. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
+
+
+   <p>Some terms used in this specification are defined in the DOM, Fetch,
+HTML, IDL, URL and Vibration API Standards.
+<a data-link-type="biblio" href="#biblio-dom">[DOM]</a>
+<a data-link-type="biblio" href="#biblio-fetch">[FETCH]</a>
+<a data-link-type="biblio" href="#biblio-html">[HTML]</a>
+<a data-link-type="biblio" href="#biblio-webidl">[WEBIDL]</a>
+<a data-link-type="biblio" href="#biblio-url">[URL]</a>
+<a data-link-type="biblio" href="#biblio-vibration">[VIBRATION]</a>
+
+
+</p>
+   <h2 class="heading settled" data-level="2" id="notifications"><span class="secno">2. </span><span class="content">Notifications</span><a class="self-link" href="#notifications"></a></h2>
+
+
+   <h3 class="heading settled" data-level="2.1" id="lifetime-and-ui-integrations"><span class="secno">2.1. </span><span class="content">Lifetime and UI integration</span><a class="self-link" href="#lifetime-and-ui-integrations"></a></h3>
+
+
+   <h3 class="heading settled" data-level="2.2" id="permission-model"><span class="secno">2.2. </span><span class="content">Permission model</span><a class="self-link" href="#permission-model"></a></h3>
+
+
+   <h3 class="heading settled" data-level="2.3" id="direction"><span class="secno">2.3. </span><span class="content">Direction</span><a class="self-link" href="#direction"></a></h3>
+
+
+   <h3 class="heading settled" data-level="2.4" id="language"><span class="secno">2.4. </span><span class="content">Language</span><a class="self-link" href="#language"></a></h3>
+
+
+   <h3 class="heading settled" data-level="2.5" id="resources"><span class="secno">2.5. </span><span class="content">Resources</span><a class="self-link" href="#resources"></a></h3>
+
+
+   <h3 class="heading settled" data-level="2.6" id="showing-a-notification"><span class="secno">2.6. </span><span class="content">Showing a notification</span><a class="self-link" href="#showing-a-notification"></a></h3>
+
+
+   <h3 class="heading settled" data-level="2.7" id="activating-a-notification"><span class="secno">2.7. </span><span class="content">Activating a notification</span><a class="self-link" href="#activating-a-notification"></a></h3>
+
+
+   <h3 class="heading settled" data-level="2.8" id="closing-a-notification"><span class="secno">2.8. </span><span class="content">Closing a notification</span><a class="self-link" href="#closing-a-notification"></a></h3>
+
+
+   <h3 class="heading settled" data-level="2.9" id="displaying-notification"><span class="secno">2.9. </span><span class="content">Displaying notifications</span><a class="self-link" href="#displaying-notification"></a></h3>
+
+
+   <h3 class="heading settled" data-level="2.10" id="replacing-a-notification"><span class="secno">2.10. </span><span class="content">Replacing a notification</span><a class="self-link" href="#replacing-a-notification"></a></h3>
+
+
+
+   <h2 class="heading settled" data-level="3" id="api"><span class="secno">3. </span><span class="content">API</span><a class="self-link" href="#api"></a></h2>
+
+
+   <h3 class="heading settled" data-level="3.1" id="garbage-collection"><span class="secno">3.1. </span><span class="content">Garbage collection</span><a class="self-link" href="#garbage-collection"></a></h3>
+
+
+   <h3 class="heading settled" data-level="3.2" id="constructors"><span class="secno">3.2. </span><span class="content">Constructors</span><a class="self-link" href="#constructors"></a></h3>
+
+
+   <h3 class="heading settled" data-level="3.3" id="static-members"><span class="secno">3.3. </span><span class="content">Static members</span><a class="self-link" href="#static-members"></a></h3>
+
+
+   <h3 class="heading settled" data-level="3.4" id="object-members"><span class="secno">3.4. </span><span class="content">Object members</span><a class="self-link" href="#object-members"></a></h3>
+
+
+   <h3 class="heading settled" data-level="3.5" id="examples"><span class="secno">3.5. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h3>
+
+
+   <h4 class="heading settled" data-level="3.5.1" id="using-events"><span class="secno">3.5.1. </span><span class="content">Using events</span><a class="self-link" href="#using-events"></a></h4>
+
+
+   <h4 class="heading settled" data-level="3.5.2" id="tags-example"><span class="secno">3.5.2. </span><span class="content">Using the <code>tag</code> member for multiple instances</span><a class="self-link" href="#tags-example"></a></h4>
+
+
+   <h4 class="heading settled" data-level="3.5.3" id="using-the-tag-member-for-a-single-instance"><span class="secno">3.5.3. </span><span class="content">Using the <code>tag</code> member for a single instance</span><a class="self-link" href="#using-the-tag-member-for-a-single-instance"></a></h4>
+
+
+
+   <h2 class="heading settled" data-level="4" id="service-worker-api"><span class="secno">4. </span><span class="content">Service Worker API</span><a class="self-link" href="#service-worker-api"></a></h2>
+
+
+
+   <h2 class="no-num heading settled" id="acknowledgments"><span class="content">Acknowledgments</span><a class="self-link" href="#acknowledgments"></a></h2>
+
+
+   <p>Thanks to
+Aharon (Vladimir) Lanin,
+Alex Russell,
+Arkadiusz Michalski,
+Boris Zbarsky,
+David Håsäther,
+Doug Turner,
+Drew Wilson,
+Edward O’Connor,
+Frederick Hirsch,
+Ian Hickson,
+Jake Archibald,
+James Graham,
+John Mellor,
+Jon Lee,
+Jonas Sicking,
+Michael Cooper,
+Michael Henretty,
+Olli Pettay,
+Peter Beverloo,
+Reuben Morais, and
+Simon Pieters
+for being awesome.
+
+</p>
+   <p>This standard is written by
+<a href="//annevankesteren.nl/" lang="nl">Anne van Kesteren</a>
+(<a href="//www.mozilla.org/">Mozilla</a>,
+<a href="mailto:annevk@annevk.nl">annevk@annevk.nl</a>). An earlier iteration was written
+by John Gregg (<a href="//www.google.com/">Google</a>,
+<a href="mailto:johnnyg@google.com">johnnyg@google.com</a>).
+
+</p>
+   <p>Per <a href="//creativecommons.org/publicdomain/zero/1.0/" rel="license">CC0</a>, to
+the extent possible under law, the editors have waived all copyright and related or
+neighboring rights to this work.
+
+
+
+</p></main>
+  
+
+  <h2 class="no-num no-ref heading settled" id="conformance"><span class="content">Conformance</span><a class="self-link" href="#conformance"></a></h2>
+  
+
+
+  <p>All diagrams, examples, and notes in this specification are non-normative, as are all sections explicitly marked
+non-normative. Everything else in this specification is normative.
+
+</p>
+  <p>The key words "MUST", "MUST NOT", "REQUIRED",  "SHOULD", "SHOULD NOT", "RECOMMENDED",
+"MAY", and "OPTIONAL" in the normative parts of this specification are to be interpreted as described in RFC2119. For
+readability, these words do not appear in all uppercase letters in this specification. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a>
+
+</p>
+  <p>Conformance requirements phrased as algorithms or specific steps may be implemented in any manner, so long as the end
+result is equivalent. (In particular, the algorithms defined in this specification are intended to be easy to follow, 
+and not intended to be performant.) 
+</p>
+  <h2 class="no-num heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
+  <h3 class="no-num heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
+  <dl>
+   <dt id="biblio-dom"><a class="self-link" href="#biblio-dom"></a>[DOM]
+   <dd>Anne van Kesteren; Aryeh Gregor; Ms2ger. <a href="https://dom.spec.whatwg.org/">DOM</a>. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
+   <dt id="biblio-fetch"><a class="self-link" href="#biblio-fetch"></a>[FETCH]
+   <dd>Anne van Kesteren. <a href="https://fetch.spec.whatwg.org/">Fetch Standard</a>. Living Standard. URL: <a href="https://fetch.spec.whatwg.org/">https://fetch.spec.whatwg.org/</a>
+   <dt id="biblio-html"><a class="self-link" href="#biblio-html"></a>[HTML]
+   <dd>Ian Hickson. <a href="https://html.spec.whatwg.org/">HTML</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/">https://html.spec.whatwg.org/</a>
+   <dt id="biblio-url"><a class="self-link" href="#biblio-url"></a>[URL]
+   <dd>Anne van Kesteren; Sam Ruby. <a href="https://url.spec.whatwg.org/">URL</a>. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
+   <dt id="biblio-webidl"><a class="self-link" href="#biblio-webidl"></a>[WEBIDL]
+   <dd>Cameron McCormack; Jonas Sicking. <a href="http://heycam.github.io/webidl/">Web IDL</a>. URL: <a href="http://heycam.github.io/webidl/">http://heycam.github.io/webidl/</a>
+   <dt id="biblio-rfc2119"><a class="self-link" href="#biblio-rfc2119"></a>[RFC2119]
+   <dd>S. Bradner. <a href="http://www.ietf.org/rfc/rfc2119.txt">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="http://www.ietf.org/rfc/rfc2119.txt">http://www.ietf.org/rfc/rfc2119.txt</a>
+   <dt id="biblio-vibration"><a class="self-link" href="#biblio-vibration"></a>[VIBRATION]
+   <dd>Anssi Kostiainen. <a href="http://www.w3.org/TR/vibration/">Vibration API</a>. 9 September 2014. CR. URL: <a href="http://www.w3.org/TR/vibration/">http://www.w3.org/TR/vibration/</a></dl>
+ </body>
+</html>
