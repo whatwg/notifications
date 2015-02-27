@@ -250,7 +250,7 @@ associated <a data-link-type="dfn" href="#service-worker-registration">service w
   </p>
     <li>
      <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#origin">origin</a> to the
-  <a data-link-type="dfn" href="https://html.spec.whatwg.org/#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="#origin">origin</a>.
+  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="#origin">origin</a>.
 
   </p>
     <li>
@@ -265,7 +265,7 @@ associated <a data-link-type="dfn" href="#service-worker-registration">service w
   </p>
     <li>
      <p>Let <var>baseURL</var> be the API base URL specified by the
-  <a data-link-type="dfn" href="https://html.spec.whatwg.org/#entry-settings-object">entry settings object</a>. <span class="XXX">Or incumbent?</span>
+  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>. <span class="XXX">Or incumbent?</span>
 
   </p>
     <li>
@@ -387,29 +387,202 @@ for the application to ask for <a data-link-type="dfn" href="#permission">permis
    <h3 class="heading settled" data-level="2.3" id="direction"><span class="secno">2.3. </span><span class="content">Direction</span><a class="self-link" href="#direction"></a></h3>
 
 
-   <p>This section is written in terms equivalent to those used in the Rendering section of HTML. <a data-link-type="biblio" href="#biblio-html">[HTML]</a></p>
-
-
-   <p>User agents are expected to honor the Unicode semantics of the text of a <a data-link-type="dfn" href="#notification">notification</a>’s <a data-link-type="dfn" href="#notification-title">title</a> and <a data-link-type="dfn" href="#body">body</a>. Each is expected to be treated as an independent set of one or more bidirectional algorithm paragraphs when displayed, as defined by the bidirectional algorithm’s rules P1, P2, and P3, including, for instance, supporting the paragraph-breaking behaviour of U+000A LINE FEED (LF) characters. For each paragraph of the <a data-link-type="dfn" href="#notification-title">title</a> and <a data-link-type="dfn" href="#body">body</a>, the <a data-link-type="dfn" href="#notification">notification</a>’s <a data-link-type="dfn" href="#notification-direction">direction</a> provides the higher-level override of rules P2 and P3 if it has a value other than "<code>auto</code>". <a data-link-type="biblio" href="#biblio-bidi">[BIDI]</a></p>
+   <p>This section is written in terms equivalent to those used in the Rendering
+section of HTML. <a data-link-type="biblio" href="#biblio-html">[HTML]</a>
 
 
 
+</p>
+   <p>User agents are expected to honor the Unicode semantics of the text of a
+<a data-link-type="dfn" href="#notification">notification</a>’s <a data-link-type="dfn" href="#notification-title">title</a> and <a data-link-type="dfn" href="#body">body</a>. Each
+is expected to be treated as an independent set of one or more bidirectional
+algorithm paragraphs when displayed, as defined by the bidirectional algorithm’s
+rules P1, P2, and P3, including, for instance, supporting the paragraph-breaking
+behaviour of U+000A LINE FEED (LF) characters. For each paragraph of the
+<a data-link-type="dfn" href="#notification-title">title</a> and <a data-link-type="dfn" href="#body">body</a>, the <a data-link-type="dfn" href="#notification">notification</a>’s
+<a data-link-type="dfn" href="#notification-direction">direction</a> provides the higher-level override
+of rules P2 and P3 if it has a value other than "<code>auto</code>". <a data-link-type="biblio" href="#biblio-bidi">[BIDI]</a>
+
+
+</p>
    <h3 class="heading settled" data-level="2.4" id="language"><span class="secno">2.4. </span><span class="content">Language</span><a class="self-link" href="#language"></a></h3>
 
 
-   <p>The <a data-link-type="dfn" href="#notification">notification</a>’s <a data-link-type="dfn" href="#notification-language">language</a> specifies the primary language for the <a data-link-type="dfn" href="#notification">notification</a>’s <a data-link-type="dfn" href="#notification-title">title</a> and <a data-link-type="dfn" href="#body">body</a>. Its value is a valid BCP 47 language tag, or the empty string. The empty string indicates that the primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LANG]</a></p>
 
 
+   <p>The <a data-link-type="dfn" href="#notification">notification</a>’s <a data-link-type="dfn" href="#notification-language">language</a> specifies
+the primary language for the <a data-link-type="dfn" href="#notification">notification</a>’s
+<a data-link-type="dfn" href="#notification-title">title</a> and <a data-link-type="dfn" href="#body">body</a>. Its value is a valid
+BCP 47 language tag, or the empty string. The empty string indicates that the
+primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LANG]</a>
 
+
+</p>
    <h3 class="heading settled" data-level="2.5" id="resources"><span class="secno">2.5. </span><span class="content">Resources</span><a class="self-link" href="#resources"></a></h3>
+
+
+   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="fetch-steps">fetch steps<a class="self-link" href="#fetch-steps"></a></dfn> for a given <a data-link-type="dfn" href="#notification">notification</a>
+<var>notification</var> are:
+
+</p>
+   <ol>
+  
+  
+    <li>
+     <p>If the notification platform supports icons, <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#fetch">fetch</a>
+  <var>notification</var>’s <a data-link-type="dfn" href="#icon-url">icon URL</a>, if <a data-link-type="dfn" href="#icon-url">icon URL</a> is set.
+
+  </p>
+     <p>Then, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
+
+  </p>
+     <ol>
+    
+      <li>
+       <p>Wait for the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>.
+
+    </p>
+      <li>
+       <p>If the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>’s
+    <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-internal-response">internal response</a>’s
+    <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response-type">type</a> is <i>default</i>, attempt to decode
+    the resource as image.
+
+    </p>
+      <li>
+       <p>If the image format is supported, set <var>notification</var>’s
+    <a data-link-type="dfn" href="#icon-resource">icon resource</a> to the decoded resource. (Otherwise
+    notification has no <a data-link-type="dfn" href="#icon-resource">icon resource</a>.)
+  </p>
+     </ol>
+     
+
+  
+    <li>
+     <p>If the notification platform supports sounds, <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#fetch">fetch</a>
+  <var>notification</var>’s <a data-link-type="dfn" href="#sound-url">sound URL</a>, if <a data-link-type="dfn" href="#sound-url">sound URL</a> is set.
+
+  </p>
+     <p>Then, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
+
+  </p>
+     <ol>
+    
+      <li>
+       <p>Wait for the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>.
+
+    </p>
+      <li>
+       <p>If the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>’s
+    <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-internal-response">internal response</a>’s
+    <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response-type">type</a> is <i>default</i>, attempt to decode
+    the resource as sound.
+    
+
+    </p>
+      <li>
+       <p>If the sound format is supported, set <var>notification</var>’s
+    <a data-link-type="dfn" href="#sound-resource">sound resource</a> to the decoded resource. (Otherwise
+    <var>notification</var> has no sound resource.)
+  </p>
+     </ol>
+     
+</ol>
+
 
 
    <h3 class="heading settled" data-level="2.6" id="showing-a-notification"><span class="secno">2.6. </span><span class="content">Showing a notification</span><a class="self-link" href="#showing-a-notification"></a></h3>
 
 
+   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="show-steps">show steps<a class="self-link" href="#show-steps"></a></dfn> for a given <a data-link-type="dfn" href="#notification">notification</a>
+<var>notification</var> are:
+
+</p>
+   <ol>
+  
+    <li>
+     <p>If there is a <a data-link-type="dfn" href="#notification">notification</a> in the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>
+  whose <a data-link-type="dfn" href="#tag">tag</a> is not the empty string and equals <var>notification</var>’s
+  <a data-link-type="dfn" href="#tag">tag</a>, and whose <a data-link-type="dfn" href="#origin">origin</a> is <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin">same origin</a> with
+  <var>notification</var>’s <a data-link-type="dfn" href="#origin">origin</a>, run the replace steps for that
+  <a data-link-type="dfn" href="#notification">notification</a> and <var>notification</var>, and then terminate these
+  steps.
+
+  </p>
+    <li>
+     <p>Otherwise, run the display steps for <var>notification</var>.
+</p></ol>
+
+
+
+
    <h3 class="heading settled" data-level="2.7" id="activating-a-notification"><span class="secno">2.7. </span><span class="content">Activating a notification</span><a class="self-link" href="#activating-a-notification"></a></h3>
 
 
+   <p>When a <a data-link-type="dfn" href="#notification">notification</a> <var>notification</var> is activated by the user,
+assuming the underlying notification platform supports activation, the user
+agent must (unless otherwise specified) run these steps:
+
+</p>
+   <ol>
+  
+    <li>
+     <p>If <var>notification</var> is a <a data-link-type="dfn" href="#persistent-notification">persistent notification</a>, run
+  these substeps:
+
+  </p>
+     <ol>
+    
+      <li>
+       <p>Let <var>callback</var> be an algorithm that when invoked with a
+    <var>global</var>, fires a service worker notification event named
+    <code>notificationclick</code> given <var>notification</var> on
+    <var>global</var>.
+    
+
+    </p>
+      <li>
+       <p>Then run <a data-link-type="dfn" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#handle-functional-event">Handle Functional Event</a> with
+    <var>notification</var>’s <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a> and
+    <var>callback</var>.
+  </p>
+     </ol>
+     
+
+  
+    <li>
+     <p>Otherwise, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to run these substeps:
+
+  </p>
+     <ol>
+    
+      <li>
+       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#fire-an-event">Fire an event</a> named <code>click</code> with its <code>
+    <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#dom-event-cancelable">cancelable</a></code> attribute initialized to
+    true on the Notification object representing <var>notification</var>.
+    
+
+    </p>
+       <p class="note" role="note">User agents are encouraged to make <code>
+    <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#dom-window-focus">window.focus()</a></code> work from within the
+    event listener for the event named <code>click</code>.
+
+    </p>
+      <li>
+       <p>If the <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#event">event</a>’s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#canceled-flag">canceled flag</a> is unset, the user agent
+    should bring the <var>notification</var>’s related <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a>’s
+    viewport into focus.
+  </p>
+     </ol>
+     
+</ol>
+
+
+   <p class="note" role="note">Throughout the web platform "activate" is intentionally
+misnamed as "click".
+
+
+</p>
    <h3 class="heading settled" data-level="2.8" id="closing-a-notification"><span class="secno">2.8. </span><span class="content">Closing a notification</span><a class="self-link" href="#closing-a-notification"></a></h3>
 
 
@@ -523,6 +696,7 @@ and not intended to be performant.)
    <li>body, <a href="#body">2</a>
    <li>create a notification, <a href="#create-a-notification">2</a>
    <li>data, <a href="#data">2</a>
+   <li>fetch steps, <a href="#fetch-steps">2.5</a>
    <li>icon resource, <a href="#icon-resource">2</a>
    <li>icon URL, <a href="#icon-url">2</a>
    <li>list of notifications, <a href="#list-of-notifications">2.1</a>
@@ -537,6 +711,7 @@ and not intended to be performant.)
    <li>renotify preference flag, <a href="#renotify-preference-flag">2</a>
    <li>screen off preference flag, <a href="#screen-off-preference-flag">2</a>
    <li>service worker registration, <a href="#service-worker-registration">2</a>
+   <li>show steps, <a href="#show-steps">2.6</a>
    <li>silent preference flag, <a href="#silent-preference-flag">2</a>
    <li>sound resource, <a href="#sound-resource">2</a>
    <li>sound URL, <a href="#sound-url">2</a>
