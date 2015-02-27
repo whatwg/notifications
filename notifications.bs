@@ -163,10 +163,9 @@ associated <a>service worker registration</a>.
 <p>The user agent must keep a <dfn>list of notifications</dfn> that consists of
 zero or more <a>notifications</a>.
 
-<p>User agents should run the close steps for a
+<p>User agents should run the <a>close steps</a> for a
 <a>non-persistent notification</a> a couple of seconds after they have been
 <a lt="create a notification">created</a>.
-<!--- XXX: Link close steps -->
 
 <p>User agents should not display <a>non-persistent notification</a> in a
 platform's "notification center" (if available).
@@ -245,8 +244,9 @@ primary language is unknown. [[!LANG]]
 
 <ol>
   <!-- XXX https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055 -->
-  <li><p>If the notification platform supports icons, <a>fetch</a>
-  <var>notification</var>'s <a>icon URL</a>, if <a>icon URL</a> is set.
+  <li><p>If the notification platform supports icons,
+  <a lt="concept fetch">fetch</a> <var>notification</var>'s <a>icon URL</a>,
+  if <a>icon URL</a> is set.
 
   <p>Then, <a>in parallel</a>:
 
@@ -263,8 +263,9 @@ primary language is unknown. [[!LANG]]
     </var>notification</var> has no <a>icon resource</a>.)
   </ol>
 
-  <li><p>If the notification platform supports sounds, <a>fetch</a>
-  <var>notification</var>'s <a>sound URL</a>, if <a>sound URL</a> is set.
+  <li><p>If the notification platform supports sounds,
+  <a lt="concept fetch">fetch</a> <var>notification</var>'s <a>sound URL</a>, if
+  <a>sound URL</a> is set.
 
   <p>Then, <a>in parallel</a>:
 
@@ -279,7 +280,7 @@ primary language is unknown. [[!LANG]]
 
     <li><p>If the sound format is supported, set <var>notification</var>'s
     <a>sound resource</a> to the decoded resource. (Otherwise
-    <var>notification</var> has no sound resource.)
+    <var>notification</var> has no <a>sound resource</a>.)
   </ol>
 </ol>
 
@@ -293,13 +294,12 @@ primary language is unknown. [[!LANG]]
   <li><p>If there is a <a>notification</a> in the <a>list of notifications</a>
   whose <a>tag</a> is not the empty string and equals <var>notification</var>'s
   <a>tag</a>, and whose <a>origin</a> is <a>same origin</a> with
-  <var>notification</var>'s <a>origin</a>, run the replace steps for that
+  <var>notification</var>'s <a>origin</a>, run the <a>replace steps</a> for that
   <a>notification</a> and <var>notification</var>, and then terminate these
   steps.
 
-  <li><p>Otherwise, run the display steps for <var>notification</var>.
+  <li><p>Otherwise, run the <a>display steps</a> for <var>notification</var>.
 </ol>
-<!-- XXX: Link display steps and replace steps -->
 
 
 <h3 id=activating-a-notification>Activating a notification</h3>
@@ -348,9 +348,59 @@ misnamed as "click".
 
 <h3 id=closing-a-notification>Closing a notification</h3>
 
+<p>When a <a>notification</a> is closed, either by the underlying notification
+platform or by the user, the <a>close steps</a> for it must be run.
+
+<p>The <dfn>close steps</dfn> for a given <var>notification</var> are:
+
+<ol>
+  <li><p>If <var>notification</var> is not in the <a>list of notifications</a>,
+  terminate these steps.
+
+  <li><p>Remove <var>notification</var> from the <a>list of notifications</a>.
+</ol>
+
+
 <h3 id=displaying-notification>Displaying notifications</h3>
 
+<p>The <dfn>display steps</dfn> for a <var>given notification</var> are:
+
+<ol>
+  <li><p>Wait for any <a lt="concept fetch">fetches</a> to complete and
+  <var>notification</var>'s <a>icon resource</a> and <a>sound resource</a>
+  to be set (if any).
+
+  <li><p>Display <var>notification</var> on the device (e.g. by calling the
+  appropriate notification platform).
+
+  <p>At this point also play <var>notification</var>'s <a>sound resource</a>, if
+  any, and run <a>perform vibration</a> using <var>notification</a>'s
+  <a>vibration pattern</a>, if any.
+
+  <li><p>Append <var>notification</var> to the <a>list of notifications</a>.
+</ol>
+
+
 <h3 id=replacing-a-notification>Replacing a notification</h3>
+
+<p>The <dfn>replace steps</dfn> for replacing an <var>old</var>
+<a>notification</a> with a <var>new</var> one are:
+
+<ol>
+  <li><p>Wait for any <a lt="concept fetch">fetches</a> to complete and
+  <var>notification</var>'s <a>icon resource</a> and <a>sound resource</a> to be
+  set (if any).
+
+  <li><p>Replace <var>old</var> with <var>new</var>, in the same position, in
+  the <a>list of notifications</a>.
+
+  <p>If the notification platform does not support replacement this requirement
+  may be addressed by running the <a>close steps</a> for <var>old</var> and then
+  running the <a>display steps</a> for <var>new</var>.
+
+  <p class="note">Notification platforms are strongly encouraged to support
+  native replacement. It is much nicer.
+</ol>
 
 
 <h2 id=api>API</h2>
@@ -431,10 +481,10 @@ urlPrefix: https://url.spec.whatwg.org/; type: dfn
   text: parse
   text: validate and normalize
 urlPrefix: https://fetch.spec.whatwg.org/; type: dfn
+  text: concept fetch
   text: concept internal response
   text: concept response
   text: concept response type
-  text: fetch
 urlPrefix: https://slightlyoff.github.io/ServiceWorker/spec/service_worker/; type: dfn
   text: handle functional event
 urlPrefix: https://dom.spec.whatwg.org/; type: dfn
@@ -442,6 +492,8 @@ urlPrefix: https://dom.spec.whatwg.org/; type: dfn
   text: dom event cancelable
   text: event
   text: fire an event
+urlPrefix: http://www.w3.org/TR/vibration/#dfn-; type: dfn
+  text: perform vibration
 </pre>
 
 <pre class="biblio">

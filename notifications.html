@@ -322,10 +322,9 @@ associated <a data-link-type="dfn" href="#service-worker-registration">service w
 zero or more <a data-link-type="dfn" href="#notification">notifications</a>.
 
 </p>
-   <p>User agents should run the close steps for a
+   <p>User agents should run the <a data-link-type="dfn" href="#close-steps">close steps</a> for a
 <a data-link-type="dfn" href="#non_persistent-notification">non-persistent notification</a> a couple of seconds after they have been
 <a data-link-type="dfn" href="#create-a-notification">created</a>.
-
 
 </p>
    <p>User agents should not display <a data-link-type="dfn" href="#non_persistent-notification">non-persistent notification</a> in a
@@ -429,8 +428,9 @@ primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LAN
   
   
     <li>
-     <p>If the notification platform supports icons, <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#fetch">fetch</a>
-  <var>notification</var>’s <a data-link-type="dfn" href="#icon-url">icon URL</a>, if <a data-link-type="dfn" href="#icon-url">icon URL</a> is set.
+     <p>If the notification platform supports icons,
+  <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetch</a> <var>notification</var>’s <a data-link-type="dfn" href="#icon-url">icon URL</a>,
+  if <a data-link-type="dfn" href="#icon-url">icon URL</a> is set.
 
   </p>
      <p>Then, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
@@ -459,8 +459,9 @@ primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LAN
 
   
     <li>
-     <p>If the notification platform supports sounds, <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#fetch">fetch</a>
-  <var>notification</var>’s <a data-link-type="dfn" href="#sound-url">sound URL</a>, if <a data-link-type="dfn" href="#sound-url">sound URL</a> is set.
+     <p>If the notification platform supports sounds,
+  <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetch</a> <var>notification</var>’s <a data-link-type="dfn" href="#sound-url">sound URL</a>, if
+  <a data-link-type="dfn" href="#sound-url">sound URL</a> is set.
 
   </p>
      <p>Then, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
@@ -483,7 +484,7 @@ primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LAN
       <li>
        <p>If the sound format is supported, set <var>notification</var>’s
     <a data-link-type="dfn" href="#sound-resource">sound resource</a> to the decoded resource. (Otherwise
-    <var>notification</var> has no sound resource.)
+    <var>notification</var> has no <a data-link-type="dfn" href="#sound-resource">sound resource</a>.)
   </p>
      </ol>
      
@@ -504,15 +505,14 @@ primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LAN
      <p>If there is a <a data-link-type="dfn" href="#notification">notification</a> in the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>
   whose <a data-link-type="dfn" href="#tag">tag</a> is not the empty string and equals <var>notification</var>’s
   <a data-link-type="dfn" href="#tag">tag</a>, and whose <a data-link-type="dfn" href="#origin">origin</a> is <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin">same origin</a> with
-  <var>notification</var>’s <a data-link-type="dfn" href="#origin">origin</a>, run the replace steps for that
+  <var>notification</var>’s <a data-link-type="dfn" href="#origin">origin</a>, run the <a data-link-type="dfn" href="#replace-steps">replace steps</a> for that
   <a data-link-type="dfn" href="#notification">notification</a> and <var>notification</var>, and then terminate these
   steps.
 
   </p>
     <li>
-     <p>Otherwise, run the display steps for <var>notification</var>.
+     <p>Otherwise, run the <a data-link-type="dfn" href="#display-steps">display steps</a> for <var>notification</var>.
 </p></ol>
-
 
 
 
@@ -586,10 +586,84 @@ misnamed as "click".
    <h3 class="heading settled" data-level="2.8" id="closing-a-notification"><span class="secno">2.8. </span><span class="content">Closing a notification</span><a class="self-link" href="#closing-a-notification"></a></h3>
 
 
+   <p>When a <a data-link-type="dfn" href="#notification">notification</a> is closed, either by the underlying notification
+platform or by the user, the <a data-link-type="dfn" href="#close-steps">close steps</a> for it must be run.
+
+</p>
+   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="close-steps">close steps<a class="self-link" href="#close-steps"></a></dfn> for a given <var>notification</var> are:
+
+</p>
+   <ol>
+  
+    <li>
+     <p>If <var>notification</var> is not in the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>,
+  terminate these steps.
+
+  </p>
+    <li>
+     <p>Remove <var>notification</var> from the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>.
+</p></ol>
+
+
+
    <h3 class="heading settled" data-level="2.9" id="displaying-notification"><span class="secno">2.9. </span><span class="content">Displaying notifications</span><a class="self-link" href="#displaying-notification"></a></h3>
 
 
+   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="display-steps">display steps<a class="self-link" href="#display-steps"></a></dfn> for a <var>given notification</var> are:
+
+</p>
+   <ol>
+  
+    <li>
+     <p>Wait for any <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> to complete and
+  <var>notification</var>’s <a data-link-type="dfn" href="#icon-resource">icon resource</a> and <a data-link-type="dfn" href="#sound-resource">sound resource</a>
+  to be set (if any).
+
+  </p>
+    <li>
+     <p>Display <var>notification</var> on the device (e.g. by calling the
+  appropriate notification platform).
+
+  </p>
+     <p>At this point also play <var>notification</var>’s <a data-link-type="dfn" href="#sound-resource">sound resource</a>, if
+  any, and run <a data-link-type="dfn" href="http://www.w3.org/TR/vibration/#dfn-perform-vibration">perform vibration</a> using <var>notification’s
+  <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a>, if any.
+
+  </var></p>
+    <li>
+     <p>Append <var>notification</var> to the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>.
+</p></ol>
+
+
+
    <h3 class="heading settled" data-level="2.10" id="replacing-a-notification"><span class="secno">2.10. </span><span class="content">Replacing a notification</span><a class="self-link" href="#replacing-a-notification"></a></h3>
+
+
+   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="replace-steps">replace steps<a class="self-link" href="#replace-steps"></a></dfn> for replacing an <var>old</var>
+<a data-link-type="dfn" href="#notification">notification</a> with a <var>new</var> one are:
+
+</p>
+   <ol>
+  
+    <li>
+     <p>Wait for any <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> to complete and
+  <var>notification</var>’s <a data-link-type="dfn" href="#icon-resource">icon resource</a> and <a data-link-type="dfn" href="#sound-resource">sound resource</a> to be
+  set (if any).
+
+  </p>
+    <li>
+     <p>Replace <var>old</var> with <var>new</var>, in the same position, in
+  the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>.
+
+  </p>
+     <p>If the notification platform does not support replacement this requirement
+  may be addressed by running the <a data-link-type="dfn" href="#close-steps">close steps</a> for <var>old</var> and then
+  running the <a data-link-type="dfn" href="#display-steps">display steps</a> for <var>new</var>.
+
+  </p>
+     <p class="note" role="note">Notification platforms are strongly encouraged to support
+  native replacement. It is much nicer.
+</p></ol>
 
 
 
@@ -694,8 +768,10 @@ and not intended to be performant.)
   <h3 class="no-num heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="indexlist">
    <li>body, <a href="#body">2</a>
+   <li>close steps, <a href="#close-steps">2.8</a>
    <li>create a notification, <a href="#create-a-notification">2</a>
    <li>data, <a href="#data">2</a>
+   <li>display steps, <a href="#display-steps">2.9</a>
    <li>fetch steps, <a href="#fetch-steps">2.5</a>
    <li>icon resource, <a href="#icon-resource">2</a>
    <li>icon URL, <a href="#icon-url">2</a>
@@ -709,6 +785,7 @@ and not intended to be performant.)
    <li>permission, <a href="#permission">2.2</a>
    <li>persistent notification, <a href="#persistent-notification">2</a>
    <li>renotify preference flag, <a href="#renotify-preference-flag">2</a>
+   <li>replace steps, <a href="#replace-steps">2.10</a>
    <li>screen off preference flag, <a href="#screen-off-preference-flag">2</a>
    <li>service worker registration, <a href="#service-worker-registration">2</a>
    <li>show steps, <a href="#show-steps">2.6</a>
