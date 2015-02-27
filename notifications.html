@@ -133,19 +133,19 @@ such as the delivery of a message.
 
 </p>
    <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated
-<dfn data-dfn-type="dfn" data-lt="concept-notification-title" data-noexport="" id="concept_notification_title">title<a class="self-link" href="#concept_notification_title"></a></dfn> which is a DOMString.
+<dfn data-dfn-type="dfn" data-lt="notification title" data-noexport="" id="notification-title">title<a class="self-link" href="#notification-title"></a></dfn> which is a DOMString.
 
 </p>
    <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="body">body<a class="self-link" href="#body"></a></dfn> which is a DOMString.
 
 </p>
    <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated
-<dfn data-dfn-type="dfn" data-lt="concept-notification-direction" data-noexport="" id="concept_notification_direction">direction<a class="self-link" href="#concept_notification_direction"></a></dfn> which is one of
+<dfn data-dfn-type="dfn" data-lt="notification direction" data-noexport="" id="notification-direction">direction<a class="self-link" href="#notification-direction"></a></dfn> which is one of
 <i>auto</i>, <i>ltr</i>, and <i>rtl</i>.
 
 </p>
    <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated
-<dfn data-dfn-type="dfn" data-lt="concept-notification-language" data-noexport="" id="concept_notification_language">language<a class="self-link" href="#concept_notification_language"></a></dfn> which is a DOMString
+<dfn data-dfn-type="dfn" data-lt="notification language" data-noexport="" id="notification-language">language<a class="self-link" href="#notification-language"></a></dfn> which is a DOMString
 representing either a valid BCP 47 language tag or the empty string.
 
 </p>
@@ -231,20 +231,20 @@ associated <a data-link-type="dfn" href="#service-worker-registration">service w
 
   </p>
     <li>
-     <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#concept_notification_title">title</a>
+     <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#notification-title">title</a>
   to <var>option</var>’s <code>title</code>.
 
   </p>
     <li>
      <p>Set <var>notification</var>’s
-  <a data-link-type="dfn" href="#concept_notification_direction">direction</a> to <var>options</var>’s 
-  code>dir.
+  <a data-link-type="dfn" href="#notification-direction">direction</a> to <var>options</var>’s
+  <code>dir</code>.
 
   </p>
     <li>
      <p>If <var>options</var>’s <code>lang</code> is either a valid BCP 47
   language tag or the empty string, set <var>notification</var>’s
-  <a data-link-type="dfn" href="#concept_notification_language">language</a> to <var>options</var>’s
+  <a data-link-type="dfn" href="#notification-language">language</a> to <var>options</var>’s
   <code>lang</code>, and set it to the empty string otherwise. <a data-link-type="biblio" href="#biblio-lang">[LANG]</a>
 
   </p>
@@ -318,13 +318,87 @@ associated <a data-link-type="dfn" href="#service-worker-registration">service w
    <h3 class="heading settled" data-level="2.1" id="lifetime-and-ui-integrations"><span class="secno">2.1. </span><span class="content">Lifetime and UI integration</span><a class="self-link" href="#lifetime-and-ui-integrations"></a></h3>
 
 
+   <p>The user agent must keep a <dfn data-dfn-type="dfn" data-noexport="" id="list-of-notifications">list of notifications<a class="self-link" href="#list-of-notifications"></a></dfn> that consists of
+zero or more <a data-link-type="dfn" href="#notification">notifications</a>.
+
+</p>
+   <p>User agents should run the close steps for a
+<a data-link-type="dfn" href="#non_persistent-notification">non-persistent notification</a> a couple of seconds after they have been
+<a data-link-type="dfn" href="#create-a-notification">created</a>.
+
+
+</p>
+   <p>User agents should not display <a data-link-type="dfn" href="#non_persistent-notification">non-persistent notification</a> in a
+platform’s "notification center" (if available).
+
+</p>
+   <p>User agents should persist <a data-link-type="dfn" href="#persistent-notification">persistent notifications</a> until they are
+removed from the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>.
+
+</p>
+   <p class="example">A <a data-link-type="dfn" href="#persistent-notification">persistent notification</a> could have the close() method
+invoked of one of its Notification objects.
+
+
+</p>
+   <p>User agents should display <a data-link-type="dfn" href="#persistent-notification">persistent notification</a> in a platform’s
+"notification center" (if available).
+
+
+</p>
    <h3 class="heading settled" data-level="2.2" id="permission-model"><span class="secno">2.2. </span><span class="content">Permission model</span><a class="self-link" href="#permission-model"></a></h3>
 
 
+   <p><a data-link-type="dfn" href="#notification">Notifications</a> can only be displayed if the user (or
+user agent on behalf of the user) has granted <dfn data-dfn-type="dfn" data-noexport="" id="permission">permission<a class="self-link" href="#permission"></a></dfn>. The
+<a data-link-type="dfn" href="#permission">permission</a> to show <a data-link-type="dfn" href="#notification">notifications</a> for a given
+<a data-link-type="dfn" href="#origin">origin</a> is one of three strings:
+
+</p>
+   <dl>
+  
+    <dt>"<code>default</code>"
+  
+    <dd>
+     <p>This is equivalent to "<code>denied</code>", but the user has made no
+  explicit choice thus far.
+
+  </p>
+    <dt>"<code>denied</code>"
+  
+    <dd>
+     <p>This means the user does not want <a data-link-type="dfn" href="#notification">notifications</a>.
+
+  </p>
+    <dt>"<code>granted</code>"
+  
+    <dd>
+     <p>This means <a data-link-type="dfn" href="#notification">notifications</a> can be displayed.
+</p></dl>
+
+
+   <p class="note" role="note">There is no equivalent to "<code>default</code>"
+meaning "<code>granted</code>". In that case
+"<code>granted</code>" is simply returned as there would be no reason
+for the application to ask for <a data-link-type="dfn" href="#permission">permission</a>.
+
+
+</p>
    <h3 class="heading settled" data-level="2.3" id="direction"><span class="secno">2.3. </span><span class="content">Direction</span><a class="self-link" href="#direction"></a></h3>
 
 
+   <p>This section is written in terms equivalent to those used in the Rendering section of HTML. <a data-link-type="biblio" href="#biblio-html">[HTML]</a></p>
+
+
+   <p>User agents are expected to honor the Unicode semantics of the text of a <a data-link-type="dfn" href="#notification">notification</a>’s <a data-link-type="dfn" href="#notification-title">title</a> and <a data-link-type="dfn" href="#body">body</a>. Each is expected to be treated as an independent set of one or more bidirectional algorithm paragraphs when displayed, as defined by the bidirectional algorithm’s rules P1, P2, and P3, including, for instance, supporting the paragraph-breaking behaviour of U+000A LINE FEED (LF) characters. For each paragraph of the <a data-link-type="dfn" href="#notification-title">title</a> and <a data-link-type="dfn" href="#body">body</a>, the <a data-link-type="dfn" href="#notification">notification</a>’s <a data-link-type="dfn" href="#notification-direction">direction</a> provides the higher-level override of rules P2 and P3 if it has a value other than "<code>auto</code>". <a data-link-type="biblio" href="#biblio-bidi">[BIDI]</a></p>
+
+
+
    <h3 class="heading settled" data-level="2.4" id="language"><span class="secno">2.4. </span><span class="content">Language</span><a class="self-link" href="#language"></a></h3>
+
+
+   <p>The <a data-link-type="dfn" href="#notification">notification</a>’s <a data-link-type="dfn" href="#notification-language">language</a> specifies the primary language for the <a data-link-type="dfn" href="#notification">notification</a>’s <a data-link-type="dfn" href="#notification-title">title</a> and <a data-link-type="dfn" href="#body">body</a>. Its value is a valid BCP 47 language tag, or the empty string. The empty string indicates that the primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LANG]</a></p>
+
 
 
    <h3 class="heading settled" data-level="2.5" id="resources"><span class="secno">2.5. </span><span class="content">Resources</span><a class="self-link" href="#resources"></a></h3>
@@ -447,16 +521,18 @@ and not intended to be performant.)
   <h3 class="no-num heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="indexlist">
    <li>body, <a href="#body">2</a>
-   <li>concept-notification-direction, <a href="#concept_notification_direction">2</a>
-   <li>concept-notification-language, <a href="#concept_notification_language">2</a>
-   <li>concept-notification-title, <a href="#concept_notification_title">2</a>
    <li>create a notification, <a href="#create-a-notification">2</a>
    <li>data, <a href="#data">2</a>
    <li>icon resource, <a href="#icon-resource">2</a>
    <li>icon URL, <a href="#icon-url">2</a>
+   <li>list of notifications, <a href="#list-of-notifications">2.1</a>
    <li>non-persistent notification, <a href="#non_persistent-notification">2</a>
    <li>notification, <a href="#notification">2</a>
+   <li>notification direction, <a href="#notification-direction">2</a>
+   <li>notification language, <a href="#notification-language">2</a>
+   <li>notification title, <a href="#notification-title">2</a>
    <li>origin, <a href="#origin">2</a>
+   <li>permission, <a href="#permission">2.2</a>
    <li>persistent notification, <a href="#persistent-notification">2</a>
    <li>renotify preference flag, <a href="#renotify-preference-flag">2</a>
    <li>screen off preference flag, <a href="#screen-off-preference-flag">2</a>
@@ -470,6 +546,8 @@ and not intended to be performant.)
   <h2 class="no-num heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
+   <dt id="biblio-bidi"><a class="self-link" href="#biblio-bidi"></a>[BIDI]
+   <dd>Mark Davis; Aharon Lanin; Andrew Glass. <a href="http://www.unicode.org/reports/tr9/">Unicode Bidirectional Algorithm</a>. 5 June 2014. Unicode Standard Annex #9. URL: <a href="http://www.unicode.org/reports/tr9/">http://www.unicode.org/reports/tr9/</a>
    <dt id="biblio-dom"><a class="self-link" href="#biblio-dom"></a>[DOM]
    <dd>Anne van Kesteren; Aryeh Gregor; Ms2ger. <a href="https://dom.spec.whatwg.org/">DOM</a>. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
    <dt id="biblio-fetch"><a class="self-link" href="#biblio-fetch"></a>[FETCH]

@@ -32,16 +32,16 @@ HTML, IDL, URL and Vibration API Standards.
 such as the delivery of a message.
 
 <p>A <a>notification</a> has an associated
-<dfn lt=concept-notification-title>title</dfn> which is a DOMString.
+<dfn lt="notification title">title</dfn> which is a DOMString.
 
 <p>A <a>notification</a> has an associated <dfn>body</dfn> which is a DOMString.
 
 <p>A <a>notification</a> has an associated
-<dfn lt=concept-notification-direction>direction</dfn> which is one of
+<dfn lt="notification direction">direction</dfn> which is one of
 <i>auto</i>, <i>ltr</i>, and <i>rtl</i>.
 
 <p>A <a>notification</a> has an associated
-<dfn lt=concept-notification-language>language</dfn> which is a DOMString
+<dfn lt="notification language">language</dfn> which is a DOMString
 representing either a valid BCP 47 language tag or the empty string.
 
 <p>A <a>notification</a> has an associated <dfn>tag</dfn> which is a DOMString.
@@ -103,16 +103,16 @@ associated <a>service worker registration</a>.
   <li><p>Set <var>notification</var>'s <a>data</a> to a structured clone of
   <var>options</var>'s <code>data</code>. Rethrow any exceptions.
 
-  <li><p>Set <var>notification</var>'s <a lt=concept-notification-title>title</a>
+  <li><p>Set <var>notification</var>'s <a lt="notification title">title</a>
   to <var>option</var>'s <code>title</code>.
 
   <li><p>Set <var>notification</var>'s
-  <a lt=concept-notification-direction>direction</a> to <var>options</var>'s
-  code>dir</code>.
+  <a lt="notification direction">direction</a> to <var>options</var>'s
+  <code>dir</code>.
 
   <li><p>If <var>options</var>'s <code>lang</code> is either a valid BCP 47
   language tag or the empty string, set <var>notification</var>'s
-  <a lt=concept-notification-language>language</a> to <var>options</var>'s
+  <a lt="notification language">language</a> to <var>options</var>'s
   <code>lang</code>, and set it to the empty string otherwise. [[!LANG]]
 
   <li><p>Set <var>notification</var>'s <a>origin</a> to the
@@ -160,11 +160,77 @@ associated <a>service worker registration</a>.
 
 <h3 id=lifetime-and-ui-integrations>Lifetime and UI integration</h3>
 
+<p>The user agent must keep a <dfn>list of notifications</dfn> that consists of
+zero or more <a>notifications</a>.
+
+<p>User agents should run the close steps for a
+<a>non-persistent notification</a> a couple of seconds after they have been
+<a lt="create a notification">created</a>.
+<!--- XXX: Link close steps -->
+
+<p>User agents should not display <a>non-persistent notification</a> in a
+platform's "notification center" (if available).
+
+<p>User agents should persist <a>persistent notifications</a> until they are
+removed from the <a>list of notifications</a>.
+
+<p class=example>A <a>persistent notification</a> could have the close() method
+invoked of one of its Notification objects.
+<!-- XXX: Link close() and Notification -->
+
+<p>User agents should display <a>persistent notification</a> in a platform's
+"notification center" (if available).
+
+
 <h3 id=permission-model>Permission model</h3>
+
+<p><a lt=notification>Notifications</a> can only be displayed if the user (or
+user agent on behalf of the user) has granted <dfn>permission</dfn>. The
+<a>permission</a> to show <a lt=notification>notifications</a> for a given
+<a>origin</a> is one of three strings:
+
+<dl>
+  <dt>"<code>default</code>"
+  <dd><p>This is equivalent to "<code>denied</code>", but the user has made no
+  explicit choice thus far.
+
+  <dt>"<code>denied</code>"
+  <dd><p>This means the user does not want <a lt=notification>notifications</a>.
+
+  <dt>"<code>granted</code>"
+  <dd><p>This means <a lt=notification>notifications</a> can be displayed.
+</dl>
+
+<p class=note>There is no equivalent to "<code>default</code>"
+meaning "<code>granted</code>". In that case
+"<code>granted</code>" is simply returned as there would be no reason
+for the application to ask for <a>permission</a>.
+
 
 <h3 id=direction>Direction</h3>
 
+This section is written in terms equivalent to those used in the Rendering
+section of HTML. [[!HTML]]
+
+User agents are expected to honor the Unicode semantics of the text of a
+<a>notification</a>'s <a lt="notification title">title</a> and <a>body</a>. Each
+is expected to be treated as an independent set of one or more bidirectional
+algorithm paragraphs when displayed, as defined by the bidirectional algorithm's
+rules P1, P2, and P3, including, for instance, supporting the paragraph-breaking
+behaviour of U+000A LINE FEED (LF) characters. For each paragraph of the
+<a lt="notification title">title</a> and <a>body</a>, the <a>notification</a>'s
+<a lt="notification direction">direction</a> provides the higher-level override
+of rules P2 and P3 if it has a value other than "<code>auto</code>". [[!BIDI]]
+
+
 <h3 id=language>Language</h3>
+
+The <a>notification</a>'s <a lt="notification language">language</a> specifies
+the primary language for the <a>notification</a>'s
+<a lt="notification title">title</a> and <a>body</a>. Its value is a valid
+BCP 47 language tag, or the empty string. The empty string indicates that the
+primary language is unknown. [[!LANG]]
+
 
 <h3 id=resources>Resources</h3>
 
