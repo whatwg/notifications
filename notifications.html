@@ -96,6 +96,10 @@
     <li><a href="#service-worker-api"><span class="secno">4</span> <span class="content">Service Worker API</span></a>
     <li><a href="#acknowledgments"><span class="secno"></span> <span class="content">Acknowledgments</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
+    <li><a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
+     <ul class="toc">
+      <li><a href="#index-defined-here"><span class="secno"></span> <span class="content">Terms defined by this specification</span></a>
+     </ul>
     <li><a href="#references"><span class="secno"></span> <span class="content">References</span></a>
      <ul class="toc">
       <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
@@ -122,6 +126,193 @@ HTML, IDL, URL and Vibration API Standards.
 
 </p>
    <h2 class="heading settled" data-level="2" id="notifications"><span class="secno">2. </span><span class="content">Notifications</span><a class="self-link" href="#notifications"></a></h2>
+
+
+   <p>A <dfn data-dfn-type="dfn" data-noexport="" id="notification">notification<a class="self-link" href="#notification"></a></dfn> is an abstract representation of an occurrence,
+such as the delivery of a message.
+
+</p>
+   <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated
+<dfn data-dfn-type="dfn" data-lt="concept-notification-title" data-noexport="" id="concept_notification_title">title<a class="self-link" href="#concept_notification_title"></a></dfn> which is a DOMString.
+
+</p>
+   <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="body">body<a class="self-link" href="#body"></a></dfn> which is a DOMString.
+
+</p>
+   <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated
+<dfn data-dfn-type="dfn" data-lt="concept-notification-direction" data-noexport="" id="concept_notification_direction">direction<a class="self-link" href="#concept_notification_direction"></a></dfn> which is one of
+<i>auto</i>, <i>ltr</i>, and <i>rtl</i>.
+
+</p>
+   <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated
+<dfn data-dfn-type="dfn" data-lt="concept-notification-language" data-noexport="" id="concept_notification_language">language<a class="self-link" href="#concept_notification_language"></a></dfn> which is a DOMString
+representing either a valid BCP 47 language tag or the empty string.
+
+</p>
+   <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="tag">tag<a class="self-link" href="#tag"></a></dfn> which is a DOMString.
+
+</p>
+   <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="data">data<a class="self-link" href="#data"></a></dfn>.
+
+</p>
+   <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="origin">origin<a class="self-link" href="#origin"></a></dfn>.
+
+</p>
+   <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="renotify-preference-flag">renotify preference flag<a class="self-link" href="#renotify-preference-flag"></a></dfn>
+which is initially unset. When set indicates that the end user should be alerted
+after the replace steps have run.
+
+</p>
+   <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="silent-preference-flag">silent preference flag<a class="self-link" href="#silent-preference-flag"></a></dfn>
+which is initially unset. When set indicates that no sounds or vibrations should
+be made.
+
+</p>
+   <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="screen-off-preference-flag">screen off preference flag<a class="self-link" href="#screen-off-preference-flag"></a></dfn>
+which is initially unset. When set indicates that the screen of the device
+should not be enabled.
+
+</p>
+   <p>A <a data-link-type="dfn" href="#notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="sticky-preference-flag">sticky preference flag<a class="self-link" href="#sticky-preference-flag"></a></dfn>
+which is initially unset. When set indicates that the end user should not be
+able to easily clear the <a data-link-type="dfn" href="#notification">notification</a> <span class="note" role="note">Only makes sense
+for <a data-link-type="dfn" href="#persistent-notification">persistent notifications</a>.
+
+</span></p>
+   <p>A <a data-link-type="dfn" href="#notification">notification</a> <em>can</em> have an associated <dfn data-dfn-type="dfn" data-noexport="" id="icon-url">icon URL<a class="self-link" href="#icon-url"></a></dfn>,
+<dfn data-dfn-type="dfn" data-noexport="" id="icon-resource">icon resource<a class="self-link" href="#icon-resource"></a></dfn>, <dfn data-dfn-type="dfn" data-noexport="" id="sound-url">sound URL<a class="self-link" href="#sound-url"></a></dfn>, <dfn data-dfn-type="dfn" data-noexport="" id="sound-resource">sound resource<a class="self-link" href="#sound-resource"></a></dfn>,
+<dfn data-dfn-type="dfn" data-noexport="" id="vibration-pattern">vibration pattern<a class="self-link" href="#vibration-pattern"></a></dfn>, and <dfn data-dfn-type="dfn" data-noexport="" id="service-worker-registration">service worker registration<a class="self-link" href="#service-worker-registration"></a></dfn>.
+
+</p>
+   <p class="note" role="note">Developers are encouraged to not convey information through an
+icon, sound, or vibration pattern that is not otherwise accessible to the end
+user.
+
+</p>
+   <p>A <dfn data-dfn-type="dfn" data-noexport="" id="non_persistent-notification">non-persistent notification<a class="self-link" href="#non_persistent-notification"></a></dfn> is a <a data-link-type="dfn" href="#notification">notification</a> without an
+associated <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a>.
+
+</p>
+   <p>A <dfn data-dfn-type="dfn" data-noexport="" id="persistent-notification">persistent notification<a class="self-link" href="#persistent-notification"></a></dfn> is a <a data-link-type="dfn" href="#notification">notification</a> with an
+associated <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a>.
+
+
+
+</p>
+   <hr>
+
+
+   <p>To <dfn data-dfn-type="dfn" data-noexport="" id="create-a-notification">create a notification<a class="self-link" href="#create-a-notification"></a></dfn>, given a <var>title</var> and
+<var>options, run these steps:
+
+</var></p>
+   <ol>
+  
+    <li>
+     <p>Let <var>notification</var> be a new <a data-link-type="dfn" href="#notification">notification</a>.
+
+  </p>
+    <li>
+     <p>If <var>options</var>’s <code>silent</code> is true, and either
+  <var>options</var>’s <code>sound</code> is present or <var>options</var>’s
+  <code>vibrate</code> is present, <a data-link-type="dfn" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code>
+  exception.
+
+  </p>
+    <li>
+     <p>If <var>options</var>’s <code>renotify</code> is true and
+  <var>options</var>’s <code>tag</code> is the empty string, <a data-link-type="dfn" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a
+  <code>TypeError</code> exception.
+
+  </p>
+    <li>
+     <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#data">data</a> to a structured clone of
+  <var>options</var>’s <code>data</code>. Rethrow any exceptions.
+
+  </p>
+    <li>
+     <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#concept_notification_title">title</a>
+  to <var>option</var>’s <code>title</code>.
+
+  </p>
+    <li>
+     <p>Set <var>notification</var>’s
+  <a data-link-type="dfn" href="#concept_notification_direction">direction</a> to <var>options</var>’s 
+  code>dir.
+
+  </p>
+    <li>
+     <p>If <var>options</var>’s <code>lang</code> is either a valid BCP 47
+  language tag or the empty string, set <var>notification</var>’s
+  <a data-link-type="dfn" href="#concept_notification_language">language</a> to <var>options</var>’s
+  <code>lang</code>, and set it to the empty string otherwise. <a data-link-type="biblio" href="#biblio-lang">[LANG]</a>
+
+  </p>
+    <li>
+     <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#origin">origin</a> to the
+  <a data-link-type="dfn" href="https://html.spec.whatwg.org/#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="#origin">origin</a>.
+
+  </p>
+    <li>
+     <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#body">body</a> to <var>options</var>’s
+  <code>body</code>.
+
+  </p>
+    <li>
+     <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#tag">tag</a> to <var>options</var>’s
+  <code>tag</code>.
+
+  </p>
+    <li>
+     <p>Let <var>baseURL</var> be the API base URL specified by the
+  <a data-link-type="dfn" href="https://html.spec.whatwg.org/#entry-settings-object">entry settings object</a>. <span class="XXX">Or incumbent?</span>
+
+  </p>
+    <li>
+     <p>If <var>options</var>’s <code>icon</code> is present, <a data-link-type="dfn" href="https://url.spec.whatwg.org/#parse">parse</a> it
+  using <var>baseURL</var>, and if that does not return failure, set
+  <var>notification</var>’s <a data-link-type="dfn" href="#icon-url">icon URL</a> to the return value. (Otherwise
+  <a data-link-type="dfn" href="#icon-url">icon URL</a> is not set.)
+
+  </p>
+    <li>
+     <p>If <var>options</var>’s <code>sound</code> is present, <a data-link-type="dfn" href="https://url.spec.whatwg.org/#parse">parse</a> it
+  using <var>baseURL</var>, and if that does not return failure, set
+  <var>notification</var>’s <a data-link-type="dfn" href="#sound-url">sound URL</a> to the return value. (Otherwise
+  <a data-link-type="dfn" href="#sound-url">sound URL</a> is not set.)
+
+  </p>
+    <li>
+     <p>If <var>options</var>’s <code>vibrate</code> is present,
+  <a data-link-type="dfn" href="https://url.spec.whatwg.org/#validate-and-normalize">validate and normalize</a> it and set <var>notification</var>’s
+  <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a> to the return value. (Otherwise
+  <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a> is not set.)
+
+  </p>
+    <li>
+     <p>If <var>options</var>’s <code>renotify</code> is true, set
+  <var>notification</var>’s <a data-link-type="dfn" href="#renotify-preference-flag">renotify preference flag</a>.
+
+  </p>
+    <li>
+     <p>If <var>options</var>’s <code>silent</code> is true, set
+  <var>notification</var>’s <a data-link-type="dfn" href="#silent-preference-flag">silent preference flag</a>.
+
+  </p>
+    <li>
+     <p>If <var>options</var>’s <code>noscreen</code> is true, set
+  <var>notification</var>’s <a data-link-type="dfn" href="#screen-off-preference-flag">screen off preference flag</a>.
+
+  </p>
+    <li>
+     <p>If <var>options</var>’s <code>sticky</code> is true, set
+  <var>notification</var>’s <a data-link-type="dfn" href="#sticky-preference-flag">sticky preference flag</a>.
+
+  </p>
+    <li>
+     <p>Return <var>notification</var>.
+</p></ol>
+
 
 
    <h3 class="heading settled" data-level="2.1" id="lifetime-and-ui-integrations"><span class="secno">2.1. </span><span class="content">Lifetime and UI integration</span><a class="self-link" href="#lifetime-and-ui-integrations"></a></h3>
@@ -229,6 +420,9 @@ neighboring rights to this work.
 
 
 
+
+
+
 </p></main>
   
 
@@ -249,6 +443,30 @@ readability, these words do not appear in all uppercase letters in this specific
 result is equivalent. (In particular, the algorithms defined in this specification are intended to be easy to follow, 
 and not intended to be performant.) 
 </p>
+  <h2 class="no-num heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
+  <h3 class="no-num heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
+  <ul class="indexlist">
+   <li>body, <a href="#body">2</a>
+   <li>concept-notification-direction, <a href="#concept_notification_direction">2</a>
+   <li>concept-notification-language, <a href="#concept_notification_language">2</a>
+   <li>concept-notification-title, <a href="#concept_notification_title">2</a>
+   <li>create a notification, <a href="#create-a-notification">2</a>
+   <li>data, <a href="#data">2</a>
+   <li>icon resource, <a href="#icon-resource">2</a>
+   <li>icon URL, <a href="#icon-url">2</a>
+   <li>non-persistent notification, <a href="#non_persistent-notification">2</a>
+   <li>notification, <a href="#notification">2</a>
+   <li>origin, <a href="#origin">2</a>
+   <li>persistent notification, <a href="#persistent-notification">2</a>
+   <li>renotify preference flag, <a href="#renotify-preference-flag">2</a>
+   <li>screen off preference flag, <a href="#screen-off-preference-flag">2</a>
+   <li>service worker registration, <a href="#service-worker-registration">2</a>
+   <li>silent preference flag, <a href="#silent-preference-flag">2</a>
+   <li>sound resource, <a href="#sound-resource">2</a>
+   <li>sound URL, <a href="#sound-url">2</a>
+   <li>sticky preference flag, <a href="#sticky-preference-flag">2</a>
+   <li>tag, <a href="#tag">2</a>
+   <li>vibration pattern, <a href="#vibration-pattern">2</a></ul>
   <h2 class="no-num heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
@@ -258,6 +476,8 @@ and not intended to be performant.)
    <dd>Anne van Kesteren. <a href="https://fetch.spec.whatwg.org/">Fetch Standard</a>. Living Standard. URL: <a href="https://fetch.spec.whatwg.org/">https://fetch.spec.whatwg.org/</a>
    <dt id="biblio-html"><a class="self-link" href="#biblio-html"></a>[HTML]
    <dd>Ian Hickson. <a href="https://html.spec.whatwg.org/">HTML</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/">https://html.spec.whatwg.org/</a>
+   <dt id="biblio-lang"><a class="self-link" href="#biblio-lang"></a>[LANG]
+   <dd>Addison Phillips; Mark Davis. <a href="http://tools.ietf.org/html/bcp47">Tags for Identifying Languages; Matching of Language Tags</a>. URL: <a href="http://tools.ietf.org/html/bcp47">http://tools.ietf.org/html/bcp47</a>
    <dt id="biblio-url"><a class="self-link" href="#biblio-url"></a>[URL]
    <dd>Anne van Kesteren; Sam Ruby. <a href="https://url.spec.whatwg.org/">URL</a>. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
    <dt id="biblio-webidl"><a class="self-link" href="#biblio-webidl"></a>[WEBIDL]

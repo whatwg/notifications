@@ -28,6 +28,136 @@ HTML, IDL, URL and Vibration API Standards.
 
 <h2 id=notifications>Notifications</h2>
 
+<p>A <dfn>notification</dfn> is an abstract representation of an occurrence,
+such as the delivery of a message.
+
+<p>A <a>notification</a> has an associated
+<dfn lt=concept-notification-title>title</dfn> which is a DOMString.
+
+<p>A <a>notification</a> has an associated <dfn>body</dfn> which is a DOMString.
+
+<p>A <a>notification</a> has an associated
+<dfn lt=concept-notification-direction>direction</dfn> which is one of
+<i>auto</i>, <i>ltr</i>, and <i>rtl</i>.
+
+<p>A <a>notification</a> has an associated
+<dfn lt=concept-notification-language>language</dfn> which is a DOMString
+representing either a valid BCP 47 language tag or the empty string.
+
+<p>A <a>notification</a> has an associated <dfn>tag</dfn> which is a DOMString.
+
+<p>A <a>notification</a> has an associated <dfn>data</dfn>.
+
+<p>A <a>notification</a> has an associated <dfn>origin</dfn>.
+
+<p>A <a>notification</a> has an associated <dfn>renotify preference flag</dfn>
+which is initially unset. When set indicates that the end user should be alerted
+after the replace steps have run.
+
+<p>A <a>notification</a> has an associated <dfn>silent preference flag</dfn>
+which is initially unset. When set indicates that no sounds or vibrations should
+be made.
+
+<p>A <a>notification</a> has an associated <dfn>screen off preference flag</dfn>
+which is initially unset. When set indicates that the screen of the device
+should not be enabled.
+
+<p>A <a>notification</a> has an associated <dfn>sticky preference flag</dfn>
+which is initially unset. When set indicates that the end user should not be
+able to easily clear the <a>notification</a> <span class=note>Only makes sense
+for <a>persistent notifications</a>.
+
+<p>A <a>notification</a> <em>can</em> have an associated <dfn>icon URL</dfn>,
+<dfn>icon resource</dfn>, <dfn>sound URL</dfn>, <dfn>sound resource</dfn>,
+<dfn>vibration pattern</dfn>, and <dfn>service worker registration</dfn>.
+
+<p class=note>Developers are encouraged to not convey information through an
+icon, sound, or vibration pattern that is not otherwise accessible to the end
+user.
+
+<p>A <dfn>non-persistent notification</dfn> is a <a>notification</a> without an
+associated <a>service worker registration</a>.
+
+<p>A <dfn>persistent notification</dfn> is a <a>notification</a> with an
+associated <a>service worker registration</a>.
+
+<!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
+
+<hr>
+
+<p>To <dfn>create a notification</dfn>, given a <var>title</var> and
+<var>options</i>, run these steps:
+
+<ol>
+  <li><p>Let <var>notification</var> be a new <a>notification</a>.
+
+  <li><p>If <var>options</var>'s <code>silent</code> is true, and either
+  <var>options</var>'s <code>sound</code> is present or <var>options</var>'s
+  <code>vibrate</code> is present, <a>throw</a> a <code>TypeError</code>
+  exception.
+
+  <li><p>If <var>options</var>'s <code>renotify</code> is true and
+  <var>options</var>'s <code>tag</code> is the empty string, <a>throw</a> a
+  <code>TypeError</code> exception.
+
+  <li><p>Set <var>notification</var>'s <a>data</a> to a structured clone of
+  <var>options</var>'s <code>data</code>. Rethrow any exceptions.
+
+  <li><p>Set <var>notification</var>'s <a lt=concept-notification-title>title</a>
+  to <var>option</var>'s <code>title</code>.
+
+  <li><p>Set <var>notification</var>'s
+  <a lt=concept-notification-direction>direction</a> to <var>options</var>'s
+  code>dir</code>.
+
+  <li><p>If <var>options</var>'s <code>lang</code> is either a valid BCP 47
+  language tag or the empty string, set <var>notification</var>'s
+  <a lt=concept-notification-language>language</a> to <var>options</var>'s
+  <code>lang</code>, and set it to the empty string otherwise. [[!LANG]]
+
+  <li><p>Set <var>notification</var>'s <a>origin</a> to the
+  <a>entry settings object</a>'s <a>origin</a>.
+
+  <li><p>Set <var>notification</var>'s <a>body</a> to <var>options</var>'s
+  <code>body</code>.
+
+  <li><p>Set <var>notification</var>'s <a>tag</a> to <var>options</var>'s
+  <code>tag</code>.
+
+  <li><p>Let <var>baseURL</var> be the API base URL specified by the
+  <a>entry settings object</a>. <span class=XXX>Or incumbent?</span>
+
+  <li><p>If <var>options</var>'s <code>icon</code> is present, <a>parse</a> it
+  using <var>baseURL</var>, and if that does not return failure, set
+  <var>notification</var>'s <a>icon URL</a> to the return value. (Otherwise
+  <a>icon URL</a> is not set.)
+
+  <li><p>If <var>options</var>'s <code>sound</code> is present, <a>parse</a> it
+  using <var>baseURL</var>, and if that does not return failure, set
+  <var>notification</var>'s <a>sound URL</a> to the return value. (Otherwise
+  <a>sound URL</a> is not set.)
+
+  <li><p>If <var>options</var>'s <code>vibrate</code> is present,
+  <a>validate and normalize</a> it and set <var>notification</var>'s
+  <a>vibration pattern</a> to the return value. (Otherwise
+  <a>vibration pattern</a> is not set.)
+
+  <li><p>If <var>options</var>'s <code>renotify</code> is true, set
+  <var>notification</var>'s <a>renotify preference flag</a>.
+
+  <li><p>If <var>options</var>'s <code>silent</code> is true, set
+  <var>notification</var>'s <a>silent preference flag</a>.
+
+  <li><p>If <var>options</var>'s <code>noscreen</code> is true, set
+  <var>notification</var>'s <a>screen off preference flag</a>.
+
+  <li><p>If <var>options</var>'s <code>sticky</code> is true, set
+  <var>notification</var>'s <a>sticky preference flag</a>.
+
+  <li><p>Return <var>notification</var>.
+</ol>
+
+
 <h3 id=lifetime-and-ui-integrations>Lifetime and UI integration</h3>
 
 <h3 id=permission-model>Permission model</h3>
@@ -108,6 +238,17 @@ by John Gregg (<a href=//www.google.com/>Google</a>,
 the extent possible under law, the editors have waived all copyright and related or
 neighboring rights to this work.
 
+
+<pre class="anchors">
+urlPrefix: http://heycam.github.io/webidl/#dfn-; type: dfn
+  text: throw
+urlPrefix: https://html.spec.whatwg.org/; type: dfn
+  text: entry settings object
+urlPrefix: https://url.spec.whatwg.org/; type: dfn
+  text: parse
+  text: validate and normalize
+</pre>
+
 <pre class="biblio">
 {
     "DOM": {
@@ -137,6 +278,15 @@ neighboring rights to this work.
         "href": "https://url.spec.whatwg.org/",
         "title": "URL",
         "publisher": "WHATWG"
+    },
+    "LANG": {
+        "authors": [
+            "Addison Phillips",
+            "Mark Davis"
+        ],
+        "href": "http://tools.ietf.org/html/bcp47",
+        "title": "Tags for Identifying Languages; Matching of Language Tags",
+        "publisher": "IETF"
     }
 }
 </pre>
