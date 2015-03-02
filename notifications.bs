@@ -553,6 +553,7 @@ attribute's getter must return <a>permission</a> for
   invoke <var>callback</var> with <var>permission</var> as single argument if
   <var>callback</var> is given. If this throws an exception,
   <a>report the exception</a>.
+</ol>
 
 <p class="warning">In designing the platform notifications are the one instance
 thus far where asking the user upfront makes sense. Specifications for other
@@ -641,9 +642,65 @@ getter must return a <a>structured clone</a> of
 
 <h4 id=using-events>Using events</h4>
 
+<p>{{Notification}} objects dispatch events during their lifecycle, which
+developers can use to generate desired behaviors.
+
+<p>The <code>click</code> event dispatches when the user activates a
+notification.
+
+<pre class=example>
+var not = new Notification("Gebrünn Gebrünn by Paul Kalkbrenner", { icon: "newsong.svg", tag: "song" })
+notification.onclick = function() { displaySong(this) }</pre>
+
+
 <h4 id=tags-example>Using the <code>tag</code> member for multiple instances</h4>
 
+<p>Web applications frequently operate concurrently in multiple instances, such
+as when a user opens a mail application in multiple browser tabs. Since the
+desktop is a shared resource, the notifications API provides a way for these
+instances to easily coordinate, by using the <code>tag</code> member.
+
+<p>Notifications which represent the same conceptual event can be tagged in the
+same way, and when both are shown, the user will only receive one notification.
+
+<pre class=example>
+Instance 1                                   | Instance 2
+                                             |
+// Instance notices there is new mail.       |
+new Notification("New mail from John Doe",   |
+                 { tag: 'message1' });       |
+                                             |
+                                             |  // Slightly later, this instance notices
+                                             |  // there is new mail.
+                                             |  new Notification("New mail from John Doe",
+                                             |                   { tag: 'message1' });</pre>
+
+<p>The result of this situation, if the user agent follows the algorithms here, is a
+<strong>single</strong> notification "New mail from John Doe".
+
+
 <h4 id=using-the-tag-member-for-a-single-instance>Using the <code>tag</code> member for a single instance</h4>
+
+<p>The <code>tag</code> member can also be used by a single instance of an
+application to keep its notifications as current as possible as state changes.
+
+<p>For example, if Alice is using a chat application with Bob, and Bob sends
+multiple messages while Alice is idle, the application may prefer that Alice not
+see a desktop notification for each message.
+
+<pre class=example>
+// Bob says "Hi"
+new Notification("Bob: Hi", { tag: 'chat_Bob' });
+
+// Bob says "Are you free this afternoon?"
+new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });</pre>
+
+<p>The result of this situation is a <i>single</i> notification; the second one
+replaces the first having the same tag. In a platform that queues notifications
+(first-in-first-out), using the tag allows the notification to also maintain its
+position in the queue. Platforms where the newest notifications are shown first,
+a similar result could be achieved using the
+<a method for=Notification><code>close()</code></a> method.
 
 
 <h2 id=service-worker-api>Service Worker API</h2>

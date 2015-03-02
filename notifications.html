@@ -745,7 +745,6 @@ enum <dfn class="idl-code" data-dfn-type="enum" data-export="" data-global-name=
    <p>A <a data-link-type="dfn" href="#non_persistent-notification">non-persistent notification</a> is represented one <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code>
 objects and can be created through <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code>'s constructor.
 
-
 </p>
    <p>A <a data-link-type="dfn" href="#persistent-notification">persistent notification</a> is represented by zero or more
 <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects can be created through the showNotification() method.
@@ -859,148 +858,205 @@ attribute’s getter must return <a data-link-type="dfn" href="#permission">perm
   invoke <var>callback</var> with <var>permission</var> as single argument if
   <var>callback</var> is given. If this throws an exception,
   <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#report-the-exception">report the exception</a>.
+</p></ol>
 
-</p>
-     <p class="warning">In designing the platform notifications are the one instance
+
+   <p class="warning">In designing the platform notifications are the one instance
 thus far where asking the user upfront makes sense. Specifications for other
 APIs should not use this pattern and instead employ one of
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">
 the many more suitable alternatives</a>.
 
 </p>
-     <h3 class="heading settled" data-level="3.4" id="object-members"><span class="secno">3.4. </span><span class="content">Object members</span><a class="self-link" href="#object-members"></a></h3>
-     
+   <h3 class="heading settled" data-level="3.4" id="object-members"><span class="secno">3.4. </span><span class="content">Object members</span><a class="self-link" href="#object-members"></a></h3>
 
 
-     <p>The following are the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handlers</a> (and their corresponding
+   <p>The following are the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handlers</a> (and their corresponding
 <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-types">event handler event types</a>) that must be supported as attributes by the
 <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object.
 
 </p>
-     <table>
+   <table>
   
-      <thead>
+    <thead>
     
-       <tr>
+     <tr>
       
-        <th><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handler</a>
+      <th><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handler</a>
       
-        <th><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-types">event handler event type</a>
+      <th><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-types">event handler event type</a>
  
-      <tbody>
+    <tbody>
   
-       <tr>
+     <tr>
    
-        <td><dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-onclick"><code>onclick</code><a class="self-link" href="#dom-notification-onclick"></a></dfn>
+      <td><dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-onclick"><code>onclick</code><a class="self-link" href="#dom-notification-onclick"></a></dfn>
    
-        <td><code>click</code>
+      <td><code>click</code>
   
-       <tr>
+     <tr>
    
-        <td><dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-onerror"><code>onerror</code><a class="self-link" href="#dom-notification-onerror"></a></dfn>
+      <td><dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-onerror"><code>onerror</code><a class="self-link" href="#dom-notification-onerror"></a></dfn>
    
-        <td><code>error</code>
+      <td><code>error</code>
 </table>
-     
 
 
-     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="method" data-export="" id="dom-notification-close"><code>close()</code><a class="self-link" href="#dom-notification-close"></a></dfn> method, when
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="method" data-export="" id="dom-notification-close"><code>close()</code><a class="self-link" href="#dom-notification-close"></a></dfn> method, when
 invoked, must run the <a data-link-type="dfn" href="#close-steps">close steps</a> for the
 <a data-link-type="dfn" href="#concept-notification">notification</a>.
 
 </p>
-     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-title"><code>title</code><a class="self-link" href="#dom-notification-title"></a></dfn> attribute’s
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-title"><code>title</code><a class="self-link" href="#dom-notification-title"></a></dfn> attribute’s
 getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
 <a data-link-type="dfn" href="#concept-title">title</a>.
 
 </p>
-     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-dir"><code>dir</code><a class="self-link" href="#dom-notification-dir"></a></dfn> attribute’s
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-dir"><code>dir</code><a class="self-link" href="#dom-notification-dir"></a></dfn> attribute’s
 getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
 <a data-link-type="dfn" href="#concept-direction">direction</a>.
 
 </p>
-     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-lang"><code>lang</code><a class="self-link" href="#dom-notification-lang"></a></dfn> attribute’s
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-lang"><code>lang</code><a class="self-link" href="#dom-notification-lang"></a></dfn> attribute’s
 getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
 <a data-link-type="dfn" href="#concept-language">language</a>.
 
 </p>
-     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-body"><code>body</code><a class="self-link" href="#dom-notification-body"></a></dfn> attribute’s
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-body"><code>body</code><a class="self-link" href="#dom-notification-body"></a></dfn> attribute’s
 getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
 <a data-link-type="dfn" href="#body">body</a>.
 
 </p>
-     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-tag"><code>tag</code><a class="self-link" href="#dom-notification-tag"></a></dfn> attribute’s
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-tag"><code>tag</code><a class="self-link" href="#dom-notification-tag"></a></dfn> attribute’s
 getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#tag">tag</a>.
 
 </p>
-     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-icon"><code>icon</code><a class="self-link" href="#dom-notification-icon"></a></dfn> attribute’s
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-icon"><code>icon</code><a class="self-link" href="#dom-notification-icon"></a></dfn> attribute’s
 getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
 <a data-link-type="dfn" href="#icon-url">icon URL</a>, <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-serializer">serialized</a>, and the empty
 string if there is no <a data-link-type="dfn" href="#concept-notification">notification</a>’s
 <a data-link-type="dfn" href="#icon-url">icon URL</a> otherwise.
 
 </p>
-     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-sound"><code>sound</code><a class="self-link" href="#dom-notification-sound"></a></dfn> attribute’s
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-sound"><code>sound</code><a class="self-link" href="#dom-notification-sound"></a></dfn> attribute’s
 getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
 <a data-link-type="dfn" href="#sound-url">sound URL</a>, <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-serializer">serialized</a>, and the empty
 string if there is no <a data-link-type="dfn" href="#concept-notification">notification</a>’s
 <a data-link-type="dfn" href="#sound-url">sound URL</a> otherwise.
 
 </p>
-     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-renotify"><code>renotify</code><a class="self-link" href="#dom-notification-renotify"></a></dfn>
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-renotify"><code>renotify</code><a class="self-link" href="#dom-notification-renotify"></a></dfn>
 attribute’s getter must return the
 <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#renotify-preference-flag">renotify preference flag</a>.
 
 </p>
-     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-silent"><code>silent</code><a class="self-link" href="#dom-notification-silent"></a></dfn> attribute’s
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-silent"><code>silent</code><a class="self-link" href="#dom-notification-silent"></a></dfn> attribute’s
 getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
 <a data-link-type="dfn" href="#silent-preference-flag">silent preference flag</a>.
 
 </p>
-     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-noscreen"><code>noscreen</code><a class="self-link" href="#dom-notification-noscreen"></a></dfn>
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-noscreen"><code>noscreen</code><a class="self-link" href="#dom-notification-noscreen"></a></dfn>
 attribute’s getter must return the
 <a data-link-type="dfn" href="#concept-notification">notification</a>’s
 <a data-link-type="dfn" href="#screen-off-preference-flag">screen off preference flag</a>.
 
 </p>
-     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-sticky"><code>sticky</code><a class="self-link" href="#dom-notification-sticky"></a></dfn> attribute’s
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-sticky"><code>sticky</code><a class="self-link" href="#dom-notification-sticky"></a></dfn> attribute’s
 getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
 <a data-link-type="dfn" href="#sticky-preference-flag">sticky preference flag</a>.
 
 </p>
-     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-data"><code>data</code><a class="self-link" href="#dom-notification-data"></a></dfn> attribute’s
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-data"><code>data</code><a class="self-link" href="#dom-notification-data"></a></dfn> attribute’s
 getter must return a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#structured-clone">structured clone</a> of
 <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#data">data</a>.
 
 
 </p>
-     <h3 class="heading settled" data-level="3.5" id="examples"><span class="secno">3.5. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h3>
-     
+   <h3 class="heading settled" data-level="3.5" id="examples"><span class="secno">3.5. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h3>
 
 
-     <h4 class="heading settled" data-level="3.5.1" id="using-events"><span class="secno">3.5.1. </span><span class="content">Using events</span><a class="self-link" href="#using-events"></a></h4>
-     
+   <h4 class="heading settled" data-level="3.5.1" id="using-events"><span class="secno">3.5.1. </span><span class="content">Using events</span><a class="self-link" href="#using-events"></a></h4>
 
 
-     <h4 class="heading settled" data-level="3.5.2" id="tags-example"><span class="secno">3.5.2. </span><span class="content">Using the <code>tag</code> member for multiple instances</span><a class="self-link" href="#tags-example"></a></h4>
-     
+   <p><code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects dispatch events during their lifecycle, which
+developers can use to generate desired behaviors.
 
+</p>
+   <p>The <code>click</code> event dispatches when the user activates a
+notification.
 
-     <h4 class="heading settled" data-level="3.5.3" id="using-the-tag-member-for-a-single-instance"><span class="secno">3.5.3. </span><span class="content">Using the <code>tag</code> member for a single instance</span><a class="self-link" href="#using-the-tag-member-for-a-single-instance"></a></h4>
-     
-
-
-
-     <h2 class="heading settled" data-level="4" id="service-worker-api"><span class="secno">4. </span><span class="content">Service Worker API</span><a class="self-link" href="#service-worker-api"></a></h2>
-     
+</p>
+   <pre class="example">var not = new Notification("Gebrünn Gebrünn by Paul Kalkbrenner", { icon: "newsong.svg", tag: "song" })
+notification.onclick = function() { displaySong(this) }</pre>
 
 
 
-     <h2 class="no-num heading settled" id="acknowledgments"><span class="content">Acknowledgments</span><a class="self-link" href="#acknowledgments"></a></h2>
-     
+   <h4 class="heading settled" data-level="3.5.2" id="tags-example"><span class="secno">3.5.2. </span><span class="content">Using the <code>tag</code> member for multiple instances</span><a class="self-link" href="#tags-example"></a></h4>
 
 
-     <p>Thanks to
+   <p>Web applications frequently operate concurrently in multiple instances, such
+as when a user opens a mail application in multiple browser tabs. Since the
+desktop is a shared resource, the notifications API provides a way for these
+instances to easily coordinate, by using the <code>tag</code> member.
+
+</p>
+   <p>Notifications which represent the same conceptual event can be tagged in the
+same way, and when both are shown, the user will only receive one notification.
+
+</p>
+   <pre class="example">Instance 1                                   | Instance 2
+                                             |
+// Instance notices there is new mail.       |
+new Notification("New mail from John Doe",   |
+                 { tag: 'message1' });       |
+                                             |
+                                             |  // Slightly later, this instance notices
+                                             |  // there is new mail.
+                                             |  new Notification("New mail from John Doe",
+                                             |                   { tag: 'message1' });</pre>
+
+
+   <p>The result of this situation, if the user agent follows the algorithms here, is a
+<strong>single</strong> notification "New mail from John Doe".
+
+
+</p>
+   <h4 class="heading settled" data-level="3.5.3" id="using-the-tag-member-for-a-single-instance"><span class="secno">3.5.3. </span><span class="content">Using the <code>tag</code> member for a single instance</span><a class="self-link" href="#using-the-tag-member-for-a-single-instance"></a></h4>
+
+
+   <p>The <code>tag</code> member can also be used by a single instance of an
+application to keep its notifications as current as possible as state changes.
+
+</p>
+   <p>For example, if Alice is using a chat application with Bob, and Bob sends
+multiple messages while Alice is idle, the application may prefer that Alice not
+see a desktop notification for each message.
+
+</p>
+   <pre class="example">// Bob says "Hi"
+new Notification("Bob: Hi", { tag: 'chat_Bob' });
+
+// Bob says "Are you free this afternoon?"
+new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });</pre>
+
+
+   <p>The result of this situation is a <i>single</i> notification; the second one
+replaces the first having the same tag. In a platform that queues notifications
+(first-in-first-out), using the tag allows the notification to also maintain its
+position in the queue. Platforms where the newest notifications are shown first,
+a similar result could be achieved using the
+<a class="idl-code" data-link-type="method" href="#dom-notification-close"><code>close()</code></a> method.
+
+
+</p>
+   <h2 class="heading settled" data-level="4" id="service-worker-api"><span class="secno">4. </span><span class="content">Service Worker API</span><a class="self-link" href="#service-worker-api"></a></h2>
+
+
+
+   <h2 class="no-num heading settled" id="acknowledgments"><span class="content">Acknowledgments</span><a class="self-link" href="#acknowledgments"></a></h2>
+
+
+   <p>Thanks to
 Aharon (Vladimir) Lanin,
 Alex Russell,
 Arkadiusz Michalski,
@@ -1025,7 +1081,7 @@ Simon Pieters
 for being awesome.
 
 </p>
-     <p>This standard is written by
+   <p>This standard is written by
 <a href="//annevankesteren.nl/" lang="nl">Anne van Kesteren</a>
 (<a href="//www.mozilla.org/">Mozilla</a>,
 <a href="mailto:annevk@annevk.nl">annevk@annevk.nl</a>). An earlier iteration was written
@@ -1033,7 +1089,7 @@ by John Gregg (<a href="//www.google.com/">Google</a>,
 <a href="mailto:johnnyg@google.com">johnnyg@google.com</a>).
 
 </p>
-     <p>Per <a href="//creativecommons.org/publicdomain/zero/1.0/" rel="license">CC0</a>, to
+   <p>Per <a href="//creativecommons.org/publicdomain/zero/1.0/" rel="license">CC0</a>, to
 the extent possible under law, the editors have waived all copyright and related or
 neighboring rights to this work.
 
@@ -1042,7 +1098,7 @@ neighboring rights to this work.
 
 
 
-</p></ol></main>
+</p></main>
   
 
   <h2 class="no-num no-ref heading settled" id="conformance"><span class="content">Conformance</span><a class="self-link" href="#conformance"></a></h2>
