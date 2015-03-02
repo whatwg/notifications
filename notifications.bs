@@ -28,58 +28,66 @@ HTML, IDL, URL and Vibration API Standards.
 
 <h2 id=notifications>Notifications</h2>
 
-<p>A <dfn>notification</dfn> is an abstract representation of an occurrence,
-such as the delivery of a message.
+<p>A <dfn lt="concept notification">notification</dfn> is an abstract
+representation of an occurrence, such as the delivery of a message.
 
-<p>A <a>notification</a> has an associated
+<p>A <a lt="concept notification">notification</a> has an associated
 <dfn lt="notification title">title</dfn> which is a DOMString.
 
-<p>A <a>notification</a> has an associated <dfn>body</dfn> which is a DOMString.
+<p>A <a lt="concept notification">notification</a> has an associated
+<dfn>body</dfn> which is a DOMString.
 
-<p>A <a>notification</a> has an associated
+<p>A <a lt="concept notification">notification</a> has an associated
 <dfn lt="notification direction">direction</dfn> which is one of
 <i>auto</i>, <i>ltr</i>, and <i>rtl</i>.
 
-<p>A <a>notification</a> has an associated
+<p>A <a lt="concept notification">notification</a> has an associated
 <dfn lt="notification language">language</dfn> which is a DOMString
 representing either a valid BCP 47 language tag or the empty string.
 
-<p>A <a>notification</a> has an associated <dfn>tag</dfn> which is a DOMString.
+<p>A <a lt="concept notification">notification</a> has an associated
+<dfn>tag</dfn> which is a DOMString.
 
-<p>A <a>notification</a> has an associated <dfn>data</dfn>.
+<p>A <a lt="concept notification">notification</a> has an associated
+<dfn>data</dfn>.
 
-<p>A <a>notification</a> has an associated <dfn>origin</dfn>.
+<p>A <a lt="concept notification">notification</a> has an associated
+<dfn>origin</dfn>.
 
-<p>A <a>notification</a> has an associated <dfn>renotify preference flag</dfn>
-which is initially unset. When set indicates that the end user should be alerted
-after the replace steps have run.
+<p>A <a lt="concept notification">notification</a> has an associated
+<dfn>renotify preference flag</dfn> which is initially unset. When set indicates
+that the end user should be alerted after the replace steps have run.
 
-<p>A <a>notification</a> has an associated <dfn>silent preference flag</dfn>
-which is initially unset. When set indicates that no sounds or vibrations should
-be made.
+<p>A <a lt="concept notification">notification</a> has an associated
+<dfn>silent preference flag</dfn> which is initially unset. When set indicates
+that no sounds or vibrations should be made.
 
-<p>A <a>notification</a> has an associated <dfn>screen off preference flag</dfn>
-which is initially unset. When set indicates that the screen of the device
-should not be enabled.
+<p>A <a lt="concept notification">notification</a> has an associated
+<dfn>screen off preference flag</dfn> which is initially unset. When set
+indicates that the screen of the device should not be enabled.
 
-<p>A <a>notification</a> has an associated <dfn>sticky preference flag</dfn>
-which is initially unset. When set indicates that the end user should not be
-able to easily clear the <a>notification</a> <span class=note>Only makes sense
+<p>A <a lt="concept notification">notification</a> has an associated
+<dfn>sticky preference flag</dfn> which is initially unset. When set indicates
+that the end user should not be able to easily clear the
+<a lt="concept notification">notification</a> <span class=note>Only makes sense
 for <a>persistent notifications</a>.
 
-<p>A <a>notification</a> <em>can</em> have an associated <dfn>icon URL</dfn>,
-<dfn>icon resource</dfn>, <dfn>sound URL</dfn>, <dfn>sound resource</dfn>,
-<dfn>vibration pattern</dfn>, and <dfn>service worker registration</dfn>.
+<p>A <a lt="concept notification">notification</a> <em>can</em> have an
+associated <dfn>icon URL</dfn>, <dfn>icon resource</dfn>, <dfn>sound URL</dfn>,
+<dfn>sound resource</dfn>, <dfn>vibration pattern</dfn>, and
+<dfn>service worker registration</dfn>.
 
 <p class=note>Developers are encouraged to not convey information through an
 icon, sound, or vibration pattern that is not otherwise accessible to the end
 user.
 
-<p>A <dfn>non-persistent notification</dfn> is a <a>notification</a> without an
-associated <a>service worker registration</a>.
+<p>A <dfn>non-persistent notification</dfn> is a
+<a lt="concept notification">notification</a> without an associated
+<a>service worker registration</a>.
 
-<p>A <dfn>persistent notification</dfn> is a <a>notification</a> with an
-associated <a>service worker registration</a>.
+<p>A <dfn>persistent notification</dfn> is a
+<a lt="concept notification">notification</a> with an associated
+<a>service worker registration</a>.
 
 <!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
 
@@ -89,7 +97,8 @@ associated <a>service worker registration</a>.
 <var>options</i>, run these steps:
 
 <ol>
-  <li><p>Let <var>notification</var> be a new <a>notification</a>.
+  <li><p>Let <var>notification</var> be a new
+  <a lt="concept notification">notification</a>.
 
   <li><p>If <var>options</var>'s <code>silent</code> is true, and either
   <var>options</var>'s <code>sound</code> is present or <var>options</var>'s
@@ -161,7 +170,7 @@ associated <a>service worker registration</a>.
 <h3 id=lifetime-and-ui-integrations>Lifetime and UI integration</h3>
 
 <p>The user agent must keep a <dfn>list of notifications</dfn> that consists of
-zero or more <a>notifications</a>.
+zero or more <a lt="concept notification">notifications</a>.
 
 <p>User agents should run the <a>close steps</a> for a
 <a>non-persistent notification</a> a couple of seconds after they have been
@@ -174,8 +183,8 @@ platform's "notification center" (if available).
 removed from the <a>list of notifications</a>.
 
 <p class=example>A <a>persistent notification</a> could have the close() method
-invoked of one of its Notification objects.
-<!-- XXX: Link close() and Notification -->
+invoked of one of its {{Notification}} objects.
+<!-- XXX: Link close() -->
 
 <p>User agents should display <a>persistent notification</a> in a platform's
 "notification center" (if available).
@@ -183,10 +192,10 @@ invoked of one of its Notification objects.
 
 <h3 id=permission-model>Permission model</h3>
 
-<p><a lt=notification>Notifications</a> can only be displayed if the user (or
-user agent on behalf of the user) has granted <dfn>permission</dfn>. The
-<a>permission</a> to show <a lt=notification>notifications</a> for a given
-<a>origin</a> is one of three strings:
+<p><a lt="concept notification">Notifications</a> can only be displayed if the
+user (or user agent on behalf of the user) has granted <dfn>permission</dfn>.
+The <a>permission</a> to show <a lt="concept notification">notifications</a>
+for a given <a>origin</a> is one of three strings:
 
 <dl>
   <dt>"<code>default</code>"
@@ -194,10 +203,12 @@ user agent on behalf of the user) has granted <dfn>permission</dfn>. The
   explicit choice thus far.
 
   <dt>"<code>denied</code>"
-  <dd><p>This means the user does not want <a lt=notification>notifications</a>.
+  <dd><p>This means the user does not want
+  <a lt="concept notification">notifications</a>.
 
   <dt>"<code>granted</code>"
-  <dd><p>This means <a lt=notification>notifications</a> can be displayed.
+  <dd><p>This means <a lt="concept notification">notifications</a> can be
+  displayed.
 </dl>
 
 <p class=note>There is no equivalent to "<code>default</code>"
@@ -215,12 +226,14 @@ section of HTML. [[!HTML]]
      https://html.spec.whatwg.org/multipage/rendering.html#text-rendered-in-native-user-interfaces -->
 
 <p>User agents are expected to honor the Unicode semantics of the text of a
-<a>notification</a>'s <a lt="notification title">title</a> and <a>body</a>. Each
-is expected to be treated as an independent set of one or more bidirectional
-algorithm paragraphs when displayed, as defined by the bidirectional algorithm's
-rules P1, P2, and P3, including, for instance, supporting the paragraph-breaking
-behaviour of U+000A LINE FEED (LF) characters. For each paragraph of the
-<a lt="notification title">title</a> and <a>body</a>, the <a>notification</a>'s
+<a lt="concept notification">notification</a>'s
+<a lt="notification title">title</a> and <a>body</a>. Each is expected to be
+treated as an independent set of one or more bidirectional algorithm paragraphs
+when displayed, as defined by the bidirectional algorithm's rules P1, P2, and
+P3, including, for instance, supporting the paragraph-breaking behaviour of
+U+000A LINE FEED (LF) characters. For each paragraph of the
+<a lt="notification title">title</a> and <a>body</a>, the
+<a lt="concept notification">notification</a>'s
 <a lt="notification direction">direction</a> provides the higher-level override
 of rules P2 and P3 if it has a value other than "<code>auto</code>". [[!BIDI]]
 
@@ -230,8 +243,9 @@ of rules P2 and P3 if it has a value other than "<code>auto</code>". [[!BIDI]]
 <!-- keep this in sync with
      https://html.spec.whatwg.org/multipage/dom.html#attr-lang -->
 
-<p>The <a>notification</a>'s <a lt="notification language">language</a> specifies
-the primary language for the <a>notification</a>'s
+<p>The <a lt="concept notification">notification</a>'s
+<a lt="notification language">language</a> specifies the primary language for
+the <a lt="concept notification">notification</a>'s
 <a lt="notification title">title</a> and <a>body</a>. Its value is a valid
 BCP 47 language tag, or the empty string. The empty string indicates that the
 primary language is unknown. [[!LANG]]
@@ -239,8 +253,8 @@ primary language is unknown. [[!LANG]]
 
 <h3 id=resources>Resources</h3>
 
-<p>The <dfn>fetch steps</dfn> for a given <a>notification</a>
-<var>notification</var> are:
+<p>The <dfn>fetch steps</dfn> for a given
+<a lt="concept notification">notification</a> <var>notification</var> are:
 
 <ol>
   <!-- XXX https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055 -->
@@ -287,16 +301,16 @@ primary language is unknown. [[!LANG]]
 
 <h3 id=showing-a-notification>Showing a notification</h3>
 
-<p>The <dfn>show steps</dfn> for a given <a>notification</a>
-<var>notification</var> are:
+<p>The <dfn>show steps</dfn> for a given
+<a lt="concept notification">notification</a> <var>notification</var> are:
 
 <ol>
-  <li><p>If there is a <a>notification</a> in the <a>list of notifications</a>
-  whose <a>tag</a> is not the empty string and equals <var>notification</var>'s
-  <a>tag</a>, and whose <a>origin</a> is <a>same origin</a> with
-  <var>notification</var>'s <a>origin</a>, run the <a>replace steps</a> for that
-  <a>notification</a> and <var>notification</var>, and then terminate these
-  steps.
+  <li><p>If there is a <a lt="concept notification">notification</a> in the
+  <a>list of notifications</a> whose <a>tag</a> is not the empty string and
+  equals <var>notification</var>'s <a>tag</a>, and whose <a>origin</a> is
+  <a>same origin</a> with <var>notification</var>'s <a>origin</a>, run the
+  <a>replace steps</a> for that <a lt="concept notification">notification</a>
+  and <var>notification</var>, and then terminate these steps.
 
   <li><p>Otherwise, run the <a>display steps</a> for <var>notification</var>.
 </ol>
@@ -304,9 +318,9 @@ primary language is unknown. [[!LANG]]
 
 <h3 id=activating-a-notification>Activating a notification</h3>
 
-<p>When a <a>notification</a> <var>notification</var> is activated by the user,
-assuming the underlying notification platform supports activation, the user
-agent must (unless otherwise specified) run these steps:
+<p>When a <a lt="concept notification">notification</a> <var>notification</var>
+is activated by the user, assuming the underlying notification platform supports
+activation, the user agent must (unless otherwise specified) run these steps:
 
 <ol>
   <li><p>If <var>notification</var> is a <a>persistent notification</a>, run
@@ -329,8 +343,7 @@ agent must (unless otherwise specified) run these steps:
   <ol>
     <li><p><a>Fire an event</a> named <code>click</code> with its <code>
     <a lt="dom event cancelable">cancelable</a></code> attribute initialized to
-    true on the Notification object representing <var>notification</var>.
-    <!-- XXX link Notification -->
+    true on the {{Notification}} object representing <var>notification</var>.
 
     <p class="note">User agents are encouraged to make <code>
     <a lt="dom window focus">window.focus()</a></code> work from within the
@@ -348,8 +361,9 @@ misnamed as "click".
 
 <h3 id=closing-a-notification>Closing a notification</h3>
 
-<p>When a <a>notification</a> is closed, either by the underlying notification
-platform or by the user, the <a>close steps</a> for it must be run.
+<p>When a <a lt="concept notification">notification</a> is closed, either by the
+underlying notification platform or by the user, the <a>close steps</a> for it
+must be run.
 
 <p>The <dfn>close steps</dfn> for a given <var>notification</var> are:
 
@@ -384,7 +398,7 @@ platform or by the user, the <a>close steps</a> for it must be run.
 <h3 id=replacing-a-notification>Replacing a notification</h3>
 
 <p>The <dfn>replace steps</dfn> for replacing an <var>old</var>
-<a>notification</a> with a <var>new</var> one are:
+<a lt="concept notification">notification</a> with a <var>new</var> one are:
 
 <ol>
   <li><p>Wait for any <a lt="concept fetch">fetches</a> to complete and
@@ -405,7 +419,78 @@ platform or by the user, the <a>close steps</a> for it must be run.
 
 <h2 id=api>API</h2>
 
+<pre class=idl>
+[Constructor(DOMString title, optional NotificationOptions options),
+ Exposed=(Window,Worker)]
+interface Notification : EventTarget {
+  static readonly attribute NotificationPermission permission;
+  [Exposed=Window] static void requestPermission(optional NotificationPermissionCallback callback);
+
+  attribute EventHandler onclick;
+  attribute EventHandler onerror;
+
+  readonly attribute DOMString title;
+  readonly attribute NotificationDirection dir;
+  readonly attribute DOMString lang;
+  readonly attribute DOMString body;
+  readonly attribute DOMString tag;
+  readonly attribute USVString icon;
+  readonly attribute USVString sound;
+  // vibrate not exposed for now; see bug 23682
+  readonly attribute boolean renotify;
+  readonly attribute boolean silent;
+  readonly attribute boolean noscreen;
+  readonly attribute boolean sticky;
+  [SameObject] readonly attribute any data;
+
+  void close();
+};
+
+dictionary NotificationOptions {
+  NotificationDirection dir = "auto";
+  DOMString lang = "";
+  DOMString body = "";
+  DOMString tag = "";
+  USVString icon;
+  USVString sound;
+  VibratePattern vibrate;
+  boolean renotify = false;
+  boolean silent = false;
+  boolean noscreen = false;
+  boolean sticky = false;
+  any data = null;
+};
+
+enum NotificationPermission {
+  "default",
+  "denied",
+  "granted"
+};
+
+callback NotificationPermissionCallback = void (NotificationPermission permission);
+
+enum NotificationDirection {
+  "auto",
+  "ltr",
+  "rtl"
+};
+</pre>
+
+<p>A <a>non-persistent notification</a> is represented one {{Notification}}
+objects and can be created through {{Notification}}'s constructor.
+<!-- XXX link constructor -->
+
+<p>A <a>persistent notification</a> is represented by zero or more
+{{Notification}} objects can be created through the showNotification() method.
+<!-- XXX link showNotification() -->
+
 <h3 id=garbage-collection>Garbage collection</h3>
+
+<p>A {{Notification}} object must not be garbage collected while its
+corresponding <a lt="concept notification">notification</a> is in the
+<a>list of notifications</a> and the {{Notification}} object in question has an
+<a lt="concept event listener">event listener</a> whose <b>type</b> is
+<code>click</code> or <code>error</code>.
 
 <h3 id=constructors>Constructors</h3>
 
@@ -470,6 +555,8 @@ urlPrefix: https://html.spec.whatwg.org/multipage/
   urlPrefix: browsers.html; type: dfn
     text: browsing context
     text: same origin
+  urlPrefix: browsers.html; type: interface
+    text: Window
   urlPrefix: infrastructure.html; type: dfn
     text: in parallel
   urlPrefix: interaction.html; type: dfn
@@ -477,6 +564,8 @@ urlPrefix: https://html.spec.whatwg.org/multipage/
   urlPrefix: webappapis.html; type: dfn
     text: entry settings object
     text: queue a task
+  urlPrefix: webappapis.html; type: interface
+    text: EventHandler
 urlPrefix: https://url.spec.whatwg.org/; type: dfn
   text: parse
   text: validate and normalize
@@ -489,11 +578,16 @@ urlPrefix: https://slightlyoff.github.io/ServiceWorker/spec/service_worker/; typ
   text: handle functional event
 urlPrefix: https://dom.spec.whatwg.org/; type: dfn
   text: canceled flag
+  text: concept event listener
   text: dom event cancelable
   text: event
   text: fire an event
+urlPrefix: https://dom.spec.whatwg.org/; type: interface
+  text: EventTarget
 urlPrefix: http://www.w3.org/TR/vibration/#dfn-; type: dfn
   text: perform vibration
+urlPrefix: http://www.w3.org/TR/vibration/#idl-def-; type: interface
+  text: VibratePattern
 </pre>
 
 <pre class="biblio">
