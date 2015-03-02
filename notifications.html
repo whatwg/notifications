@@ -165,7 +165,7 @@ representing either a valid BCP 47 language tag or the empty string.
 </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated
 <dfn data-dfn-type="dfn" data-noexport="" id="renotify-preference-flag">renotify preference flag<a class="self-link" href="#renotify-preference-flag"></a></dfn> which is initially unset. When set indicates
-that the end user should be alerted after the replace steps have run.
+that the end user should be alerted after the <a data-link-type="dfn" href="#replace-steps">replace steps</a> have run.
 
 </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated
@@ -242,7 +242,7 @@ user.
   </p>
     <li>
      <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#concept-title">title</a>
-  to <var>option</var>’s <code>title</code>.
+  to <var>options</var>’s <code>title</code>.
 
   </p>
     <li>
@@ -345,9 +345,8 @@ platform’s "notification center" (if available).
 removed from the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>.
 
 </p>
-   <p class="example">A <a data-link-type="dfn" href="#persistent-notification">persistent notification</a> could have the close() method
-invoked of one of its <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects.
-
+   <p class="example">A <a data-link-type="dfn" href="#persistent-notification">persistent notification</a> could have the
+<code class="idl"><a class="idl-code" data-link-type="method" href="#dom-notification-close">close()</a></code> method invoked of one of its <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects.
 
 </p>
    <p>User agents should display <a data-link-type="dfn" href="#persistent-notification">persistent notification</a> in a platform’s
@@ -467,7 +466,7 @@ primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LAN
       <li>
        <p>If the image format is supported, set <var>notification</var>’s
     <a data-link-type="dfn" href="#icon-resource">icon resource</a> to the decoded resource. (Otherwise
-    notification has no <a data-link-type="dfn" href="#icon-resource">icon resource</a>.)
+    <var>notification</var> has no <a data-link-type="dfn" href="#icon-resource">icon resource</a>.)
   </p>
      </ol>
      
@@ -641,10 +640,10 @@ must be run.
 
   </p>
      <p>At this point also play <var>notification</var>’s <a data-link-type="dfn" href="#sound-resource">sound resource</a>, if
-  any, and run <a data-link-type="dfn" href="http://www.w3.org/TR/vibration/#dfn-perform-vibration">perform vibration</a> using <var>notification’s
+  any, and run <a data-link-type="dfn" href="http://www.w3.org/TR/vibration/#dfn-perform-vibration">perform vibration</a> using <var>notification</var>’s
   <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a>, if any.
 
-  </var></p>
+  </p>
     <li>
      <p>Append <var>notification</var> to the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>.
 </p></ol>
@@ -1044,8 +1043,7 @@ new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });
 replaces the first having the same tag. In a platform that queues notifications
 (first-in-first-out), using the tag allows the notification to also maintain its
 position in the queue. Platforms where the newest notifications are shown first,
-a similar result could be achieved using the
-<a class="idl-code" data-link-type="method" href="#dom-notification-close"><code>close()</code></a> method.
+a similar result could be achieved using the <code class="idl"><a class="idl-code" data-link-type="method" href="#dom-notification-close">close()</a></code> method.
 
 
 </p>

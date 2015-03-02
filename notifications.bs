@@ -56,7 +56,7 @@ representing either a valid BCP 47 language tag or the empty string.
 
 <p>A <a lt="concept notification">notification</a> has an associated
 <dfn>renotify preference flag</dfn> which is initially unset. When set indicates
-that the end user should be alerted after the replace steps have run.
+that the end user should be alerted after the <a>replace steps</a> have run.
 
 <p>A <a lt="concept notification">notification</a> has an associated
 <dfn>silent preference flag</dfn> which is initially unset. When set indicates
@@ -113,7 +113,7 @@ user.
   <var>options</var>'s <code>data</code>. Rethrow any exceptions.
 
   <li><p>Set <var>notification</var>'s <a lt="concept title">title</a>
-  to <var>option</var>'s <code>title</code>.
+  to <var>options</var>'s <code>title</code>.
 
   <li><p>Set <var>notification</var>'s
   <a lt="concept direction">direction</a> to <var>options</var>'s
@@ -182,9 +182,8 @@ platform's "notification center" (if available).
 <p>User agents should persist <a>persistent notifications</a> until they are
 removed from the <a>list of notifications</a>.
 
-<p class=example>A <a>persistent notification</a> could have the close() method
-invoked of one of its {{Notification}} objects.
-<!-- XXX: Link close() -->
+<p class=example>A <a>persistent notification</a> could have the
+{{close()!!method}} method invoked of one of its {{Notification}} objects.
 
 <p>User agents should display <a>persistent notification</a> in a platform's
 "notification center" (if available).
@@ -274,7 +273,7 @@ primary language is unknown. [[!LANG]]
 
     <li><p>If the image format is supported, set <var>notification</var>'s
     <a>icon resource</a> to the decoded resource. (Otherwise
-    </var>notification</var> has no <a>icon resource</a>.)
+    <var>notification</var> has no <a>icon resource</a>.)
   </ol>
 
   <li><p>If the notification platform supports sounds,
@@ -388,7 +387,7 @@ must be run.
   appropriate notification platform).
 
   <p>At this point also play <var>notification</var>'s <a>sound resource</a>, if
-  any, and run <a>perform vibration</a> using <var>notification</a>'s
+  any, and run <a>perform vibration</a> using <var>notification</var>'s
   <a>vibration pattern</a>, if any.
 
   <li><p>Append <var>notification</var> to the <a>list of notifications</a>.
@@ -557,9 +556,9 @@ attribute's getter must return <a>permission</a> for
 
 <p class="warning">In designing the platform notifications are the one instance
 thus far where asking the user upfront makes sense. Specifications for other
-APIs should not use this pattern and instead employ one of
+APIs should not use this pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">
-the many more suitable alternatives</a>.
+many more suitable alternatives</a>.
 
 <h3 id=object-members>Object members</h3>
 
@@ -699,8 +698,7 @@ new Notification("Bob: Hi / Are you free this afternoon?", { tag: 'chat_Bob' });
 replaces the first having the same tag. In a platform that queues notifications
 (first-in-first-out), using the tag allows the notification to also maintain its
 position in the queue. Platforms where the newest notifications are shown first,
-a similar result could be achieved using the
-<a method for=Notification><code>close()</code></a> method.
+a similar result could be achieved using the {{close()!!method}} method.
 
 
 <h2 id=service-worker-api>Service Worker API</h2>
