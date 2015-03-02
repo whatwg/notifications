@@ -134,7 +134,7 @@ representation of an occurrence, such as the delivery of a message.
 
 </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated
-<dfn data-dfn-type="dfn" data-lt="notification title" data-noexport="" id="notification-title">title<a class="self-link" href="#notification-title"></a></dfn> which is a DOMString.
+<dfn data-dfn-type="dfn" data-lt="concept title" data-noexport="" id="concept-title">title<a class="self-link" href="#concept-title"></a></dfn> which is a DOMString.
 
 </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated
@@ -142,12 +142,12 @@ representation of an occurrence, such as the delivery of a message.
 
 </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated
-<dfn data-dfn-type="dfn" data-lt="notification direction" data-noexport="" id="notification-direction">direction<a class="self-link" href="#notification-direction"></a></dfn> which is one of
+<dfn data-dfn-type="dfn" data-lt="concept direction" data-noexport="" id="concept-direction">direction<a class="self-link" href="#concept-direction"></a></dfn> which is one of
 <i>auto</i>, <i>ltr</i>, and <i>rtl</i>.
 
 </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated
-<dfn data-dfn-type="dfn" data-lt="notification language" data-noexport="" id="notification-language">language<a class="self-link" href="#notification-language"></a></dfn> which is a DOMString
+<dfn data-dfn-type="dfn" data-lt="concept language" data-noexport="" id="concept-language">language<a class="self-link" href="#concept-language"></a></dfn> which is a DOMString
 representing either a valid BCP 47 language tag or the empty string.
 
 </p>
@@ -241,20 +241,20 @@ user.
 
   </p>
     <li>
-     <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#notification-title">title</a>
+     <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#concept-title">title</a>
   to <var>option</var>’s <code>title</code>.
 
   </p>
     <li>
      <p>Set <var>notification</var>’s
-  <a data-link-type="dfn" href="#notification-direction">direction</a> to <var>options</var>’s
+  <a data-link-type="dfn" href="#concept-direction">direction</a> to <var>options</var>’s
   <code>dir</code>.
 
   </p>
     <li>
      <p>If <var>options</var>’s <code>lang</code> is either a valid BCP 47
   language tag or the empty string, set <var>notification</var>’s
-  <a data-link-type="dfn" href="#notification-language">language</a> to <var>options</var>’s
+  <a data-link-type="dfn" href="#concept-language">language</a> to <var>options</var>’s
   <code>lang</code>, and set it to the empty string otherwise. <a data-link-type="biblio" href="#biblio-lang">[LANG]</a>
 
   </p>
@@ -406,14 +406,14 @@ section of HTML. <a data-link-type="biblio" href="#biblio-html">[HTML]</a>
 </p>
    <p>User agents are expected to honor the Unicode semantics of the text of a
 <a data-link-type="dfn" href="#concept-notification">notification</a>’s
-<a data-link-type="dfn" href="#notification-title">title</a> and <a data-link-type="dfn" href="#body">body</a>. Each is expected to be
+<a data-link-type="dfn" href="#concept-title">title</a> and <a data-link-type="dfn" href="#body">body</a>. Each is expected to be
 treated as an independent set of one or more bidirectional algorithm paragraphs
 when displayed, as defined by the bidirectional algorithm’s rules P1, P2, and
 P3, including, for instance, supporting the paragraph-breaking behaviour of
 U+000A LINE FEED (LF) characters. For each paragraph of the
-<a data-link-type="dfn" href="#notification-title">title</a> and <a data-link-type="dfn" href="#body">body</a>, the
+<a data-link-type="dfn" href="#concept-title">title</a> and <a data-link-type="dfn" href="#body">body</a>, the
 <a data-link-type="dfn" href="#concept-notification">notification</a>’s
-<a data-link-type="dfn" href="#notification-direction">direction</a> provides the higher-level override
+<a data-link-type="dfn" href="#concept-direction">direction</a> provides the higher-level override
 of rules P2 and P3 if it has a value other than "<code>auto</code>". <a data-link-type="biblio" href="#biblio-bidi">[BIDI]</a>
 
 
@@ -424,9 +424,9 @@ of rules P2 and P3 if it has a value other than "<code>auto</code>". <a data-lin
 
 
    <p>The <a data-link-type="dfn" href="#concept-notification">notification</a>’s
-<a data-link-type="dfn" href="#notification-language">language</a> specifies the primary language for
-the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
-<a data-link-type="dfn" href="#notification-title">title</a> and <a data-link-type="dfn" href="#body">body</a>. Its value is a valid
+<a data-link-type="dfn" href="#concept-language">language</a> specifies the primary language for the
+<a data-link-type="dfn" href="#concept-notification">notification</a>’s
+<a data-link-type="dfn" href="#concept-title">title</a> and <a data-link-type="dfn" href="#body">body</a>. Its value is a valid
 BCP 47 language tag, or the empty string. The empty string indicates that the
 primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LANG]</a>
 
@@ -688,27 +688,27 @@ must be run.
    <pre class="idl">[<dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="constructor" data-export="" data-global-name="Notification<interface>/Notification(title, options)<constructor>" data-lt="Notification(title, options)" id="dom-notification-notificationtitle-options">Constructor<a class="self-link" href="#dom-notification-notificationtitle-options"></a></dfn>(DOMString <dfn class="idl-code" data-dfn-for="Notification/Notification(title, options)" data-dfn-type="argument" data-export="" data-global-name="Notification<interface>/Notification(title, options)<method>/title<argument>" id="dom-notification-notificationtitle-options-title">title<a class="self-link" href="#dom-notification-notificationtitle-options-title"></a></dfn>, optional <a data-link-type="idl-name" href="#dictdef-notificationoptions">NotificationOptions</a> <dfn class="idl-code" data-dfn-for="Notification/Notification(title, options)" data-dfn-type="argument" data-export="" data-global-name="Notification<interface>/Notification(title, options)<method>/options<argument>" id="dom-notification-notificationtitle-options-options">options<a class="self-link" href="#dom-notification-notificationtitle-options-options"></a></dfn>),
  Exposed=(Window,Worker)]
 interface <dfn class="idl-code" data-dfn-type="interface" data-export="" data-global-name="" id="notification">Notification<a class="self-link" href="#notification"></a></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
-  static readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/permission<attribute>" data-readonly="" data-type="NotificationPermission " id="dom-notification-permission">permission<a class="self-link" href="#dom-notification-permission"></a></dfn>;
-  [Exposed=<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/browsers.html#window">Window</a>] static void <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="method" data-export="" data-global-name="Notification<interface>/requestPermission(callback)<method>/requestPermission()<method>" data-lt="requestPermission(callback)|requestPermission()" id="dom-notification-requestpermissioncallback">requestPermission<a class="self-link" href="#dom-notification-requestpermissioncallback"></a></dfn>(optional <a data-link-type="idl-name" href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a> callback);
+  static readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <a class="idl-code" data-global-name="Notification<interface>/permission<attribute>" data-link-type="attribute" data-readonly="" data-type="NotificationPermission " href="#dom-notification-permission">permission</a>;
+  [Exposed=<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/browsers.html#window">Window</a>] static void <a class="idl-code" data-global-name="Notification<interface>/requestPermission(callback)<method>/requestPermission()<method>" data-link-type="method" href="#dom-notification-requestpermission">requestPermission</a>(optional <a data-link-type="idl-name" href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a> callback);
 
-  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/onclick<attribute>" data-type="EventHandler " id="dom-notification-onclick">onclick<a class="self-link" href="#dom-notification-onclick"></a></dfn>;
-  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/onerror<attribute>" data-type="EventHandler " id="dom-notification-onerror">onerror<a class="self-link" href="#dom-notification-onerror"></a></dfn>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-global-name="Notification<interface>/onclick<attribute>" data-link-type="attribute" data-type="EventHandler " href="#dom-notification-onclick">onclick</a>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-global-name="Notification<interface>/onerror<attribute>" data-link-type="attribute" data-type="EventHandler " href="#dom-notification-onerror">onerror</a>;
 
-  readonly attribute DOMString <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/title<attribute>" data-readonly="" data-type="DOMString " id="dom-notification-title">title<a class="self-link" href="#dom-notification-title"></a></dfn>;
-  readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationdirection">NotificationDirection</a> <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/dir<attribute>" data-readonly="" data-type="NotificationDirection " id="dom-notification-dir">dir<a class="self-link" href="#dom-notification-dir"></a></dfn>;
-  readonly attribute DOMString <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/lang<attribute>" data-readonly="" data-type="DOMString " id="dom-notification-lang">lang<a class="self-link" href="#dom-notification-lang"></a></dfn>;
-  readonly attribute DOMString <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/body<attribute>" data-readonly="" data-type="DOMString " id="dom-notification-body">body<a class="self-link" href="#dom-notification-body"></a></dfn>;
-  readonly attribute DOMString <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/tag<attribute>" data-readonly="" data-type="DOMString " id="dom-notification-tag">tag<a class="self-link" href="#dom-notification-tag"></a></dfn>;
-  readonly attribute USVString <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/icon<attribute>" data-readonly="" data-type="USVString " id="dom-notification-icon">icon<a class="self-link" href="#dom-notification-icon"></a></dfn>;
-  readonly attribute USVString <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/sound<attribute>" data-readonly="" data-type="USVString " id="dom-notification-sound">sound<a class="self-link" href="#dom-notification-sound"></a></dfn>;
+  readonly attribute DOMString <a class="idl-code" data-global-name="Notification<interface>/title<attribute>" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-title">title</a>;
+  readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationdirection">NotificationDirection</a> <a class="idl-code" data-global-name="Notification<interface>/dir<attribute>" data-link-type="attribute" data-readonly="" data-type="NotificationDirection " href="#dom-notification-dir">dir</a>;
+  readonly attribute DOMString <a class="idl-code" data-global-name="Notification<interface>/lang<attribute>" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-lang">lang</a>;
+  readonly attribute DOMString <a class="idl-code" data-global-name="Notification<interface>/body<attribute>" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-body">body</a>;
+  readonly attribute DOMString <a class="idl-code" data-global-name="Notification<interface>/tag<attribute>" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-tag">tag</a>;
+  readonly attribute USVString <a class="idl-code" data-global-name="Notification<interface>/icon<attribute>" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-icon">icon</a>;
+  readonly attribute USVString <a class="idl-code" data-global-name="Notification<interface>/sound<attribute>" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-sound">sound</a>;
   // vibrate not exposed for now; see bug 23682
-  readonly attribute boolean <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/renotify<attribute>" data-readonly="" data-type="boolean " id="dom-notification-renotify">renotify<a class="self-link" href="#dom-notification-renotify"></a></dfn>;
-  readonly attribute boolean <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/silent<attribute>" data-readonly="" data-type="boolean " id="dom-notification-silent">silent<a class="self-link" href="#dom-notification-silent"></a></dfn>;
-  readonly attribute boolean <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/noscreen<attribute>" data-readonly="" data-type="boolean " id="dom-notification-noscreen">noscreen<a class="self-link" href="#dom-notification-noscreen"></a></dfn>;
-  readonly attribute boolean <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/sticky<attribute>" data-readonly="" data-type="boolean " id="dom-notification-sticky">sticky<a class="self-link" href="#dom-notification-sticky"></a></dfn>;
-  [SameObject] readonly attribute any<dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" data-global-name="Notification<interface>/data<attribute>" data-readonly="" data-type="any " id="dom-notification-data">data<a class="self-link" href="#dom-notification-data"></a></dfn>;
+  readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/renotify<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-renotify">renotify</a>;
+  readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/silent<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
+  readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/noscreen<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-noscreen">noscreen</a>;
+  readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/sticky<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-sticky">sticky</a>;
+  [SameObject] readonly attribute any<a class="idl-code" data-global-name="Notification<interface>/data<attribute>" data-link-type="attribute" data-readonly="" data-type="any " href="#dom-notification-data">data</a>;
 
-  void <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="method" data-export="" data-global-name="Notification<interface>/close()<method>" data-lt="close()" id="dom-notification-close">close<a class="self-link" href="#dom-notification-close"></a></dfn>();
+  void <a class="idl-code" data-global-name="Notification<interface>/close()<method>" data-link-type="method" href="#dom-notification-close">close</a>();
 };
 
 dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" data-global-name="" id="dictdef-notificationoptions">NotificationOptions<a class="self-link" href="#dictdef-notificationoptions"></a></dfn> {
@@ -765,33 +765,242 @@ corresponding <a data-link-type="dfn" href="#concept-notification">notification<
    <h3 class="heading settled" data-level="3.2" id="constructors"><span class="secno">3.2. </span><span class="content">Constructors</span><a class="self-link" href="#constructors"></a></h3>
 
 
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="constructor" data-export="" data-lt="Notification()" id="dom-notification-notification"><code>Notification(title, options)
+</code><a class="self-link" href="#dom-notification-notification"></a></dfn> constructor, when invoked, must (unless otherwise indicated) run
+these steps:
+
+</p>
+   <ol>
+  
+    <li>
+     <p>If <var>options</var>’s <code>sticky</code> is present, <a data-link-type="dfn" href="http://heycam.github.io/webidl/#dfn-throw">throw</a>
+  a <code>TypeError</code> exception.
+
+  </p>
+    <li>
+     <p>If <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object">global object</a> is a
+  <code><a data-link-type="dfn" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a></code> object, <a data-link-type="dfn" href="http://heycam.github.io/webidl/#dfn-throw">throw</a> a
+  <code>TypeError</code> exception.
+
+  </p>
+    <li>
+     <p>Let <var>notification</var> be the result of
+  <a data-link-type="dfn" href="#create-a-notification">creating a notification</a> given
+  <var>title</var> and <var>options</var>. Rethrow any exceptions.
+
+  </p>
+    <li>
+     <p>Let <var>n</var> be a new <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object associated with
+  <var>notification</var>.
+
+  </p>
+    <li>
+     <p>Run these substeps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
+
+  </p>
+     <ol>
+    
+      <li>
+       <p>If <a data-link-type="dfn" href="#permission">permission</a> for <var>notification</var>’s <a data-link-type="dfn" href="#origin">origin</a>
+    is not "<code>granted</code>", <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#fire-an-event">fire an event</a>
+    named <code>error</code> on <var>n</var>, and terminate these substeps.
+
+    </p>
+      <li>
+       <p>Run the <a data-link-type="dfn" href="#fetch-steps">fetch steps</a> for <var>notification</var>.
+
+    </p>
+      <li>
+       <p>Run the <a data-link-type="dfn" href="#show-steps">show steps</a> for <var>notification</var>.
+  </p>
+     </ol>
+     
+
+  
+    <li>
+     <p>Return <var>n</var>.
+</p></ol>
+
+
+
    <h3 class="heading settled" data-level="3.3" id="static-members"><span class="secno">3.3. </span><span class="content">Static members</span><a class="self-link" href="#static-members"></a></h3>
 
 
-   <h3 class="heading settled" data-level="3.4" id="object-members"><span class="secno">3.4. </span><span class="content">Object members</span><a class="self-link" href="#object-members"></a></h3>
+   <p>The static <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-permission"><code>permission</code><a class="self-link" href="#dom-notification-permission"></a></dfn>
+attribute’s getter must return <a data-link-type="dfn" href="#permission">permission</a> for
+<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="#origin">origin</a>.
+
+</p>
+   <p>The static <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="method" data-export="" data-lt="requestPermission()" id="dom-notification-requestpermission"><code>requestPermission(callback)
+</code><a class="self-link" href="#dom-notification-requestpermission"></a></dfn> method, when invoked, must run these steps:
+
+</p>
+   <ol>
+  
+    <li>
+     <p>Return, but continue running these steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>.
+
+  </p>
+    <li>
+     <p>Let <var>permission</var> be <a data-link-type="dfn" href="#permission">permission</a> for
+  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="#origin">origin</a>.
+
+  </p>
+    <li>
+     <p>If <var>permission</var> is "<code>default</code>", ask the user
+  whether showing notifications for the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s
+  <a data-link-type="dfn" href="#origin">origin</a> is acceptable. If it is, set permission to
+  "<code>granted</code>", and "<code>denied</code>" otherwise.
+
+  </p>
+    <li>
+     <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">Queue a task</a> to set <a data-link-type="dfn" href="#permission">permission</a> for
+  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="#origin">origin</a> to <var>permission</var> and
+  invoke <var>callback</var> with <var>permission</var> as single argument if
+  <var>callback</var> is given. If this throws an exception,
+  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#report-the-exception">report the exception</a>.
+
+</p>
+     <p class="warning">In designing the platform notifications are the one instance
+thus far where asking the user upfront makes sense. Specifications for other
+APIs should not use this pattern and instead employ one of
+<a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">
+the many more suitable alternatives</a>.
+
+</p>
+     <h3 class="heading settled" data-level="3.4" id="object-members"><span class="secno">3.4. </span><span class="content">Object members</span><a class="self-link" href="#object-members"></a></h3>
+     
 
 
-   <h3 class="heading settled" data-level="3.5" id="examples"><span class="secno">3.5. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h3>
+     <p>The following are the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handlers</a> (and their corresponding
+<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-types">event handler event types</a>) that must be supported as attributes by the
+<code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object.
+
+</p>
+     <table>
+  
+      <thead>
+    
+       <tr>
+      
+        <th><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handler</a>
+      
+        <th><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-types">event handler event type</a>
+ 
+      <tbody>
+  
+       <tr>
+   
+        <td><dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-onclick"><code>onclick</code><a class="self-link" href="#dom-notification-onclick"></a></dfn>
+   
+        <td><code>click</code>
+  
+       <tr>
+   
+        <td><dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-onerror"><code>onerror</code><a class="self-link" href="#dom-notification-onerror"></a></dfn>
+   
+        <td><code>error</code>
+</table>
+     
 
 
-   <h4 class="heading settled" data-level="3.5.1" id="using-events"><span class="secno">3.5.1. </span><span class="content">Using events</span><a class="self-link" href="#using-events"></a></h4>
+     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="method" data-export="" id="dom-notification-close"><code>close()</code><a class="self-link" href="#dom-notification-close"></a></dfn> method, when
+invoked, must run the <a data-link-type="dfn" href="#close-steps">close steps</a> for the
+<a data-link-type="dfn" href="#concept-notification">notification</a>.
+
+</p>
+     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-title"><code>title</code><a class="self-link" href="#dom-notification-title"></a></dfn> attribute’s
+getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
+<a data-link-type="dfn" href="#concept-title">title</a>.
+
+</p>
+     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-dir"><code>dir</code><a class="self-link" href="#dom-notification-dir"></a></dfn> attribute’s
+getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
+<a data-link-type="dfn" href="#concept-direction">direction</a>.
+
+</p>
+     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-lang"><code>lang</code><a class="self-link" href="#dom-notification-lang"></a></dfn> attribute’s
+getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
+<a data-link-type="dfn" href="#concept-language">language</a>.
+
+</p>
+     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-body"><code>body</code><a class="self-link" href="#dom-notification-body"></a></dfn> attribute’s
+getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
+<a data-link-type="dfn" href="#body">body</a>.
+
+</p>
+     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-tag"><code>tag</code><a class="self-link" href="#dom-notification-tag"></a></dfn> attribute’s
+getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#tag">tag</a>.
+
+</p>
+     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-icon"><code>icon</code><a class="self-link" href="#dom-notification-icon"></a></dfn> attribute’s
+getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
+<a data-link-type="dfn" href="#icon-url">icon URL</a>, <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-serializer">serialized</a>, and the empty
+string if there is no <a data-link-type="dfn" href="#concept-notification">notification</a>’s
+<a data-link-type="dfn" href="#icon-url">icon URL</a> otherwise.
+
+</p>
+     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-sound"><code>sound</code><a class="self-link" href="#dom-notification-sound"></a></dfn> attribute’s
+getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
+<a data-link-type="dfn" href="#sound-url">sound URL</a>, <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-serializer">serialized</a>, and the empty
+string if there is no <a data-link-type="dfn" href="#concept-notification">notification</a>’s
+<a data-link-type="dfn" href="#sound-url">sound URL</a> otherwise.
+
+</p>
+     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-renotify"><code>renotify</code><a class="self-link" href="#dom-notification-renotify"></a></dfn>
+attribute’s getter must return the
+<a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#renotify-preference-flag">renotify preference flag</a>.
+
+</p>
+     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-silent"><code>silent</code><a class="self-link" href="#dom-notification-silent"></a></dfn> attribute’s
+getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
+<a data-link-type="dfn" href="#silent-preference-flag">silent preference flag</a>.
+
+</p>
+     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-noscreen"><code>noscreen</code><a class="self-link" href="#dom-notification-noscreen"></a></dfn>
+attribute’s getter must return the
+<a data-link-type="dfn" href="#concept-notification">notification</a>’s
+<a data-link-type="dfn" href="#screen-off-preference-flag">screen off preference flag</a>.
+
+</p>
+     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-sticky"><code>sticky</code><a class="self-link" href="#dom-notification-sticky"></a></dfn> attribute’s
+getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
+<a data-link-type="dfn" href="#sticky-preference-flag">sticky preference flag</a>.
+
+</p>
+     <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-data"><code>data</code><a class="self-link" href="#dom-notification-data"></a></dfn> attribute’s
+getter must return a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#structured-clone">structured clone</a> of
+<a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#data">data</a>.
 
 
-   <h4 class="heading settled" data-level="3.5.2" id="tags-example"><span class="secno">3.5.2. </span><span class="content">Using the <code>tag</code> member for multiple instances</span><a class="self-link" href="#tags-example"></a></h4>
+</p>
+     <h3 class="heading settled" data-level="3.5" id="examples"><span class="secno">3.5. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h3>
+     
 
 
-   <h4 class="heading settled" data-level="3.5.3" id="using-the-tag-member-for-a-single-instance"><span class="secno">3.5.3. </span><span class="content">Using the <code>tag</code> member for a single instance</span><a class="self-link" href="#using-the-tag-member-for-a-single-instance"></a></h4>
+     <h4 class="heading settled" data-level="3.5.1" id="using-events"><span class="secno">3.5.1. </span><span class="content">Using events</span><a class="self-link" href="#using-events"></a></h4>
+     
+
+
+     <h4 class="heading settled" data-level="3.5.2" id="tags-example"><span class="secno">3.5.2. </span><span class="content">Using the <code>tag</code> member for multiple instances</span><a class="self-link" href="#tags-example"></a></h4>
+     
+
+
+     <h4 class="heading settled" data-level="3.5.3" id="using-the-tag-member-for-a-single-instance"><span class="secno">3.5.3. </span><span class="content">Using the <code>tag</code> member for a single instance</span><a class="self-link" href="#using-the-tag-member-for-a-single-instance"></a></h4>
+     
 
 
 
-   <h2 class="heading settled" data-level="4" id="service-worker-api"><span class="secno">4. </span><span class="content">Service Worker API</span><a class="self-link" href="#service-worker-api"></a></h2>
+     <h2 class="heading settled" data-level="4" id="service-worker-api"><span class="secno">4. </span><span class="content">Service Worker API</span><a class="self-link" href="#service-worker-api"></a></h2>
+     
 
 
 
-   <h2 class="no-num heading settled" id="acknowledgments"><span class="content">Acknowledgments</span><a class="self-link" href="#acknowledgments"></a></h2>
+     <h2 class="no-num heading settled" id="acknowledgments"><span class="content">Acknowledgments</span><a class="self-link" href="#acknowledgments"></a></h2>
+     
 
 
-   <p>Thanks to
+     <p>Thanks to
 Aharon (Vladimir) Lanin,
 Alex Russell,
 Arkadiusz Michalski,
@@ -816,7 +1025,7 @@ Simon Pieters
 for being awesome.
 
 </p>
-   <p>This standard is written by
+     <p>This standard is written by
 <a href="//annevankesteren.nl/" lang="nl">Anne van Kesteren</a>
 (<a href="//www.mozilla.org/">Mozilla</a>,
 <a href="mailto:annevk@annevk.nl">annevk@annevk.nl</a>). An earlier iteration was written
@@ -824,7 +1033,7 @@ by John Gregg (<a href="//www.google.com/">Google</a>,
 <a href="mailto:johnnyg@google.com">johnnyg@google.com</a>).
 
 </p>
-   <p>Per <a href="//creativecommons.org/publicdomain/zero/1.0/" rel="license">CC0</a>, to
+     <p>Per <a href="//creativecommons.org/publicdomain/zero/1.0/" rel="license">CC0</a>, to
 the extent possible under law, the editors have waived all copyright and related or
 neighboring rights to this work.
 
@@ -833,7 +1042,7 @@ neighboring rights to this work.
 
 
 
-</p></main>
+</p></ol></main>
   
 
   <h2 class="no-num no-ref heading settled" id="conformance"><span class="content">Conformance</span><a class="self-link" href="#conformance"></a></h2>
@@ -859,106 +1068,106 @@ and not intended to be performant.)
    <li>body
     <ul>
      <li>definition of, <a href="#body">2</a>
-     <li>attribute for Notification, <a href="#dom-notification-body">3</a>
      <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-body">3</a>
+     <li>attribute for Notification, <a href="#dom-notification-body">3.4</a>
     </ul>
-   <li>close(), <a href="#dom-notification-close">3</a>
+   <li>close(), <a href="#dom-notification-close">3.4</a>
    <li>close steps, <a href="#close-steps">2.8</a>
+   <li>concept direction, <a href="#concept-direction">2</a>
+   <li>concept language, <a href="#concept-language">2</a>
    <li>concept notification, <a href="#concept-notification">2</a>
+   <li>concept title, <a href="#concept-title">2</a>
    <li>create a notification, <a href="#create-a-notification">2</a>
    <li>data
     <ul>
      <li>definition of, <a href="#data">2</a>
-     <li>attribute for Notification, <a href="#dom-notification-data">3</a>
      <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-data">3</a>
+     <li>attribute for Notification, <a href="#dom-notification-data">3.4</a>
     </ul>
    <li>dir
     <ul>
-     <li>attribute for Notification, <a href="#dom-notification-dir">3</a>
      <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-dir">3</a>
+     <li>attribute for Notification, <a href="#dom-notification-dir">3.4</a>
     </ul>
    <li>display steps, <a href="#display-steps">2.9</a>
    <li>fetch steps, <a href="#fetch-steps">2.5</a>
    <li>icon
     <ul>
-     <li>attribute for Notification, <a href="#dom-notification-icon">3</a>
      <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-icon">3</a>
+     <li>attribute for Notification, <a href="#dom-notification-icon">3.4</a>
     </ul>
    <li>icon resource, <a href="#icon-resource">2</a>
    <li>icon URL, <a href="#icon-url">2</a>
    <li>lang
     <ul>
-     <li>attribute for Notification, <a href="#dom-notification-lang">3</a>
      <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-lang">3</a>
+     <li>attribute for Notification, <a href="#dom-notification-lang">3.4</a>
     </ul>
    <li>list of notifications, <a href="#list-of-notifications">2.1</a>
    <li>non-persistent notification, <a href="#non_persistent-notification">2</a>
    <li>noscreen
     <ul>
-     <li>attribute for Notification, <a href="#dom-notification-noscreen">3</a>
      <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-noscreen">3</a>
+     <li>attribute for Notification, <a href="#dom-notification-noscreen">3.4</a>
     </ul>
    <li>Notification, <a href="#notification">3</a>
-   <li>notification direction, <a href="#notification-direction">2</a>
+   <li>Notification(), <a href="#dom-notification-notification">3.2</a>
    <li>NotificationDirection, <a href="#enumdef-notificationdirection">3</a>
-   <li>notification language, <a href="#notification-language">2</a>
    <li>NotificationOptions, <a href="#dictdef-notificationoptions">3</a>
    <li>NotificationPermission, <a href="#enumdef-notificationpermission">3</a>
    <li>NotificationPermissionCallback, <a href="#callbackdef-notificationpermissioncallback">3</a>
-   <li>notification title, <a href="#notification-title">2</a>
    <li>Notification(title, options), <a href="#dom-notification-notificationtitle-options">3</a>
-   <li>onclick, <a href="#dom-notification-onclick">3</a>
-   <li>onerror, <a href="#dom-notification-onerror">3</a>
+   <li>onclick, <a href="#dom-notification-onclick">3.4</a>
+   <li>onerror, <a href="#dom-notification-onerror">3.4</a>
    <li>options, <a href="#dom-notification-notificationtitle-options-options">3</a>
    <li>origin, <a href="#origin">2</a>
    <li>permission
     <ul>
      <li>definition of, <a href="#permission">2.2</a>
-     <li>attribute for Notification, <a href="#dom-notification-permission">3</a>
      <li>argument for NotificationPermissionCallback, <a href="#dom-notificationpermissioncallback-permission">3</a>
+     <li>attribute for Notification, <a href="#dom-notification-permission">3.3</a>
     </ul>
    <li>persistent notification, <a href="#persistent-notification">2</a>
    <li>renotify
     <ul>
-     <li>attribute for Notification, <a href="#dom-notification-renotify">3</a>
      <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-renotify">3</a>
+     <li>attribute for Notification, <a href="#dom-notification-renotify">3.4</a>
     </ul>
    <li>renotify preference flag, <a href="#renotify-preference-flag">2</a>
    <li>replace steps, <a href="#replace-steps">2.10</a>
-   <li>requestPermission(), <a href="#dom-notification-requestpermissioncallback">3</a>
-   <li>requestPermission(callback), <a href="#dom-notification-requestpermissioncallback">3</a>
+   <li>requestPermission(), <a href="#dom-notification-requestpermission">3.3</a>
    <li>screen off preference flag, <a href="#screen-off-preference-flag">2</a>
    <li>service worker registration, <a href="#service-worker-registration">2</a>
    <li>show steps, <a href="#show-steps">2.6</a>
    <li>silent
     <ul>
-     <li>attribute for Notification, <a href="#dom-notification-silent">3</a>
      <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-silent">3</a>
+     <li>attribute for Notification, <a href="#dom-notification-silent">3.4</a>
     </ul>
    <li>silent preference flag, <a href="#silent-preference-flag">2</a>
    <li>sound
     <ul>
-     <li>attribute for Notification, <a href="#dom-notification-sound">3</a>
      <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-sound">3</a>
+     <li>attribute for Notification, <a href="#dom-notification-sound">3.4</a>
     </ul>
    <li>sound resource, <a href="#sound-resource">2</a>
    <li>sound URL, <a href="#sound-url">2</a>
    <li>sticky
     <ul>
-     <li>attribute for Notification, <a href="#dom-notification-sticky">3</a>
      <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-sticky">3</a>
+     <li>attribute for Notification, <a href="#dom-notification-sticky">3.4</a>
     </ul>
    <li>sticky preference flag, <a href="#sticky-preference-flag">2</a>
    <li>tag
     <ul>
      <li>definition of, <a href="#tag">2</a>
-     <li>attribute for Notification, <a href="#dom-notification-tag">3</a>
      <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-tag">3</a>
+     <li>attribute for Notification, <a href="#dom-notification-tag">3.4</a>
     </ul>
    <li>title
     <ul>
      <li>argument for Notification/Notification(title, options), <a href="#dom-notification-notificationtitle-options-title">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-title">3</a>
+     <li>attribute for Notification, <a href="#dom-notification-title">3.4</a>
     </ul>
    <li>vibrate, <a href="#dom-notificationoptions-vibrate">3</a>
    <li>vibration pattern, <a href="#vibration-pattern">2</a></ul>
@@ -987,27 +1196,27 @@ and not intended to be performant.)
   <pre class="idl">[<a data-global-name="Notification<interface>/Notification(title, options)<constructor>" href="#dom-notification-notificationtitle-options">Constructor</a>(DOMString <a data-global-name="Notification<interface>/Notification(title, options)<method>/title<argument>" href="#dom-notification-notificationtitle-options-title">title</a>, optional <a data-link-type="idl-name" href="#dictdef-notificationoptions">NotificationOptions</a> <a data-global-name="Notification<interface>/Notification(title, options)<method>/options<argument>" href="#dom-notification-notificationtitle-options-options">options</a>),
  Exposed=(Window,Worker)]
 interface <a data-global-name="" href="#notification">Notification</a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
-  static readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <a data-global-name="Notification<interface>/permission<attribute>" data-readonly="" data-type="NotificationPermission " href="#dom-notification-permission">permission</a>;
-  [Exposed=<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/browsers.html#window">Window</a>] static void <a data-global-name="Notification<interface>/requestPermission(callback)<method>/requestPermission()<method>" href="#dom-notification-requestpermissioncallback">requestPermission</a>(optional <a data-link-type="idl-name" href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a> callback);
+  static readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <a class="idl-code" data-global-name="Notification<interface>/permission<attribute>" data-link-type="attribute" data-readonly="" data-type="NotificationPermission " href="#dom-notification-permission">permission</a>;
+  [Exposed=<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/browsers.html#window">Window</a>] static void <a class="idl-code" data-global-name="Notification<interface>/requestPermission(callback)<method>/requestPermission()<method>" data-link-type="method" href="#dom-notification-requestpermission">requestPermission</a>(optional <a data-link-type="idl-name" href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a> callback);
 
-  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a data-global-name="Notification<interface>/onclick<attribute>" data-type="EventHandler " href="#dom-notification-onclick">onclick</a>;
-  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a data-global-name="Notification<interface>/onerror<attribute>" data-type="EventHandler " href="#dom-notification-onerror">onerror</a>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-global-name="Notification<interface>/onclick<attribute>" data-link-type="attribute" data-type="EventHandler " href="#dom-notification-onclick">onclick</a>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-global-name="Notification<interface>/onerror<attribute>" data-link-type="attribute" data-type="EventHandler " href="#dom-notification-onerror">onerror</a>;
 
-  readonly attribute DOMString <a data-global-name="Notification<interface>/title<attribute>" data-readonly="" data-type="DOMString " href="#dom-notification-title">title</a>;
-  readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationdirection">NotificationDirection</a> <a data-global-name="Notification<interface>/dir<attribute>" data-readonly="" data-type="NotificationDirection " href="#dom-notification-dir">dir</a>;
-  readonly attribute DOMString <a data-global-name="Notification<interface>/lang<attribute>" data-readonly="" data-type="DOMString " href="#dom-notification-lang">lang</a>;
-  readonly attribute DOMString <a data-global-name="Notification<interface>/body<attribute>" data-readonly="" data-type="DOMString " href="#dom-notification-body">body</a>;
-  readonly attribute DOMString <a data-global-name="Notification<interface>/tag<attribute>" data-readonly="" data-type="DOMString " href="#dom-notification-tag">tag</a>;
-  readonly attribute USVString <a data-global-name="Notification<interface>/icon<attribute>" data-readonly="" data-type="USVString " href="#dom-notification-icon">icon</a>;
-  readonly attribute USVString <a data-global-name="Notification<interface>/sound<attribute>" data-readonly="" data-type="USVString " href="#dom-notification-sound">sound</a>;
+  readonly attribute DOMString <a class="idl-code" data-global-name="Notification<interface>/title<attribute>" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-title">title</a>;
+  readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationdirection">NotificationDirection</a> <a class="idl-code" data-global-name="Notification<interface>/dir<attribute>" data-link-type="attribute" data-readonly="" data-type="NotificationDirection " href="#dom-notification-dir">dir</a>;
+  readonly attribute DOMString <a class="idl-code" data-global-name="Notification<interface>/lang<attribute>" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-lang">lang</a>;
+  readonly attribute DOMString <a class="idl-code" data-global-name="Notification<interface>/body<attribute>" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-body">body</a>;
+  readonly attribute DOMString <a class="idl-code" data-global-name="Notification<interface>/tag<attribute>" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-tag">tag</a>;
+  readonly attribute USVString <a class="idl-code" data-global-name="Notification<interface>/icon<attribute>" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-icon">icon</a>;
+  readonly attribute USVString <a class="idl-code" data-global-name="Notification<interface>/sound<attribute>" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-sound">sound</a>;
   // vibrate not exposed for now; see bug 23682
-  readonly attribute boolean <a data-global-name="Notification<interface>/renotify<attribute>" data-readonly="" data-type="boolean " href="#dom-notification-renotify">renotify</a>;
-  readonly attribute boolean <a data-global-name="Notification<interface>/silent<attribute>" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
-  readonly attribute boolean <a data-global-name="Notification<interface>/noscreen<attribute>" data-readonly="" data-type="boolean " href="#dom-notification-noscreen">noscreen</a>;
-  readonly attribute boolean <a data-global-name="Notification<interface>/sticky<attribute>" data-readonly="" data-type="boolean " href="#dom-notification-sticky">sticky</a>;
-  [SameObject] readonly attribute any<a data-global-name="Notification<interface>/data<attribute>" data-readonly="" data-type="any " href="#dom-notification-data">data</a>;
+  readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/renotify<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-renotify">renotify</a>;
+  readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/silent<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
+  readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/noscreen<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-noscreen">noscreen</a>;
+  readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/sticky<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-sticky">sticky</a>;
+  [SameObject] readonly attribute any<a class="idl-code" data-global-name="Notification<interface>/data<attribute>" data-link-type="attribute" data-readonly="" data-type="any " href="#dom-notification-data">data</a>;
 
-  void <a data-global-name="Notification<interface>/close()<method>" href="#dom-notification-close">close</a>();
+  void <a class="idl-code" data-global-name="Notification<interface>/close()<method>" data-link-type="method" href="#dom-notification-close">close</a>();
 };
 
 dictionary <a data-global-name="" href="#dictdef-notificationoptions">NotificationOptions</a> {

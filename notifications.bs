@@ -32,17 +32,17 @@ HTML, IDL, URL and Vibration API Standards.
 representation of an occurrence, such as the delivery of a message.
 
 <p>A <a lt="concept notification">notification</a> has an associated
-<dfn lt="notification title">title</dfn> which is a DOMString.
+<dfn lt="concept title">title</dfn> which is a DOMString.
 
 <p>A <a lt="concept notification">notification</a> has an associated
 <dfn>body</dfn> which is a DOMString.
 
 <p>A <a lt="concept notification">notification</a> has an associated
-<dfn lt="notification direction">direction</dfn> which is one of
+<dfn lt="concept direction">direction</dfn> which is one of
 <i>auto</i>, <i>ltr</i>, and <i>rtl</i>.
 
 <p>A <a lt="concept notification">notification</a> has an associated
-<dfn lt="notification language">language</dfn> which is a DOMString
+<dfn lt="concept language">language</dfn> which is a DOMString
 representing either a valid BCP 47 language tag or the empty string.
 
 <p>A <a lt="concept notification">notification</a> has an associated
@@ -112,16 +112,16 @@ user.
   <li><p>Set <var>notification</var>'s <a>data</a> to a structured clone of
   <var>options</var>'s <code>data</code>. Rethrow any exceptions.
 
-  <li><p>Set <var>notification</var>'s <a lt="notification title">title</a>
+  <li><p>Set <var>notification</var>'s <a lt="concept title">title</a>
   to <var>option</var>'s <code>title</code>.
 
   <li><p>Set <var>notification</var>'s
-  <a lt="notification direction">direction</a> to <var>options</var>'s
+  <a lt="concept direction">direction</a> to <var>options</var>'s
   <code>dir</code>.
 
   <li><p>If <var>options</var>'s <code>lang</code> is either a valid BCP 47
   language tag or the empty string, set <var>notification</var>'s
-  <a lt="notification language">language</a> to <var>options</var>'s
+  <a lt="concept language">language</a> to <var>options</var>'s
   <code>lang</code>, and set it to the empty string otherwise. [[!LANG]]
 
   <li><p>Set <var>notification</var>'s <a>origin</a> to the
@@ -227,14 +227,14 @@ section of HTML. [[!HTML]]
 
 <p>User agents are expected to honor the Unicode semantics of the text of a
 <a lt="concept notification">notification</a>'s
-<a lt="notification title">title</a> and <a>body</a>. Each is expected to be
+<a lt="concept title">title</a> and <a>body</a>. Each is expected to be
 treated as an independent set of one or more bidirectional algorithm paragraphs
 when displayed, as defined by the bidirectional algorithm's rules P1, P2, and
 P3, including, for instance, supporting the paragraph-breaking behaviour of
 U+000A LINE FEED (LF) characters. For each paragraph of the
-<a lt="notification title">title</a> and <a>body</a>, the
+<a lt="concept title">title</a> and <a>body</a>, the
 <a lt="concept notification">notification</a>'s
-<a lt="notification direction">direction</a> provides the higher-level override
+<a lt="concept direction">direction</a> provides the higher-level override
 of rules P2 and P3 if it has a value other than "<code>auto</code>". [[!BIDI]]
 
 
@@ -244,9 +244,9 @@ of rules P2 and P3 if it has a value other than "<code>auto</code>". [[!BIDI]]
      https://html.spec.whatwg.org/multipage/dom.html#attr-lang -->
 
 <p>The <a lt="concept notification">notification</a>'s
-<a lt="notification language">language</a> specifies the primary language for
-the <a lt="concept notification">notification</a>'s
-<a lt="notification title">title</a> and <a>body</a>. Its value is a valid
+<a lt="concept language">language</a> specifies the primary language for the
+<a lt="concept notification">notification</a>'s
+<a lt="concept title">title</a> and <a>body</a>. Its value is a valid
 BCP 47 language tag, or the empty string. The empty string indicates that the
 primary language is unknown. [[!LANG]]
 
@@ -478,7 +478,6 @@ enum NotificationDirection {
 
 <p>A <a>non-persistent notification</a> is represented one {{Notification}}
 objects and can be created through {{Notification}}'s constructor.
-<!-- XXX link constructor -->
 
 <p>A <a>persistent notification</a> is represented by zero or more
 {{Notification}} objects can be created through the showNotification() method.
@@ -494,9 +493,149 @@ corresponding <a lt="concept notification">notification</a> is in the
 
 <h3 id=constructors>Constructors</h3>
 
+<p>The <dfn constructor dfn-for=Notification><code>Notification(title, options)
+</code></dfn> constructor, when invoked, must (unless otherwise indicated) run
+these steps:
+
+<ol>
+  <li><p>If <var>options</var>'s <code>sticky</code> is present, <a>throw</a>
+  a <code>TypeError</code> exception.
+
+  <li><p>If <a>entry settings object</a>'s <a>global object</a> is a
+  <code><a>ServiceWorkerGlobalScope</a></code> object, <a>throw</a> a
+  <code>TypeError</code> exception.
+
+  <li><p>Let <var>notification</var> be the result of
+  <a lt="create a notification">creating a notification</a> given
+  <var>title</var> and <var>options</var>. Rethrow any exceptions.
+
+  <li><p>Let <var>n</var> be a new {{Notification}} object associated with
+  <var>notification</var>.
+
+  <li><p>Run these substeps <a>in parallel</a>:
+
+  <ol>
+    <li><p>If <a>permission</a> for <var>notification</var>'s <a>origin</a>
+    is not "<code>granted</code>", <a>queue a task</a> to <a>fire an event</a>
+    named <code>error</code> on <var>n</var>, and terminate these substeps.
+
+    <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
+
+    <li><p>Run the <a>show steps</a> for <var>notification</var>.
+  </ol>
+
+  <li><p>Return <var>n</var>.
+</ol>
+
+
 <h3 id=static-members>Static members</h3>
 
+<p>The static <dfn attribute dfn-for=Notification><code>permission</code></dfn>
+attribute's getter must return <a>permission</a> for
+<a>entry settings object</a>'s <a>origin</a>.
+
+<p>The static <dfn method dfn-for=Notification><code>requestPermission(callback)
+</code></dfn> method, when invoked, must run these steps:
+
+<ol>
+  <li><p>Return, but continue running these steps <a>in parallel</a>.
+
+  <li><p>Let <var>permission</var> be <a>permission</a> for
+  <a>entry settings object</a>'s <a>origin</a>.
+
+  <li><p>If <var>permission</var> is "<code>default</code>", ask the user
+  whether showing notifications for the <a>entry settings object</a>'s
+  <a>origin</a> is acceptable. If it is, set permission to
+  "<code>granted</code>", and "<code>denied</code>" otherwise.
+
+  <li><p><a>Queue a task</a> to set <a>permission</a> for
+  <a>entry settings object</a>'s <a>origin</a> to <var>permission</var> and
+  invoke <var>callback</var> with <var>permission</var> as single argument if
+  <var>callback</var> is given. If this throws an exception,
+  <a>report the exception</a>.
+
+<p class="warning">In designing the platform notifications are the one instance
+thus far where asking the user upfront makes sense. Specifications for other
+APIs should not use this pattern and instead employ one of
+<a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">
+the many more suitable alternatives</a>.
+
 <h3 id=object-members>Object members</h3>
+
+<p>The following are the <a>event handlers</a> (and their corresponding
+<a>event handler event types</a>) that must be supported as attributes by the
+{{Notification}} object.
+
+<table>
+  <thead>
+    <tr>
+      <th><a>event handler</a>
+      <th><a>event handler event type</a>
+ <tbody>
+  <tr>
+   <td><dfn attribute dfn-for=Notification><code>onclick</code></dfn>
+   <td><code>click</code>
+  <tr>
+   <td><dfn attribute dfn-for=Notification><code>onerror</code></dfn>
+   <td><code>error</code>
+</table>
+
+<p>The <dfn method dfn-for=Notification><code>close()</code></dfn> method, when
+invoked, must run the <a>close steps</a> for the
+<a lt="concept notification">notification</a>.
+
+<p>The <dfn attribute dfn-for=Notification><code>title</code></dfn> attribute's
+getter must return the <a lt="concept notification">notification</a>'s
+<a lt="concept title">title</a>.
+
+<p>The <dfn attribute dfn-for=Notification><code>dir</code></dfn> attribute's
+getter must return the <a lt="concept notification">notification</a>'s
+<a lt="concept direction">direction</a>.
+
+<p>The <dfn attribute dfn-for=Notification><code>lang</code></dfn> attribute's
+getter must return the <a lt="concept notification">notification</a>'s
+<a lt="concept language">language</a>.
+
+<p>The <dfn attribute dfn-for=Notification><code>body</code></dfn> attribute's
+getter must return the <a lt="concept notification">notification</a>'s
+<a>body</a>.
+
+<p>The <dfn attribute dfn-for=Notification><code>tag</code></dfn> attribute's
+getter must return the <a lt="concept notification">notification</a>'s <a>tag</a>.
+
+<p>The <dfn attribute dfn-for=Notification><code>icon</code></dfn> attribute's
+getter must return the <a lt="concept notification">notification</a>'s
+<a>icon URL</a>, <a lt="concept url serializer">serialized</a>, and the empty
+string if there is no <a lt="concept notification">notification</a>'s
+<a>icon URL</a> otherwise.
+
+<p>The <dfn attribute dfn-for=Notification><code>sound</code></dfn> attribute's
+getter must return the <a lt="concept notification">notification</a>'s
+<a>sound URL</a>, <a lt="concept url serializer">serialized</a>, and the empty
+string if there is no <a lt="concept notification">notification</a>'s
+<a>sound URL</a> otherwise.
+
+<p>The <dfn attribute dfn-for=Notification><code>renotify</code></dfn>
+attribute's getter must return the
+<a lt="concept notification">notification</a>'s <a>renotify preference flag</a>.
+
+<p>The <dfn attribute dfn-for=Notification><code>silent</code></dfn> attribute's
+getter must return the <a lt="concept notification">notification</a>'s
+<a>silent preference flag</a>.
+
+<p>The <dfn attribute dfn-for=Notification><code>noscreen</code></dfn>
+attribute's getter must return the
+<a lt="concept notification">notification</a>'s
+<a>screen off preference flag</a>.
+
+<p>The <dfn attribute dfn-for=Notification><code>sticky</code></dfn> attribute's
+getter must return the <a lt="concept notification">notification</a>'s
+<a>sticky preference flag</a>.
+
+<p>The <dfn attribute dfn-for=Notification><code>data</code></dfn> attribute's
+getter must return a <a>structured clone</a> of
+<a lt="concept notification">notification</a>'s <a>data</a>.
+
 
 <h3 id=examples>Examples</h3>
 
@@ -561,12 +700,18 @@ urlPrefix: https://html.spec.whatwg.org/multipage/
     text: in parallel
   urlPrefix: interaction.html; type: dfn
     text: dom window focus
+    text: structured clone
   urlPrefix: webappapis.html; type: dfn
     text: entry settings object
+    text: event handler event types
+    text: event handlers
+    text: global object
     text: queue a task
+    text: report the exception
   urlPrefix: webappapis.html; type: interface
     text: EventHandler
 urlPrefix: https://url.spec.whatwg.org/; type: dfn
+  text: concept url serializer
   text: parse
   text: validate and normalize
 urlPrefix: https://fetch.spec.whatwg.org/; type: dfn
@@ -576,6 +721,7 @@ urlPrefix: https://fetch.spec.whatwg.org/; type: dfn
   text: concept response type
 urlPrefix: https://slightlyoff.github.io/ServiceWorker/spec/service_worker/; type: dfn
   text: handle functional event
+  text: ServiceWorkerGlobalScope
 urlPrefix: https://dom.spec.whatwg.org/; type: dfn
   text: canceled flag
   text: concept event listener
