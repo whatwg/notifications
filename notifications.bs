@@ -479,8 +479,8 @@ enum NotificationDirection {
 objects and can be created through {{Notification}}'s constructor.
 
 <p>A <a>persistent notification</a> is represented by zero or more
-{{Notification}} objects can be created through the showNotification() method.
-<!-- XXX link showNotification() -->
+{{Notification}} objects can be created through the
+{{ServiceWorkerRegistration/showNotification()}} method.
 
 <h3 id=garbage-collection>Garbage collection</h3>
 
@@ -501,7 +501,7 @@ these steps:
   a <code>TypeError</code> exception.
 
   <li><p>If <a>entry settings object</a>'s <a>global object</a> is a
-  <code><a>ServiceWorkerGlobalScope</a></code> object, <a>throw</a> a
+  {{ServiceWorkerGlobalScope}} object, <a>throw</a> a
   <code>TypeError</code> exception.
 
   <li><p>Let <var>notification</var> be the result of
@@ -701,7 +701,132 @@ position in the queue. Platforms where the newest notifications are shown first,
 a similar result could be achieved using the {{close()!!method}} method.
 
 
-<h2 id=service-worker-api>Service Worker API</h2>
+<h2 id=service-worker-api>Service worker API</h2>
+
+<pre class=idl>
+partial interface Notification {
+  [Exposed=ServiceWorker] static Promise&lt;sequence&lt;Notification>> get(optional GetNotificationOptions filter);
+};
+
+dictionary GetNotificationOptions {
+  DOMString tag = "";
+};
+
+partial interface ServiceWorkerRegistration {
+  Promise&lt;void> showNotification(DOMString title, optional NotificationOptions options);
+};
+
+[Constructor(DOMString type, optional NotificationEventInit eventInitDict),
+ Exposed=ServiceWorker]
+interface NotificationEvent : ExtendableEvent {
+  readonly attribute Notification notification;
+};
+
+dictionary NotificationEventInit : ExtendableEventInit {
+  <!-- required --> Notification notification;
+};
+
+partial interface ServiceWorkerGlobalScope {
+  attribute EventHandler onnotificationclick;
+};
+</pre>
+
+<p>The static <dfn method dfn-for=Notification><code>get(filter)</code></dfn>
+method, when invoked, must run these steps:
+
+<ol>
+  <li><p>Let <var>promise</var> be a new promise.
+
+  <li><p>Run these substeps <a>in parallel</a>:
+
+  <ol>
+    <li><p>Let <var>tag</var> be <var>filter</var>'s <code>tag</code>.
+
+    <li><p>Let <var>notifications</var> be a list of all
+    <a lt="concept notification">notifications</a> in the
+    <a>list of notifications</a> whose <a>origin</a> is the
+    <a>entry settings object</a>'s <a>origin</a>, whose
+    <a>service worker registration</a> is <span class=XXX>XXX</span>,
+    and whose <a>tag</a>, if <var>tag</var> is not the empty string, is
+    <var>tag</var>.
+
+    <li><p>Let <var>objects</var> be an empty JavaScript array.
+
+    <li><p>For each <a lt="concept notification">notification</a> in
+    <var>notifications</var>, in creation order, create a new {{Notification}}
+    object representing <a lt="concept notification">notification</a> and push
+    that object to <var>objects</var>.
+
+    <li><p>Resolve <var>promise</var> with <var>objects</var>.
+  </ol>
+
+  <li><p>Return <var>promise</var>.
+</ol>
+
+<p class=note>This method returns zero or more new {{Notification}} objects
+which might represent the same underlying <a lt="concept notification">
+notification</a> of {{Notification}} objects already in existence.
+
+<p>The <dfn method dfn-for=ServiceWorkerRegistration><code>
+showNotification(title, options)</code></dfn> method, when invoked, must run
+these steps:
+
+<ol>
+  <li><p>Let <var>promise</var> be a new promise.
+
+  <li><p>Let <var>notification</var> be the result of
+  <a lt="create a notification">creating a notification</a> given
+  <var>title</var> and <var>options</var>. Rethrow any exceptions.
+
+  <li><p>If <a>context object</a>'s <a>active worker</a> is null, reject
+  <var>promise</var> with a <code>TypeError</code> exception.
+
+  <li><p>Set <var>notification</var>'s <a>service worker registration</a> to the
+  <a>context object</a>.
+
+  <li><p>Run these substeps <a>in parallel</a>:
+
+  <ol>
+    <li><p>If <a>permission</a> for <var>notification</var>'s <a>origin</a> is
+    not "<code>granted</code>", reject <var>promise</var> with a
+    <code>TypeError</code> exception, and terminate these substeps.
+
+    <li><p>Otherwise, resolve <var>promise</var> with undefined.
+
+    <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
+
+    <li><p>Run the <a>show steps</a> for <var>notification</var>.
+  </ol>
+
+  <li><p>Return <var>promise</var>.
+</ol>
+
+<hr>
+
+<p>To <dfn>fire a service worker notification event named <var>e</var></dfn>
+given <var>notification</var>, <a lt="concept event fire">fire an event named e
+</a> with an <a>event</a> using the {{NotificationEvent}} interface whose
+{{NotificationEvent/notification}} attribute is initialized to a new
+{{Notification}} object representing <var>notification</var>.
+
+<p>The {{NotificationEvent/notification}} attribute's getter must return the
+value it was initialized to.
+
+<p>The following is the <a>event handler</a> (and its corresponding
+<a>event handler event type</a>) that must be supported as attribute by the
+{{ServiceWorkerGlobalScope}} object:
+
+<table>
+  <thead>
+    <tr>
+      <th><a>event handler</a>
+      <th><a>event handler event type</a>
+  <tbody>
+    <tr>
+      <td><dfn attribute dfn-for=ServiceWorkerGlobalScope><code>
+      onnotificationclick</code></dfn>
+      <td><code>notificationclick
+</table>
 
 
 <h2 id=acknowledgments class=no-num>Acknowledgments</h2>
@@ -776,10 +901,18 @@ urlPrefix: https://fetch.spec.whatwg.org/; type: dfn
   text: concept response type
 urlPrefix: https://slightlyoff.github.io/ServiceWorker/spec/service_worker/; type: dfn
   text: handle functional event
+  text: active worker
+urlPrefix: https://slightlyoff.github.io/ServiceWorker/spec/service_worker/; type: interface
+  text: ExtendableEvent
+  text: ExtendableEventInit
+  text: ServiceWorker
   text: ServiceWorkerGlobalScope
+  text: ServiceWorkerRegistration
 urlPrefix: https://dom.spec.whatwg.org/; type: dfn
   text: canceled flag
+  text: concept event fire
   text: concept event listener
+  text: context object
   text: dom event cancelable
   text: event
   text: fire an event
