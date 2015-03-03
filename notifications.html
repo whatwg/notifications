@@ -160,7 +160,7 @@ representing either a valid BCP 47 language tag or the empty string.
 
 </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated
-<dfn data-dfn-type="dfn" data-noexport="" id="origin">origin<a class="self-link" href="#origin"></a></dfn>.
+<dfn data-dfn-type="dfn" data-lt="concept origin" data-noexport="" id="concept-origin">origin<a class="self-link" href="#concept-origin"></a></dfn>.
 
 </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated
@@ -236,8 +236,8 @@ user.
 
   </p>
     <li>
-     <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#data">data</a> to a structured clone of
-  <var>options</var>’s <code>data</code>. Rethrow any exceptions.
+     <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#data">data</a> to a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#structured-clone">structured clone</a>
+  of <var>options</var>’s <code>data</code>. Rethrow any exceptions.
 
   </p>
     <li>
@@ -259,8 +259,8 @@ user.
 
   </p>
     <li>
-     <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#origin">origin</a> to the
-  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="#origin">origin</a>.
+     <p>Set <var>notification</var>’s <a data-link-type="dfn" href="#concept-origin">origin</a> to the
+  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
 
   </p>
     <li>
@@ -279,22 +279,22 @@ user.
 
   </p>
     <li>
-     <p>If <var>options</var>’s <code>icon</code> is present, <a data-link-type="dfn" href="https://url.spec.whatwg.org/#parse">parse</a> it
-  using <var>baseURL</var>, and if that does not return failure, set
-  <var>notification</var>’s <a data-link-type="dfn" href="#icon-url">icon URL</a> to the return value. (Otherwise
-  <a data-link-type="dfn" href="#icon-url">icon URL</a> is not set.)
+     <p>If <var>options</var>’s <code>icon</code> is present,
+  <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-parser">parse</a> it using <var>baseURL</var>, and if that does not
+  return failure, set <var>notification</var>’s <a data-link-type="dfn" href="#icon-url">icon URL</a> to the return
+  value. (Otherwise <a data-link-type="dfn" href="#icon-url">icon URL</a> is not set.)
 
   </p>
     <li>
-     <p>If <var>options</var>’s <code>sound</code> is present, <a data-link-type="dfn" href="https://url.spec.whatwg.org/#parse">parse</a> it
-  using <var>baseURL</var>, and if that does not return failure, set
-  <var>notification</var>’s <a data-link-type="dfn" href="#sound-url">sound URL</a> to the return value. (Otherwise
-  <a data-link-type="dfn" href="#sound-url">sound URL</a> is not set.)
+     <p>If <var>options</var>’s <code>sound</code> is present,
+  <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-parser">parse</a> it using <var>baseURL</var>, and if that does not
+  return failure, set <var>notification</var>’s <a data-link-type="dfn" href="#sound-url">sound URL</a> to the return
+  value. (Otherwise <a data-link-type="dfn" href="#sound-url">sound URL</a> is not set.)
 
   </p>
     <li>
      <p>If <var>options</var>’s <code>vibrate</code> is present,
-  <a data-link-type="dfn" href="https://url.spec.whatwg.org/#validate-and-normalize">validate and normalize</a> it and set <var>notification</var>’s
+  <a data-link-type="dfn" href="http://www.w3.org/TR/vibration/#dfn-validate-and-normalize">validate and normalize</a> it and set <var>notification</var>’s
   <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a> to the return value. (Otherwise
   <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a> is not set.)
 
@@ -334,7 +334,7 @@ zero or more <a data-link-type="dfn" href="#concept-notification">notifications<
 </p>
    <p>User agents should run the <a data-link-type="dfn" href="#close-steps">close steps</a> for a
 <a data-link-type="dfn" href="#non_persistent-notification">non-persistent notification</a> a couple of seconds after they have been
-<a data-link-type="dfn" href="#create-a-notification">created</a>.
+created.
 
 </p>
    <p>User agents should not display <a data-link-type="dfn" href="#non_persistent-notification">non-persistent notification</a> in a
@@ -360,7 +360,7 @@ removed from the <a data-link-type="dfn" href="#list-of-notifications">list of n
    <p><a data-link-type="dfn" href="#concept-notification">Notifications</a> can only be displayed if the
 user (or user agent on behalf of the user) has granted <dfn data-dfn-type="dfn" data-noexport="" id="permission">permission<a class="self-link" href="#permission"></a></dfn>.
 The <a data-link-type="dfn" href="#permission">permission</a> to show <a data-link-type="dfn" href="#concept-notification">notifications</a>
-for a given <a data-link-type="dfn" href="#origin">origin</a> is one of three strings:
+for a given <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> is one of three strings:
 
 </p>
    <dl>
@@ -442,9 +442,8 @@ primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LAN
   
   
     <li>
-     <p>If the notification platform supports icons,
-  <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetch</a> <var>notification</var>’s <a data-link-type="dfn" href="#icon-url">icon URL</a>,
-  if <a data-link-type="dfn" href="#icon-url">icon URL</a> is set.
+     <p>If the notification platform supports icons, <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetch</a>
+  <var>notification</var>’s <a data-link-type="dfn" href="#icon-url">icon URL</a>, if <a data-link-type="dfn" href="#icon-url">icon URL</a> is set.
 
   </p>
      <p>Then, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
@@ -457,10 +456,9 @@ primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LAN
 
     </p>
       <li>
-       <p>If the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>’s
-    <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-internal-response">internal response</a>’s
-    <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response-type">type</a> is <i>default</i>, attempt to decode
-    the resource as image.
+       <p>If the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-internal-response">internal response</a>’s
+    <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response-type">type</a> is <i>default</i>, attempt to decode the
+    resource as image.
 
     </p>
       <li>
@@ -473,9 +471,8 @@ primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LAN
 
   
     <li>
-     <p>If the notification platform supports sounds,
-  <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetch</a> <var>notification</var>’s <a data-link-type="dfn" href="#sound-url">sound URL</a>, if
-  <a data-link-type="dfn" href="#sound-url">sound URL</a> is set.
+     <p>If the notification platform supports sounds, <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetch</a>
+  <var>notification</var>’s <a data-link-type="dfn" href="#sound-url">sound URL</a>, if <a data-link-type="dfn" href="#sound-url">sound URL</a> is set.
 
   </p>
      <p>Then, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
@@ -488,10 +485,9 @@ primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LAN
 
     </p>
       <li>
-       <p>If the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>’s
-    <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-internal-response">internal response</a>’s
-    <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response-type">type</a> is <i>default</i>, attempt to decode
-    the resource as sound.
+       <p>If the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-internal-response">internal response</a>’s
+    <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response-type">type</a> is <i>default</i>, attempt to decode the
+    resource as sound.
     
 
     </p>
@@ -518,8 +514,9 @@ primary language is unknown. <a data-link-type="biblio" href="#biblio-lang">[LAN
     <li>
      <p>If there is a <a data-link-type="dfn" href="#concept-notification">notification</a> in the
   <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a> whose <a data-link-type="dfn" href="#tag">tag</a> is not the empty string and
-  equals <var>notification</var>’s <a data-link-type="dfn" href="#tag">tag</a>, and whose <a data-link-type="dfn" href="#origin">origin</a> is
-  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin">same origin</a> with <var>notification</var>’s <a data-link-type="dfn" href="#origin">origin</a>, run the
+  equals <var>notification</var>’s <a data-link-type="dfn" href="#tag">tag</a>, and whose
+  <a data-link-type="dfn" href="#concept-origin">origin</a> is <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin">same origin</a> with
+  <var>notification</var>’s <a data-link-type="dfn" href="#concept-origin">origin</a>, run the
   <a data-link-type="dfn" href="#replace-steps">replace steps</a> for that <a data-link-type="dfn" href="#concept-notification">notification</a>
   and <var>notification</var>, and then terminate these steps.
 
@@ -549,10 +546,10 @@ activation, the user agent must (unless otherwise specified) run these steps:
     
       <li>
        <p>Let <var>callback</var> be an algorithm that when invoked with a
-    <var>global</var>, fires a service worker notification event named
+    <var>global</var>, <a data-link-type="dfn" href="#fire-a-service-worker-notification-event-named-e">
+    fires a service worker notification event</a> named
     <code>notificationclick</code> given <var>notification</var> on
     <var>global</var>.
-    
 
     </p>
       <li>
@@ -571,9 +568,10 @@ activation, the user agent must (unless otherwise specified) run these steps:
      <ol>
     
       <li>
-       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#fire-an-event">Fire an event</a> named <code>click</code> with its <code>
-    <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#dom-event-cancelable">cancelable</a></code> attribute initialized to
-    true on the <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object representing <var>notification</var>.
+       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire">Fire an event</a> named <code>click</code>
+    with its <code> <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#dom-event-cancelable">cancelable</a></code> attribute
+    initialized to true on the <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object representing
+    <var>notification</var>.
 
     </p>
        <p class="note" role="note">User agents are encouraged to make <code>
@@ -582,9 +580,9 @@ activation, the user agent must (unless otherwise specified) run these steps:
 
     </p>
       <li>
-       <p>If the <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#event">event</a>’s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#canceled-flag">canceled flag</a> is unset, the user agent
-    should bring the <var>notification</var>’s related <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a>’s
-    viewport into focus.
+       <p>If the <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event">event</a>’s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#canceled-flag">canceled flag</a> is
+    unset, the user agent should bring the <var>notification</var>’s related
+    <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a>’s viewport into focus.
   </p>
      </ol>
      
@@ -742,7 +740,8 @@ enum <dfn class="idl-code" data-dfn-type="enum" data-export="" data-global-name=
 
 
    <p>A <a data-link-type="dfn" href="#non_persistent-notification">non-persistent notification</a> is represented one <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code>
-objects and can be created through <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code>'s constructor.
+objects and can be created through <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code>'s
+<a href="#dom-notification-notification">constructor</a>.
 
 </p>
    <p>A <a data-link-type="dfn" href="#persistent-notification">persistent notification</a> is represented by zero or more
@@ -799,9 +798,10 @@ these steps:
      <ol>
     
       <li>
-       <p>If <a data-link-type="dfn" href="#permission">permission</a> for <var>notification</var>’s <a data-link-type="dfn" href="#origin">origin</a>
-    is not "<code>granted</code>", <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#fire-an-event">fire an event</a>
-    named <code>error</code> on <var>n</var>, and terminate these substeps.
+       <p>If <a data-link-type="dfn" href="#permission">permission</a> for <var>notification</var>’s
+    <a data-link-type="dfn" href="#concept-origin">origin</a> is not "<code>granted</code>",
+    <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire">fire an event</a> named
+    <code>error</code> on <var>n</var>, and terminate these substeps.
 
     </p>
       <li>
@@ -826,7 +826,7 @@ these steps:
 
    <p>The static <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-permission"><code>permission</code><a class="self-link" href="#dom-notification-permission"></a></dfn>
 attribute’s getter must return <a data-link-type="dfn" href="#permission">permission</a> for
-<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="#origin">origin</a>.
+<a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
 
 </p>
    <p>The static <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="method" data-export="" data-lt="requestPermission()" id="dom-notification-requestpermission"><code>requestPermission(callback)
@@ -841,19 +841,19 @@ attribute’s getter must return <a data-link-type="dfn" href="#permission">perm
   </p>
     <li>
      <p>Let <var>permission</var> be <a data-link-type="dfn" href="#permission">permission</a> for
-  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="#origin">origin</a>.
+  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
 
   </p>
     <li>
      <p>If <var>permission</var> is "<code>default</code>", ask the user
   whether showing notifications for the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s
-  <a data-link-type="dfn" href="#origin">origin</a> is acceptable. If it is, set permission to
+  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> is acceptable. If it is, set permission to
   "<code>granted</code>", and "<code>denied</code>" otherwise.
 
   </p>
     <li>
      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">Queue a task</a> to set <a data-link-type="dfn" href="#permission">permission</a> for
-  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="#origin">origin</a> to <var>permission</var> and
+  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> to <var>permission</var> and
   invoke <var>callback</var> with <var>permission</var> as single argument if
   <var>callback</var> is given. If this throws an exception,
   <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#report-the-exception">report the exception</a>.
@@ -932,16 +932,16 @@ getter must return the <a data-link-type="dfn" href="#concept-notification">noti
 </p>
    <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-icon"><code>icon</code><a class="self-link" href="#dom-notification-icon"></a></dfn> attribute’s
 getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
-<a data-link-type="dfn" href="#icon-url">icon URL</a>, <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-serializer">serialized</a>, and the empty
-string if there is no <a data-link-type="dfn" href="#concept-notification">notification</a>’s
-<a data-link-type="dfn" href="#icon-url">icon URL</a> otherwise.
+<a data-link-type="dfn" href="#icon-url">icon URL</a>, <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-serializer">serialized</a>, and the empty string if
+there is no <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#icon-url">icon URL</a>
+otherwise.
 
 </p>
    <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-sound"><code>sound</code><a class="self-link" href="#dom-notification-sound"></a></dfn> attribute’s
 getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s
-<a data-link-type="dfn" href="#sound-url">sound URL</a>, <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-serializer">serialized</a>, and the empty
-string if there is no <a data-link-type="dfn" href="#concept-notification">notification</a>’s
-<a data-link-type="dfn" href="#sound-url">sound URL</a> otherwise.
+<a data-link-type="dfn" href="#sound-url">sound URL</a>, <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-serializer">serialized</a>, and the empty string if
+there is no <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#sound-url">sound URL</a>
+otherwise.
 
 </p>
    <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-renotify"><code>renotify</code><a class="self-link" href="#dom-notification-renotify"></a></dfn>
@@ -1101,8 +1101,8 @@ method, when invoked, must run these steps:
       <li>
        <p>Let <var>notifications</var> be a list of all
     <a data-link-type="dfn" href="#concept-notification">notifications</a> in the
-    <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a> whose <a data-link-type="dfn" href="#origin">origin</a> is the
-    <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="#origin">origin</a>, whose
+    <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a> whose <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> is the
+    <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>, whose
     <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a> is <span class="XXX">XXX</span>,
     and whose <a data-link-type="dfn" href="#tag">tag</a>, if <var>tag</var> is not the empty string, is
     <var>tag</var>.
@@ -1154,8 +1154,8 @@ these steps:
 
   </p>
     <li>
-     <p>If <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#context-object">context object</a>’s <a data-link-type="dfn" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#active-worker">active worker</a> is null, reject
-  <var>promise</var> with a <code>TypeError</code> exception.
+     <p>If <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#context-object">context object</a>’s <a data-link-type="dfn" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#dfn-active-worker">active worker</a>
+  is null, reject <var>promise</var> with a <code>TypeError</code> exception.
 
   </p>
     <li>
@@ -1170,9 +1170,10 @@ these steps:
      <ol>
     
       <li>
-       <p>If <a data-link-type="dfn" href="#permission">permission</a> for <var>notification</var>’s <a data-link-type="dfn" href="#origin">origin</a> is
-    not "<code>granted</code>", reject <var>promise</var> with a
-    <code>TypeError</code> exception, and terminate these substeps.
+       <p>If <a data-link-type="dfn" href="#permission">permission</a> for <var>notification</var>’s
+    <a data-link-type="dfn" href="#concept-origin">origin</a> is not "<code>granted</code>", reject
+    <var>promise</var> with a <code>TypeError</code> exception, and terminate
+    these substeps.
 
     </p>
       <li>
@@ -1199,8 +1200,9 @@ these steps:
 
 
    <p>To <dfn data-dfn-type="dfn" data-noexport="" id="fire-a-service-worker-notification-event-named-e">fire a service worker notification event named <var>e</var><a class="self-link" href="#fire-a-service-worker-notification-event-named-e"></a></dfn>
-given <var>notification</var>, <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire">fire an event named e
-</a> with an <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#event">event</a> using the <code class="idl"><a data-link-type="idl" href="#notificationevent">NotificationEvent</a></code> interface whose
+given <var>notification</var>,
+<a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire">fire an event named <i>e</i></a> with an
+<a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event">event</a> using the <code class="idl"><a data-link-type="idl" href="#notificationevent">NotificationEvent</a></code> interface whose
 <code class="idl"><a data-link-type="idl" href="#dom-notificationevent-notification">notification</a></code> attribute is initialized to a new
 <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object representing <var>notification</var>.
 
@@ -1315,6 +1317,7 @@ and not intended to be performant.)
    <li>concept direction, <a href="#concept-direction">2</a>
    <li>concept language, <a href="#concept-language">2</a>
    <li>concept notification, <a href="#concept-notification">2</a>
+   <li>concept origin, <a href="#concept-origin">2</a>
    <li>concept title, <a href="#concept-title">2</a>
    <li>create a notification, <a href="#create-a-notification">2</a>
    <li>data
@@ -1377,7 +1380,6 @@ and not intended to be performant.)
      <li>argument for Notification/Notification(title, options), <a href="#dom-notification-notificationtitle-options-options">3</a>
      <li>argument for ServiceWorkerRegistration/showNotification, <a href="#dom-serviceworkerregistration-shownotification-options">4</a>
     </ul>
-   <li>origin, <a href="#origin">2</a>
    <li>permission
     <ul>
      <li>definition of, <a href="#permission">2.2</a>
