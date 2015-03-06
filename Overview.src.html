@@ -801,16 +801,13 @@ could be achieved using the <code title=dom-Notification-close>close()</code> me
 
 <h2>Service worker API</h2>
 
-<pre class=idl>partial interface <span>Notification</span> {
-  [Exposed=ServiceWorker] static Promise&lt;sequence&lt;<span>Notification</span>>> <span title=dom-Notification-get>get</span>(optional <span>GetNotificationOptions</span> <var title>filter</var>);
-};
-
-dictionary <dfn>GetNotificationOptions</dfn> {
+<pre class=idl>dictionary <dfn>GetNotificationsOptions</dfn> {
   DOMString tag = "";
 };
 
 partial interface <span data-anolis-spec=sw>ServiceWorkerRegistration</span> {
   Promise&lt;void> <span title=dom-ServiceWorkerRegistration-showNotification>showNotification</span>(DOMString <var title>title</var>, optional <span>NotificationOptions</span> <var>options</var>);
+  Promise&lt;sequence&lt;<span>Notification</span>>> <span title=dom-ServiceWorkerRegistration-getNotifications>getNotifications</span>(optional <span>GetNotificationsOptions</span> <var title>filter</var>);
 };
 
 [<span data-anolis-spec=dom title=concept-event-constructor>Constructor</span>(DOMString <var>type</var>, optional <span>NotificationEventInit</span> <var>eventInitDict</var>),
@@ -826,50 +823,6 @@ dictionary <dfn>NotificationEventInit</dfn> : <span data-anolis-spec=sw>Extendab
 partial interface <span data-anolis-spec=sw>ServiceWorkerGlobalScope</span> {
   attribute <span data-anolis-spec=html>EventHandler</span> <span title=handler-ServiceWorkerGlobalScope-onnotificationclick>onnotificationclick</span>;
 };</pre>
-
-<p>The static
-<dfn title=dom-Notification-get><code>get(<var title>filter</var>)</code></dfn> method,
-when invoked, must run these steps:
-
-<ol>
- <li><p>Let <var title>promise</var> be a new promise.
-
- <li>
-  <p>Run these substeps <span data-anolis-spec=html>in parallel</span>:
-
-  <ol>
-   <li><p>Let <var title>tag</var> be <var title>filter</var>'s <code title>tag</code>.
-
-   <li><p>Let <var title>notifications</var> be a list of all
-   <span title=concept-notification>notifications</span> in the
-   <span>list of notifications</span> whose
-   <span title=concept-notification-origin>origin</span> is the
-   <span data-anolis-spec=html>entry settings object</span>'s
-   <span data-anolis-spec=html>origin</span>, whose
-   <span title=concept-notification-service-worker-registration>service worker registration</span> is
-   <a href="https://github.com/slightlyoff/ServiceWorker/issues/504" class=XXX>XXX</a>,
-   and whose <span>tag</span>, if <var title>tag</var> is not the empty string, is
-   <var title>tag</var>.
-
-   <li><p>Let <var title>objects</var> be an empty JavaScript array.
-
-   <li><p>For each <span title=concept-notification>notification</span> in
-   <var title>notifications</var>, in creation order, create a new
-   <code>Notification</code> object representing
-   <span title=concept-notification>notification</span> and push that object to
-   <var title>objects</var>.
-
-   <li><p>Resolve <var title>promise</var> with <var title>objects</var>.
-  </ol>
-
- <li><p>Return <var title>promise</var>.
-</ol>
-
-<p class=note>This method returns zero or more new <code>Notification</code> objects which
-might represent the same underlying <span title=concept-notification>notification</span>
-of <code>Notification</code> objects already in existence.
-
-<hr>
 
 <p>The
 <dfn title=dom-ServiceWorkerRegistration-showNotification><code>showNotification(<var title>title</var>, <var title>options</var>)</code></dfn>
@@ -908,6 +861,47 @@ method, when invoked, must return these steps:
 
  <li><p>Return <var title>promise</var>.
 </ol>
+
+<p>The
+<dfn title=dom-ServiceWorkerRegistration-getNotifications><code>getNotifications(<var title>filter</var>)</code></dfn>
+method, when invoked, must run these steps:
+
+<ol>
+ <li><p>Let <var title>promise</var> be a new promise.
+
+ <li>
+  <p>Run these substeps <span data-anolis-spec=html>in parallel</span>:
+
+  <ol>
+   <li><p>Let <var title>tag</var> be <var title>filter</var>'s <code title>tag</code>.
+
+   <li><p>Let <var title>notifications</var> be a list of all
+   <span title=concept-notification>notifications</span> in the
+   <span>list of notifications</span> whose
+   <span title=concept-notification-origin>origin</span> is the
+   <span data-anolis-spec=html>entry settings object</span>'s
+   <span data-anolis-spec=html>origin</span>, whose
+   <span title=concept-notification-service-worker-registration>service worker registration</span>
+   is the <span data-anolis-spec=dom>context object</span>, and whose <span>tag</span>, if
+   <var title>tag</var> is not the empty string, is <var title>tag</var>.
+
+   <li><p>Let <var title>objects</var> be an empty JavaScript array.
+
+   <li><p>For each <span title=concept-notification>notification</span> in
+   <var title>notifications</var>, in creation order, create a new
+   <code>Notification</code> object representing
+   <span title=concept-notification>notification</span> and push that object to
+   <var title>objects</var>.
+
+   <li><p>Resolve <var title>promise</var> with <var title>objects</var>.
+  </ol>
+
+ <li><p>Return <var title>promise</var>.
+</ol>
+
+<p class=note>This method returns zero or more new <code>Notification</code> objects which
+might represent the same underlying <span title=concept-notification>notification</span>
+of <code>Notification</code> objects already in existence.
 
 <hr>
 

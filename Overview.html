@@ -7,7 +7,7 @@
 
 <p><a class="logo" href="//whatwg.org/"><img height="100" src="//resources.whatwg.org/logo-notifications.svg" width="100" alt="WHATWG"></a></p>
 <h1>Notifications API</h1>
-<h2 class="no-num no-toc" id="living-standard-—-last-updated-27-february-2015">Living Standard — Last Updated 27 February 2015</h2>
+<h2 class="no-num no-toc" id="living-standard-—-last-updated-6-march-2015">Living Standard — Last Updated 6 March 2015</h2>
 
 <dl>
  <dt>Participate:</dt>
@@ -831,16 +831,13 @@ could be achieved using the <a href="#dom-notification-close"><code title="dom-N
 
 <h2 id="service-worker-api"><span class="secno">6 </span>Service worker API</h2>
 
-<pre class="idl">partial interface <a href="#notification">Notification</a> {
-  [Exposed=ServiceWorker] static Promise&lt;sequence&lt;<a href="#notification">Notification</a>&gt;&gt; <a title="dom-Notification-get" href="#dom-notification-get">get</a>(optional <a href="#getnotificationoptions">GetNotificationOptions</a> <var title="">filter</var>);
-};
-
-dictionary <dfn id="getnotificationoptions">GetNotificationOptions</dfn> {
+<pre class="idl">dictionary <dfn id="getnotificationsoptions">GetNotificationsOptions</dfn> {
   DOMString tag = "";
 };
 
 partial interface <a data-anolis-spec="sw" class="external" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-registration-interface">ServiceWorkerRegistration</a> {
   Promise&lt;void&gt; <a title="dom-ServiceWorkerRegistration-showNotification" href="#dom-serviceworkerregistration-shownotification">showNotification</a>(DOMString <var title="">title</var>, optional <a href="#notificationoptions">NotificationOptions</a> <var>options</var>);
+  Promise&lt;sequence&lt;<a href="#notification">Notification</a>&gt;&gt; <a title="dom-ServiceWorkerRegistration-getNotifications" href="#dom-serviceworkerregistration-getnotifications">getNotifications</a>(optional <a href="#getnotificationsoptions">GetNotificationsOptions</a> <var title="">filter</var>);
 };
 
 [<a title="concept-event-constructor" data-anolis-spec="dom" class="external" href="https://dom.spec.whatwg.org/#concept-event-constructor">Constructor</a>(DOMString <var>type</var>, optional <a href="#notificationeventinit">NotificationEventInit</a> <var>eventInitDict</var>),
@@ -856,50 +853,6 @@ dictionary <dfn id="notificationeventinit">NotificationEventInit</dfn> : <a data
 partial interface <a data-anolis-spec="sw" class="external" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#service-worker-global-scope-interface">ServiceWorkerGlobalScope</a> {
   attribute <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a title="handler-ServiceWorkerGlobalScope-onnotificationclick" href="#handler-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a>;
 };</pre>
-
-<p>The static
-<dfn title="dom-Notification-get" id="dom-notification-get"><code>get(<var title="">filter</var>)</code></dfn> method,
-when invoked, must run these steps:
-
-<ol>
- <li><p>Let <var title="">promise</var> be a new promise.
-
- <li>
-  <p>Run these substeps <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
-
-  <ol>
-   <li><p>Let <var title="">tag</var> be <var title="">filter</var>'s <code title="">tag</code>.
-
-   <li><p>Let <var title="">notifications</var> be a list of all
-   <a title="concept-notification" href="#concept-notification">notifications</a> in the
-   <a href="#list-of-notifications">list of notifications</a> whose
-   <a title="concept-notification-origin" href="#concept-notification-origin">origin</a> is the
-   <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
-   <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>, whose
-   <a title="concept-notification-service-worker-registration" href="#concept-notification-service-worker-registration">service worker registration</a> is
-   <a class="XXX" href="https://github.com/slightlyoff/ServiceWorker/issues/504">XXX</a>,
-   and whose <a href="#tag">tag</a>, if <var title="">tag</var> is not the empty string, is
-   <var title="">tag</var>.
-
-   <li><p>Let <var title="">objects</var> be an empty JavaScript array.
-
-   <li><p>For each <a title="concept-notification" href="#concept-notification">notification</a> in
-   <var title="">notifications</var>, in creation order, create a new
-   <a href="#notification"><code>Notification</code></a> object representing
-   <a title="concept-notification" href="#concept-notification">notification</a> and push that object to
-   <var title="">objects</var>.
-
-   <li><p>Resolve <var title="">promise</var> with <var title="">objects</var>.
-  </ol>
-
- <li><p>Return <var title="">promise</var>.
-</ol>
-
-<p class="note">This method returns zero or more new <a href="#notification"><code>Notification</code></a> objects which
-might represent the same underlying <a title="concept-notification" href="#concept-notification">notification</a>
-of <a href="#notification"><code>Notification</code></a> objects already in existence.
-
-<hr>
 
 <p>The
 <dfn title="dom-ServiceWorkerRegistration-showNotification" id="dom-serviceworkerregistration-shownotification"><code>showNotification(<var title="">title</var>, <var title="">options</var>)</code></dfn>
@@ -938,6 +891,47 @@ method, when invoked, must return these steps:
 
  <li><p>Return <var title="">promise</var>.
 </ol>
+
+<p>The
+<dfn title="dom-ServiceWorkerRegistration-getNotifications" id="dom-serviceworkerregistration-getnotifications"><code>getNotifications(<var title="">filter</var>)</code></dfn>
+method, when invoked, must run these steps:
+
+<ol>
+ <li><p>Let <var title="">promise</var> be a new promise.
+
+ <li>
+  <p>Run these substeps <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
+
+  <ol>
+   <li><p>Let <var title="">tag</var> be <var title="">filter</var>'s <code title="">tag</code>.
+
+   <li><p>Let <var title="">notifications</var> be a list of all
+   <a title="concept-notification" href="#concept-notification">notifications</a> in the
+   <a href="#list-of-notifications">list of notifications</a> whose
+   <a title="concept-notification-origin" href="#concept-notification-origin">origin</a> is the
+   <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>'s
+   <a data-anolis-spec="html" class="external" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>, whose
+   <a title="concept-notification-service-worker-registration" href="#concept-notification-service-worker-registration">service worker registration</a>
+   is the <a data-anolis-spec="dom" class="external" href="https://dom.spec.whatwg.org/#context-object">context object</a>, and whose <a href="#tag">tag</a>, if
+   <var title="">tag</var> is not the empty string, is <var title="">tag</var>.
+
+   <li><p>Let <var title="">objects</var> be an empty JavaScript array.
+
+   <li><p>For each <a title="concept-notification" href="#concept-notification">notification</a> in
+   <var title="">notifications</var>, in creation order, create a new
+   <a href="#notification"><code>Notification</code></a> object representing
+   <a title="concept-notification" href="#concept-notification">notification</a> and push that object to
+   <var title="">objects</var>.
+
+   <li><p>Resolve <var title="">promise</var> with <var title="">objects</var>.
+  </ol>
+
+ <li><p>Return <var title="">promise</var>.
+</ol>
+
+<p class="note">This method returns zero or more new <a href="#notification"><code>Notification</code></a> objects which
+might represent the same underlying <a title="concept-notification" href="#concept-notification">notification</a>
+of <a href="#notification"><code>Notification</code></a> objects already in existence.
 
 <hr>
 
