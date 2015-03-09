@@ -703,7 +703,7 @@ interface <dfn class="idl-code" data-dfn-type="interface" data-export="" data-gl
   readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/silent<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
   readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/noscreen<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-noscreen">noscreen</a>;
   readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/sticky<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-sticky">sticky</a>;
-  [SameObject] readonly attribute any<a class="idl-code" data-global-name="Notification<interface>/data<attribute>" data-link-type="attribute" data-readonly="" data-type="any " href="#dom-notification-data">data</a>;
+  [SameObject] readonly attribute any <a class="idl-code" data-global-name="Notification<interface>/data<attribute>" data-link-type="attribute" data-readonly="" data-type="any " href="#dom-notification-data">data</a>;
 
   void <a class="idl-code" data-global-name="Notification<interface>/close()<method>" data-link-type="method" href="#dom-notification-close">close</a>();
 };
@@ -720,7 +720,7 @@ dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" data-
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-global-name="NotificationOptions<dictionary>/silent<dict-member>" data-type="boolean " id="dom-notificationoptions-silent">silent<a class="self-link" href="#dom-notificationoptions-silent"></a></dfn> = false;
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-global-name="NotificationOptions<dictionary>/noscreen<dict-member>" data-type="boolean " id="dom-notificationoptions-noscreen">noscreen<a class="self-link" href="#dom-notificationoptions-noscreen"></a></dfn> = false;
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-global-name="NotificationOptions<dictionary>/sticky<dict-member>" data-type="boolean " id="dom-notificationoptions-sticky">sticky<a class="self-link" href="#dom-notificationoptions-sticky"></a></dfn> = false;
-  any<dfn class="idl-code" data-default="null" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-global-name="NotificationOptions<dictionary>/data<dict-member>" data-type="any " id="dom-notificationoptions-data">data<a class="self-link" href="#dom-notificationoptions-data"></a></dfn> = null;
+  any <dfn class="idl-code" data-default="null" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-global-name="NotificationOptions<dictionary>/data<dict-member>" data-type="any " id="dom-notificationoptions-data">data<a class="self-link" href="#dom-notificationoptions-data"></a></dfn> = null;
 };
 
 enum <dfn class="idl-code" data-dfn-type="enum" data-export="" data-global-name="" id="enumdef-notificationpermission">NotificationPermission<a class="self-link" href="#enumdef-notificationpermission"></a></dfn> {
@@ -1066,7 +1066,7 @@ interface <dfn class="idl-code" data-dfn-type="interface" data-export="" data-gl
 };
 
 dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" data-global-name="" id="dictdef-notificationeventinit">NotificationEventInit<a class="self-link" href="#dictdef-notificationeventinit"></a></dfn> : <a data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendableeventinit">ExtendableEventInit</a> {
-   <a data-link-type="idl-name" href="#notification">Notification</a> <dfn class="idl-code" data-dfn-for="NotificationEventInit" data-dfn-type="dict-member" data-export="" data-global-name="NotificationEventInit<dictionary>/notification<dict-member>" data-type="Notification " id="dom-notificationeventinit-notification">notification<a class="self-link" href="#dom-notificationeventinit-notification"></a></dfn>;
+  required <a data-link-type="idl-name" href="#notification">Notification</a> <dfn class="idl-code" data-dfn-for="NotificationEventInit" data-dfn-type="dict-member" data-export="" data-global-name="NotificationEventInit<dictionary>/notification<dict-member>" data-type="Notification " id="dom-notificationeventinit-notification">notification<a class="self-link" href="#dom-notificationeventinit-notification"></a></dfn>;
 };
 
 partial interface <a class="idl-code" data-link-type="interface" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a> {
@@ -1476,7 +1476,7 @@ interface <a data-global-name="" href="#notification">Notification</a> : <a data
   readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/silent<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
   readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/noscreen<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-noscreen">noscreen</a>;
   readonly attribute boolean <a class="idl-code" data-global-name="Notification<interface>/sticky<attribute>" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-sticky">sticky</a>;
-  [SameObject] readonly attribute any<a class="idl-code" data-global-name="Notification<interface>/data<attribute>" data-link-type="attribute" data-readonly="" data-type="any " href="#dom-notification-data">data</a>;
+  [SameObject] readonly attribute any <a class="idl-code" data-global-name="Notification<interface>/data<attribute>" data-link-type="attribute" data-readonly="" data-type="any " href="#dom-notification-data">data</a>;
 
   void <a class="idl-code" data-global-name="Notification<interface>/close()<method>" data-link-type="method" href="#dom-notification-close">close</a>();
 };
@@ -1493,7 +1493,7 @@ dictionary <a data-global-name="" href="#dictdef-notificationoptions">Notificati
   boolean <a data-default="false" data-global-name="NotificationOptions<dictionary>/silent<dict-member>" data-type="boolean " href="#dom-notificationoptions-silent">silent</a> = false;
   boolean <a data-default="false" data-global-name="NotificationOptions<dictionary>/noscreen<dict-member>" data-type="boolean " href="#dom-notificationoptions-noscreen">noscreen</a> = false;
   boolean <a data-default="false" data-global-name="NotificationOptions<dictionary>/sticky<dict-member>" data-type="boolean " href="#dom-notificationoptions-sticky">sticky</a> = false;
-  any<a data-default="null" data-global-name="NotificationOptions<dictionary>/data<dict-member>" data-type="any " href="#dom-notificationoptions-data">data</a> = null;
+  any <a data-default="null" data-global-name="NotificationOptions<dictionary>/data<dict-member>" data-type="any " href="#dom-notificationoptions-data">data</a> = null;
 };
 
 enum <a data-global-name="" href="#enumdef-notificationpermission">NotificationPermission</a> {
@@ -1526,7 +1526,7 @@ interface <a data-global-name="" href="#notificationevent">NotificationEvent</a>
 };
 
 dictionary <a data-global-name="" href="#dictdef-notificationeventinit">NotificationEventInit</a> : <a data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendableeventinit">ExtendableEventInit</a> {
-   <a data-link-type="idl-name" href="#notification">Notification</a> <a data-global-name="NotificationEventInit<dictionary>/notification<dict-member>" data-type="Notification " href="#dom-notificationeventinit-notification">notification</a>;
+  required <a data-link-type="idl-name" href="#notification">Notification</a> <a data-global-name="NotificationEventInit<dictionary>/notification<dict-member>" data-type="Notification " href="#dom-notificationeventinit-notification">notification</a>;
 };
 
 partial interface <a class="idl-code" data-link-type="interface" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a> {

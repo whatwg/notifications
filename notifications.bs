@@ -720,7 +720,7 @@ interface NotificationEvent : ExtendableEvent {
 };
 
 dictionary NotificationEventInit : ExtendableEventInit {
-  <!-- required --> Notification notification;
+  required Notification notification;
 };
 
 partial interface ServiceWorkerGlobalScope {
