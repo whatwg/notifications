@@ -30,7 +30,7 @@
    <h1 class="p-name no-ref" id="title">Notifications API</h1>
   
    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated
-    <time class="dt-updated" datetime="2015-03-03">3 March 2015</time></span></h2>
+    <time class="dt-updated" datetime="2015-03-09">9 March 2015</time></span></h2>
   
    <div data-fill-with="spec-metadata">
     <dl>
@@ -1050,16 +1050,13 @@ a similar result could be achieved using the <code class="idl"><a class="idl-cod
    <h2 class="heading settled" data-level="4" id="service-worker-api"><span class="secno">4. </span><span class="content">Service worker API</span><a class="self-link" href="#service-worker-api"></a></h2>
 
 
-   <pre class="idl">partial interface <a class="idl-code" data-link-type="interface" href="#notification">Notification</a> {
-  [Exposed=<a data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworker">ServiceWorker</a>] static Promise&lt;sequence&lt;<a data-link-type="idl-name" href="#notification">Notification</a>>> <a class="idl-code" data-global-name="Notification<interface>/get(filter)<method>/get()<method>" data-link-type="method" href="#dom-notification-get">get</a>(optional <a data-link-type="idl-name" href="#dictdef-getnotificationoptions">GetNotificationOptions</a> <dfn class="idl-code" data-dfn-for="Notification/get" data-dfn-type="argument" data-export="" data-global-name="Notification/get/filter<argument>" id="dom-notification-get-filter">filter<a class="self-link" href="#dom-notification-get-filter"></a></dfn>);
-};
-
-dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" data-global-name="" id="dictdef-getnotificationoptions">GetNotificationOptions<a class="self-link" href="#dictdef-getnotificationoptions"></a></dfn> {
+   <pre class="idl">dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" data-global-name="" id="dictdef-getnotificationoptions">GetNotificationOptions<a class="self-link" href="#dictdef-getnotificationoptions"></a></dfn> {
   DOMString <dfn class="idl-code" data-default="&quot;&quot;" data-dfn-for="GetNotificationOptions" data-dfn-type="dict-member" data-export="" data-global-name="GetNotificationOptions<dictionary>/tag<dict-member>" data-type="DOMString " id="dom-getnotificationoptions-tag">tag<a class="self-link" href="#dom-getnotificationoptions-tag"></a></dfn> = "";
 };
 
 partial interface <a class="idl-code" data-link-type="interface" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerregistration">ServiceWorkerRegistration</a> {
   Promise&lt;void> <dfn class="idl-code" data-dfn-for="ServiceWorkerRegistration" data-dfn-type="method" data-export="" data-global-name="ServiceWorkerRegistration<interface>/showNotification(title, options)<method>/showNotification(title)<method>" data-lt="showNotification(title, options)|showNotification(title)" id="dom-serviceworkerregistration-shownotificationtitle-options">showNotification<a class="self-link" href="#dom-serviceworkerregistration-shownotificationtitle-options"></a></dfn>(DOMString <dfn class="idl-code" data-dfn-for="ServiceWorkerRegistration/showNotification" data-dfn-type="argument" data-export="" data-global-name="ServiceWorkerRegistration/showNotification/title<argument>" id="dom-serviceworkerregistration-shownotification-title">title<a class="self-link" href="#dom-serviceworkerregistration-shownotification-title"></a></dfn>, optional <a data-link-type="idl-name" href="#dictdef-notificationoptions">NotificationOptions</a> <dfn class="idl-code" data-dfn-for="ServiceWorkerRegistration/showNotification" data-dfn-type="argument" data-export="" data-global-name="ServiceWorkerRegistration/showNotification/options<argument>" id="dom-serviceworkerregistration-shownotification-options">options<a class="self-link" href="#dom-serviceworkerregistration-shownotification-options"></a></dfn>);
+  Promise&lt;sequence&lt;<a data-link-type="idl-name" href="#notification">Notification</a>>> <a class="idl-code" data-global-name="ServiceWorkerRegistration<interface>/getNotifications(filter)<method>/getNotifications()<method>" data-link-type="method" href="#dom-serviceworkerregistration-getnotifications">getNotifications</a>(optional <a data-link-type="idl-name" href="#dictdef-getnotificationoptions">GetNotificationOptions</a> <dfn class="idl-code" data-dfn-for="ServiceWorkerRegistration/getNotifications" data-dfn-type="argument" data-export="" data-global-name="ServiceWorkerRegistration/getNotifications/filter<argument>" id="dom-serviceworkerregistration-getnotifications-filter">filter<a class="self-link" href="#dom-serviceworkerregistration-getnotifications-filter"></a></dfn>);
 };
 
 [<dfn class="idl-code" data-dfn-for="NotificationEvent" data-dfn-type="constructor" data-export="" data-global-name="NotificationEvent<interface>/NotificationEvent(type, eventInitDict)<constructor>" data-lt="NotificationEvent(type, eventInitDict)" id="dom-notificationevent-notificationeventtype-eventinitdict">Constructor<a class="self-link" href="#dom-notificationevent-notificationeventtype-eventinitdict"></a></dfn>(DOMString <dfn class="idl-code" data-dfn-for="NotificationEvent/NotificationEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" data-global-name="NotificationEvent<interface>/NotificationEvent(type, eventInitDict)<method>/type<argument>" id="dom-notificationevent-notificationeventtype-eventinitdict-type">type<a class="self-link" href="#dom-notificationevent-notificationeventtype-eventinitdict-type"></a></dfn>, optional <a data-link-type="idl-name" href="#dictdef-notificationeventinit">NotificationEventInit</a> <dfn class="idl-code" data-dfn-for="NotificationEvent/NotificationEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" data-global-name="NotificationEvent<interface>/NotificationEvent(type, eventInitDict)<method>/eventInitDict<argument>" id="dom-notificationevent-notificationeventtype-eventinitdict-eventinitdict">eventInitDict<a class="self-link" href="#dom-notificationevent-notificationeventtype-eventinitdict-eventinitdict"></a></dfn>),
@@ -1078,64 +1075,6 @@ partial interface <a class="idl-code" data-link-type="interface" href="https://s
 </pre>
 
 
-   <p>The static <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="method" data-export="" data-lt="get()" id="dom-notification-get"><code>get(filter)</code><a class="self-link" href="#dom-notification-get"></a></dfn>
-method, when invoked, must run these steps:
-
-</p>
-   <ol>
-  
-    <li>
-     <p>Let <var>promise</var> be a new promise.
-
-  </p>
-    <li>
-     <p>Run these substeps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
-
-  </p>
-     <ol>
-    
-      <li>
-       <p>Let <var>tag</var> be <var>filter</var>’s <code>tag</code>.
-
-    </p>
-      <li>
-       <p>Let <var>notifications</var> be a list of all
-    <a data-link-type="dfn" href="#concept-notification">notifications</a> in the
-    <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a> whose <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> is the
-    <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>, whose
-    <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a> is <span class="XXX">XXX</span>,
-    and whose <a data-link-type="dfn" href="#tag">tag</a>, if <var>tag</var> is not the empty string, is
-    <var>tag</var>.
-
-    </p>
-      <li>
-       <p>Let <var>objects</var> be an empty JavaScript array.
-
-    </p>
-      <li>
-       <p>For each <a data-link-type="dfn" href="#concept-notification">notification</a> in
-    <var>notifications</var>, in creation order, create a new <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code>
-    object representing <a data-link-type="dfn" href="#concept-notification">notification</a> and push
-    that object to <var>objects</var>.
-
-    </p>
-      <li>
-       <p>Resolve <var>promise</var> with <var>objects</var>.
-  </p>
-     </ol>
-     
-
-  
-    <li>
-     <p>Return <var>promise</var>.
-</p></ol>
-
-
-   <p class="note" role="note">This method returns zero or more new <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects
-which might represent the same underlying <a data-link-type="dfn" href="#concept-notification">
-notification</a> of <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects already in existence.
-
-</p>
    <p>The <dfn class="idl-code" data-dfn-for="ServiceWorkerRegistration" data-dfn-type="method" data-export="" data-lt="showNotification()" id="dom-serviceworkerregistration-shownotification"><code>
 showNotification(title, options)</code><a class="self-link" href="#dom-serviceworkerregistration-shownotification"></a></dfn> method, when invoked, must run
 these steps:
@@ -1196,6 +1135,64 @@ these steps:
 </p></ol>
 
 
+   <p>The <dfn class="idl-code" data-dfn-for="ServiceWorkerRegistration" data-dfn-type="method" data-export="" data-lt="getNotifications()" id="dom-serviceworkerregistration-getnotifications"><code>
+getNotifications(filter)</code><a class="self-link" href="#dom-serviceworkerregistration-getnotifications"></a></dfn> method, when invoked, must run these
+steps:
+
+</p>
+   <ol>
+  
+    <li>
+     <p>Let <var>promise</var> be a new promise.
+
+  </p>
+    <li>
+     <p>Run these substeps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
+
+  </p>
+     <ol>
+    
+      <li>
+       <p>Let <var>tag</var> be <var>filter</var>’s <code>tag</code>.
+
+    </p>
+      <li>
+       <p>Let <var>notifications</var> be a list of all
+    <a data-link-type="dfn" href="#concept-notification">notifications</a> in the
+    <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a> whose <a data-link-type="dfn" href="#concept-origin">origin</a> is the
+    <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>, whose
+    <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a> is the <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#context-object">context object</a>, and whose
+    <a data-link-type="dfn" href="#tag">tag</a>, if <var>tag</var> is not the empty string, is <var>tag</var>.
+
+    </p>
+      <li>
+       <p>Let <var>objects</var> be an empty JavaScript array.
+
+    </p>
+      <li>
+       <p>For each <a data-link-type="dfn" href="#concept-notification">notification</a> in
+    <var>notifications</var>, in creation order, create a new <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code>
+    object representing <a data-link-type="dfn" href="#concept-notification">notification</a> and push
+    that object to <var>objects</var>.
+
+    </p>
+      <li>
+       <p>Resolve <var>promise</var> with <var>objects</var>.
+  </p>
+     </ol>
+     
+
+  
+    <li>
+     <p>Return <var>promise</var>.
+</p></ol>
+
+
+   <p class="note" role="note">This method returns zero or more new <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects
+which might represent the same underlying <a data-link-type="dfn" href="#concept-notification">
+notification</a> of <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects already in existence.
+
+</p>
    <hr>
 
 
@@ -1334,10 +1331,10 @@ and not intended to be performant.)
    <li>display steps, <a href="#display-steps">2.9</a>
    <li>eventInitDict, <a href="#dom-notificationevent-notificationeventtype-eventinitdict-eventinitdict">4</a>
    <li>fetch steps, <a href="#fetch-steps">2.5</a>
-   <li>filter, <a href="#dom-notification-get-filter">4</a>
+   <li>filter, <a href="#dom-serviceworkerregistration-getnotifications-filter">4</a>
    <li>fire a service worker notification event named e, <a href="#fire-a-service-worker-notification-event-named-e">4</a>
-   <li>get(), <a href="#dom-notification-get">4</a>
    <li>GetNotificationOptions, <a href="#dictdef-getnotificationoptions">4</a>
+   <li>getNotifications(), <a href="#dom-serviceworkerregistration-getnotifications">4</a>
    <li>icon
     <ul>
      <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-icon">3</a>
@@ -1513,16 +1510,13 @@ enum <a data-global-name="" href="#enumdef-notificationdirection">NotificationDi
   "rtl"
 };
 
-partial interface <a class="idl-code" data-link-type="interface" href="#notification">Notification</a> {
-  [Exposed=<a data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworker">ServiceWorker</a>] static Promise&lt;sequence&lt;<a data-link-type="idl-name" href="#notification">Notification</a>>> <a class="idl-code" data-global-name="Notification<interface>/get(filter)<method>/get()<method>" data-link-type="method" href="#dom-notification-get">get</a>(optional <a data-link-type="idl-name" href="#dictdef-getnotificationoptions">GetNotificationOptions</a> <a data-global-name="Notification/get/filter<argument>" href="#dom-notification-get-filter">filter</a>);
-};
-
 dictionary <a data-global-name="" href="#dictdef-getnotificationoptions">GetNotificationOptions</a> {
   DOMString <a data-default="&quot;&quot;" data-global-name="GetNotificationOptions<dictionary>/tag<dict-member>" data-type="DOMString " href="#dom-getnotificationoptions-tag">tag</a> = "";
 };
 
 partial interface <a class="idl-code" data-link-type="interface" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerregistration">ServiceWorkerRegistration</a> {
   Promise&lt;void> <a data-global-name="ServiceWorkerRegistration<interface>/showNotification(title, options)<method>/showNotification(title)<method>" href="#dom-serviceworkerregistration-shownotificationtitle-options">showNotification</a>(DOMString <a data-global-name="ServiceWorkerRegistration/showNotification/title<argument>" href="#dom-serviceworkerregistration-shownotification-title">title</a>, optional <a data-link-type="idl-name" href="#dictdef-notificationoptions">NotificationOptions</a> <a data-global-name="ServiceWorkerRegistration/showNotification/options<argument>" href="#dom-serviceworkerregistration-shownotification-options">options</a>);
+  Promise&lt;sequence&lt;<a data-link-type="idl-name" href="#notification">Notification</a>>> <a class="idl-code" data-global-name="ServiceWorkerRegistration<interface>/getNotifications(filter)<method>/getNotifications()<method>" data-link-type="method" href="#dom-serviceworkerregistration-getnotifications">getNotifications</a>(optional <a data-link-type="idl-name" href="#dictdef-getnotificationoptions">GetNotificationOptions</a> <a data-global-name="ServiceWorkerRegistration/getNotifications/filter<argument>" href="#dom-serviceworkerregistration-getnotifications-filter">filter</a>);
 };
 
 [<a data-global-name="NotificationEvent<interface>/NotificationEvent(type, eventInitDict)<constructor>" href="#dom-notificationevent-notificationeventtype-eventinitdict">Constructor</a>(DOMString <a data-global-name="NotificationEvent<interface>/NotificationEvent(type, eventInitDict)<method>/type<argument>" href="#dom-notificationevent-notificationeventtype-eventinitdict-type">type</a>, optional <a data-link-type="idl-name" href="#dictdef-notificationeventinit">NotificationEventInit</a> <a data-global-name="NotificationEvent<interface>/NotificationEvent(type, eventInitDict)<method>/eventInitDict<argument>" href="#dom-notificationevent-notificationeventtype-eventinitdict-eventinitdict">eventInitDict</a>),

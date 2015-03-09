@@ -704,16 +704,13 @@ a similar result could be achieved using the {{close()!!method}} method.
 <h2 id=service-worker-api>Service worker API</h2>
 
 <pre class=idl>
-partial interface Notification {
-  [Exposed=ServiceWorker] static Promise&lt;sequence&lt;Notification>> get(optional GetNotificationOptions filter);
-};
-
 dictionary GetNotificationOptions {
   DOMString tag = "";
 };
 
 partial interface ServiceWorkerRegistration {
   Promise&lt;void> showNotification(DOMString title, optional NotificationOptions options);
+  Promise&lt;sequence&lt;Notification>> getNotifications(optional GetNotificationOptions filter);
 };
 
 [Constructor(DOMString type, optional NotificationEventInit eventInitDict),
@@ -730,42 +727,6 @@ partial interface ServiceWorkerGlobalScope {
   attribute EventHandler onnotificationclick;
 };
 </pre>
-
-<p>The static <dfn method dfn-for=Notification><code>get(filter)</code></dfn>
-method, when invoked, must run these steps:
-
-<ol>
-  <li><p>Let <var>promise</var> be a new promise.
-
-  <li><p>Run these substeps <a>in parallel</a>:
-
-  <ol>
-    <li><p>Let <var>tag</var> be <var>filter</var>'s <code>tag</code>.
-
-    <li><p>Let <var>notifications</var> be a list of all
-    <a lt="concept notification">notifications</a> in the
-    <a>list of notifications</a> whose <a>origin</a> is the
-    <a>entry settings object</a>'s <a>origin</a>, whose
-    <a>service worker registration</a> is <span class=XXX>XXX</span>,
-    and whose <a>tag</a>, if <var>tag</var> is not the empty string, is
-    <var>tag</var>.
-
-    <li><p>Let <var>objects</var> be an empty JavaScript array.
-
-    <li><p>For each <a lt="concept notification">notification</a> in
-    <var>notifications</var>, in creation order, create a new {{Notification}}
-    object representing <a lt="concept notification">notification</a> and push
-    that object to <var>objects</var>.
-
-    <li><p>Resolve <var>promise</var> with <var>objects</var>.
-  </ol>
-
-  <li><p>Return <var>promise</var>.
-</ol>
-
-<p class=note>This method returns zero or more new {{Notification}} objects
-which might represent the same underlying <a lt="concept notification">
-notification</a> of {{Notification}} objects already in existence.
 
 <p>The <dfn method dfn-for=ServiceWorkerRegistration><code>
 showNotification(title, options)</code></dfn> method, when invoked, must run
@@ -801,6 +762,42 @@ these steps:
 
   <li><p>Return <var>promise</var>.
 </ol>
+
+<p>The <dfn method dfn-for=ServiceWorkerRegistration><code>
+getNotifications(filter)</code></dfn> method, when invoked, must run these
+steps:
+
+<ol>
+  <li><p>Let <var>promise</var> be a new promise.
+
+  <li><p>Run these substeps <a>in parallel</a>:
+
+  <ol>
+    <li><p>Let <var>tag</var> be <var>filter</var>'s <code>tag</code>.
+
+    <li><p>Let <var>notifications</var> be a list of all
+    <a lt="concept notification">notifications</a> in the
+    <a>list of notifications</a> whose <a lt="concept origin">origin</a> is the
+    <a>entry settings object</a>'s <a>origin</a>, whose
+    <a>service worker registration</a> is the <a>context object</a>, and whose
+    <a>tag</a>, if <var>tag</var> is not the empty string, is <var>tag</var>.
+
+    <li><p>Let <var>objects</var> be an empty JavaScript array.
+
+    <li><p>For each <a lt="concept notification">notification</a> in
+    <var>notifications</var>, in creation order, create a new {{Notification}}
+    object representing <a lt="concept notification">notification</a> and push
+    that object to <var>objects</var>.
+
+    <li><p>Resolve <var>promise</var> with <var>objects</var>.
+  </ol>
+
+  <li><p>Return <var>promise</var>.
+</ol>
+
+<p class=note>This method returns zero or more new {{Notification}} objects
+which might represent the same underlying <a lt="concept notification">
+notification</a> of {{Notification}} objects already in existence.
 
 <hr>
 
