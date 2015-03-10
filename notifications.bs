@@ -7,10 +7,11 @@ Status: LS
 No Editor: true
 Abstract: This standard defines an API to display notifications to the end user, typically outside the top-level browsing context's viewport. It is designed to be compatible with existing notification systems, while remaining platform-independent.
 Logo: https://resources.whatwg.org/logo-notifications.svg
-!Version History: <a href="https://github.com/whatwg/notifications/commits">https://github.com/whatwg/notifications/commits</a> <a href="https://twitter.com/notifyapi">@notifyapi</a>
-!Participate: <a href="https://github.com/whatwg/notifications/issues/new">file a bug</a> (<a href="https://github.com/whatwg/notifications/issues">open bugs</a>)
+!Participate: <a href="https://github.com/whatwg/notifications/issues/new">file an issue</a> (<a href="https://github.com/whatwg/notifications/issues">open issues</a>)
 !Participate: <a href="https://whatwg.org/mailing-list">whatwg@whatwg.org</a> (<a href="https://whatwg.org/mailing-list#specs">archives</a>)
 !Participate: <a href="http://wiki.whatwg.org/wiki/IRC">IRC: #whatwg on Freenode</a>
+!Commits: <a href="https://github.com/whatwg/notifications/commits">https://github.com/whatwg/notifications/commits</a>
+!Commits: <a href="https://twitter.com/notifyapi">@notifyapi</a>
 Indent: 2
 </pre>
 
