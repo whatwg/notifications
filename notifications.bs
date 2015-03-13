@@ -9,7 +9,7 @@ Abstract: This standard defines an API to display notifications to the end user,
 Logo: https://resources.whatwg.org/logo-notifications.svg
 !Participate: <a href="https://github.com/whatwg/notifications/issues/new">File an issue</a> (<a href="https://github.com/whatwg/notifications/issues">open issues</a>)
 !Participate: <a href="https://whatwg.org/mailing-list">whatwg@whatwg.org</a> (<a href="https://whatwg.org/mailing-list#specs">archives</a>)
-!Participate: <a href="http://wiki.whatwg.org/wiki/IRC">IRC: #whatwg on Freenode</a>
+!Participate: <a href="https://wiki.whatwg.org/wiki/IRC">IRC: #whatwg on Freenode</a>
 !Commits: <a href="https://github.com/whatwg/notifications/commits">https://github.com/whatwg/notifications/commits</a>
 !Commits: <a href="https://twitter.com/notifyapi">@notifyapi</a>
 Indent: 2
@@ -883,7 +883,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 </script>
 
 <pre class="anchors">
-urlPrefix: http://heycam.github.io/webidl/#dfn-; type: dfn
+urlPrefix: https://heycam.github.io/webidl/#dfn-; type: dfn
   text: throw
 urlPrefix: https://html.spec.whatwg.org/multipage/
   urlPrefix: browsers.html; type: dfn
@@ -957,7 +957,7 @@ urlPrefix: http://www.w3.org/TR/vibration/
             "Cameron McCormack",
             "Jonas Sicking"
         ],
-        "href": "http://heycam.github.io/webidl/",
+        "href": "https://heycam.github.io/webidl/",
         "title": "Web IDL",
         "publisher": "W3C"
     },
@@ -975,7 +975,7 @@ urlPrefix: http://www.w3.org/TR/vibration/
             "Addison Phillips",
             "Mark Davis"
         ],
-        "href": "http://tools.ietf.org/html/bcp47",
+        "href": "https://tools.ietf.org/html/bcp47",
         "title": "Tags for Identifying Languages; Matching of Language Tags",
         "publisher": "IETF"
     }
