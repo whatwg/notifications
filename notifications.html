@@ -50,17 +50,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
    <h1 class="p-name no-ref" id="title">Notifications API</h1>
   
    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated
-    <time class="dt-updated" datetime="2015-03-10">10 March 2015</time></span></h2>
+    <time class="dt-updated" datetime="2015-03-13">13 March 2015</time></span></h2>
   
    <div data-fill-with="spec-metadata">
     <dl>
-     <dt>Participate:
-     <dd><span><a href="https://github.com/whatwg/notifications/issues/new">file a bug</a> (<a href="https://github.com/whatwg/notifications/issues">open bugs</a>)</span>
-     <dd><span><a href="https://whatwg.org/mailing-list">whatwg@whatwg.org</a> (<a href="https://whatwg.org/mailing-list#specs">archives</a>)</span>
-     <dd><span><a href="http://wiki.whatwg.org/wiki/IRC">IRC: #whatwg on Freenode</a></span>
      <dt>Commits:
      <dd><span><a href="https://github.com/whatwg/notifications/commits">https://github.com/whatwg/notifications/commits</a></span>
      <dd><span><a href="https://twitter.com/notifyapi">@notifyapi</a></span>
+     <dt>Participate:
+     <dd><span><a href="https://github.com/whatwg/notifications/issues/new">File an issue</a> (<a href="https://github.com/whatwg/notifications/issues">open issues</a>)</span>
+     <dd><span><a href="https://whatwg.org/mailing-list">whatwg@whatwg.org</a> (<a href="https://whatwg.org/mailing-list#specs">archives</a>)</span>
+     <dd><span><a href="http://wiki.whatwg.org/wiki/IRC">IRC: #whatwg on Freenode</a></span>
     </dl>
    </div>
   
@@ -1096,9 +1096,9 @@ partial interface <a class="idl-code" data-link-type="interface" href="https://s
 </pre>
 
 
-   <p>The <dfn class="idl-code" data-dfn-for="ServiceWorkerRegistration" data-dfn-type="method" data-export="" data-lt="showNotification()" id="dom-serviceworkerregistration-shownotification"><code>
-showNotification(title, options)</code><a class="self-link" href="#dom-serviceworkerregistration-shownotification"></a></dfn> method, when invoked, must run
-these steps:
+   <p>The
+<dfn class="idl-code" data-dfn-for="ServiceWorkerRegistration" data-dfn-type="method" data-export="" data-lt="showNotification()" id="dom-serviceworkerregistration-shownotification"><code>showNotification(title, options)</code><a class="self-link" href="#dom-serviceworkerregistration-shownotification"></a></dfn>
+method, when invoked, must run these steps:
 
 </p>
    <ol>
@@ -1110,12 +1110,14 @@ these steps:
     <li>
      <p>Let <var>notification</var> be the result of
   <a data-link-type="dfn" href="#create-a-notification">creating a notification</a> given
-  <var>title</var> and <var>options</var>. Rethrow any exceptions.
+  <var>title</var> and <var>options</var>. If this threw an exception, reject
+  <var>promise</var> with that exception and return <var>promise</var>.
 
   </p>
     <li>
      <p>If <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#context-object">context object</a>’s <a data-link-type="dfn" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#dfn-active-worker">active worker</a>
-  is null, reject <var>promise</var> with a <code>TypeError</code> exception.
+  is null, reject <var>promise</var> with a <code>TypeError</code> exception and return
+  <var>promise</var>.
 
   </p>
     <li>
@@ -1467,9 +1469,9 @@ and not intended to be performant.)
    <dt id="biblio-webidl"><a class="self-link" href="#biblio-webidl"></a>[WEBIDL]
    <dd>Cameron McCormack; Jonas Sicking. <a href="http://heycam.github.io/webidl/">Web IDL</a>. URL: <a href="http://heycam.github.io/webidl/">http://heycam.github.io/webidl/</a>
    <dt id="biblio-rfc2119"><a class="self-link" href="#biblio-rfc2119"></a>[RFC2119]
-   <dd>S. Bradner. <a href="http://www.ietf.org/rfc/rfc2119.txt">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="http://www.ietf.org/rfc/rfc2119.txt">http://www.ietf.org/rfc/rfc2119.txt</a>
+   <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
    <dt id="biblio-vibration"><a class="self-link" href="#biblio-vibration"></a>[VIBRATION]
-   <dd>Anssi Kostiainen. <a href="http://www.w3.org/TR/vibration/">Vibration API</a>. 9 September 2014. CR. URL: <a href="http://www.w3.org/TR/vibration/">http://www.w3.org/TR/vibration/</a></dl>
+   <dd>Anssi Kostiainen. <a href="http://www.w3.org/TR/vibration/">Vibration API</a>. 10 February 2015. REC. URL: <a href="http://www.w3.org/TR/vibration/">http://www.w3.org/TR/vibration/</a></dl>
   <h2 class="no-num heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
   <pre class="idl">[<a data-global-name="Notification<interface>/Notification(title, options)<constructor>" href="#dom-notification-notificationtitle-options">Constructor</a>(DOMString <a data-global-name="Notification<interface>/Notification(title, options)<method>/title<argument>" href="#dom-notification-notificationtitle-options-title">title</a>, optional <a data-link-type="idl-name" href="#dictdef-notificationoptions">NotificationOptions</a> <a data-global-name="Notification<interface>/Notification(title, options)<method>/options<argument>" href="#dom-notification-notificationtitle-options-options">options</a>),
  Exposed=(Window,Worker)]
