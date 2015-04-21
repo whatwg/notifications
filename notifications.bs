@@ -7,13 +7,14 @@ Status: LS
 No Editor: true
 Abstract: This standard defines an API to display notifications to the end user, typically outside the top-level browsing context's viewport. It is designed to be compatible with existing notification systems, while remaining platform-independent.
 Logo: https://resources.whatwg.org/logo-notifications.svg
-!Participate: <a href="https://github.com/whatwg/notifications/issues/new">File an issue</a> (<a href="https://github.com/whatwg/notifications/issues">open issues</a>)
-!Participate: <a href="https://whatwg.org/mailing-list">whatwg@whatwg.org</a> (<a href="https://whatwg.org/mailing-list#specs">archives</a>)
-!Participate: <a href="https://wiki.whatwg.org/wiki/IRC">IRC: #whatwg on Freenode</a>
-!Commits: <a href="https://github.com/whatwg/notifications/commits">https://github.com/whatwg/notifications/commits</a>
+!Participate: <a href=https://github.com/whatwg/notifications>GitHub whatwg/notifications</a> (<a href=https://github.com/whatwg/notifications/issues/new>new issue</a>, <a href=https://github.com/whatwg/notifications/issues>open issues</a>)
+!Participate: <a href=https://wiki.whatwg.org/wiki/IRC>IRC: #whatwg on Freenode</a>
+!Commits: <a href="https://github.com/whatwg/notifications/commits">GitHub whatwg/notifications/commits</a>
 !Commits: <a href="https://twitter.com/notifyapi">@notifyapi</a>
 Indent: 2
 </pre>
+
+<script src=https://resources.whatwg.org/file-issue.js async></script>
 
 <h2 id=terminology>Terminology</h2>
 
@@ -476,7 +477,7 @@ enum NotificationDirection {
 
 <p>A <a>non-persistent notification</a> is represented one {{Notification}}
 objects and can be created through {{Notification}}'s
-<a href="#dom-notification-notification">constructor</a>.
+<a constructor lt="Notification(title, options)">constructor</a>.
 
 <p>A <a>persistent notification</a> is represented by zero or more
 {{Notification}} objects can be created through the
@@ -736,6 +737,10 @@ method, when invoked, must run these steps:
 <ol>
   <li><p>Let <var>promise</var> be a new promise.
 
+  <li><p>If <a>context object</a>'s <a lt="dfn active worker">active worker</a>
+  is null, reject <var>promise</var> with a <code>TypeError</code> exception and return
+  <var>promise</var>.
+
   <li><p>Let <var>notification</var> be the result of
   <a lt="create a notification">creating a notification</a> given
   <var>title</var> and <var>options</var>. If this threw an exception, reject
@@ -963,3 +968,6 @@ urlPrefix: http://www.w3.org/TR/vibration/
     }
 }
 </pre>
+
+<script src=https://resources.whatwg.org/dfn.js></script>
+
