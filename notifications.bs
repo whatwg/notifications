@@ -741,10 +741,6 @@ method, when invoked, must run these steps:
   <var>title</var> and <var>options</var>. If this threw an exception, reject
   <var>promise</var> with that exception and return <var>promise</var>.
 
-  <li><p>If <a>context object</a>'s <a lt="dfn active worker">active worker</a>
-  is null, reject <var>promise</var> with a <code>TypeError</code> exception and return
-  <var>promise</var>.
-
   <li><p>Set <var>notification</var>'s <a>service worker registration</a> to the
   <a>context object</a>.
 
@@ -867,20 +863,6 @@ by John Gregg (<a href=//www.google.com/>Google</a>,
 <p>Per <a rel="license" href="//creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to
 the extent possible under law, the editors have waived all copyright and related or
 neighboring rights to this work.
-
-<script>
-document.addEventListener("DOMContentLoaded", function(event) {
-  // no backrefs for index
-  document.querySelector('.indexlist').classList.add('no-backref');
-
-  // as bikeshed relocates script elements, add the script element for dfn.js
-  // after document loads
-  var script = document.createElement('script');
-  script.setAttribute('id', 'head');
-  script.setAttribute('src', 'https://resources.whatwg.org/dfn.js');
-  document.body.appendChild(script);
-});
-</script>
 
 <pre class="anchors">
 urlPrefix: https://heycam.github.io/webidl/#dfn-; type: dfn
