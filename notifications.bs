@@ -535,6 +535,9 @@ these steps:
 attribute's getter must return <a>permission</a> for
 <a>entry settings object</a>'s <a>origin</a>.
 
+<p class=note>If you edit standards please refrain from copying the above. Synchronous
+permissions are like synchronous IO, a bad idea.
+
 <p>The static <dfn method dfn-for=Notification><code>requestPermission(callback)
 </code></dfn> method, when invoked, must run these steps:
 
@@ -546,7 +549,7 @@ attribute's getter must return <a>permission</a> for
 
   <li><p>If <var>permission</var> is "<code>default</code>", ask the user
   whether showing notifications for the <a>entry settings object</a>'s
-  <a>origin</a> is acceptable. If it is, set permission to
+  <a>origin</a> is acceptable. If it is, set <a>permission</a> to
   "<code>granted</code>", and "<code>denied</code>" otherwise.
 
   <li><p><a>Queue a task</a> to set <a>permission</a> for
