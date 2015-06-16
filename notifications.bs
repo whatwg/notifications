@@ -1,5 +1,5 @@
 <pre class="metadata">
-Title: Notifications API
+Title: Notifications API Standard
 Group: WHATWG
 H1: Notifications API
 Shortname: notifications
@@ -857,7 +857,8 @@ Michael Cooper,
 Michael Henretty,
 Olli Pettay,
 Peter Beverloo,
-Reuben Morais, and
+Reuben Morais,
+Rich Tibbett, and
 Simon Pieters
 for being awesome.
 
@@ -972,5 +973,4 @@ urlPrefix: http://www.w3.org/TR/vibration/
 }
 </pre>
 
-<script src=https://resources.whatwg.org/dfn.js></script>
-
+<script id=head src=https://resources.whatwg.org/dfn.js></script>
