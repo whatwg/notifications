@@ -31,7 +31,7 @@ HTML, IDL, URL and Vibration API Standards.
 <h2 id=notifications>Notifications</h2>
 
 <p>A <dfn lt="concept notification">notification</dfn> is an abstract
-representation of an occurrence, such as the delivery of a message.
+representation of something that happened, such as the delivery of a message.
 
 <p>A <a lt="concept notification">notification</a> has an associated
 <dfn lt="concept title">title</dfn> which is a DOMString.
@@ -79,9 +79,8 @@ associated <dfn>icon URL</dfn>, <dfn>icon resource</dfn>, <dfn>sound URL</dfn>,
 <dfn>sound resource</dfn>, <dfn>vibration pattern</dfn>, and
 <dfn>service worker registration</dfn>.
 
-<p class=note>Developers are encouraged to not convey information through an
-icon, sound, or vibration pattern that is not otherwise accessible to the end
-user.
+<p class=note>Developers are encouraged to not convey information through an icon, sound,
+or vibration pattern that is not otherwise accessible to the end user.
 
 <p>A <dfn>non-persistent notification</dfn> is a
 <a lt="concept notification">notification</a> without an associated
@@ -224,14 +223,15 @@ for the application to ask for <a>permission</a>.
 section of HTML. [[!HTML]]
 
 <!-- keep this in sync with
-     https://html.spec.whatwg.org/multipage/rendering.html#text-rendered-in-native-user-interfaces -->
+     https://html.spec.whatwg.org/multipage/rendering.html#text-rendered-in-native-user-interfaces
+     except spell "behaviour" as "behavior" -->
 
 <p>User agents are expected to honor the Unicode semantics of the text of a
 <a lt="concept notification">notification</a>'s
 <a lt="concept title">title</a> and <a>body</a>. Each is expected to be
 treated as an independent set of one or more bidirectional algorithm paragraphs
 when displayed, as defined by the bidirectional algorithm's rules P1, P2, and
-P3, including, for instance, supporting the paragraph-breaking behaviour of
+P3, including, for instance, supporting the paragraph-breaking behavior of
 U+000A LINE FEED (LF) characters. For each paragraph of the
 <a lt="concept title">title</a> and <a>body</a>, the
 <a lt="concept notification">notification</a>'s
@@ -384,7 +384,7 @@ must be run.
   to be set (if any).
 
   <li><p>Display <var>notification</var> on the device (e.g. by calling the
-  appropriate notification platform).
+  appropriate notification platform API).
 
   <p>At this point also play <var>notification</var>'s <a>sound resource</a>, if
   any, and run <a>perform vibration</a> using <var>notification</var>'s
@@ -858,8 +858,9 @@ Michael Henretty,
 Olli Pettay,
 Peter Beverloo,
 Reuben Morais,
-Rich Tibbett, and
-Simon Pieters
+Rich Tibbett,
+Simon Pieters, and
+timeless
 for being awesome.
 
 <p>This standard is written by
