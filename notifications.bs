@@ -121,10 +121,8 @@ or vibration pattern that is not otherwise accessible to the end user.
   <a lt="concept direction">direction</a> to <var>options</var>'s
   <code>dir</code>.
 
-  <li><p>If <var>options</var>'s <code>lang</code> is either a valid BCP 47
-  language tag or the empty string, set <var>notification</var>'s
-  <a lt="concept language">language</a> to <var>options</var>'s
-  <code>lang</code>, and set it to the empty string otherwise. [[!LANG]]
+  <li><p>Set <var>notification</var>'s <a lt="concept language">language</a> to
+  <var>options</var>'s <code>lang</code>.
 
   <li><p>Set <var>notification</var>'s <a lt="concept origin">origin</a> to the
   <a>entry settings object</a>'s <a>origin</a>.
@@ -248,9 +246,10 @@ of rules P2 and P3 if it has a value other than "<code>auto</code>". [[!BIDI]]
 <p>The <a lt="concept notification">notification</a>'s
 <a lt="concept language">language</a> specifies the primary language for the
 <a lt="concept notification">notification</a>'s
-<a lt="concept title">title</a> and <a>body</a>. Its value is a valid
-BCP 47 language tag, or the empty string. The empty string indicates that the
-primary language is unknown. [[!LANG]]
+<a lt="concept title">title</a> and <a>body</a>. Its value is a string. The empty string
+indicates that the primary language is unknown.
+
+<p class=note>Developers are encouraged to only use valid language tags. [[LANG]]
 
 
 <h3 id=resources>Resources</h3>
@@ -844,6 +843,7 @@ value it was initialized to.
 <h2 id=acknowledgments class=no-num>Acknowledgments</h2>
 
 <p>Thanks to
+Addison Phillips,
 Aharon (Vladimir) Lanin,
 Alex Russell,
 Arkadiusz Michalski,
@@ -861,6 +861,7 @@ Jon Lee,
 Jonas Sicking,
 Michael Cooper,
 Michael Henretty,
+Michael™ Smith,
 Olli Pettay,
 Peter Beverloo,
 Reuben Morais,
