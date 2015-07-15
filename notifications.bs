@@ -15,6 +15,7 @@ Indent: 2
 </pre>
 
 <script src=https://resources.whatwg.org/file-issue.js async></script>
+<script id=head src=https://resources.whatwg.org/dfn.js defer></script>
 
 <h2 id=terminology>Terminology</h2>
 
@@ -435,7 +436,7 @@ interface Notification : EventTarget {
   readonly attribute DOMString tag;
   readonly attribute USVString icon;
   readonly attribute USVString sound;
-  // vibrate not exposed for now; see bug 23682
+  readonly attribute FrozenArray&lt;unsigned long> vibrate;
   readonly attribute boolean renotify;
   readonly attribute boolean silent;
   readonly attribute boolean noscreen;
@@ -620,6 +621,11 @@ getter must return the <a lt="concept notification">notification</a>'s
 there is no <a lt="concept notification">notification</a>'s <a>sound URL</a>
 otherwise.
 
+<p>The <dfn attribute dfn-for=Notification><code>vibrate</code></dfn> attribute's getter
+must return the
+<a lt="concept notification">notification</a>'s <a>vibration pattern</a>, if any, and the
+empty list otherwise.
+
 <p>The <dfn attribute dfn-for=Notification><code>renotify</code></dfn>
 attribute's getter must return the
 <a lt="concept notification">notification</a>'s <a>renotify preference flag</a>.
@@ -770,9 +776,9 @@ method, when invoked, must run these steps:
   <li><p>Return <var>promise</var>.
 </ol>
 
-<p>The <dfn method dfn-for=ServiceWorkerRegistration><code>
-getNotifications(filter)</code></dfn> method, when invoked, must run these
-steps:
+<p>The
+<dfn method for=ServiceWorkerRegistration><code>getNotifications(<var>filter</var>)</code></dfn>
+method, when invoked, must run these steps:
 
 <ol>
   <li><p>Let <var>promise</var> be a new promise.
@@ -859,18 +865,19 @@ Olli Pettay,
 Peter Beverloo,
 Reuben Morais,
 Rich Tibbett,
+Sanghyun Park,
 Simon Pieters, and
 timeless
 for being awesome.
 
 <p>This standard is written by
-<a lang=nl href=//annevankesteren.nl/>Anne van Kesteren</a>
-(<a href=//www.mozilla.org/>Mozilla</a>,
+<a lang=nl href=https://annevankesteren.nl/>Anne van Kesteren</a>
+(<a href=https://www.mozilla.org/>Mozilla</a>,
 <a href=mailto:annevk@annevk.nl>annevk@annevk.nl</a>). An earlier iteration was written
-by John Gregg (<a href=//www.google.com/>Google</a>,
+by John Gregg (<a href=https://www.google.com/>Google</a>,
 <a href=mailto:johnnyg@google.com>johnnyg@google.com</a>).
 
-<p>Per <a rel="license" href="//creativecommons.org/publicdomain/zero/1.0/">CC0</a>, to
+<p>Per <a rel=license href=https://creativecommons.org/publicdomain/zero/1.0/>CC0</a>, to
 the extent possible under law, the editors have waived all copyright and related or
 neighboring rights to this work.
 
@@ -929,7 +936,7 @@ urlPrefix: http://www.w3.org/TR/vibration/
     text: perform vibration
     text: validate and normalize
   urlPrefix: #idl-def-; type: interface
-    text: VibratePattern
+    text: VibratePattern; url: VibratePattern
 </pre>
 
 <pre class="biblio">
@@ -973,5 +980,3 @@ urlPrefix: http://www.w3.org/TR/vibration/
     }
 }
 </pre>
-
-<script id=head src=https://resources.whatwg.org/dfn.js></script>
