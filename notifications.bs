@@ -866,7 +866,7 @@ Olli Pettay,
 Peter Beverloo,
 Reuben Morais,
 Rich Tibbett,
-Sanghyun Park,
+박상현 (Sanghyun Park),
 Simon Pieters, and
 timeless
 for being awesome.
