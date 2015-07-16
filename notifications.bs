@@ -247,9 +247,10 @@ of rules P2 and P3 if it has a value other than "<code>auto</code>". [[!BIDI]]
 <a lt="concept language">language</a> specifies the primary language for the
 <a lt="concept notification">notification</a>'s
 <a lt="concept title">title</a> and <a>body</a>. Its value is a string. The empty string
-indicates that the primary language is unknown.
+indicates that the primary language is unknown. Any other string must be interpreted as a
+language tag. Validity or well-formedness are not enforced. [[!LANG]]
 
-<p class=note>Developers are encouraged to only use valid language tags. [[LANG]]
+<p class=note>Developers are encouraged to only use valid language tags.
 
 
 <h3 id=resources>Resources</h3>
