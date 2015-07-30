@@ -401,19 +401,20 @@ must be run.
 <a lt="concept notification">notification</a> with a <var>new</var> one are:
 
 <ol>
-  <li><p>Wait for any <a lt="fetch">fetches</a> to complete and
-  <var>notification</var>'s <a>icon resource</a> and <a>sound resource</a> to be
-  set (if any).
+ <li><p>Wait for any <a lt="fetch">fetches</a> to complete and <var>notification</var>'s
+ <a>icon resource</a> and <a>sound resource</a> to be set (if any).
 
-  <li><p>Replace <var>old</var> with <var>new</var>, in the same position, in
-  the <a>list of notifications</a>.
+ <li>
+  <p>Replace <var>old</var> with <var>new</var>, in the same position, in the
+  <a>list of notifications</a>.
 
-  <p>If the notification platform does not support replacement this requirement
-  may be addressed by running the <a>close steps</a> for <var>old</var> and then
-  running the <a>display steps</a> for <var>new</var>.
+  <p>If the notification platform does not support replacement this requirement may be
+  addressed by running the <a>close steps</a> for <var>old</var> and then running the
+  <a>display steps</a> for <var>new</var>.
 
-  <p class="note">Notification platforms are strongly encouraged to support
-  native replacement. It is much nicer.
+  <p class="note">Notification platforms are strongly encouraged to support native
+  replacement. It is much nicer and has no side effects, such as playing sounds or
+  vibrating the device again.
 </ol>
 
 
@@ -884,6 +885,7 @@ Olli Pettay,
 Peter Beverloo,
 Reuben Morais,
 Rich Tibbett,
+Robert Bindar,
 박상현 (Sanghyun Park),
 Simon Pieters, and
 timeless

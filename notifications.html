@@ -661,25 +661,26 @@ must be run.
 
 </p>
    <ol>
+ 
+    <li>
+     <p>Wait for any <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> to complete and <var>notification</var>’s
+ <a data-link-type="dfn" href="#icon-resource">icon resource</a> and <a data-link-type="dfn" href="#sound-resource">sound resource</a> to be set (if any).
+
+ </p>
+    <li>
   
-    <li>
-     <p>Wait for any <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> to complete and
-  <var>notification</var>’s <a data-link-type="dfn" href="#icon-resource">icon resource</a> and <a data-link-type="dfn" href="#sound-resource">sound resource</a> to be
-  set (if any).
+     <p>Replace <var>old</var> with <var>new</var>, in the same position, in the
+  <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>.
 
   </p>
-    <li>
-     <p>Replace <var>old</var> with <var>new</var>, in the same position, in
-  the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>.
+     <p>If the notification platform does not support replacement this requirement may be
+  addressed by running the <a data-link-type="dfn" href="#close-steps">close steps</a> for <var>old</var> and then running the
+  <a data-link-type="dfn" href="#display-steps">display steps</a> for <var>new</var>.
 
   </p>
-     <p>If the notification platform does not support replacement this requirement
-  may be addressed by running the <a data-link-type="dfn" href="#close-steps">close steps</a> for <var>old</var> and then
-  running the <a data-link-type="dfn" href="#display-steps">display steps</a> for <var>new</var>.
-
-  </p>
-     <p class="note" role="note">Notification platforms are strongly encouraged to support
-  native replacement. It is much nicer.
+     <p class="note" role="note">Notification platforms are strongly encouraged to support native
+  replacement. It is much nicer and has no side effects, such as playing sounds or
+  vibrating the device again.
 </p></ol>
 
 
@@ -1312,6 +1313,7 @@ Olli Pettay,
 Peter Beverloo,
 Reuben Morais,
 Rich Tibbett,
+Robert Bindar,
 박상현 (Sanghyun Park),
 Simon Pieters, and
 timeless
