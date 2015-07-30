@@ -30,7 +30,7 @@
    <h1 class="p-name no-ref" id="title">Notifications API</h1>
   
    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated
-    <time class="dt-updated" datetime="2015-07-16">16 July 2015</time></span></h2>
+    <time class="dt-updated" datetime="2015-07-30">30 July 2015</time></span></h2>
   
    <div data-fill-with="spec-metadata">
     <dl>
@@ -691,7 +691,7 @@ must be run.
  Exposed=(Window,Worker)]
 interface <dfn class="idl-code" data-dfn-type="interface" data-export="" id="notification">Notification<a class="self-link" href="#notification"></a></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
   static readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="NotificationPermission " href="#dom-notification-permission">permission</a>;
-  [Exposed=Window] static void <a class="idl-code" data-link-type="method" href="#dom-notification-requestpermission">requestPermission</a>(optional <a data-link-type="idl-name" href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a> callback);
+  [Exposed=Window] static Promise&lt;<a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a>> <a class="idl-code" data-link-type="method" href="#dom-notification-requestpermission">requestPermission</a>(optional <a data-link-type="idl-name" href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a> <dfn class="idl-code" data-dfn-for="Notification/requestPermission(deprecatedCallback), Notification/requestPermission()" data-dfn-type="argument" data-export="" id="dom-notification-requestpermission-deprecatedcallback-deprecatedcallback">deprecatedCallback<a class="self-link" href="#dom-notification-requestpermission-deprecatedcallback-deprecatedcallback"></a></dfn>);
 
   attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-notification-onclick">onclick</a>;
   attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-notification-onerror">onerror</a>;
@@ -734,13 +734,13 @@ enum <dfn class="idl-code" data-dfn-type="enum" data-export="" id="enumdef-notif
   "granted"
 };
 
-callback <dfn class="idl-code" data-dfn-type="callback" data-export="" id="callbackdef-notificationpermissioncallback">NotificationPermissionCallback<a class="self-link" href="#callbackdef-notificationpermissioncallback"></a></dfn> = void (<a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <dfn class="idl-code" data-dfn-for="NotificationPermissionCallback" data-dfn-type="argument" data-export="" id="dom-notificationpermissioncallback-permission">permission<a class="self-link" href="#dom-notificationpermissioncallback-permission"></a></dfn>);
-
 enum <dfn class="idl-code" data-dfn-type="enum" data-export="" id="enumdef-notificationdirection">NotificationDirection<a class="self-link" href="#enumdef-notificationdirection"></a></dfn> {
   "auto",
   "ltr",
   "rtl"
 };
+
+callback <dfn class="idl-code" data-dfn-type="callback" data-export="" id="callbackdef-notificationpermissioncallback">NotificationPermissionCallback<a class="self-link" href="#callbackdef-notificationpermissioncallback"></a></dfn> = void (<a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <dfn class="idl-code" data-dfn-for="NotificationPermissionCallback" data-dfn-type="argument" data-export="" id="dom-notificationpermissioncallback-permission">permission<a class="self-link" href="#dom-notificationpermissioncallback-permission"></a></dfn>);
 </pre>
 
 
@@ -838,34 +838,67 @@ attribute’s getter must return <a data-link-type="dfn" href="#permission">perm
 permissions are like synchronous IO, a bad idea.
 
 </p>
-   <p>The static <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="method" data-export="" data-lt="requestPermission(callback)|requestPermission()" id="dom-notification-requestpermission"><code>requestPermission(callback)
-</code><a class="self-link" href="#dom-notification-requestpermission"></a></dfn> method, when invoked, must run these steps:
+   <p>The static
+<dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="method" data-export="" data-lt="requestPermission(deprecatedCallback)|requestPermission()" id="dom-notification-requestpermission"><code>requestPermission(<var>deprecatedCallback</var>)</code><a class="self-link" href="#dom-notification-requestpermission"></a></dfn>
+method, when invoked, must run these steps:
 
 </p>
    <ol>
+ 
+    <li>
+     <p>Let <var>promise</var> be a new promise.
+
+ </p>
+    <li>
   
-    <li>
-     <p>Return, but continue running these steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>.
+     <p>Run these substeps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:
 
   </p>
-    <li>
-     <p>Let <var>permission</var> be <a data-link-type="dfn" href="#permission">permission</a> for
-  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
+     <ol>
+   
+      <li>
+       <p>Let <var>permission</var> be <a data-link-type="dfn" href="#permission">permission</a> for
+   <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a>.
+   
 
-  </p>
-    <li>
-     <p>If <var>permission</var> is "<code>default</code>", ask the user
-  whether showing notifications for the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s
-  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> is acceptable. If it is, set <a data-link-type="dfn" href="#permission">permission</a> to
-  "<code>granted</code>", and "<code>denied</code>" otherwise.
+   </p>
+      <li>
+       <p>If <var>permission</var> is "<code>default</code>", ask the user whether showing
+   notifications for the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> is acceptable. If it
+   is, set <var>permission</var> to "<code>granted</code>", and "<code>denied</code>"
+   otherwise.
 
-  </p>
+   </p>
+      <li>
+    
+       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">Queue a task</a> to run these subsubsteps:
+
+    </p>
+       <ol>
+     
+        <li>
+         <p>Set <a data-link-type="dfn" href="#permission">permission</a> for <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> to
+     <var>permission</var>.
+
+     </p>
+        <li>
+         <p>If <var>deprecatedCallback</var> is given, invoke
+     <var>deprecatedCallback</var> with <var>permission</var> as single argument. If this
+     throws an exception, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#report-the-exception">report the exception</a>.
+
+     </p>
+        <li>
+         <p>Fullfil <var>promise</var> with <var>permission</var>.
+    </p>
+       </ol>
+       
+  
+     </ol>
+     
+
+ 
     <li>
-     <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">Queue a task</a> to set <a data-link-type="dfn" href="#permission">permission</a> for
-  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#origin">origin</a> to <var>permission</var> and
-  invoke <var>callback</var> with <var>permission</var> as single argument if
-  <var>callback</var> is given. If this throws an exception,
-  <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#report-the-exception">report the exception</a>.
+     <p>Return <var>promise</var>.
 </p></ol>
 
 
@@ -1324,138 +1357,139 @@ neighboring rights to this work.
   <ul class="indexlist">
    <li>body
     <ul>
-     <li>definition of, <a href="#body">2</a>
-     <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-body">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-body">3.4</a>
+     <li><a href="#body">definition of</a><span>, in §2</span>
+     <li><a href="#dom-notificationoptions-body">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notification-body">attribute for Notification</a><span>, in §3.4</span>
     </ul>
-   <li>close(), <a href="#dom-notification-close">3.4</a>
-   <li>close steps, <a href="#close-steps">2.8</a>
-   <li>concept direction, <a href="#concept-direction">2</a>
-   <li>concept language, <a href="#concept-language">2</a>
-   <li>concept notification, <a href="#concept-notification">2</a>
-   <li>concept origin, <a href="#concept-origin">2</a>
-   <li>concept title, <a href="#concept-title">2</a>
-   <li>create a notification, <a href="#create-a-notification">2</a>
+   <li><a href="#dom-notification-close">close()</a><span>, in §3.4</span>
+   <li><a href="#close-steps">close steps</a><span>, in §2.8</span>
+   <li><a href="#concept-direction">concept direction</a><span>, in §2</span>
+   <li><a href="#concept-language">concept language</a><span>, in §2</span>
+   <li><a href="#concept-notification">concept notification</a><span>, in §2</span>
+   <li><a href="#concept-origin">concept origin</a><span>, in §2</span>
+   <li><a href="#concept-title">concept title</a><span>, in §2</span>
+   <li><a href="#create-a-notification">create a notification</a><span>, in §2</span>
    <li>data
     <ul>
-     <li>definition of, <a href="#data">2</a>
-     <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-data">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-data">3.4</a>
+     <li><a href="#data">definition of</a><span>, in §2</span>
+     <li><a href="#dom-notificationoptions-data">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notification-data">attribute for Notification</a><span>, in §3.4</span>
     </ul>
+   <li><a href="#dom-notification-requestpermission-deprecatedcallback-deprecatedcallback">deprecatedCallback</a><span>, in §3</span>
    <li>dir
     <ul>
-     <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-dir">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-dir">3.4</a>
+     <li><a href="#dom-notificationoptions-dir">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notification-dir">attribute for Notification</a><span>, in §3.4</span>
     </ul>
-   <li>display steps, <a href="#display-steps">2.9</a>
-   <li>eventInitDict, <a href="#dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict">4</a>
-   <li>fetch steps, <a href="#fetch-steps">2.5</a>
-   <li>filter, <a href="#dom-serviceworkerregistration-getnotifications-filter-filter">4</a>
-   <li>fire a service worker notification event named e, <a href="#fire-a-service-worker-notification-event-named-e">4</a>
-   <li>GetNotificationOptions, <a href="#dictdef-getnotificationoptions">4</a>
-   <li>getNotifications(), <a href="#dom-serviceworkerregistration-getnotifications">4</a>
-   <li>getNotifications(filter), <a href="#dom-serviceworkerregistration-getnotifications">4</a>
+   <li><a href="#display-steps">display steps</a><span>, in §2.9</span>
+   <li><a href="#dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict">eventInitDict</a><span>, in §4</span>
+   <li><a href="#fetch-steps">fetch steps</a><span>, in §2.5</span>
+   <li><a href="#dom-serviceworkerregistration-getnotifications-filter-filter">filter</a><span>, in §4</span>
+   <li><a href="#fire-a-service-worker-notification-event-named-e">fire a service worker notification event named e</a><span>, in §4</span>
+   <li><a href="#dictdef-getnotificationoptions">GetNotificationOptions</a><span>, in §4</span>
+   <li><a href="#dom-serviceworkerregistration-getnotifications">getNotifications()</a><span>, in §4</span>
+   <li><a href="#dom-serviceworkerregistration-getnotifications">getNotifications(filter)</a><span>, in §4</span>
    <li>icon
     <ul>
-     <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-icon">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-icon">3.4</a>
+     <li><a href="#dom-notificationoptions-icon">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notification-icon">attribute for Notification</a><span>, in §3.4</span>
     </ul>
-   <li>icon resource, <a href="#icon-resource">2</a>
-   <li>icon URL, <a href="#icon-url">2</a>
+   <li><a href="#icon-resource">icon resource</a><span>, in §2</span>
+   <li><a href="#icon-url">icon URL</a><span>, in §2</span>
    <li>lang
     <ul>
-     <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-lang">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-lang">3.4</a>
+     <li><a href="#dom-notificationoptions-lang">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notification-lang">attribute for Notification</a><span>, in §3.4</span>
     </ul>
-   <li>list of notifications, <a href="#list-of-notifications">2.1</a>
-   <li>non-persistent notification, <a href="#non_persistent-notification">2</a>
+   <li><a href="#list-of-notifications">list of notifications</a><span>, in §2.1</span>
+   <li><a href="#non_persistent-notification">non-persistent notification</a><span>, in §2</span>
    <li>noscreen
     <ul>
-     <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-noscreen">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-noscreen">3.4</a>
+     <li><a href="#dom-notificationoptions-noscreen">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notification-noscreen">attribute for Notification</a><span>, in §3.4</span>
     </ul>
-   <li>Notification, <a href="#notification">3</a>
+   <li><a href="#notification">Notification</a><span>, in §3</span>
    <li>notification
     <ul>
-     <li>attribute for NotificationEvent, <a href="#dom-notificationevent-notification">4</a>
-     <li>dict-member for NotificationEventInit, <a href="#dom-notificationeventinit-notification">4</a>
+     <li><a href="#dom-notificationevent-notification">attribute for NotificationEvent</a><span>, in §4</span>
+     <li><a href="#dom-notificationeventinit-notification">dict-member for NotificationEventInit</a><span>, in §4</span>
     </ul>
-   <li>NotificationDirection, <a href="#enumdef-notificationdirection">3</a>
-   <li>NotificationEvent, <a href="#notificationevent">4</a>
-   <li>NotificationEventInit, <a href="#dictdef-notificationeventinit">4</a>
-   <li>NotificationEvent(type, eventInitDict), <a href="#dom-notificationevent-notificationevent">4</a>
-   <li>NotificationOptions, <a href="#dictdef-notificationoptions">3</a>
-   <li>NotificationPermission, <a href="#enumdef-notificationpermission">3</a>
-   <li>NotificationPermissionCallback, <a href="#callbackdef-notificationpermissioncallback">3</a>
-   <li>Notification(title, options), <a href="#dom-notification-notification">3.2</a>
-   <li>onclick, <a href="#dom-notification-onclick">3.4</a>
-   <li>onerror, <a href="#dom-notification-onerror">3.4</a>
-   <li>onnotificationclick, <a href="#dom-serviceworkerglobalscope-onnotificationclick">4</a>
+   <li><a href="#enumdef-notificationdirection">NotificationDirection</a><span>, in §3</span>
+   <li><a href="#notificationevent">NotificationEvent</a><span>, in §4</span>
+   <li><a href="#dictdef-notificationeventinit">NotificationEventInit</a><span>, in §4</span>
+   <li><a href="#dom-notificationevent-notificationevent">NotificationEvent(type, eventInitDict)</a><span>, in §4</span>
+   <li><a href="#dictdef-notificationoptions">NotificationOptions</a><span>, in §3</span>
+   <li><a href="#enumdef-notificationpermission">NotificationPermission</a><span>, in §3</span>
+   <li><a href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a><span>, in §3</span>
+   <li><a href="#dom-notification-notification">Notification(title, options)</a><span>, in §3.2</span>
+   <li><a href="#dom-notification-onclick">onclick</a><span>, in §3.4</span>
+   <li><a href="#dom-notification-onerror">onerror</a><span>, in §3.4</span>
+   <li><a href="#dom-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a><span>, in §4</span>
    <li>options
     <ul>
-     <li>argument for Notification/Notification(title, options), <a href="#dom-notification-notification-title-options-options">3</a>
-     <li>argument for ServiceWorkerRegistration/showNotification(title, options), ServiceWorkerRegistration/showNotification(title), <a href="#dom-serviceworkerregistration-shownotification-title-options-options">4</a>
+     <li><a href="#dom-notification-notification-title-options-options">argument for Notification/Notification(title, options)</a><span>, in §3</span>
+     <li><a href="#dom-serviceworkerregistration-shownotification-title-options-options">argument for ServiceWorkerRegistration/showNotification(title, options), ServiceWorkerRegistration/showNotification(title)</a><span>, in §4</span>
     </ul>
    <li>permission
     <ul>
-     <li>definition of, <a href="#permission">2.2</a>
-     <li>argument for NotificationPermissionCallback, <a href="#dom-notificationpermissioncallback-permission">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-permission">3.3</a>
+     <li><a href="#permission">definition of</a><span>, in §2.2</span>
+     <li><a href="#dom-notificationpermissioncallback-permission">argument for NotificationPermissionCallback</a><span>, in §3</span>
+     <li><a href="#dom-notification-permission">attribute for Notification</a><span>, in §3.3</span>
     </ul>
-   <li>persistent notification, <a href="#persistent-notification">2</a>
+   <li><a href="#persistent-notification">persistent notification</a><span>, in §2</span>
    <li>renotify
     <ul>
-     <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-renotify">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-renotify">3.4</a>
+     <li><a href="#dom-notificationoptions-renotify">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notification-renotify">attribute for Notification</a><span>, in §3.4</span>
     </ul>
-   <li>renotify preference flag, <a href="#renotify-preference-flag">2</a>
-   <li>replace steps, <a href="#replace-steps">2.10</a>
-   <li>requestPermission(), <a href="#dom-notification-requestpermission">3.3</a>
-   <li>requestPermission(callback), <a href="#dom-notification-requestpermission">3.3</a>
-   <li>screen off preference flag, <a href="#screen-off-preference-flag">2</a>
-   <li>service worker registration, <a href="#service-worker-registration">2</a>
-   <li>showNotification(title), <a href="#dom-serviceworkerregistration-shownotification">4</a>
-   <li>showNotification(title, options), <a href="#dom-serviceworkerregistration-shownotification">4</a>
-   <li>show steps, <a href="#show-steps">2.6</a>
+   <li><a href="#renotify-preference-flag">renotify preference flag</a><span>, in §2</span>
+   <li><a href="#replace-steps">replace steps</a><span>, in §2.10</span>
+   <li><a href="#dom-notification-requestpermission">requestPermission()</a><span>, in §3.3</span>
+   <li><a href="#dom-notification-requestpermission">requestPermission(deprecatedCallback)</a><span>, in §3.3</span>
+   <li><a href="#screen-off-preference-flag">screen off preference flag</a><span>, in §2</span>
+   <li><a href="#service-worker-registration">service worker registration</a><span>, in §2</span>
+   <li><a href="#dom-serviceworkerregistration-shownotification">showNotification(title)</a><span>, in §4</span>
+   <li><a href="#dom-serviceworkerregistration-shownotification">showNotification(title, options)</a><span>, in §4</span>
+   <li><a href="#show-steps">show steps</a><span>, in §2.6</span>
    <li>silent
     <ul>
-     <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-silent">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-silent">3.4</a>
+     <li><a href="#dom-notificationoptions-silent">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notification-silent">attribute for Notification</a><span>, in §3.4</span>
     </ul>
-   <li>silent preference flag, <a href="#silent-preference-flag">2</a>
+   <li><a href="#silent-preference-flag">silent preference flag</a><span>, in §2</span>
    <li>sound
     <ul>
-     <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-sound">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-sound">3.4</a>
+     <li><a href="#dom-notificationoptions-sound">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notification-sound">attribute for Notification</a><span>, in §3.4</span>
     </ul>
-   <li>sound resource, <a href="#sound-resource">2</a>
-   <li>sound URL, <a href="#sound-url">2</a>
+   <li><a href="#sound-resource">sound resource</a><span>, in §2</span>
+   <li><a href="#sound-url">sound URL</a><span>, in §2</span>
    <li>sticky
     <ul>
-     <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-sticky">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-sticky">3.4</a>
+     <li><a href="#dom-notificationoptions-sticky">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notification-sticky">attribute for Notification</a><span>, in §3.4</span>
     </ul>
-   <li>sticky preference flag, <a href="#sticky-preference-flag">2</a>
+   <li><a href="#sticky-preference-flag">sticky preference flag</a><span>, in §2</span>
    <li>tag
     <ul>
-     <li>definition of, <a href="#tag">2</a>
-     <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-tag">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-tag">3.4</a>
-     <li>dict-member for GetNotificationOptions, <a href="#dom-getnotificationoptions-tag">4</a>
+     <li><a href="#tag">definition of</a><span>, in §2</span>
+     <li><a href="#dom-notificationoptions-tag">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notification-tag">attribute for Notification</a><span>, in §3.4</span>
+     <li><a href="#dom-getnotificationoptions-tag">dict-member for GetNotificationOptions</a><span>, in §4</span>
     </ul>
    <li>title
     <ul>
-     <li>argument for Notification/Notification(title, options), <a href="#dom-notification-notification-title-options-title">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-title">3.4</a>
-     <li>argument for ServiceWorkerRegistration/showNotification(title, options), ServiceWorkerRegistration/showNotification(title), <a href="#dom-serviceworkerregistration-shownotification-title-options-title">4</a>
+     <li><a href="#dom-notification-notification-title-options-title">argument for Notification/Notification(title, options)</a><span>, in §3</span>
+     <li><a href="#dom-notification-title">attribute for Notification</a><span>, in §3.4</span>
+     <li><a href="#dom-serviceworkerregistration-shownotification-title-options-title">argument for ServiceWorkerRegistration/showNotification(title, options), ServiceWorkerRegistration/showNotification(title)</a><span>, in §4</span>
     </ul>
-   <li>type, <a href="#dom-notificationevent-notificationevent-type-eventinitdict-type">4</a>
+   <li><a href="#dom-notificationevent-notificationevent-type-eventinitdict-type">type</a><span>, in §4</span>
    <li>vibrate
     <ul>
-     <li>dict-member for NotificationOptions, <a href="#dom-notificationoptions-vibrate">3</a>
-     <li>attribute for Notification, <a href="#dom-notification-vibrate">3.4</a>
+     <li><a href="#dom-notificationoptions-vibrate">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notification-vibrate">attribute for Notification</a><span>, in §3.4</span>
     </ul>
-   <li>vibration pattern, <a href="#vibration-pattern">2</a></ul>
+   <li><a href="#vibration-pattern">vibration pattern</a><span>, in §2</span></ul>
   <h2 class="no-num heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
@@ -1482,7 +1516,7 @@ neighboring rights to this work.
  Exposed=(Window,Worker)]
 interface <a href="#notification">Notification</a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
   static readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="NotificationPermission " href="#dom-notification-permission">permission</a>;
-  [Exposed=Window] static void <a class="idl-code" data-link-type="method" href="#dom-notification-requestpermission">requestPermission</a>(optional <a data-link-type="idl-name" href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a> callback);
+  [Exposed=Window] static Promise&lt;<a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a>> <a class="idl-code" data-link-type="method" href="#dom-notification-requestpermission">requestPermission</a>(optional <a data-link-type="idl-name" href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a> <a href="#dom-notification-requestpermission-deprecatedcallback-deprecatedcallback">deprecatedCallback</a>);
 
   attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-notification-onclick">onclick</a>;
   attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-notification-onerror">onerror</a>;
@@ -1525,13 +1559,13 @@ enum <a href="#enumdef-notificationpermission">NotificationPermission</a> {
   "granted"
 };
 
-callback <a href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a> = void (<a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <a href="#dom-notificationpermissioncallback-permission">permission</a>);
-
 enum <a href="#enumdef-notificationdirection">NotificationDirection</a> {
   "auto",
   "ltr",
   "rtl"
 };
+
+callback <a href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a> = void (<a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <a href="#dom-notificationpermissioncallback-permission">permission</a>);
 
 dictionary <a href="#dictdef-getnotificationoptions">GetNotificationOptions</a> {
   DOMString <a data-default="&quot;&quot;" data-type="DOMString " href="#dom-getnotificationoptions-tag">tag</a> = "";

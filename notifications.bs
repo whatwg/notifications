@@ -424,7 +424,7 @@ must be run.
  Exposed=(Window,Worker)]
 interface Notification : EventTarget {
   static readonly attribute NotificationPermission permission;
-  [Exposed=Window] static void requestPermission(optional NotificationPermissionCallback callback);
+  [Exposed=Window] static Promise&lt;NotificationPermission> requestPermission(optional NotificationPermissionCallback deprecatedCallback);
 
   attribute EventHandler onclick;
   attribute EventHandler onerror;
@@ -467,13 +467,13 @@ enum NotificationPermission {
   "granted"
 };
 
-callback NotificationPermissionCallback = void (NotificationPermission permission);
-
 enum NotificationDirection {
   "auto",
   "ltr",
   "rtl"
 };
+
+callback NotificationPermissionCallback = void (NotificationPermission permission);
 </pre>
 
 <p>A <a>non-persistent notification</a> is represented one {{Notification}}
@@ -539,25 +539,42 @@ attribute's getter must return <a>permission</a> for
 <p class=note>If you edit standards please refrain from copying the above. Synchronous
 permissions are like synchronous IO, a bad idea.
 
-<p>The static <dfn method dfn-for=Notification><code>requestPermission(callback)
-</code></dfn> method, when invoked, must run these steps:
+<p>The static
+<dfn method dfn-for=Notification><code>requestPermission(<var>deprecatedCallback</var>)</code></dfn>
+method, when invoked, must run these steps:
 
 <ol>
-  <li><p>Return, but continue running these steps <a>in parallel</a>.
+ <li><p>Let <var>promise</var> be a new promise.
 
-  <li><p>Let <var>permission</var> be <a>permission</a> for
-  <a>entry settings object</a>'s <a>origin</a>.
+ <li>
+  <p>Run these substeps <a>in parallel</a>:
 
-  <li><p>If <var>permission</var> is "<code>default</code>", ask the user
-  whether showing notifications for the <a>entry settings object</a>'s
-  <a>origin</a> is acceptable. If it is, set <a>permission</a> to
-  "<code>granted</code>", and "<code>denied</code>" otherwise.
+  <ol>
+   <li><p>Let <var>permission</var> be <a>permission</a> for
+   <a>entry settings object</a>'s <a>origin</a>.
+   <!-- XXX context object's global object's environment settings object's origin -->
 
-  <li><p><a>Queue a task</a> to set <a>permission</a> for
-  <a>entry settings object</a>'s <a>origin</a> to <var>permission</var> and
-  invoke <var>callback</var> with <var>permission</var> as single argument if
-  <var>callback</var> is given. If this throws an exception,
-  <a>report the exception</a>.
+   <li><p>If <var>permission</var> is "<code>default</code>", ask the user whether showing
+   notifications for the <a>entry settings object</a>'s <a>origin</a> is acceptable. If it
+   is, set <var>permission</var> to "<code>granted</code>", and "<code>denied</code>"
+   otherwise.
+
+   <li>
+    <p><a>Queue a task</a> to run these subsubsteps:
+
+    <ol>
+     <li><p>Set <a>permission</a> for <a>entry settings object</a>'s <a>origin</a> to
+     <var>permission</var>.
+
+     <li><p>If <var>deprecatedCallback</var> is given, invoke
+     <var>deprecatedCallback</var> with <var>permission</var> as single argument. If this
+     throws an exception, <a>report the exception</a>.
+
+     <li><p>Fullfil <var>promise</var> with <var>permission</var>.
+    </ol>
+  </ol>
+
+ <li><p>Return <var>promise</var>.
 </ol>
 
 <p class="warning">In designing the platform notifications are the one instance
