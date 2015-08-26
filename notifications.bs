@@ -70,6 +70,12 @@ that no sounds or vibrations should be made.
 indicates that the screen of the device should not be enabled.
 
 <p>A <a lt="concept notification">notification</a> has an associated
+<dfn>require interaction preference flag</dfn> which is initially unset. When
+set, indicates that on devices with a sufficiently large screen, the
+notification should remain readily available until the user activates or
+dismisses the notification.
+
+<p>A <a lt="concept notification">notification</a> has an associated
 <dfn>sticky preference flag</dfn> which is initially unset. When set indicates
 that the end user should not be able to easily clear the
 <a lt="concept notification">notification</a> <span class=note>Only makes sense
@@ -159,6 +165,9 @@ or vibration pattern that is not otherwise accessible to the end user.
 
   <li><p>If <var>options</var>'s <code>noscreen</code> is true, set
   <var>notification</var>'s <a>screen off preference flag</a>.
+
+  <li><p>If <var>options</var>'s <code>requireInteraction</code> is true, set
+  <var>notification</var>'s <a>require interaction preference flag</a>.
 
   <li><p>If <var>options</var>'s <code>sticky</code> is true, set
   <var>notification</var>'s <a>sticky preference flag</a>.
@@ -441,6 +450,7 @@ interface Notification : EventTarget {
   readonly attribute boolean renotify;
   readonly attribute boolean silent;
   readonly attribute boolean noscreen;
+  readonly attribute boolean requireInteraction;
   readonly attribute boolean sticky;
   [SameObject] readonly attribute any data;
 
@@ -458,6 +468,7 @@ dictionary NotificationOptions {
   boolean renotify = false;
   boolean silent = false;
   boolean noscreen = false;
+  boolean requireInteraction = false;
   boolean sticky = false;
   any data = null;
 };
@@ -656,6 +667,11 @@ getter must return the <a lt="concept notification">notification</a>'s
 attribute's getter must return the
 <a lt="concept notification">notification</a>'s
 <a>screen off preference flag</a>.
+
+<p>The <dfn attribute dfn-for=Notification><code>requireInteraction</code></dfn>
+attribute's getter must return the
+<a lt="concept notification">notification</a>'s
+<a>require interaction preference flag</a>.
 
 <p>The <dfn attribute dfn-for=Notification><code>sticky</code></dfn> attribute's
 getter must return the <a lt="concept notification">notification</a>'s

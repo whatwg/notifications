@@ -11,7 +11,7 @@
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://whatwg.org/"> <img alt="WHATWG" height="100" src="https://resources.whatwg.org/logo-notifications.svg"> </a></p>
    <h1 class="p-name no-ref" id="title">Notifications API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2015-07-30">30 July 2015</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2015-09-02">2 September 2015</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>Participate:
@@ -101,6 +101,10 @@ that the end user should be alerted after the <a data-link-type="dfn" href="#rep
 that no sounds or vibrations should be made. </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="screen-off-preference-flag">screen off preference flag<a class="self-link" href="#screen-off-preference-flag"></a></dfn> which is initially unset. When set
 indicates that the screen of the device should not be enabled. </p>
+   <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="require-interaction-preference-flag">require interaction preference flag<a class="self-link" href="#require-interaction-preference-flag"></a></dfn> which is initially unset. When
+set, indicates that on devices with a sufficiently large screen, the
+notification should remain readily available until the user activates or
+dismisses the notification. </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="sticky-preference-flag">sticky preference flag<a class="self-link" href="#sticky-preference-flag"></a></dfn> which is initially unset. When set indicates
 that the end user should not be able to easily clear the <a data-link-type="dfn" href="#concept-notification">notification</a><span class="note" role="note">Only makes sense
 for <a data-link-type="dfn" href="#persistent-notification">persistent notifications</a>. </span></p>
@@ -151,6 +155,8 @@ or vibration pattern that is not otherwise accessible to the end user. </p>
      <p>If <var>options</var>’s <code>silent</code> is true, set <var>notification</var>’s <a data-link-type="dfn" href="#silent-preference-flag">silent preference flag</a>. </p>
     <li>
      <p>If <var>options</var>’s <code>noscreen</code> is true, set <var>notification</var>’s <a data-link-type="dfn" href="#screen-off-preference-flag">screen off preference flag</a>. </p>
+    <li>
+     <p>If <var>options</var>’s <code>requireInteraction</code> is true, set <var>notification</var>’s <a data-link-type="dfn" href="#require-interaction-preference-flag">require interaction preference flag</a>. </p>
     <li>
      <p>If <var>options</var>’s <code>sticky</code> is true, set <var>notification</var>’s <a data-link-type="dfn" href="#sticky-preference-flag">sticky preference flag</a>. </p>
     <li>
@@ -327,6 +333,7 @@ interface <dfn class="idl-code" data-dfn-type="interface" data-export="" id="not
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-renotify">renotify</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-noscreen">noscreen</a>;
+  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-requireinteraction">requireInteraction</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-sticky">sticky</a>;
   [SameObject] readonly attribute any <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="any " href="#dom-notification-data">data</a>;
 
@@ -344,6 +351,7 @@ dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" id="d
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-renotify">renotify<a class="self-link" href="#dom-notificationoptions-renotify"></a></dfn> = false;
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-silent">silent<a class="self-link" href="#dom-notificationoptions-silent"></a></dfn> = false;
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-noscreen">noscreen<a class="self-link" href="#dom-notificationoptions-noscreen"></a></dfn> = false;
+  boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-requireinteraction">requireInteraction<a class="self-link" href="#dom-notificationoptions-requireinteraction"></a></dfn> = false;
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-sticky">sticky<a class="self-link" href="#dom-notificationoptions-sticky"></a></dfn> = false;
   any <dfn class="idl-code" data-default="null" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="any " id="dom-notificationoptions-data">data<a class="self-link" href="#dom-notificationoptions-data"></a></dfn> = null;
 };
@@ -468,6 +476,7 @@ empty list otherwise. </p>
    <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-silent"><code>silent</code><a class="self-link" href="#dom-notification-silent"></a></dfn> attribute’s
 getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#silent-preference-flag">silent preference flag</a>. </p>
    <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-noscreen"><code>noscreen</code><a class="self-link" href="#dom-notification-noscreen"></a></dfn> attribute’s getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#screen-off-preference-flag">screen off preference flag</a>. </p>
+   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-requireinteraction"><code>requireInteraction</code><a class="self-link" href="#dom-notification-requireinteraction"></a></dfn> attribute’s getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#require-interaction-preference-flag">require interaction preference flag</a>. </p>
    <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-sticky"><code>sticky</code><a class="self-link" href="#dom-notification-sticky"></a></dfn> attribute’s
 getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#sticky-preference-flag">sticky preference flag</a>. </p>
    <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-data"><code>data</code><a class="self-link" href="#dom-notification-data"></a></dfn> attribute’s
@@ -749,6 +758,13 @@ neighboring rights to this work. </p>
    <li><a href="#replace-steps">replace steps</a><span>, in §2.10</span>
    <li><a href="#dom-notification-requestpermission">requestPermission()</a><span>, in §3.3</span>
    <li><a href="#dom-notification-requestpermission">requestPermission(deprecatedCallback)</a><span>, in §3.3</span>
+   <li>
+    requireInteraction
+    <ul>
+     <li><a href="#dom-notificationoptions-requireinteraction">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notification-requireinteraction">attribute for Notification</a><span>, in §3.4</span>
+    </ul>
+   <li><a href="#require-interaction-preference-flag">require interaction preference flag</a><span>, in §2</span>
    <li><a href="#screen-off-preference-flag">screen off preference flag</a><span>, in §2</span>
    <li><a href="#service-worker-registration">service worker registration</a><span>, in §2</span>
    <li><a href="#dom-serviceworkerregistration-shownotification">showNotification(title)</a><span>, in §4</span>
@@ -843,6 +859,7 @@ interface <a href="#notification">Notification</a> : <a data-link-type="idl-name
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-renotify">renotify</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-noscreen">noscreen</a>;
+  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-requireinteraction">requireInteraction</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-sticky">sticky</a>;
   [SameObject] readonly attribute any <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="any " href="#dom-notification-data">data</a>;
 
@@ -860,6 +877,7 @@ dictionary <a href="#dictdef-notificationoptions">NotificationOptions</a> {
   boolean <a data-default="false" data-type="boolean " href="#dom-notificationoptions-renotify">renotify</a> = false;
   boolean <a data-default="false" data-type="boolean " href="#dom-notificationoptions-silent">silent</a> = false;
   boolean <a data-default="false" data-type="boolean " href="#dom-notificationoptions-noscreen">noscreen</a> = false;
+  boolean <a data-default="false" data-type="boolean " href="#dom-notificationoptions-requireinteraction">requireInteraction</a> = false;
   boolean <a data-default="false" data-type="boolean " href="#dom-notificationoptions-sticky">sticky</a> = false;
   any <a data-default="null" data-type="any " href="#dom-notificationoptions-data">data</a> = null;
 };
