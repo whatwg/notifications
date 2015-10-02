@@ -7,6 +7,7 @@ Status: LS
 No Editor: true
 Abstract: This standard defines an API to display notifications to the end user, typically outside the top-level browsing context's viewport. It is designed to be compatible with existing notification systems, while remaining platform-independent.
 Logo: https://resources.whatwg.org/logo-notifications.svg
+Boilerplate: omit feedback-header
 !Participate: <a href=https://github.com/whatwg/notifications>GitHub whatwg/notifications</a> (<a href=https://github.com/whatwg/notifications/issues/new>new issue</a>, <a href=https://github.com/whatwg/notifications/issues>open issues</a>)
 !Participate: <a href=https://wiki.whatwg.org/wiki/IRC>IRC: #whatwg on Freenode</a>
 !Commits: <a href="https://github.com/whatwg/notifications/commits">GitHub whatwg/notifications/commits</a>
@@ -53,6 +54,16 @@ representing either a valid BCP 47 language tag or the empty string.
 
 <p>A <a lt="concept notification">notification</a> has an associated
 <dfn>data</dfn>.
+
+<p>A <a lt="concept notification">notification</a> has an associated
+<dfn>timestamp</dfn> which is an unsigned long long representing the time, in
+milliseconds since 00:00:00 UTC on 1 January 1970, of the event for which the
+notification was created.
+
+<p class=note>Timestamps can be used to indicate the time at which a notification
+is actual. For example, this could be in the past when a notification is used for
+a message that couldn't immediately be delivered because the device was offline,
+or in the future for a meeting that is about to start.
 
 <p>A <a lt="concept notification">notification</a> has an associated
 <dfn lt="concept origin">origin</dfn>.
@@ -156,6 +167,12 @@ or vibration pattern that is not otherwise accessible to the end user.
   <a>validate and normalize</a> it and set <var>notification</var>'s
   <a>vibration pattern</a> to the return value. (Otherwise
   <a>vibration pattern</a> is not set.)
+
+  <li><p>If <var>options</var>'s <code>timestamp</code> is present, set
+  <var>notification</var>'s <a>timestamp</a> to the value. Otherwise, set
+  <var>notification</var>'s <a>timestamp</a> to the number of milliseconds that
+  passed between 00:00:00 UTC on 1 January 1970 and the time at which the
+  <code>Notification</code> constructor was called.
 
   <li><p>If <var>options</var>'s <code>renotify</code> is true, set
   <var>notification</var>'s <a>renotify preference flag</a>.
@@ -447,6 +464,7 @@ interface Notification : EventTarget {
   readonly attribute USVString icon;
   readonly attribute USVString sound;
   readonly attribute FrozenArray&lt;unsigned long> vibrate;
+  readonly attribute unsigned long long timestamp;
   readonly attribute boolean renotify;
   readonly attribute boolean silent;
   readonly attribute boolean noscreen;
@@ -465,6 +483,7 @@ dictionary NotificationOptions {
   USVString icon;
   USVString sound;
   VibratePattern vibrate;
+  unsigned long long timestamp;
   boolean renotify = false;
   boolean silent = false;
   boolean noscreen = false;
@@ -654,6 +673,10 @@ otherwise.
 must return the
 <a lt="concept notification">notification</a>'s <a>vibration pattern</a>, if any, and the
 empty list otherwise.
+
+<p>The <dfn attribute dfn-for=Notification><code>timestamp</code></dfn> attribute's
+getter must return the <a lt="concept notification">notification</a>'s
+<a>timestamp</a>.
 
 <p>The <dfn attribute dfn-for=Notification><code>renotify</code></dfn>
 attribute's getter must return the
