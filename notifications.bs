@@ -693,7 +693,7 @@ developers can use to generate desired behaviors.
 notification.
 
 <pre class=example>
-var not = new Notification("Gebrünn Gebrünn by Paul Kalkbrenner", { icon: "newsong.svg", tag: "song" })
+var notification = new Notification("Gebrünn Gebrünn by Paul Kalkbrenner", { icon: "newsong.svg", tag: "song" })
 notification.onclick = function() { displaySong(this) }</pre>
 
 
