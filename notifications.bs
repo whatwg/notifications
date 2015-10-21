@@ -100,6 +100,17 @@ associated <dfn>icon URL</dfn>, <dfn>icon resource</dfn>, <dfn>sound URL</dfn>,
 <p class=note>Developers are encouraged to not convey information through an icon, sound,
 or vibration pattern that is not otherwise accessible to the end user.
 
+<p>A <a lt="concept notification">notification</a> has an associated list of
+zero or more <dfn>actions</dfn>. Each action has an associated
+<dfn lt="action title">title</dfn> and <dfn>action name</dfn>. Users may
+activate actions, as alternatives to activating the notification itself. The
+user agent must determine the <dfn>maximum number of actions</dfn> supported,
+within the constraints of the notification platform.
+
+<p class=note>Since display of actions is platform-dependent, developers are
+encouraged to make sure that any action a user can invoke from a notification is
+also available within the web application.
+
 <p>A <dfn>non-persistent notification</dfn> is a
 <a lt="concept notification">notification</a> without an associated
 <a>service worker registration</a>.
@@ -112,12 +123,24 @@ or vibration pattern that is not otherwise accessible to the end user.
 
 <hr>
 
-<p>To <dfn>create a notification</dfn>, given a <var>title</var> and
-<var>options</i>, run these steps:
+<p>To <dfn>create a notification</dfn>, given a <var>title</var>,
+<var>options</var>, and optionally a <var>serviceWorkerRegistration</var>, run
+these steps:
 
 <ol>
   <li><p>Let <var>notification</var> be a new
   <a lt="concept notification">notification</a>.
+
+  <li><p>If a <var>serviceWorkerRegistration</var> was provided, set
+  <var>notification</var>'s <a>service worker registration</a> to
+  <var>serviceWorkerRegistration</var>.
+
+  <li><p>If a <var>serviceWorkerRegistration</var> was not provided and
+  <var>options</var>'s <code>actions</code> is not empty, <a>throw</a> a
+  <code>TypeError</code> exception.
+
+  <p class=note><a>Actions</a> are only currently supported for
+  <a>persistent notifications</a>.
 
   <li><p>If <var>options</var>'s <code>silent</code> is true, and either
   <var>options</var>'s <code>sound</code> is present or <var>options</var>'s
@@ -189,6 +212,24 @@ or vibration pattern that is not otherwise accessible to the end user.
   <li><p>If <var>options</var>'s <code>sticky</code> is true, set
   <var>notification</var>'s <a>sticky preference flag</a>.
 
+  <li><p>Set <var>notification</var>'s list of <a>actions</a> to an empty list,
+  then for each <var>entry</var> in <var>options</var>'s <code>actions</code>,
+  up to the <a>maximum number of actions</a> supported (skip any excess
+  entries), perform the following steps:
+
+  <ol>
+    <li><p>Let <var>action</var> be a new <a lt="actions">action</a>.
+
+    <li><p>Set <var>action</var>'s <a>action name</a> to the <var>entry</var>'s
+    <code>action</code>.
+
+    <li><p>Set <var>action</var>'s <a lt="action title">title</a> to the
+    <var>entry</var>'s <code>title</code>.
+
+    <li><p>Append <var>action</var> to <var>notification</var>'s list of
+    <a>actions</a>.
+  </ol>
+
   <li><p>Return <var>notification</var>.
 </ol>
 
@@ -253,15 +294,23 @@ section of HTML. [[!HTML]]
 
 <p>User agents are expected to honor the Unicode semantics of the text of a
 <a lt="concept notification">notification</a>'s
-<a lt="concept title">title</a> and <a>body</a>. Each is expected to be
-treated as an independent set of one or more bidirectional algorithm paragraphs
-when displayed, as defined by the bidirectional algorithm's rules P1, P2, and
-P3, including, for instance, supporting the paragraph-breaking behavior of
-U+000A LINE FEED (LF) characters. For each paragraph of the
-<a lt="concept title">title</a> and <a>body</a>, the
+<a lt="concept title">title</a>, <a>body</a>, and the
+<a lt="action title">title</a> of each of its <a>actions</a>. Each is expected
+to be treated as an independent set of one or more bidirectional algorithm
+paragraphs when displayed, as defined by the bidirectional algorithm's rules P1,
+P2, and P3, including, for instance, supporting the paragraph-breaking behavior
+of U+000A LINE FEED (LF) characters. For each paragraph of the
+<a lt="concept title">title</a>, <a>body</a> and the
+<a lt="action title">title</a> of each of the <a>actions</a>, the
 <a lt="concept notification">notification</a>'s
-<a lt="concept direction">direction</a> provides the higher-level override
-of rules P2 and P3 if it has a value other than "<code>auto</code>". [[!BIDI]]
+<a lt="concept direction">direction</a> provides the higher-level override of
+rules P2 and P3 if it has a value other than "<code>auto</code>". [[!BIDI]]
+
+<p>The <a lt="concept notification">notification</a>'s
+<a lt="concept direction">direction</a> also determines the relative order in
+which the <a lt="concept notification">notification</a>'s <a>actions</a> should
+be displayed to the user, if the notification platform displays them side by
+side.
 
 
 <h3 id=language>Language</h3>
@@ -272,9 +321,11 @@ of rules P2 and P3 if it has a value other than "<code>auto</code>". [[!BIDI]]
 <p>The <a lt="concept notification">notification</a>'s
 <a lt="concept language">language</a> specifies the primary language for the
 <a lt="concept notification">notification</a>'s
-<a lt="concept title">title</a> and <a>body</a>. Its value is a string. The empty string
-indicates that the primary language is unknown. Any other string must be interpreted as a
-language tag. Validity or well-formedness are not enforced. [[!LANG]]
+<a lt="concept title">title</a>, <a>body</a> and the
+<a lt="action title">title</a> of each of its <a>actions</a>. Its value is a
+string. The empty string indicates that the primary language is unknown. Any
+other string must be interpreted as a language tag. Validity or well-formedness
+are not enforced. [[!LANG]]
 
 <p class=note>Developers are encouraged to only use valid language tags.
 
@@ -343,20 +394,26 @@ language tag. Validity or well-formedness are not enforced. [[!LANG]]
 
 <h3 id=activating-a-notification>Activating a notification</h3>
 
-<p>When a <a lt="concept notification">notification</a> <var>notification</var>
-is activated by the user, assuming the underlying notification platform supports
-activation, the user agent must (unless otherwise specified) run these steps:
+<p>When a <a lt="concept notification">notification</a> <var>notification</var>,
+or one of its <a>actions</a>, is activated by the user, assuming the underlying
+notification platform supports activation, the user agent must (unless otherwise
+specified) run these steps:
 
 <ol>
   <li><p>If <var>notification</var> is a <a>persistent notification</a>, run
   these substeps:
 
   <ol>
+    <li><p>Let <var>action</var> be the empty string.
+
+    <li><p>If one of <var>notification</var>'s <a>actions</a> was activated by
+    the user, set <var>action</var> to that action's <a>action name</a> string.
+
     <li><p>Let <var>callback</var> be an algorithm that when invoked with a
     <var>global</var>, <a lt="fire a service worker notification event named e">
     fires a service worker notification event</a> named
-    <code>notificationclick</code> given <var>notification</var> on
-    <var>global</var>.
+    <code>notificationclick</code> given <var>notification</var> and
+    <var>action</var> on <var>global</var>.
 
     <li><p>Then run <a>Handle Functional Event</a> with
     <var>notification</var>'s <a>service worker registration</a> and
@@ -453,6 +510,8 @@ interface Notification : EventTarget {
   static readonly attribute NotificationPermission permission;
   [Exposed=Window] static Promise&lt;NotificationPermission> requestPermission(optional NotificationPermissionCallback deprecatedCallback);
 
+  static readonly attribute unsigned long maxActions;
+
   attribute EventHandler onclick;
   attribute EventHandler onerror;
 
@@ -471,6 +530,7 @@ interface Notification : EventTarget {
   readonly attribute boolean requireInteraction;
   readonly attribute boolean sticky;
   [SameObject] readonly attribute any data;
+  [SameObject] readonly attribute FrozenArray&lt;NotificationAction> actions;
 
   void close();
 };
@@ -490,6 +550,7 @@ dictionary NotificationOptions {
   boolean requireInteraction = false;
   boolean sticky = false;
   any data = null;
+  sequence&lt;NotificationAction> actions = [];
 };
 
 enum NotificationPermission {
@@ -502,6 +563,11 @@ enum NotificationDirection {
   "auto",
   "ltr",
   "rtl"
+};
+
+dictionary NotificationAction {
+  required DOMString action;
+  required DOMString title;
 };
 
 callback NotificationPermissionCallback = void (NotificationPermission permission);
@@ -533,7 +599,7 @@ these steps:
   <li><p>If <var>options</var>'s <code>sticky</code> is present, <a>throw</a>
   a <code>TypeError</code> exception.
 
-  <li><p>If <a>entry settings object</a>'s <a>global object</a> is a
+  <li><p>If the <a>entry settings object</a>'s <a>global object</a> is a
   {{ServiceWorkerGlobalScope}} object, <a>throw</a> a
   <code>TypeError</code> exception.
 
@@ -564,7 +630,7 @@ these steps:
 <h3 id=static-members>Static members</h3>
 
 <p>The static <dfn attribute dfn-for=Notification><code>permission</code></dfn>
-attribute's getter must return <a>permission</a> for
+attribute's getter must return <a>permission</a> for the
 <a>entry settings object</a>'s <a>origin</a>.
 
 <p class=note>If you edit standards please refrain from copying the above. Synchronous
@@ -594,7 +660,7 @@ method, when invoked, must run these steps:
     <p><a>Queue a task</a> to run these subsubsteps:
 
     <ol>
-     <li><p>Set <a>permission</a> for <a>entry settings object</a>'s <a>origin</a> to
+     <li><p>Set <a>permission</a> for the <a>entry settings object</a>'s <a>origin</a> to
      <var>permission</var>.
 
      <li><p>If <var>deprecatedCallback</var> is given, invoke
@@ -613,6 +679,9 @@ thus far where asking the user upfront makes sense. Specifications for other
 APIs should not use this pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">
 many more suitable alternatives</a>.
+
+<p>The static <dfn attribute dfn-for=Notification><code>maxActions</code></dfn>
+attribute's getter must return the <a>maximum number of actions</a> supported.
 
 <h3 id=object-members>Object members</h3>
 
@@ -704,20 +773,81 @@ getter must return the <a lt="concept notification">notification</a>'s
 getter must return a <a>structured clone</a> of
 <a lt="concept notification">notification</a>'s <a>data</a>.
 
+<p>The <dfn attribute dfn-for=Notification><code>actions</code></dfn>
+attribute's getter must return the result of the following steps:
+
+<ol>
+  <li><p>Let <var>frozenActions</var> be an empty list of type
+  {{NotificationAction}}.
+
+  <li><p>For each <var>entry</var> in the
+  <a lt="concept notification">notification</a>'s list of <a>actions</a>,
+  perform the following steps:
+
+  <ol>
+    <li><p>Let <var>action</var> be a new {{NotificationAction}}.
+
+    <li><p>Set <var>action</var>'s {{NotificationAction/action}} to
+    <var>entry</var>'s <a>action name</a>.
+
+    <li><p>Set <var>action</var>'s {{NotificationAction/title}} to
+    <var>entry</var>'s <a lt="action title">title</a>.
+
+    <!-- XXX IDL dictionaries are usually returned by value, so don't need to be
+         immutable. But FrozenArray reifies the dictionaries to mutable JS
+         objects accessed by reference, so we explicitly freeze them.
+         It would be better to do this with IDL primitives instead of JS - see
+         https://www.w3.org/Bugs/Public/show_bug.cgi?id=29004 -->
+    <li><p>Call <a lt="freeze">Object.freeze</a> on <var>action</var>, to
+    prevent accidental mutation by scripts.
+
+    <li><p>Append <var>action</var> to <var>frozenActions</var>.
+  </ol>
+
+  <li><p><a lt="create frozen array">Create a frozen array</a> from
+  <var>frozenActions</var>.
+</ol>
 
 <h3 id=examples>Examples</h3>
 
-<h4 id=using-events>Using events</h4>
+<h4 id=using-events>Using events from a page</h4>
 
-<p>{{Notification}} objects dispatch events during their lifecycle, which
-developers can use to generate desired behaviors.
+<p><a lt="non-persistent notification">Non-persistent</a> {{Notification}}
+objects dispatch events during their lifecycle, which developers can use to
+generate desired behaviors.
 
 <p>The <code>click</code> event dispatches when the user activates a
 notification.
 
 <pre class=example>
-var not = new Notification("Gebrünn Gebrünn by Paul Kalkbrenner", { icon: "newsong.svg", tag: "song" })
-notification.onclick = function() { displaySong(this) }</pre>
+var not = new Notification("Gebrünn Gebrünn by Paul Kalkbrenner", { icon: "newsong.svg", tag: "song" });
+not.onclick = function() { displaySong(this); };</pre>
+
+
+<h4 id=using-actions>Using actions from a service worker</h4>
+
+<p><a lt="persistent notification">Persistent notifications</a> fire
+<code>notificationclick</code> events on the {{ServiceWorkerGlobalScope}}.
+
+<p>Here a service worker shows a notification with a single "Archive"
+<a lt="actions">action</a>, allowing users to perform this common task from the
+notification without having to open the website (for example the notification
+platform might show a button on the notification). The user can also activate
+the main body of the notification to open their inbox.
+
+<pre class=example>
+self.registration.showNotification("New mail from Alice", {
+  actions: [{action: 'archive', title: "Archive"}]
+});
+
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  if (event.action === 'archive') {
+    silentlyArchiveEmail();
+  } else {
+    clients.openWindow("/inbox");
+  }
+}, false);</pre>
 
 
 <h4 id=tags-example>Using the <code>tag</code> member for multiple instances</h4>
@@ -785,10 +915,12 @@ partial interface ServiceWorkerRegistration {
  Exposed=ServiceWorker]
 interface NotificationEvent : ExtendableEvent {
   readonly attribute Notification notification;
+  readonly attribute DOMString action;
 };
 
 dictionary NotificationEventInit : ExtendableEventInit {
   required Notification notification;
+  DOMString action = "";
 };
 
 partial interface ServiceWorkerGlobalScope {
@@ -803,17 +935,17 @@ method, when invoked, must run these steps:
 <ol>
   <li><p>Let <var>promise</var> be a new promise.
 
-  <li><p>If <a>context object</a>'s <a lt="dfn active worker">active worker</a>
-  is null, reject <var>promise</var> with a <code>TypeError</code> exception and return
-  <var>promise</var>.
+  <li><p>If the <a>context object</a>'s
+  <a lt="dfn active worker">active worker</a> is null, reject <var>promise</var>
+  with a <code>TypeError</code> exception and return <var>promise</var>.
+
+  <li><p>Let <var>serviceWorkerRegistration</var> be the <a>context object</a>.
 
   <li><p>Let <var>notification</var> be the result of
   <a lt="create a notification">creating a notification</a> given
-  <var>title</var> and <var>options</var>. If this threw an exception, reject
-  <var>promise</var> with that exception and return <var>promise</var>.
-
-  <li><p>Set <var>notification</var>'s <a>service worker registration</a> to the
-  <a>context object</a>.
+  <var>title</var>, <var>options</var> and <var>serviceWorkerRegistration</var>.
+  If this threw an exception, reject <var>promise</var> with that exception and
+  return <var>promise</var>.
 
   <li><p>Run these substeps <a>in parallel</a>:
 
@@ -872,14 +1004,18 @@ notification</a> of {{Notification}} objects already in existence.
 <hr>
 
 <p>To <dfn>fire a service worker notification event named <var>e</var></dfn>
-given <var>notification</var>,
+given <var>notification</var> and <var>action</var>,
 <a lt="concept event fire">fire an event named <i>e</i></a> with an
 <a lt="concept event">event</a> using the {{NotificationEvent}} interface whose
 {{NotificationEvent/notification}} attribute is initialized to a new
-{{Notification}} object representing <var>notification</var>.
+{{Notification}} object representing <var>notification</var>, and whose
+{{NotificationEvent/action}} attribute is initialized to <var>action</var>.
 
 <p>The {{NotificationEvent/notification}} attribute's getter must return the
 value it was initialized to.
+
+<p>The {{NotificationEvent/action}} attribute's getter must return the value it
+was initialized to.
 
 <p>The following is the <a>event handler</a> (and its corresponding
 <a>event handler event type</a>) that must be supported as attribute by the
@@ -943,6 +1079,7 @@ neighboring rights to this work.
 
 <pre class="anchors">
 urlPrefix: https://heycam.github.io/webidl/#dfn-; type: dfn
+  text: create frozen array
   text: throw
 urlPrefix: https://html.spec.whatwg.org/multipage/
   urlPrefix: browsers.html; type: dfn
@@ -997,6 +1134,8 @@ urlPrefix: http://www.w3.org/TR/vibration/
     text: validate and normalize
   urlPrefix: #idl-def-; type: interface
     text: VibratePattern; url: VibratePattern
+urlPrefix: https://tc39.github.io/ecma262/#sec-object.; type: dfn
+  text: freeze
 </pre>
 
 <pre class="biblio">
