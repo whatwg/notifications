@@ -56,7 +56,7 @@ representing either a valid BCP 47 language tag or the empty string.
 <dfn>data</dfn>.
 
 <p>A <a lt="concept notification">notification</a> has an associated
-<dfn>timestamp</dfn> which is an unsigned long long representing the time, in
+<dfn>timestamp</dfn> which is an unrestricted double representing the time, in
 milliseconds since 00:00:00 UTC on 1 January 1970, of the event for which the
 notification was created.
 
@@ -168,8 +168,9 @@ or vibration pattern that is not otherwise accessible to the end user.
   <a>vibration pattern</a> to the return value. (Otherwise
   <a>vibration pattern</a> is not set.)
 
-  <li><p>If <var>options</var>'s <code>timestamp</code> is present, set
-  <var>notification</var>'s <a>timestamp</a> to the value. Otherwise, set
+  <li><p>If <var>options</var>'s <code>timestamp</code> is present and its
+  value is not <code>NaN</code>, <code>-Infinite</code> or <code>+Infinite</code>,
+  set <var>notification</var>'s <a>timestamp</a> to the value. Otherwise, set
   <var>notification</var>'s <a>timestamp</a> to the number of milliseconds that
   passed between 00:00:00 UTC on 1 January 1970 and the time at which the
   <code>Notification</code> constructor was called.
@@ -464,7 +465,7 @@ interface Notification : EventTarget {
   readonly attribute USVString icon;
   readonly attribute USVString sound;
   readonly attribute FrozenArray&lt;unsigned long> vibrate;
-  readonly attribute unsigned long long timestamp;
+  readonly attribute unrestricted double timestamp;
   readonly attribute boolean renotify;
   readonly attribute boolean silent;
   readonly attribute boolean noscreen;
@@ -483,7 +484,7 @@ dictionary NotificationOptions {
   USVString icon;
   USVString sound;
   VibratePattern vibrate;
-  unsigned long long timestamp;
+  unrestricted double timestamp;
   boolean renotify = false;
   boolean silent = false;
   boolean noscreen = false;
