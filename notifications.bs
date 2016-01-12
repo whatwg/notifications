@@ -911,7 +911,7 @@ partial interface ServiceWorkerRegistration {
   Promise&lt;sequence&lt;Notification>> getNotifications(optional GetNotificationOptions filter);
 };
 
-[Constructor(DOMString type, optional NotificationEventInit eventInitDict),
+[Constructor(DOMString type, NotificationEventInit eventInitDict),
  Exposed=ServiceWorker]
 interface NotificationEvent : ExtendableEvent {
   readonly attribute Notification notification;
@@ -1046,6 +1046,7 @@ David Håsäther,
 Doug Turner,
 Drew Wilson,
 Edward O'Connor,
+Ehsan Akhgari,
 Frederick Hirsch,
 Ian Hickson,
 Jake Archibald,
@@ -1128,7 +1129,7 @@ urlPrefix: https://dom.spec.whatwg.org/; type: dfn
   text: dom event cancelable
 urlPrefix: https://dom.spec.whatwg.org/; type: interface
   text: EventTarget
-urlPrefix: http://www.w3.org/TR/vibration/
+urlPrefix: https://www.w3.org/TR/vibration/
   urlPrefix: #dfn-; type: dfn
     text: perform vibration
     text: validate and normalize

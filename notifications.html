@@ -11,7 +11,7 @@
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://whatwg.org/"> <img alt="WHATWG" height="100" src="https://resources.whatwg.org/logo-notifications.svg"> </a> </p>
    <h1 class="p-name no-ref" id="title">Notifications API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2015-10-29">29 October 2015</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-01-12">12 January 2016</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>Participate:
@@ -170,7 +170,7 @@ these steps: </p>
   return failure, set <var>notification</var>’s <a data-link-type="dfn" href="#sound-url">sound URL</a> to the return
   value. (Otherwise <a data-link-type="dfn" href="#sound-url">sound URL</a> is not set.) </p>
     <li>
-     <p>If <var>options</var>’s <code>vibrate</code> is present, <a data-link-type="dfn" href="http://www.w3.org/TR/vibration/#dfn-validate-and-normalize">validate and normalize</a> it and set <var>notification</var>’s <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a> to the return value. (Otherwise <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a> is not set.) </p>
+     <p>If <var>options</var>’s <code>vibrate</code> is present, <a data-link-type="dfn" href="https://www.w3.org/TR/vibration/#dfn-validate-and-normalize">validate and normalize</a> it and set <var>notification</var>’s <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a> to the return value. (Otherwise <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a> is not set.) </p>
     <li>
      <p>If <var>options</var>’s <code>timestamp</code> is present, set <var>notification</var>’s <a data-link-type="dfn" href="#timestamp">timestamp</a> to the value. Otherwise, set <var>notification</var>’s <a data-link-type="dfn" href="#timestamp">timestamp</a> to the number of milliseconds that
   passed between 00:00:00 UTC on 1 January 1970 and the time at which the <code>Notification</code> constructor was called. </p>
@@ -347,7 +347,7 @@ must be run. </p>
      <p>Display <var>notification</var> on the device (e.g. by calling the
   appropriate notification platform API). </p>
      <p>At this point also play <var>notification</var>’s <a data-link-type="dfn" href="#sound-resource">sound resource</a>, if
-  any, and run <a data-link-type="dfn" href="http://www.w3.org/TR/vibration/#dfn-perform-vibration">perform vibration</a> using <var>notification</var>’s <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a>, if any. </p>
+  any, and run <a data-link-type="dfn" href="https://www.w3.org/TR/vibration/#dfn-perform-vibration">perform vibration</a> using <var>notification</var>’s <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a>, if any. </p>
     <li>
      <p>Append <var>notification</var> to the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>. </p>
    </ol>
@@ -403,7 +403,7 @@ dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" id="d
   DOMString <dfn class="idl-code" data-default="&quot;&quot;" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="DOMString " id="dom-notificationoptions-tag">tag<a class="self-link" href="#dom-notificationoptions-tag"></a></dfn> = "";
   USVString <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="USVString " id="dom-notificationoptions-icon">icon<a class="self-link" href="#dom-notificationoptions-icon"></a></dfn>;
   USVString <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="USVString " id="dom-notificationoptions-sound">sound<a class="self-link" href="#dom-notificationoptions-sound"></a></dfn>;
-  <a data-link-type="idl-name" href="http://www.w3.org/TR/vibration/#idl-def-VibratePattern">VibratePattern</a> <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="VibratePattern " id="dom-notificationoptions-vibrate">vibrate<a class="self-link" href="#dom-notificationoptions-vibrate"></a></dfn>;
+  <a data-link-type="idl-name" href="https://www.w3.org/TR/vibration/#idl-def-VibratePattern">VibratePattern</a> <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="VibratePattern " id="dom-notificationoptions-vibrate">vibrate<a class="self-link" href="#dom-notificationoptions-vibrate"></a></dfn>;
   unsigned long long <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="unsigned long long " id="dom-notificationoptions-timestamp">timestamp<a class="self-link" href="#dom-notificationoptions-timestamp"></a></dfn>;
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-renotify">renotify<a class="self-link" href="#dom-notificationoptions-renotify"></a></dfn> = false;
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-silent">silent<a class="self-link" href="#dom-notificationoptions-silent"></a></dfn> = false;
@@ -640,7 +640,7 @@ partial interface <a class="idl-code" data-link-type="interface" href="https://s
   Promise&lt;sequence&lt;<a data-link-type="idl-name" href="#notification">Notification</a>>> <a class="idl-code" data-link-type="method" href="#dom-serviceworkerregistration-getnotifications">getNotifications</a>(optional <a data-link-type="idl-name" href="#dictdef-getnotificationoptions">GetNotificationOptions</a> <dfn class="idl-code" data-dfn-for="ServiceWorkerRegistration/getNotifications(filter), ServiceWorkerRegistration/getNotifications()" data-dfn-type="argument" data-export="" id="dom-serviceworkerregistration-getnotifications-filter-filter">filter<a class="self-link" href="#dom-serviceworkerregistration-getnotifications-filter-filter"></a></dfn>);
 };
 
-[<dfn class="idl-code" data-dfn-for="NotificationEvent" data-dfn-type="constructor" data-export="" data-lt="NotificationEvent(type, eventInitDict)" id="dom-notificationevent-notificationevent">Constructor<a class="self-link" href="#dom-notificationevent-notificationevent"></a></dfn>(DOMString <dfn class="idl-code" data-dfn-for="NotificationEvent/NotificationEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-notificationevent-notificationevent-type-eventinitdict-type">type<a class="self-link" href="#dom-notificationevent-notificationevent-type-eventinitdict-type"></a></dfn>, optional <a data-link-type="idl-name" href="#dictdef-notificationeventinit">NotificationEventInit</a> <dfn class="idl-code" data-dfn-for="NotificationEvent/NotificationEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict">eventInitDict<a class="self-link" href="#dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict"></a></dfn>),
+[<dfn class="idl-code" data-dfn-for="NotificationEvent" data-dfn-type="constructor" data-export="" data-lt="NotificationEvent(type, eventInitDict)" id="dom-notificationevent-notificationevent">Constructor<a class="self-link" href="#dom-notificationevent-notificationevent"></a></dfn>(DOMString <dfn class="idl-code" data-dfn-for="NotificationEvent/NotificationEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-notificationevent-notificationevent-type-eventinitdict-type">type<a class="self-link" href="#dom-notificationevent-notificationevent-type-eventinitdict-type"></a></dfn>, <a data-link-type="idl-name" href="#dictdef-notificationeventinit">NotificationEventInit</a> <dfn class="idl-code" data-dfn-for="NotificationEvent/NotificationEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict">eventInitDict<a class="self-link" href="#dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict"></a></dfn>),
  Exposed=ServiceWorker]
 interface <dfn class="idl-code" data-dfn-type="interface" data-export="" id="notificationevent">NotificationEvent<a class="self-link" href="#notificationevent"></a></dfn> : <a data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendableevent">ExtendableEvent</a> {
   readonly attribute <a data-link-type="idl-name" href="#notification">Notification</a> <dfn class="idl-code" data-dfn-for="NotificationEvent" data-dfn-type="attribute" data-export="" data-readonly="" data-type="Notification " id="dom-notificationevent-notification">notification<a class="self-link" href="#dom-notificationevent-notification"></a></dfn>;
@@ -736,6 +736,7 @@ David Håsäther,
 Doug Turner,
 Drew Wilson,
 Edward O’Connor,
+Ehsan Akhgari,
 Frederick Hirsch,
 Ian Hickson,
 Jake Archibald,
@@ -808,7 +809,6 @@ neighboring rights to this work. </p>
      <li><a href="#dom-notificationoptions-data">dict-member for NotificationOptions</a><span>, in §3</span>
      <li><a href="#dom-notification-data">attribute for Notification</a><span>, in §3.4</span>
     </ul>
-   <li><a href="#dom-notification-requestpermission-deprecatedcallback-deprecatedcallback">deprecatedCallback</a><span>, in §3</span>
    <li>
     dir
     <ul>
@@ -816,9 +816,7 @@ neighboring rights to this work. </p>
      <li><a href="#dom-notification-dir">attribute for Notification</a><span>, in §3.4</span>
     </ul>
    <li><a href="#display-steps">display steps</a><span>, in §2.9</span>
-   <li><a href="#dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict">eventInitDict</a><span>, in §4</span>
    <li><a href="#fetch-steps">fetch steps</a><span>, in §2.5</span>
-   <li><a href="#dom-serviceworkerregistration-getnotifications-filter-filter">filter</a><span>, in §4</span>
    <li><a href="#fire-a-service-worker-notification-event-named-e">fire a service worker notification event named e</a><span>, in §4</span>
    <li><a href="#dictdef-getnotificationoptions">GetNotificationOptions</a><span>, in §4</span>
    <li><a href="#dom-serviceworkerregistration-getnotifications">getNotifications()</a><span>, in §4</span>
@@ -867,16 +865,9 @@ neighboring rights to this work. </p>
    <li><a href="#dom-notification-onerror">onerror</a><span>, in §3.4</span>
    <li><a href="#dom-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a><span>, in §4</span>
    <li>
-    options
-    <ul>
-     <li><a href="#dom-notification-notification-title-options-options">argument for Notification/Notification(title, options)</a><span>, in §3</span>
-     <li><a href="#dom-serviceworkerregistration-shownotification-title-options-options">argument for ServiceWorkerRegistration/showNotification(title, options), ServiceWorkerRegistration/showNotification(title)</a><span>, in §4</span>
-    </ul>
-   <li>
     permission
     <ul>
      <li><a href="#permission">definition of</a><span>, in §2.2</span>
-     <li><a href="#dom-notificationpermissioncallback-permission">argument for NotificationPermissionCallback</a><span>, in §3</span>
      <li><a href="#dom-notification-permission">attribute for Notification</a><span>, in §3.3</span>
     </ul>
    <li><a href="#persistent-notification">persistent notification</a><span>, in §2</span>
@@ -942,12 +933,9 @@ neighboring rights to this work. </p>
    <li>
     title
     <ul>
-     <li><a href="#dom-notification-notification-title-options-title">argument for Notification/Notification(title, options)</a><span>, in §3</span>
      <li><a href="#dom-notificationaction-title">dict-member for NotificationAction</a><span>, in §3</span>
      <li><a href="#dom-notification-title">attribute for Notification</a><span>, in §3.4</span>
-     <li><a href="#dom-serviceworkerregistration-shownotification-title-options-title">argument for ServiceWorkerRegistration/showNotification(title, options), ServiceWorkerRegistration/showNotification(title)</a><span>, in §4</span>
     </ul>
-   <li><a href="#dom-notificationevent-notificationevent-type-eventinitdict-type">type</a><span>, in §4</span>
    <li>
     vibrate
     <ul>
@@ -1017,7 +1005,7 @@ dictionary <a href="#dictdef-notificationoptions">NotificationOptions</a> {
   DOMString <a data-default="&quot;&quot;" data-type="DOMString " href="#dom-notificationoptions-tag">tag</a> = "";
   USVString <a data-type="USVString " href="#dom-notificationoptions-icon">icon</a>;
   USVString <a data-type="USVString " href="#dom-notificationoptions-sound">sound</a>;
-  <a data-link-type="idl-name" href="http://www.w3.org/TR/vibration/#idl-def-VibratePattern">VibratePattern</a> <a data-type="VibratePattern " href="#dom-notificationoptions-vibrate">vibrate</a>;
+  <a data-link-type="idl-name" href="https://www.w3.org/TR/vibration/#idl-def-VibratePattern">VibratePattern</a> <a data-type="VibratePattern " href="#dom-notificationoptions-vibrate">vibrate</a>;
   unsigned long long <a data-type="unsigned long long " href="#dom-notificationoptions-timestamp">timestamp</a>;
   boolean <a data-default="false" data-type="boolean " href="#dom-notificationoptions-renotify">renotify</a> = false;
   boolean <a data-default="false" data-type="boolean " href="#dom-notificationoptions-silent">silent</a> = false;
@@ -1056,7 +1044,7 @@ partial interface <a class="idl-code" data-link-type="interface" href="https://s
   Promise&lt;sequence&lt;<a data-link-type="idl-name" href="#notification">Notification</a>>> <a class="idl-code" data-link-type="method" href="#dom-serviceworkerregistration-getnotifications">getNotifications</a>(optional <a data-link-type="idl-name" href="#dictdef-getnotificationoptions">GetNotificationOptions</a> <a href="#dom-serviceworkerregistration-getnotifications-filter-filter">filter</a>);
 };
 
-[<a href="#dom-notificationevent-notificationevent">Constructor</a>(DOMString <a href="#dom-notificationevent-notificationevent-type-eventinitdict-type">type</a>, optional <a data-link-type="idl-name" href="#dictdef-notificationeventinit">NotificationEventInit</a> <a href="#dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict">eventInitDict</a>),
+[<a href="#dom-notificationevent-notificationevent">Constructor</a>(DOMString <a href="#dom-notificationevent-notificationevent-type-eventinitdict-type">type</a>, <a data-link-type="idl-name" href="#dictdef-notificationeventinit">NotificationEventInit</a> <a href="#dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict">eventInitDict</a>),
  Exposed=ServiceWorker]
 interface <a href="#notificationevent">NotificationEvent</a> : <a data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendableevent">ExtendableEvent</a> {
   readonly attribute <a data-link-type="idl-name" href="#notification">Notification</a> <a data-readonly="" data-type="Notification " href="#dom-notificationevent-notification">notification</a>;
