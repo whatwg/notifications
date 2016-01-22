@@ -56,7 +56,7 @@ representing either a valid BCP 47 language tag or the empty string.
 <dfn>data</dfn>.
 
 <p>A <a lt="concept notification">notification</a> has an associated
-<dfn>timestamp</dfn> which is an unsigned long long representing the time, in
+<dfn>timestamp</dfn> which is a {{DOMTimeStamp}} representing the time, in
 milliseconds since 00:00:00 UTC on 1 January 1970, of the event for which the
 notification was created.
 
@@ -523,7 +523,7 @@ interface Notification : EventTarget {
   readonly attribute USVString icon;
   readonly attribute USVString sound;
   readonly attribute FrozenArray&lt;unsigned long> vibrate;
-  readonly attribute unsigned long long timestamp;
+  readonly attribute DOMTimeStamp timestamp;
   readonly attribute boolean renotify;
   readonly attribute boolean silent;
   readonly attribute boolean noscreen;
@@ -543,7 +543,7 @@ dictionary NotificationOptions {
   USVString icon;
   USVString sound;
   VibratePattern vibrate;
-  unsigned long long timestamp;
+  DOMTimeStamp timestamp;
   boolean renotify = false;
   boolean silent = false;
   boolean noscreen = false;
@@ -1079,6 +1079,7 @@ the extent possible under law, the editors have waived all copyright and related
 neighboring rights to this work.
 
 <pre class="anchors">
+url: https://heycam.github.io/webidl/#common-DOMTimeStamp; type: interface; text: DOMTimeStamp
 urlPrefix: https://heycam.github.io/webidl/#dfn-; type: dfn
   text: create frozen array
   text: throw

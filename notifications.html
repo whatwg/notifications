@@ -11,7 +11,7 @@
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://whatwg.org/"> <img alt="WHATWG" height="100" src="https://resources.whatwg.org/logo-notifications.svg"> </a> </p>
    <h1 class="p-name no-ref" id="title">Notifications API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-01-12">12 January 2016</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-01-22">22 January 2016</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>Participate:
@@ -95,7 +95,7 @@ representation of something that happened, such as the delivery of a message. </
 representing either a valid BCP 47 language tag or the empty string. </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="tag">tag<a class="self-link" href="#tag"></a></dfn> which is a DOMString. </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="data">data<a class="self-link" href="#data"></a></dfn>. </p>
-   <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="timestamp">timestamp<a class="self-link" href="#timestamp"></a></dfn> which is an unsigned long long representing the time, in
+   <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="timestamp">timestamp<a class="self-link" href="#timestamp"></a></dfn> which is a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a></code> representing the time, in
 milliseconds since 00:00:00 UTC on 1 January 1970, of the event for which the
 notification was created. </p>
    <p class="note" role="note">Timestamps can be used to indicate the time at which a notification
@@ -384,7 +384,7 @@ interface <dfn class="idl-code" data-dfn-type="interface" data-export="" id="not
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-icon">icon</a>;
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-sound">sound</a>;
   readonly attribute FrozenArray&lt;unsigned long> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long> " href="#dom-notification-vibrate">vibrate</a>;
-  readonly attribute unsigned long long <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="unsigned long long " href="#dom-notification-timestamp">timestamp</a>;
+  readonly attribute <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp " href="#dom-notification-timestamp">timestamp</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-renotify">renotify</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-noscreen">noscreen</a>;
@@ -404,7 +404,7 @@ dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" id="d
   USVString <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="USVString " id="dom-notificationoptions-icon">icon<a class="self-link" href="#dom-notificationoptions-icon"></a></dfn>;
   USVString <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="USVString " id="dom-notificationoptions-sound">sound<a class="self-link" href="#dom-notificationoptions-sound"></a></dfn>;
   <a data-link-type="idl-name" href="https://www.w3.org/TR/vibration/#idl-def-VibratePattern">VibratePattern</a> <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="VibratePattern " id="dom-notificationoptions-vibrate">vibrate<a class="self-link" href="#dom-notificationoptions-vibrate"></a></dfn>;
-  unsigned long long <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="unsigned long long " id="dom-notificationoptions-timestamp">timestamp<a class="self-link" href="#dom-notificationoptions-timestamp"></a></dfn>;
+  <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="DOMTimeStamp " id="dom-notificationoptions-timestamp">timestamp<a class="self-link" href="#dom-notificationoptions-timestamp"></a></dfn>;
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-renotify">renotify<a class="self-link" href="#dom-notificationoptions-renotify"></a></dfn> = false;
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-silent">silent<a class="self-link" href="#dom-notificationoptions-silent"></a></dfn> = false;
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-noscreen">noscreen<a class="self-link" href="#dom-notificationoptions-noscreen"></a></dfn> = false;
@@ -809,6 +809,7 @@ neighboring rights to this work. </p>
      <li><a href="#dom-notificationoptions-data">dict-member for NotificationOptions</a><span>, in §3</span>
      <li><a href="#dom-notification-data">attribute for Notification</a><span>, in §3.4</span>
     </ul>
+   <li><a href="#dom-notification-requestpermission-deprecatedcallback-deprecatedcallback">deprecatedCallback</a><span>, in §3</span>
    <li>
     dir
     <ul>
@@ -816,7 +817,9 @@ neighboring rights to this work. </p>
      <li><a href="#dom-notification-dir">attribute for Notification</a><span>, in §3.4</span>
     </ul>
    <li><a href="#display-steps">display steps</a><span>, in §2.9</span>
+   <li><a href="#dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict">eventInitDict</a><span>, in §4</span>
    <li><a href="#fetch-steps">fetch steps</a><span>, in §2.5</span>
+   <li><a href="#dom-serviceworkerregistration-getnotifications-filter-filter">filter</a><span>, in §4</span>
    <li><a href="#fire-a-service-worker-notification-event-named-e">fire a service worker notification event named e</a><span>, in §4</span>
    <li><a href="#dictdef-getnotificationoptions">GetNotificationOptions</a><span>, in §4</span>
    <li><a href="#dom-serviceworkerregistration-getnotifications">getNotifications()</a><span>, in §4</span>
@@ -865,9 +868,16 @@ neighboring rights to this work. </p>
    <li><a href="#dom-notification-onerror">onerror</a><span>, in §3.4</span>
    <li><a href="#dom-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a><span>, in §4</span>
    <li>
+    options
+    <ul>
+     <li><a href="#dom-notification-notification-title-options-options">argument for Notification/Notification(title, options)</a><span>, in §3</span>
+     <li><a href="#dom-serviceworkerregistration-shownotification-title-options-options">argument for ServiceWorkerRegistration/showNotification(title, options), ServiceWorkerRegistration/showNotification(title)</a><span>, in §4</span>
+    </ul>
+   <li>
     permission
     <ul>
      <li><a href="#permission">definition of</a><span>, in §2.2</span>
+     <li><a href="#dom-notificationpermissioncallback-permission">argument for NotificationPermissionCallback</a><span>, in §3</span>
      <li><a href="#dom-notification-permission">attribute for Notification</a><span>, in §3.3</span>
     </ul>
    <li><a href="#persistent-notification">persistent notification</a><span>, in §2</span>
@@ -933,9 +943,12 @@ neighboring rights to this work. </p>
    <li>
     title
     <ul>
+     <li><a href="#dom-notification-notification-title-options-title">argument for Notification/Notification(title, options)</a><span>, in §3</span>
      <li><a href="#dom-notificationaction-title">dict-member for NotificationAction</a><span>, in §3</span>
      <li><a href="#dom-notification-title">attribute for Notification</a><span>, in §3.4</span>
+     <li><a href="#dom-serviceworkerregistration-shownotification-title-options-title">argument for ServiceWorkerRegistration/showNotification(title, options), ServiceWorkerRegistration/showNotification(title)</a><span>, in §4</span>
     </ul>
+   <li><a href="#dom-notificationevent-notificationevent-type-eventinitdict-type">type</a><span>, in §4</span>
    <li>
     vibrate
     <ul>
@@ -986,7 +999,7 @@ interface <a href="#notification">Notification</a> : <a data-link-type="idl-name
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-icon">icon</a>;
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-sound">sound</a>;
   readonly attribute FrozenArray&lt;unsigned long> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long> " href="#dom-notification-vibrate">vibrate</a>;
-  readonly attribute unsigned long long <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="unsigned long long " href="#dom-notification-timestamp">timestamp</a>;
+  readonly attribute <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp " href="#dom-notification-timestamp">timestamp</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-renotify">renotify</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-noscreen">noscreen</a>;
@@ -1006,7 +1019,7 @@ dictionary <a href="#dictdef-notificationoptions">NotificationOptions</a> {
   USVString <a data-type="USVString " href="#dom-notificationoptions-icon">icon</a>;
   USVString <a data-type="USVString " href="#dom-notificationoptions-sound">sound</a>;
   <a data-link-type="idl-name" href="https://www.w3.org/TR/vibration/#idl-def-VibratePattern">VibratePattern</a> <a data-type="VibratePattern " href="#dom-notificationoptions-vibrate">vibrate</a>;
-  unsigned long long <a data-type="unsigned long long " href="#dom-notificationoptions-timestamp">timestamp</a>;
+  <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a data-type="DOMTimeStamp " href="#dom-notificationoptions-timestamp">timestamp</a>;
   boolean <a data-default="false" data-type="boolean " href="#dom-notificationoptions-renotify">renotify</a> = false;
   boolean <a data-default="false" data-type="boolean " href="#dom-notificationoptions-silent">silent</a> = false;
   boolean <a data-default="false" data-type="boolean " href="#dom-notificationoptions-noscreen">noscreen</a> = false;
