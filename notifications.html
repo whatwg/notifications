@@ -11,7 +11,7 @@
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://whatwg.org/"> <img alt="WHATWG" height="100" src="https://resources.whatwg.org/logo-notifications.svg"> </a> </p>
    <h1 class="p-name no-ref" id="title">Notifications API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-01-12">12 January 2016</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-01-22">22 January 2016</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>Participate:
@@ -29,13 +29,13 @@
    <p>This standard defines an API to display notifications to the end user, typically outside the top-level browsing context’s viewport. It is designed to be compatible with existing notification systems, while remaining platform-independent.</p>
   </div>
   <div data-fill-with="at-risk"></div>
-  <h2 class="no-num no-toc no-ref heading settled" id="contents"><span class="content">Table of Contents</span></h2>
-  <div data-fill-with="table-of-contents" role="navigation">
-   <ul class="toc" role="directory">
+  <nav data-fill-with="table-of-contents" id="toc">
+   <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
+   <ol class="toc" role="directory">
     <li><a href="#terminology"><span class="secno">1</span> <span class="content">Terminology</span></a>
     <li>
      <a href="#notifications"><span class="secno">2</span> <span class="content">Notifications</span></a>
-     <ul class="toc">
+     <ol class="toc">
       <li><a href="#lifetime-and-ui-integrations"><span class="secno">2.1</span> <span class="content">Lifetime and UI integration</span></a>
       <li><a href="#permission-model"><span class="secno">2.2</span> <span class="content">Permission model</span></a>
       <li><a href="#direction"><span class="secno">2.3</span> <span class="content">Direction</span></a>
@@ -46,39 +46,39 @@
       <li><a href="#closing-a-notification"><span class="secno">2.8</span> <span class="content">Closing a notification</span></a>
       <li><a href="#displaying-notification"><span class="secno">2.9</span> <span class="content">Displaying notifications</span></a>
       <li><a href="#replacing-a-notification"><span class="secno">2.10</span> <span class="content">Replacing a notification</span></a>
-     </ul>
+     </ol>
     <li>
      <a href="#api"><span class="secno">3</span> <span class="content">API</span></a>
-     <ul class="toc">
+     <ol class="toc">
       <li><a href="#garbage-collection"><span class="secno">3.1</span> <span class="content">Garbage collection</span></a>
       <li><a href="#constructors"><span class="secno">3.2</span> <span class="content">Constructors</span></a>
       <li><a href="#static-members"><span class="secno">3.3</span> <span class="content">Static members</span></a>
       <li><a href="#object-members"><span class="secno">3.4</span> <span class="content">Object members</span></a>
       <li>
        <a href="#examples"><span class="secno">3.5</span> <span class="content">Examples</span></a>
-       <ul class="toc">
+       <ol class="toc">
         <li><a href="#using-events"><span class="secno">3.5.1</span> <span class="content">Using events from a page</span></a>
         <li><a href="#using-actions"><span class="secno">3.5.2</span> <span class="content">Using actions from a service worker</span></a>
         <li><a href="#tags-example"><span class="secno">3.5.3</span> <span class="content">Using the <code>tag</code> member for multiple instances</span></a>
         <li><a href="#using-the-tag-member-for-a-single-instance"><span class="secno">3.5.4</span> <span class="content">Using the <code>tag</code> member for a single instance</span></a>
-       </ul>
-     </ul>
+       </ol>
+     </ol>
     <li><a href="#service-worker-api"><span class="secno">4</span> <span class="content">Service worker API</span></a>
     <li><a href="#acknowledgments"><span class="secno"></span> <span class="content">Acknowledgments</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
-     <ul class="toc">
+     <ol class="toc">
       <li><a href="#index-defined-here"><span class="secno"></span> <span class="content">Terms defined by this specification</span></a>
-     </ul>
+     </ol>
     <li>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
-     <ul class="toc">
+     <ol class="toc">
       <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
-     </ul>
+     </ol>
     <li><a href="#idl-index"><span class="secno"></span> <span class="content">IDL Index</span></a>
-   </ul>
-  </div>
+   </ol>
+  </nav>
   <main>
 <script async="" src="https://resources.whatwg.org/file-issue.js"></script>
 <script defer="" id="head" src="https://resources.whatwg.org/dfn.js"></script>
@@ -95,7 +95,7 @@ representation of something that happened, such as the delivery of a message. </
 representing either a valid BCP 47 language tag or the empty string. </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="tag">tag<a class="self-link" href="#tag"></a></dfn> which is a DOMString. </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="data">data<a class="self-link" href="#data"></a></dfn>. </p>
-   <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="timestamp">timestamp<a class="self-link" href="#timestamp"></a></dfn> which is an unsigned long long representing the time, in
+   <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="timestamp">timestamp<a class="self-link" href="#timestamp"></a></dfn> which is a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a></code> representing the time, in
 milliseconds since 00:00:00 UTC on 1 January 1970, of the event for which the
 notification was created. </p>
    <p class="note" role="note">Timestamps can be used to indicate the time at which a notification
@@ -384,7 +384,7 @@ interface <dfn class="idl-code" data-dfn-type="interface" data-export="" id="not
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-icon">icon</a>;
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-sound">sound</a>;
   readonly attribute FrozenArray&lt;unsigned long> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long> " href="#dom-notification-vibrate">vibrate</a>;
-  readonly attribute unsigned long long <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="unsigned long long " href="#dom-notification-timestamp">timestamp</a>;
+  readonly attribute <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp " href="#dom-notification-timestamp">timestamp</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-renotify">renotify</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-noscreen">noscreen</a>;
@@ -404,7 +404,7 @@ dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" id="d
   USVString <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="USVString " id="dom-notificationoptions-icon">icon<a class="self-link" href="#dom-notificationoptions-icon"></a></dfn>;
   USVString <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="USVString " id="dom-notificationoptions-sound">sound<a class="self-link" href="#dom-notificationoptions-sound"></a></dfn>;
   <a data-link-type="idl-name" href="https://www.w3.org/TR/vibration/#idl-def-VibratePattern">VibratePattern</a> <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="VibratePattern " id="dom-notificationoptions-vibrate">vibrate<a class="self-link" href="#dom-notificationoptions-vibrate"></a></dfn>;
-  unsigned long long <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="unsigned long long " id="dom-notificationoptions-timestamp">timestamp<a class="self-link" href="#dom-notificationoptions-timestamp"></a></dfn>;
+  <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <dfn class="idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="DOMTimeStamp " id="dom-notificationoptions-timestamp">timestamp<a class="self-link" href="#dom-notificationoptions-timestamp"></a></dfn>;
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-renotify">renotify<a class="self-link" href="#dom-notificationoptions-renotify"></a></dfn> = false;
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-silent">silent<a class="self-link" href="#dom-notificationoptions-silent"></a></dfn> = false;
   boolean <dfn class="idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-noscreen">noscreen<a class="self-link" href="#dom-notificationoptions-noscreen"></a></dfn> = false;
@@ -765,12 +765,12 @@ neighboring rights to this work. </p>
   <div data-fill-with="conformance">
    <h2 class="no-num no-ref heading settled" id="conformance"><span class="content">Conformance</span><a class="self-link" href="#conformance"></a></h2>
    <p>All diagrams, examples, and notes in this specification are non-normative, as are all sections explicitly marked non-normative. Everything else in this specification is normative. </p>
-   <p>The key words "MUST", "MUST NOT", "REQUIRED",  "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in the normative parts of this specification are to be interpreted as described in RFC2119. For readability, these words do not appear in all uppercase letters in this specification. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a> </p>
+   <p>The key words “MUST”, “MUST NOT”, “REQUIRED”,  “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in the normative parts of this specification are to be interpreted as described in RFC2119. For readability, these words do not appear in all uppercase letters in this specification. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a> </p>
    <p>Conformance requirements phrased as algorithms or specific steps may be implemented in any manner, so long as the end result is equivalent. (In particular, the algorithms defined in this specification are intended to be easy to follow, and not intended to be performant.) </p>
   </div>
   <h2 class="no-num heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
-  <ul class="indexlist">
+  <ul class="index">
    <li>
     action
     <ul>
@@ -986,7 +986,7 @@ interface <a href="#notification">Notification</a> : <a data-link-type="idl-name
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-icon">icon</a>;
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-sound">sound</a>;
   readonly attribute FrozenArray&lt;unsigned long> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long> " href="#dom-notification-vibrate">vibrate</a>;
-  readonly attribute unsigned long long <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="unsigned long long " href="#dom-notification-timestamp">timestamp</a>;
+  readonly attribute <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp " href="#dom-notification-timestamp">timestamp</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-renotify">renotify</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-noscreen">noscreen</a>;
@@ -1006,7 +1006,7 @@ dictionary <a href="#dictdef-notificationoptions">NotificationOptions</a> {
   USVString <a data-type="USVString " href="#dom-notificationoptions-icon">icon</a>;
   USVString <a data-type="USVString " href="#dom-notificationoptions-sound">sound</a>;
   <a data-link-type="idl-name" href="https://www.w3.org/TR/vibration/#idl-def-VibratePattern">VibratePattern</a> <a data-type="VibratePattern " href="#dom-notificationoptions-vibrate">vibrate</a>;
-  unsigned long long <a data-type="unsigned long long " href="#dom-notificationoptions-timestamp">timestamp</a>;
+  <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a data-type="DOMTimeStamp " href="#dom-notificationoptions-timestamp">timestamp</a>;
   boolean <a data-default="false" data-type="boolean " href="#dom-notificationoptions-renotify">renotify</a> = false;
   boolean <a data-default="false" data-type="boolean " href="#dom-notificationoptions-silent">silent</a> = false;
   boolean <a data-default="false" data-type="boolean " href="#dom-notificationoptions-noscreen">noscreen</a> = false;
