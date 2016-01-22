@@ -29,13 +29,13 @@
    <p>This standard defines an API to display notifications to the end user, typically outside the top-level browsing context’s viewport. It is designed to be compatible with existing notification systems, while remaining platform-independent.</p>
   </div>
   <div data-fill-with="at-risk"></div>
-  <nav data-fill-with="table-of-contents" id="toc">
-   <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
-   <ol class="toc" role="directory">
+  <h2 class="no-num no-toc no-ref heading settled" id="contents"><span class="content">Table of Contents</span></h2>
+  <div data-fill-with="table-of-contents" role="navigation">
+   <ul class="toc" role="directory">
     <li><a href="#terminology"><span class="secno">1</span> <span class="content">Terminology</span></a>
     <li>
      <a href="#notifications"><span class="secno">2</span> <span class="content">Notifications</span></a>
-     <ol class="toc">
+     <ul class="toc">
       <li><a href="#lifetime-and-ui-integrations"><span class="secno">2.1</span> <span class="content">Lifetime and UI integration</span></a>
       <li><a href="#permission-model"><span class="secno">2.2</span> <span class="content">Permission model</span></a>
       <li><a href="#direction"><span class="secno">2.3</span> <span class="content">Direction</span></a>
@@ -46,39 +46,40 @@
       <li><a href="#closing-a-notification"><span class="secno">2.8</span> <span class="content">Closing a notification</span></a>
       <li><a href="#displaying-notification"><span class="secno">2.9</span> <span class="content">Displaying notifications</span></a>
       <li><a href="#replacing-a-notification"><span class="secno">2.10</span> <span class="content">Replacing a notification</span></a>
-     </ol>
+      <li><a href="#alerting-the-user"><span class="secno">2.11</span> <span class="content">Alerting the user</span></a>
+     </ul>
     <li>
      <a href="#api"><span class="secno">3</span> <span class="content">API</span></a>
-     <ol class="toc">
+     <ul class="toc">
       <li><a href="#garbage-collection"><span class="secno">3.1</span> <span class="content">Garbage collection</span></a>
       <li><a href="#constructors"><span class="secno">3.2</span> <span class="content">Constructors</span></a>
       <li><a href="#static-members"><span class="secno">3.3</span> <span class="content">Static members</span></a>
       <li><a href="#object-members"><span class="secno">3.4</span> <span class="content">Object members</span></a>
       <li>
        <a href="#examples"><span class="secno">3.5</span> <span class="content">Examples</span></a>
-       <ol class="toc">
+       <ul class="toc">
         <li><a href="#using-events"><span class="secno">3.5.1</span> <span class="content">Using events from a page</span></a>
         <li><a href="#using-actions"><span class="secno">3.5.2</span> <span class="content">Using actions from a service worker</span></a>
         <li><a href="#tags-example"><span class="secno">3.5.3</span> <span class="content">Using the <code>tag</code> member for multiple instances</span></a>
         <li><a href="#using-the-tag-member-for-a-single-instance"><span class="secno">3.5.4</span> <span class="content">Using the <code>tag</code> member for a single instance</span></a>
-       </ol>
-     </ol>
+       </ul>
+     </ul>
     <li><a href="#service-worker-api"><span class="secno">4</span> <span class="content">Service worker API</span></a>
     <li><a href="#acknowledgments"><span class="secno"></span> <span class="content">Acknowledgments</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
-     <ol class="toc">
+     <ul class="toc">
       <li><a href="#index-defined-here"><span class="secno"></span> <span class="content">Terms defined by this specification</span></a>
-     </ol>
+     </ul>
     <li>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
-     <ol class="toc">
+     <ul class="toc">
       <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
-     </ol>
+     </ul>
     <li><a href="#idl-index"><span class="secno"></span> <span class="content">IDL Index</span></a>
-   </ol>
-  </nav>
+   </ul>
+  </div>
   <main>
 <script async="" src="https://resources.whatwg.org/file-issue.js"></script>
 <script defer="" id="head" src="https://resources.whatwg.org/dfn.js"></script>
@@ -130,6 +131,8 @@ encouraged to make sure that any action a user can invoke from a notification is
 also available within the web application. </p>
    <p>A <dfn data-dfn-type="dfn" data-noexport="" id="non-persistent-notification">non-persistent notification<a class="self-link" href="#non-persistent-notification"></a></dfn> is a <a data-link-type="dfn" href="#concept-notification">notification</a> without an associated <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a>. </p>
    <p>A <dfn data-dfn-type="dfn" data-noexport="" id="persistent-notification">persistent notification<a class="self-link" href="#persistent-notification"></a></dfn> is a <a data-link-type="dfn" href="#concept-notification">notification</a> with an associated <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a>. </p>
+   <p>A <var>notification</var> is considered to be <dfn data-dfn-type="dfn" data-noexport="" id="replaceable">replaceable<a class="self-link" href="#replaceable"></a></dfn> if there
+is a <a data-link-type="dfn" href="#concept-notification">notification</a> in the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a> whose <a data-link-type="dfn" href="#tag">tag</a> is not the empty string and equals the <var>notification</var>’s <a data-link-type="dfn" href="#tag">tag</a>, and whose <a data-link-type="dfn" href="#concept-origin">origin</a> is <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin">same origin</a> with <var>notification</var>’s <a data-link-type="dfn" href="#concept-origin">origin</a>. </p>
    <hr>
    <p>To <dfn data-dfn-type="dfn" data-noexport="" id="create-a-notification">create a notification<a class="self-link" href="#create-a-notification"></a></dfn>, given a <var>title</var>, <var>options</var>, and optionally a <var>serviceWorkerRegistration</var>, run
 these steps: </p>
@@ -270,7 +273,7 @@ are not enforced. <a data-link-type="biblio" href="#biblio-lang">[LANG]</a> </p>
        <p>If the image format is supported, set <var>notification</var>’s <a data-link-type="dfn" href="#icon-resource">icon resource</a> to the decoded resource. (Otherwise <var>notification</var> has no <a data-link-type="dfn" href="#icon-resource">icon resource</a>.) </p>
      </ol>
     <li>
-     <p>If the notification platform supports sounds, <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetch</a> <var>notification</var>’s <a data-link-type="dfn" href="#sound-url">sound URL</a>, if <a data-link-type="dfn" href="#sound-url">sound URL</a> is set. </p>
+     <p>If the notification platform supports sounds, and the <var>notification</var> is either not <a data-link-type="dfn" href="#replaceable">replaceable</a> or has the <a data-link-type="dfn" href="#renotify-preference-flag">renotify preference flag</a> set, <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetch</a> <var>notification</var>’s <a data-link-type="dfn" href="#sound-url">sound URL</a> if it has been set. </p>
      <p>Then, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>: </p>
      <ol>
       <li>
@@ -286,8 +289,7 @@ are not enforced. <a data-link-type="biblio" href="#biblio-lang">[LANG]</a> </p>
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="show-steps">show steps<a class="self-link" href="#show-steps"></a></dfn> for a given <a data-link-type="dfn" href="#concept-notification">notification</a> <var>notification</var> are: </p>
    <ol>
     <li>
-     <p>If there is a <a data-link-type="dfn" href="#concept-notification">notification</a> in the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a> whose <a data-link-type="dfn" href="#tag">tag</a> is not the empty string and
-  equals <var>notification</var>’s <a data-link-type="dfn" href="#tag">tag</a>, and whose <a data-link-type="dfn" href="#concept-origin">origin</a> is <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin">same origin</a> with <var>notification</var>’s <a data-link-type="dfn" href="#concept-origin">origin</a>, run the <a data-link-type="dfn" href="#replace-steps">replace steps</a> for that <a data-link-type="dfn" href="#concept-notification">notification</a> and <var>notification</var>, and then terminate these steps. </p>
+     <p>If <var>notification</var> is <a data-link-type="dfn" href="#replaceable">replaceable</a>, run the <a data-link-type="dfn" href="#replace-steps">replace steps</a> for that <a data-link-type="dfn" href="#concept-notification">notification</a> and <var>notification</var>, and then terminate these steps. </p>
     <li>
      <p>Otherwise, run the <a data-link-type="dfn" href="#display-steps">display steps</a> for <var>notification</var>. </p>
    </ol>
@@ -346,8 +348,8 @@ must be run. </p>
     <li>
      <p>Display <var>notification</var> on the device (e.g. by calling the
   appropriate notification platform API). </p>
-     <p>At this point also play <var>notification</var>’s <a data-link-type="dfn" href="#sound-resource">sound resource</a>, if
-  any, and run <a data-link-type="dfn" href="https://www.w3.org/TR/vibration/#dfn-perform-vibration">perform vibration</a> using <var>notification</var>’s <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a>, if any. </p>
+    <li>
+     <p>Run the <a data-link-type="dfn" href="#alert-steps">alert steps</a> for <var>notification</var>. </p>
     <li>
      <p>Append <var>notification</var> to the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>. </p>
    </ol>
@@ -358,11 +360,22 @@ must be run. </p>
      <p>Wait for any <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> to complete and <var>notification</var>’s <a data-link-type="dfn" href="#icon-resource">icon resource</a> and <a data-link-type="dfn" href="#sound-resource">sound resource</a> to be set (if any). </p>
     <li>
      <p>Replace <var>old</var> with <var>new</var>, in the same position, in the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>. </p>
-     <p>If the notification platform does not support replacement this requirement may be
-  addressed by running the <a data-link-type="dfn" href="#close-steps">close steps</a> for <var>old</var> and then running the <a data-link-type="dfn" href="#display-steps">display steps</a> for <var>new</var>. </p>
-     <p class="note" role="note">Notification platforms are strongly encouraged to support native
-  replacement. It is much nicer and has no side effects, such as playing sounds or
-  vibrating the device again. </p>
+    <li>
+     <p>If <var>notification</var>’s <a data-link-type="dfn" href="#renotify-preference-flag">renotify preference flag</a> has been set,
+ perform the <a data-link-type="dfn" href="#alert-steps">alert steps</a> for <var>new</var>. </p>
+   </ol>
+   <p>If the notification platform does not support replacement this requirement may be
+addressed by running the <a data-link-type="dfn" href="#close-steps">close steps</a> for <var>old</var> and then running the <a data-link-type="dfn" href="#display-steps">display steps</a> for <var>new</var>. </p>
+   <p class="note no-backref" role="note">Notification platforms are strongly encouraged to support
+native replacement. It is much nicer and has no side effects, such as playing sounds
+or vibrating the device again, unless the <a data-link-type="dfn" href="#renotify-preference-flag">renotify preference flag</a> is set. </p>
+   <h3 class="heading settled" data-level="2.11" id="alerting-the-user"><span class="secno">2.11. </span><span class="content">Alerting the user</span><a class="self-link" href="#alerting-the-user"></a></h3>
+   <p>The <dfn data-dfn-type="dfn" data-noexport="" id="alert-steps">alert steps<a class="self-link" href="#alert-steps"></a></dfn> for alerting the user about a given <var>notification</var> are: </p>
+   <ol>
+    <li>
+     <p>Play the <var>notification</var>’s <a data-link-type="dfn" href="#sound-resource">sound resource</a>, if any. </p>
+    <li>
+     <p><a data-link-type="dfn" href="https://www.w3.org/TR/vibration/#dfn-perform-vibration">Perform vibration</a> using <var>notification</var>’s <a data-link-type="dfn" href="#vibration-pattern">vibration pattern</a>, if any. </p>
    </ol>
    <h2 class="heading settled" data-level="3" id="api"><span class="secno">3. </span><span class="content">API</span><a class="self-link" href="#api"></a></h2>
 <pre class="idl">[<a class="idl-code" data-link-type="constructor" href="#dom-notification-notification">Constructor</a>(DOMString <dfn class="idl-code" data-dfn-for="Notification/Notification(title, options)" data-dfn-type="argument" data-export="" id="dom-notification-notification-title-options-title">title<a class="self-link" href="#dom-notification-notification-title-options-title"></a></dfn>, optional <a data-link-type="idl-name" href="#dictdef-notificationoptions">NotificationOptions</a> <dfn class="idl-code" data-dfn-for="Notification/Notification(title, options)" data-dfn-type="argument" data-export="" id="dom-notification-notification-title-options-options">options<a class="self-link" href="#dom-notification-notification-title-options-options"></a></dfn>),
@@ -765,12 +778,12 @@ neighboring rights to this work. </p>
   <div data-fill-with="conformance">
    <h2 class="no-num no-ref heading settled" id="conformance"><span class="content">Conformance</span><a class="self-link" href="#conformance"></a></h2>
    <p>All diagrams, examples, and notes in this specification are non-normative, as are all sections explicitly marked non-normative. Everything else in this specification is normative. </p>
-   <p>The key words “MUST”, “MUST NOT”, “REQUIRED”,  “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in the normative parts of this specification are to be interpreted as described in RFC2119. For readability, these words do not appear in all uppercase letters in this specification. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a> </p>
+   <p>The key words "MUST", "MUST NOT", "REQUIRED",  "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in the normative parts of this specification are to be interpreted as described in RFC2119. For readability, these words do not appear in all uppercase letters in this specification. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a> </p>
    <p>Conformance requirements phrased as algorithms or specific steps may be implemented in any manner, so long as the end result is equivalent. (In particular, the algorithms defined in this specification are intended to be easy to follow, and not intended to be performant.) </p>
   </div>
   <h2 class="no-num heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
-  <ul class="index">
+  <ul class="indexlist">
    <li>
     action
     <ul>
@@ -787,6 +800,7 @@ neighboring rights to this work. </p>
      <li><a href="#dom-notification-actions">attribute for Notification</a><span>, in §3.4</span>
     </ul>
    <li><a href="#action-title">action title</a><span>, in §2</span>
+   <li><a href="#alert-steps">alert steps</a><span>, in §2.11</span>
    <li>
     body
     <ul>
@@ -809,6 +823,7 @@ neighboring rights to this work. </p>
      <li><a href="#dom-notificationoptions-data">dict-member for NotificationOptions</a><span>, in §3</span>
      <li><a href="#dom-notification-data">attribute for Notification</a><span>, in §3.4</span>
     </ul>
+   <li><a href="#dom-notification-requestpermission-deprecatedcallback-deprecatedcallback">deprecatedCallback</a><span>, in §3</span>
    <li>
     dir
     <ul>
@@ -816,7 +831,9 @@ neighboring rights to this work. </p>
      <li><a href="#dom-notification-dir">attribute for Notification</a><span>, in §3.4</span>
     </ul>
    <li><a href="#display-steps">display steps</a><span>, in §2.9</span>
+   <li><a href="#dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict">eventInitDict</a><span>, in §4</span>
    <li><a href="#fetch-steps">fetch steps</a><span>, in §2.5</span>
+   <li><a href="#dom-serviceworkerregistration-getnotifications-filter-filter">filter</a><span>, in §4</span>
    <li><a href="#fire-a-service-worker-notification-event-named-e">fire a service worker notification event named e</a><span>, in §4</span>
    <li><a href="#dictdef-getnotificationoptions">GetNotificationOptions</a><span>, in §4</span>
    <li><a href="#dom-serviceworkerregistration-getnotifications">getNotifications()</a><span>, in §4</span>
@@ -865,9 +882,16 @@ neighboring rights to this work. </p>
    <li><a href="#dom-notification-onerror">onerror</a><span>, in §3.4</span>
    <li><a href="#dom-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a><span>, in §4</span>
    <li>
+    options
+    <ul>
+     <li><a href="#dom-notification-notification-title-options-options">argument for Notification/Notification(title, options)</a><span>, in §3</span>
+     <li><a href="#dom-serviceworkerregistration-shownotification-title-options-options">argument for ServiceWorkerRegistration/showNotification(title, options), ServiceWorkerRegistration/showNotification(title)</a><span>, in §4</span>
+    </ul>
+   <li>
     permission
     <ul>
      <li><a href="#permission">definition of</a><span>, in §2.2</span>
+     <li><a href="#dom-notificationpermissioncallback-permission">argument for NotificationPermissionCallback</a><span>, in §3</span>
      <li><a href="#dom-notification-permission">attribute for Notification</a><span>, in §3.3</span>
     </ul>
    <li><a href="#persistent-notification">persistent notification</a><span>, in §2</span>
@@ -878,6 +902,7 @@ neighboring rights to this work. </p>
      <li><a href="#dom-notification-renotify">attribute for Notification</a><span>, in §3.4</span>
     </ul>
    <li><a href="#renotify-preference-flag">renotify preference flag</a><span>, in §2</span>
+   <li><a href="#replaceable">replaceable</a><span>, in §2</span>
    <li><a href="#replace-steps">replace steps</a><span>, in §2.10</span>
    <li><a href="#dom-notification-requestpermission">requestPermission()</a><span>, in §3.3</span>
    <li><a href="#dom-notification-requestpermission">requestPermission(deprecatedCallback)</a><span>, in §3.3</span>
@@ -933,9 +958,12 @@ neighboring rights to this work. </p>
    <li>
     title
     <ul>
+     <li><a href="#dom-notification-notification-title-options-title">argument for Notification/Notification(title, options)</a><span>, in §3</span>
      <li><a href="#dom-notificationaction-title">dict-member for NotificationAction</a><span>, in §3</span>
      <li><a href="#dom-notification-title">attribute for Notification</a><span>, in §3.4</span>
+     <li><a href="#dom-serviceworkerregistration-shownotification-title-options-title">argument for ServiceWorkerRegistration/showNotification(title, options), ServiceWorkerRegistration/showNotification(title)</a><span>, in §4</span>
     </ul>
+   <li><a href="#dom-notificationevent-notificationevent-type-eventinitdict-type">type</a><span>, in §4</span>
    <li>
     vibrate
     <ul>
