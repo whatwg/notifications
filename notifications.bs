@@ -119,6 +119,12 @@ also available within the web application.
 <a lt="concept notification">notification</a> with an associated
 <a>service worker registration</a>.
 
+<p>A <var>notification</var> is considered to be <dfn>replaceable</dfn> if there
+is a <a lt="concept notification">notification</a> in the <a>list of notifications</a>
+whose <a>tag</a> is not the empty string and equals the <var>notification</var>'s
+<a>tag</a>, and whose <a lt="concept origin">origin</a> is <a>same origin</a> with
+<var>notification</var>'s <a lt="concept origin">origin</a>.
+
 <!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
 
 <hr>
@@ -354,8 +360,9 @@ are not enforced. [[!LANG]]
     <var>notification</var> has no <a>icon resource</a>.)
   </ol>
 
-  <li><p>If the notification platform supports sounds, <a>fetch</a>
-  <var>notification</var>'s <a>sound URL</a>, if <a>sound URL</a> is set.
+  <li><p>If the notification platform supports sounds, and the <var>notification</var>
+  is either not <a>replaceable</a> or has the <a>renotify preference flag</a> set,
+  <a>fetch</a> <var>notification</var>'s <a>sound URL</a> if it has been set.
 
   <p>Then, <a>in parallel</a>:
 
@@ -380,11 +387,7 @@ are not enforced. [[!LANG]]
 <a lt="concept notification">notification</a> <var>notification</var> are:
 
 <ol>
-  <li><p>If there is a <a lt="concept notification">notification</a> in the
-  <a>list of notifications</a> whose <a>tag</a> is not the empty string and
-  equals <var>notification</var>'s <a>tag</a>, and whose
-  <a lt="concept origin">origin</a> is <a>same origin</a> with
-  <var>notification</var>'s <a lt="concept origin">origin</a>, run the
+  <li><p>If <var>notification</var> is <a>replaceable</a>, run the
   <a>replace steps</a> for that <a lt="concept notification">notification</a>
   and <var>notification</var>, and then terminate these steps.
 
@@ -470,9 +473,7 @@ must be run.
   <li><p>Display <var>notification</var> on the device (e.g. by calling the
   appropriate notification platform API).
 
-  <p>At this point also play <var>notification</var>'s <a>sound resource</a>, if
-  any, and run <a>perform vibration</a> using <var>notification</var>'s
-  <a>vibration pattern</a>, if any.
+  <li><p>Run the <a>alert steps</a> for <var>notification</var>.
 
   <li><p>Append <var>notification</var> to the <a>list of notifications</a>.
 </ol>
@@ -487,17 +488,32 @@ must be run.
  <li><p>Wait for any <a lt="fetch">fetches</a> to complete and <var>notification</var>'s
  <a>icon resource</a> and <a>sound resource</a> to be set (if any).
 
- <li>
-  <p>Replace <var>old</var> with <var>new</var>, in the same position, in the
-  <a>list of notifications</a>.
+ <li><p>Replace <var>old</var> with <var>new</var>, in the same position, in the
+ <a>list of notifications</a>.
 
-  <p>If the notification platform does not support replacement this requirement may be
-  addressed by running the <a>close steps</a> for <var>old</var> and then running the
-  <a>display steps</a> for <var>new</var>.
+ <li><p>If <var>notification</var>'s <a>renotify preference flag</a> has been set,
+ perform the <a>alert steps</a> for <var>new</var>.
+</ol>
 
-  <p class="note">Notification platforms are strongly encouraged to support native
-  replacement. It is much nicer and has no side effects, such as playing sounds or
-  vibrating the device again.
+<p>If the notification platform does not support replacement this requirement may be
+addressed by running the <a>close steps</a> for <var>old</var> and then running the
+<a>display steps</a> for <var>new</var>.
+
+<p class="note no-backref">Notification platforms are strongly encouraged to support
+native replacement. It is much nicer and has no side effects, such as playing sounds
+or vibrating the device again, unless the <a>renotify preference flag</a> is set.
+
+
+<h3 id=alerting-the-user>Alerting the user</h3>
+
+<p>The <dfn>alert steps</dfn> for alerting the user about a given
+<var>notification</var> are:
+
+<ol>
+ <li><p>Play the <var>notification</var>'s <a>sound resource</a>, if any.
+
+ <li><p><a>Perform vibration</a> using <var>notification</var>'s
+ <a>vibration pattern</a>, if any.
 </ol>
 
 
