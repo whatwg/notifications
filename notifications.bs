@@ -457,6 +457,21 @@ must be run.
   <li><p>If <var>notification</var> is not in the <a>list of notifications</a>,
   terminate these steps.
 
+  <li><p>If <var>notification</var> is a <a>persistent notification</a> and
+  <var>notification</var> was closed by the user, run these substeps:
+
+  <ol>
+    <li><p>Let <var>callback</var> be an algorithm that when invoked with a
+    <var>global</var>, <a lt="fire a service worker notification event named e">
+    fires a service worker notification event</a> named
+    <code>notificationclose</code> given <var>notification</var> on
+    <var>global</var>.
+
+    <li><p>Then run <a>Handle Functional Event</a> with
+    <var>notification</var>'s <a>service worker registration</a> and
+    <var>callback</var>.
+  </ol>
+
   <li><p>Remove <var>notification</var> from the <a>list of notifications</a>.
 </ol>
 
@@ -941,6 +956,7 @@ dictionary NotificationEventInit : ExtendableEventInit {
 
 partial interface ServiceWorkerGlobalScope {
   attribute EventHandler onnotificationclick;
+  attribute EventHandler onnotificationclose;
 };
 </pre>
 
@@ -1047,6 +1063,10 @@ was initialized to.
       <td><dfn attribute dfn-for=ServiceWorkerGlobalScope><code>
       onnotificationclick</code></dfn>
       <td><code>notificationclick
+    <tr>
+      <td><dfn attribute dfn-for=ServiceWorkerGlobalScope><code>
+      onnotificationclose</code></dfn>
+      <td><code>notificationclose
 </table>
 
 
@@ -1073,6 +1093,7 @@ Jonas Sicking,
 Michael Cooper,
 Michael Henretty,
 Michael™ Smith,
+Nicolás Satragno,
 Olli Pettay,
 Peter Beverloo,
 Reuben Morais,
