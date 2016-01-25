@@ -11,7 +11,7 @@
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://whatwg.org/"> <img alt="WHATWG" height="100" src="https://resources.whatwg.org/logo-notifications.svg"> </a> </p>
    <h1 class="p-name no-ref" id="title">Notifications API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-01-22">22 January 2016</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-01-25">25 January 2016</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>Participate:
@@ -337,6 +337,14 @@ must be run. </p>
     <li>
      <p>If <var>notification</var> is not in the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>,
   terminate these steps. </p>
+    <li>
+     <p>If <var>notification</var> is a <a data-link-type="dfn" href="#persistent-notification">persistent notification</a> and <var>notification</var> was closed by the user, run these substeps: </p>
+     <ol>
+      <li>
+       <p>Let <var>callback</var> be an algorithm that when invoked with a <var>global</var>, <a data-link-type="dfn" href="#fire-a-service-worker-notification-event-named-e"> fires a service worker notification event</a> named <code>notificationclose</code> given <var>notification</var> on <var>global</var>. </p>
+      <li>
+       <p>Then run <a data-link-type="dfn" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#handle-functional-event">Handle Functional Event</a> with <var>notification</var>’s <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a> and <var>callback</var>. </p>
+     </ol>
     <li>
      <p>Remove <var>notification</var> from the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>. </p>
    </ol>
@@ -667,6 +675,7 @@ dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" id="d
 
 partial interface <a class="idl-code" data-link-type="interface" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a> {
   attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-serviceworkerglobalscope-onnotificationclose">onnotificationclose</a>;
 };
 </pre>
    <p>The <dfn class="idl-code" data-dfn-for="ServiceWorkerRegistration" data-dfn-type="method" data-export="" data-lt="showNotification(title, options)|showNotification(title)" id="dom-serviceworkerregistration-shownotification"><code>showNotification(title, options)</code><a class="self-link" href="#dom-serviceworkerregistration-shownotification"></a></dfn> method, when invoked, must run these steps: </p>
@@ -737,6 +746,9 @@ was initialized to. </p>
      <tr>
       <td><dfn class="idl-code" data-dfn-for="ServiceWorkerGlobalScope" data-dfn-type="attribute" data-export="" data-lt="onnotificationclick" id="dom-serviceworkerglobalscope-onnotificationclick"><code> onnotificationclick</code><a class="self-link" href="#dom-serviceworkerglobalscope-onnotificationclick"></a></dfn> 
       <td><code>notificationclick </code>
+     <tr>
+      <td><dfn class="idl-code" data-dfn-for="ServiceWorkerGlobalScope" data-dfn-type="attribute" data-export="" data-lt="onnotificationclose" id="dom-serviceworkerglobalscope-onnotificationclose"><code> onnotificationclose</code><a class="self-link" href="#dom-serviceworkerglobalscope-onnotificationclose"></a></dfn> 
+      <td><code>notificationclose </code>
    </table>
    <h2 class="no-num heading settled" id="acknowledgments"><span class="content">Acknowledgments</span><a class="self-link" href="#acknowledgments"></a></h2>
    <p>Thanks to
@@ -760,6 +772,7 @@ Jonas Sicking,
 Michael Cooper,
 Michael Henretty,
 Michael™ Smith,
+Nicolás Satragno,
 Olli Pettay,
 Peter Beverloo,
 Reuben Morais,
@@ -878,6 +891,7 @@ neighboring rights to this work. </p>
    <li><a href="#dom-notification-onclick">onclick</a><span>, in §3.4</span>
    <li><a href="#dom-notification-onerror">onerror</a><span>, in §3.4</span>
    <li><a href="#dom-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a><span>, in §4</span>
+   <li><a href="#dom-serviceworkerglobalscope-onnotificationclose">onnotificationclose</a><span>, in §4</span>
    <li>
     permission
     <ul>
@@ -1073,6 +1087,7 @@ dictionary <a href="#dictdef-notificationeventinit">NotificationEventInit</a> : 
 
 partial interface <a class="idl-code" data-link-type="interface" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a> {
   attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-serviceworkerglobalscope-onnotificationclose">onnotificationclose</a>;
 };
 
 </pre>
