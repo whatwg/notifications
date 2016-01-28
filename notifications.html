@@ -11,7 +11,7 @@
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://whatwg.org/"> <img alt="WHATWG" height="100" src="https://resources.whatwg.org/logo-notifications.svg"> </a> </p>
    <h1 class="p-name no-ref" id="title">Notifications API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-01-25">25 January 2016</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-02-02">2 February 2016</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>Participate:
@@ -122,13 +122,17 @@ associated <dfn data-dfn-type="dfn" data-noexport="" id="icon-url">icon URL<a cl
    <p class="note" role="note">Developers are encouraged to not convey information through an icon, sound,
 or vibration pattern that is not otherwise accessible to the end user. </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated list of
-zero or more <dfn data-dfn-type="dfn" data-noexport="" id="actions">actions<a class="self-link" href="#actions"></a></dfn>. Each action has an associated <dfn data-dfn-type="dfn" data-lt="action title" data-noexport="" id="action-title">title<a class="self-link" href="#action-title"></a></dfn> and <dfn data-dfn-type="dfn" data-noexport="" id="action-name">action name<a class="self-link" href="#action-name"></a></dfn>. Users may
-activate actions, as alternatives to activating the notification itself. The
-user agent must determine the <dfn data-dfn-type="dfn" data-noexport="" id="maximum-number-of-actions">maximum number of actions<a class="self-link" href="#maximum-number-of-actions"></a></dfn> supported,
-within the constraints of the notification platform. </p>
+zero or more <dfn data-dfn-type="dfn" data-noexport="" id="actions">actions<a class="self-link" href="#actions"></a></dfn>. Each action has an associated <dfn data-dfn-type="dfn" data-lt="action title" data-noexport="" id="action-title">title<a class="self-link" href="#action-title"></a></dfn> and <dfn data-dfn-type="dfn" data-noexport="" id="action-name">action name<a class="self-link" href="#action-name"></a></dfn> and <em>can</em> have an associated <dfn data-dfn-type="dfn" data-noexport="" id="action-icon-url">action icon URL<a class="self-link" href="#action-icon-url"></a></dfn> and <dfn data-dfn-type="dfn" data-noexport="" id="action-icon-resource">action icon resource<a class="self-link" href="#action-icon-resource"></a></dfn>. Users may activate actions, as alternatives to
+activating the notification itself. The user agent must determine the <dfn data-dfn-type="dfn" data-noexport="" id="maximum-number-of-actions">maximum number of actions<a class="self-link" href="#maximum-number-of-actions"></a></dfn> supported, within the constraints of the
+notification platform. </p>
    <p class="note" role="note">Since display of actions is platform-dependent, developers are
 encouraged to make sure that any action a user can invoke from a notification is
 also available within the web application. </p>
+   <p class="note no-backref" role="note">Some platforms may modify an <a data-link-type="dfn" href="#action-icon-resource">action icon resource</a> to better match the platform’s visual style before
+displaying it to the user, for example by rounding the corners or painting it in
+a specific color. It is recommended to use an icon that handles such cases
+gracefully and does not lose important information through, e.g., loss of color or
+clipped corners. </p>
    <p>A <dfn data-dfn-type="dfn" data-noexport="" id="non-persistent-notification">non-persistent notification<a class="self-link" href="#non-persistent-notification"></a></dfn> is a <a data-link-type="dfn" href="#concept-notification">notification</a> without an associated <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a>. </p>
    <p>A <dfn data-dfn-type="dfn" data-noexport="" id="persistent-notification">persistent notification<a class="self-link" href="#persistent-notification"></a></dfn> is a <a data-link-type="dfn" href="#concept-notification">notification</a> with an associated <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a>. </p>
    <p>A <var>notification</var> is considered to be <dfn data-dfn-type="dfn" data-noexport="" id="replaceable">replaceable<a class="self-link" href="#replaceable"></a></dfn> if there
@@ -199,6 +203,10 @@ these steps: </p>
        <p>Set <var>action</var>’s <a data-link-type="dfn" href="#action-name">action name</a> to the <var>entry</var>’s <code>action</code>. </p>
       <li>
        <p>Set <var>action</var>’s <a data-link-type="dfn" href="#action-title">title</a> to the <var>entry</var>’s <code>title</code>. </p>
+      <li>
+       <p>If <var>entry</var>’s <code>icon</code> is present, <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-parser">parse</a> it using <var>baseURL</var>, and if that does
+    not return failure, set <var>action</var>’s <a data-link-type="dfn" href="#action-icon-url">action icon URL</a> to the
+    return value. (Otherwise <a data-link-type="dfn" href="#action-icon-url">action icon URL</a> is not set.) </p>
       <li>
        <p>Append <var>action</var> to <var>notification</var>’s list of <a data-link-type="dfn" href="#actions">actions</a>. </p>
      </ol>
@@ -271,6 +279,19 @@ are not enforced. <a data-link-type="biblio" href="#biblio-lang">[LANG]</a> </p>
     resource as image. </p>
       <li>
        <p>If the image format is supported, set <var>notification</var>’s <a data-link-type="dfn" href="#icon-resource">icon resource</a> to the decoded resource. (Otherwise <var>notification</var> has no <a data-link-type="dfn" href="#icon-resource">icon resource</a>.) </p>
+     </ol>
+    <li>
+     <p>If the notification platform supports actions and action icons, then
+  for each <var>action</var> in <var>notification</var>’s list of <a data-link-type="dfn" href="#actions">actions</a> <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetch</a> <var>action</var>’s <a data-link-type="dfn" href="#action-icon-url">action icon URL</a>, if <a data-link-type="dfn" href="#action-icon-url">action icon URL</a> is set. </p>
+     <p>Then, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>: </p>
+     <ol>
+      <li>
+       <p>Wait for the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>. </p>
+      <li>
+       <p>If the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-internal-response">internal response</a>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response-type">type</a> is <i>default</i>, attempt to decode the
+    resource as image. </p>
+      <li>
+       <p>If the image format is supported, set <var>action</var>’s <a data-link-type="dfn" href="#action-icon-resource">action icon resource</a> to the decoded resource. (Otherwise <var>action</var> has no <a data-link-type="dfn" href="#action-icon-resource">action icon resource</a>.) </p>
      </ol>
     <li>
      <p>If the notification platform supports sounds, and the <var>notification</var> is either not <a data-link-type="dfn" href="#replaceable">replaceable</a> or has the <a data-link-type="dfn" href="#renotify-preference-flag">renotify preference flag</a> set, <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetch</a> <var>notification</var>’s <a data-link-type="dfn" href="#sound-url">sound URL</a> if it has been set. </p>
@@ -352,9 +373,9 @@ must be run. </p>
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="display-steps">display steps<a class="self-link" href="#display-steps"></a></dfn> for a given <var>notification</var> are: </p>
    <ol>
     <li>
-     <p>Wait for any <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> to complete and <var>notification</var>’s <a data-link-type="dfn" href="#icon-resource">icon resource</a> and <a data-link-type="dfn" href="#sound-resource">sound resource</a> to be set (if any). </p>
+     <p>Wait for any <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> to complete and <var>notification</var>’s <a data-link-type="dfn" href="#icon-resource">icon resource</a> and <a data-link-type="dfn" href="#sound-resource">sound resource</a> to be set (if any), as well as the <a data-link-type="dfn" href="#action-icon-resource">action icon resources</a> for the <var>notification</var>’s <a data-link-type="dfn" href="#actions">actions</a> (if any). </p>
     <li>
-     <p>Display <var>notification</var> on the device (e.g. by calling the
+     <p>Display <var>notification</var> on the device (e.g., by calling the
   appropriate notification platform API). </p>
     <li>
      <p>Run the <a data-link-type="dfn" href="#alert-steps">alert steps</a> for <var>notification</var>. </p>
@@ -365,7 +386,7 @@ must be run. </p>
    <p>The <dfn data-dfn-type="dfn" data-noexport="" id="replace-steps">replace steps<a class="self-link" href="#replace-steps"></a></dfn> for replacing an <var>old</var> <a data-link-type="dfn" href="#concept-notification">notification</a> with a <var>new</var> one are: </p>
    <ol>
     <li>
-     <p>Wait for any <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> to complete and <var>notification</var>’s <a data-link-type="dfn" href="#icon-resource">icon resource</a> and <a data-link-type="dfn" href="#sound-resource">sound resource</a> to be set (if any). </p>
+     <p>Wait for any <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-fetch">fetches</a> to complete and <var>notification</var>’s <a data-link-type="dfn" href="#icon-resource">icon resource</a> and <a data-link-type="dfn" href="#sound-resource">sound resource</a> to be set (if any), as well as the <a data-link-type="dfn" href="#action-icon-resource">action icon resources</a> for the <var>notification</var>’s <a data-link-type="dfn" href="#actions">actions</a> (if any). </p>
     <li>
      <p>Replace <var>old</var> with <var>new</var>, in the same position, in the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>. </p>
     <li>
@@ -450,6 +471,7 @@ enum <dfn class="idl-code" data-dfn-type="enum" data-export="" id="enumdef-notif
 dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-notificationaction">NotificationAction<a class="self-link" href="#dictdef-notificationaction"></a></dfn> {
   required DOMString <dfn class="idl-code" data-dfn-for="NotificationAction" data-dfn-type="dict-member" data-export="" data-type="DOMString " id="dom-notificationaction-action">action<a class="self-link" href="#dom-notificationaction-action"></a></dfn>;
   required DOMString <dfn class="idl-code" data-dfn-for="NotificationAction" data-dfn-type="dict-member" data-export="" data-type="DOMString " id="dom-notificationaction-title">title<a class="self-link" href="#dom-notificationaction-title"></a></dfn>;
+  USVString <dfn class="idl-code" data-dfn-for="NotificationAction" data-dfn-type="dict-member" data-export="" data-type="USVString " id="dom-notificationaction-icon">icon<a class="self-link" href="#dom-notificationaction-icon"></a></dfn>;
 };
 
 callback <dfn class="idl-code" data-dfn-type="callback" data-export="" id="callbackdef-notificationpermissioncallback">NotificationPermissionCallback<a class="self-link" href="#callbackdef-notificationpermissioncallback"></a></dfn> = void (<a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <dfn class="idl-code" data-dfn-for="NotificationPermissionCallback" data-dfn-type="argument" data-export="" id="dom-notificationpermissioncallback-permission">permission<a class="self-link" href="#dom-notificationpermissioncallback-permission"></a></dfn>);
@@ -582,6 +604,8 @@ getter must return a <a data-link-type="dfn" href="https://html.spec.whatwg.org/
        <p>Set <var>action</var>’s <code class="idl"><a data-link-type="idl" href="#dom-notificationaction-action">action</a></code> to <var>entry</var>’s <a data-link-type="dfn" href="#action-name">action name</a>. </p>
       <li>
        <p>Set <var>action</var>’s <code class="idl"><a data-link-type="idl" href="#dom-notificationaction-title">title</a></code> to <var>entry</var>’s <a data-link-type="dfn" href="#action-title">title</a>. </p>
+      <li>
+       <p>Set <var>action</var>’s <code class="idl"><a data-link-type="idl" href="#dom-notificationaction-icon">icon</a></code> to <var>entry</var>’s <a data-link-type="dfn" href="#action-icon-url">action icon URL</a>. </p>
       <li>
        <p>Call <a data-link-type="dfn" href="https://tc39.github.io/ecma262/#sec-object.freeze">Object.freeze</a> on <var>action</var>, to
     prevent accidental mutation by scripts. </p>
@@ -772,6 +796,7 @@ Jonas Sicking,
 Michael Cooper,
 Michael Henretty,
 Michael™ Smith,
+Michael van Ouwerkerk,
 Nicolás Satragno,
 Olli Pettay,
 Peter Beverloo,
@@ -804,6 +829,8 @@ neighboring rights to this work. </p>
      <li><a href="#dom-notificationevent-action">attribute for NotificationEvent</a><span>, in §4</span>
      <li><a href="#dom-notificationeventinit-action">dict-member for NotificationEventInit</a><span>, in §4</span>
     </ul>
+   <li><a href="#action-icon-resource">action icon resource</a><span>, in §2</span>
+   <li><a href="#action-icon-url">action icon URL</a><span>, in §2</span>
    <li><a href="#action-name">action name</a><span>, in §2</span>
    <li>
     actions
@@ -852,6 +879,7 @@ neighboring rights to this work. </p>
     icon
     <ul>
      <li><a href="#dom-notificationoptions-icon">dict-member for NotificationOptions</a><span>, in §3</span>
+     <li><a href="#dom-notificationaction-icon">dict-member for NotificationAction</a><span>, in §3</span>
      <li><a href="#dom-notification-icon">attribute for Notification</a><span>, in §3.4</span>
     </ul>
    <li><a href="#icon-resource">icon resource</a><span>, in §2</span>
@@ -1060,6 +1088,7 @@ enum <a href="#enumdef-notificationdirection">NotificationDirection</a> {
 dictionary <a href="#dictdef-notificationaction">NotificationAction</a> {
   required DOMString <a data-type="DOMString " href="#dom-notificationaction-action">action</a>;
   required DOMString <a data-type="DOMString " href="#dom-notificationaction-title">title</a>;
+  USVString <a data-type="USVString " href="#dom-notificationaction-icon">icon</a>;
 };
 
 callback <a href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a> = void (<a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <a href="#dom-notificationpermissioncallback-permission">permission</a>);
