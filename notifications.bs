@@ -98,8 +98,18 @@ associated <dfn>icon URL</dfn>, <dfn>icon resource</dfn>, <dfn>sound URL</dfn>,
 <dfn>sound resource</dfn>, <dfn>vibration pattern</dfn>, and
 <dfn>service worker registration</dfn>.
 
-<p class=note>Developers are encouraged to not convey information through an icon, sound,
-or vibration pattern that is not otherwise accessible to the end user.
+<p>A <a lt="concept notification">notification</a> <em>can</em> have an
+associated <dfn>badge URL</dfn> and <dfn>badge resource</dfn>. A <a>badge
+resource</a> <em>may</em> be used to represent the
+<a lt="concept notification">notification</a> when there is not enough space to
+display the <a lt="concept notification">notification</a> itself. It
+<em>may</em> also be displayed inside the
+<a lt="concept notification">notification</a>, but then it should have less
+visual priority than the <a>icon resource</a>.
+
+<p class=note>Developers are encouraged to not convey information through an
+icon, badge, sound, or vibration pattern that is not otherwise accessible to the
+end user.
 
 <p>A <a lt="concept notification">notification</a> has an associated list of
 zero or more <dfn>actions</dfn>. Each action has an associated
@@ -196,6 +206,11 @@ these steps:
   <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
   return failure, set <var>notification</var>'s <a>icon URL</a> to the return
   value. (Otherwise <a>icon URL</a> is not set.)
+
+  <li><p>If <var>options</var>'s <code>badge</code> is present,
+  <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
+  return failure, set <var>notification</var>'s <a>badge URL</a> to the return
+  value. (Otherwise <a>badge URL</a> is not set.)
 
   <li><p>If <var>options</var>'s <code>sound</code> is present,
   <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
@@ -375,6 +390,23 @@ are not enforced. [[!LANG]]
     <var>notification</var> has no <a>icon resource</a>.)
   </ol>
 
+  <li><p>If the notification platform supports badges, <a>fetch</a>
+  <var>notification</var>'s <a>badge URL</a>, if <a>badge URL</a> is set.
+
+  <p>Then, <a>in parallel</a>:
+
+  <ol>
+    <li><p>Wait for the <a>response</a>.
+
+    <li><p>If the <a>response</a>'s <a>internal response</a>'s
+    <a lt="response type">type</a> is <i>default</i>, attempt to decode the
+    resource as image.
+
+    <li><p>If the image format is supported, set <var>notification</var>'s
+    <a>badge resource</a> to the decoded resource. (Otherwise
+    <var>notification</var> has no <a>badge resource</a>.)
+  </ol>
+
   <li><p>If the notification platform supports actions and action icons, then
   for each <var>action</var> in <var>notification</var>'s list of <a>actions</a>
   <a>fetch</a> <var>action</var>'s <a>action icon URL</a>, if
@@ -516,9 +548,9 @@ must be run.
 
 <ol>
   <li><p>Wait for any <a lt="fetch">fetches</a> to complete and
-  <var>notification</var>'s <a>icon resource</a> and <a>sound resource</a>
-  to be set (if any), as well as the <a>action icon resources</a> for the
-  <var>notification</var>'s <a>actions</a> (if any).
+  <var>notification</var>'s <a>icon resource</a>, <a>badge resource</a>,
+  and <a>sound resource</a> to be set (if any), as well as the <a>action icon
+  resources</a> for the <var>notification</var>'s <a>actions</a> (if any).
 
   <li><p>Display <var>notification</var> on the device (e.g., by calling the
   appropriate notification platform API).
@@ -536,9 +568,9 @@ must be run.
 
 <ol>
   <li><p>Wait for any <a lt="fetch">fetches</a> to complete and
-  <var>notification</var>'s <a>icon resource</a> and <a>sound resource</a>
-  to be set (if any), as well as the <a>action icon resources</a> for the
-  <var>notification</var>'s <a>actions</a> (if any).
+  <var>notification</var>'s <a>icon resource</a>, <a>badge resource</a>,
+  and <a>sound resource</a> to be set (if any), as well as the <a>action icon
+  resources</a> for the <var>notification</var>'s <a>actions</a> (if any).
 
  <li><p>Replace <var>old</var> with <var>new</var>, in the same position, in the
  <a>list of notifications</a>.
@@ -589,6 +621,7 @@ interface Notification : EventTarget {
   readonly attribute DOMString body;
   readonly attribute DOMString tag;
   readonly attribute USVString icon;
+  readonly attribute USVString badge;
   readonly attribute USVString sound;
   readonly attribute FrozenArray&lt;unsigned long> vibrate;
   readonly attribute DOMTimeStamp timestamp;
@@ -609,6 +642,7 @@ dictionary NotificationOptions {
   DOMString body = "";
   DOMString tag = "";
   USVString icon;
+  USVString badge;
   USVString sound;
   VibratePattern vibrate;
   DOMTimeStamp timestamp;
@@ -799,6 +833,12 @@ getter must return the <a lt="concept notification">notification</a>'s <a>tag</a
 getter must return the <a lt="concept notification">notification</a>'s
 <a>icon URL</a>, <a lt="url serializer">serialized</a>, and the empty string if
 there is no <a lt="concept notification">notification</a>'s <a>icon URL</a>
+otherwise.
+
+<p>The <dfn attribute dfn-for=Notification><code>badge</code></dfn> attribute's
+getter must return the <a lt="concept notification">notification</a>'s
+<a>badge URL</a>, <a lt="url serializer">serialized</a>, and the empty string if
+there is no <a lt="concept notification">notification</a>'s <a>badge URL</a>
 otherwise.
 
 <p>The <dfn attribute dfn-for=Notification><code>sound</code></dfn> attribute's
