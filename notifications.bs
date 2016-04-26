@@ -1157,6 +1157,7 @@ was initialized to.
 Addison Phillips,
 Aharon (Vladimir) Lanin,
 Alex Russell,
+Anssi Kostiainen,
 Arkadiusz Michalski,
 Boris Zbarsky,
 David Håsäther,
@@ -1249,12 +1250,12 @@ urlPrefix: https://dom.spec.whatwg.org/; type: dfn
   text: dom event cancelable
 urlPrefix: https://dom.spec.whatwg.org/; type: interface
   text: EventTarget
-urlPrefix: https://www.w3.org/TR/vibration/
+urlPrefix: https://w3c.github.io/vibration/
   urlPrefix: #dfn-; type: dfn
     text: perform vibration
     text: validate and normalize
   urlPrefix: #idl-def-; type: interface
-    text: VibratePattern; url: VibratePattern
+    text: VibratePattern; url: vibratepattern
 urlPrefix: https://tc39.github.io/ecma262/#sec-object.; type: dfn
   text: freeze
 </pre>
