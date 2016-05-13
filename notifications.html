@@ -13,7 +13,7 @@
    <p data-fill-with="logo"><a class="logo" href="https://whatwg.org/"> <img alt="WHATWG" height="100" src="https://resources.whatwg.org/logo-notifications.svg"> </a> </p>
    <hgroup>
     <h1 class="p-name no-ref" id="title">Notifications API</h1>
-    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-04-26">26 April 2016</time></span></h2>
+    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-05-13">13 May 2016</time></span></h2>
    </hgroup>
    <div data-fill-with="spec-metadata">
     <dl>
@@ -456,7 +456,7 @@ interface <dfn class="idl-code" data-dfn-type="interface" data-export="" id="not
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-icon">icon</a>;
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-badge">badge</a>;
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-sound">sound</a>;
-  readonly attribute FrozenArray&lt;unsigned long> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long> " href="#dom-notification-vibrate">vibrate</a>;
+  [SameObject] readonly attribute FrozenArray&lt;unsigned long> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long> " href="#dom-notification-vibrate">vibrate</a>;
   readonly attribute <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp " href="#dom-notification-timestamp">timestamp</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-renotify">renotify</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
@@ -836,6 +836,7 @@ Michael van Ouwerkerk,
 Nicolás Satragno,
 Olli Pettay,
 Peter Beverloo,
+Philip Jägenstedt,
 Reuben Morais,
 Rich Tibbett,
 Robert Bindar,
@@ -1093,7 +1094,7 @@ interface <a href="#notification">Notification</a> : <a data-link-type="idl-name
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-icon">icon</a>;
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-badge">badge</a>;
   readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-sound">sound</a>;
-  readonly attribute FrozenArray&lt;unsigned long> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long> " href="#dom-notification-vibrate">vibrate</a>;
+  [SameObject] readonly attribute FrozenArray&lt;unsigned long> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long> " href="#dom-notification-vibrate">vibrate</a>;
   readonly attribute <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp " href="#dom-notification-timestamp">timestamp</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-renotify">renotify</a>;
   readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
