@@ -202,15 +202,17 @@ these steps:
   <li><p>Let <var>baseURL</var> be the API base URL specified by the
   <a>entry settings object</a>. <span class=XXX>Or incumbent?</span>
 
-  <li><p>If <var>options</var>'s <code>icon</code> is present,
-  <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
-  return failure, set <var>notification</var>'s <a>icon URL</a> to the return
-  value. (Otherwise <a>icon URL</a> is not set.)
+  <li><p>Run the <a>icon URL selection steps</a>, providing <var>options</var>'s
+  <code>icons</code>, <var>options</var>'s <code>icon</code>, and
+  <var>baseURL</var>, and if that does not return null, set
+  <var>notification</var>'s <a>icon URL</a> to the return value. (Otherwise
+  <a>icon URL</a> is not set.)
 
-  <li><p>If <var>options</var>'s <code>badge</code> is present,
-  <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
-  return failure, set <var>notification</var>'s <a>badge URL</a> to the return
-  value. (Otherwise <a>badge URL</a> is not set.)
+  <li><p>Run the <a>icon URL selection steps</a>, providing <var>options</var>'s
+  <code>badges</code>, <var>options</var>'s <code>badge</code>, and
+  <var>baseURL</var>, and if that does not return null, set
+  <var>notification</var>'s <a>badge URL</a> to the return value. (Otherwise
+  <a>badge URL</a> is not set.)
 
   <li><p>If <var>options</var>'s <code>sound</code> is present,
   <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
@@ -257,10 +259,11 @@ these steps:
     <li><p>Set <var>action</var>'s <a lt="action title">title</a> to the
     <var>entry</var>'s <code>title</code>.
 
-    <li><p>If <var>entry</var>'s <code>icon</code> is present,
-    <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does
-    not return failure, set <var>action</var>'s <a>action icon URL</a> to the
-    return value. (Otherwise <a>action icon URL</a> is not set.)
+    <li><p>Run the <a>icon URL selection steps</a>, providing <var>entry</var>'s
+    <code>icons</code>, <var>entry</var>'s <code>icon</code>, and
+    <var>baseURL</var>, and if that does not return null, set
+    <var>actions</var>'s <a>action icon URL</a> to the return value. (Otherwise
+    <a>action icon URL</a> is not set.)
 
     <li><p>Append <var>action</var> to <var>notification</var>'s list of
     <a>actions</a>.
@@ -601,6 +604,39 @@ or vibrating the device again, unless the <a>renotify preference flag</a> is set
 </ol>
 
 
+<h3 id=selecting-an-icon-url>Selecting an icon URL</h3>
+
+<p>The <dfn>icon URL selection steps</dfn> for selecting a URL given a list <var>icons</var> of type
+{{NotificationIcon}}, a <var>fallbackURLString</var> of type {{USVString}}, and
+<a lt="base url">base URL</a> <var>baseURL</var> are:
+
+<ol>
+  <li><p>Let <var>selectedURL</var> and <var>selectedIcon</var> be null
+
+  <li><p>For each <var>icon</var> in <var>icons</var> run these substeps:
+
+  <ol>
+    <li><p>Let <var>iconURL</var> be the result of <a lt="url parser">parsing</a> <var>icon</var>'s
+    <code>src</code> using <var>baseURL</var>. If <var>iconURL</var> is failure, abort these
+    substeps for this <var>icon</var>
+
+    <li><p>Let <var>parsedSizes</var> be the result of <a lt="attr link sizes">parsing</a>
+    <var>icon</var>'s <code>sizes</code>
+
+    <li><p>If <var>icon</var> is considered by the implementation to be more suitable than
+    <var>selectedIcon</var>, taking into account whether <var>icon</var>'s <code>type</code> is
+    <a lt="valid mime type">valid</a> and <a lt="resources">supported</a>, as well as the value of
+    <var>parsedSizes</var>, then set <var>selectedURL</var> to <var>iconURL</var> and set
+    <var>selectedIcon</var> to <var>icon</var>
+  </ol>
+
+  <li><p>If <var>selectedURL</var> is null, <a lt="url parser">parse</a>
+  <var>fallbackURLString</var> using <var>baseURL</var>, and if that does not return failure, set
+  <var>selectedURL</var> to the return value
+
+  <li><p>Return <var>selectedURL</var>
+</ol>
+
 <h2 id=api>API</h2>
 
 <pre class=idl>
@@ -621,7 +657,9 @@ interface Notification : EventTarget {
   readonly attribute DOMString body;
   readonly attribute DOMString tag;
   readonly attribute USVString icon;
+  [SameObject] readonly attribute FrozenArray&lt;NotificationIcon> icons;
   readonly attribute USVString badge;
+  [SameObject] readonly attribute FrozenArray&lt;NotificationIcon> badges;
   readonly attribute USVString sound;
   [SameObject] readonly attribute FrozenArray&lt;unsigned long> vibrate;
   readonly attribute DOMTimeStamp timestamp;
@@ -642,7 +680,9 @@ dictionary NotificationOptions {
   DOMString body = "";
   DOMString tag = "";
   USVString icon;
+  sequence&lt;NotificationIcon> icons = [];
   USVString badge;
+  sequence&lt;NotificationIcon> badges = [];
   USVString sound;
   VibratePattern vibrate;
   DOMTimeStamp timestamp;
@@ -671,6 +711,13 @@ dictionary NotificationAction {
   required DOMString action;
   required DOMString title;
   USVString icon;
+  sequence&lt;NotificationIcon> icons = [];
+};
+
+dictionary NotificationIcon {
+  required USVString src;
+  DOMString type;
+  DOMString sizes;
 };
 
 callback NotificationPermissionCallback = void (NotificationPermission permission);
@@ -1213,9 +1260,13 @@ urlPrefix: https://html.spec.whatwg.org/multipage/
     text: Window
   urlPrefix: infrastructure.html; type: dfn
     text: in parallel
+    text: valid mime type
+    text: resources
   urlPrefix: interaction.html; type: dfn
     text: dom window focus
     text: structured clone
+  urlPrefix: semantics.html; type: dfn
+    text: attr link sizes
   urlPrefix: webappapis.html; type: dfn
     text: entry settings object
     text: event handler event types
@@ -1226,6 +1277,7 @@ urlPrefix: https://html.spec.whatwg.org/multipage/
   urlPrefix: webappapis.html; type: interface
     text: EventHandler
 urlPrefix: https://url.spec.whatwg.org/#concept-; type: dfn
+  text: base url
   text: url parser
   text: url serializer
 urlPrefix: https://fetch.spec.whatwg.org/#concept-; type: dfn
