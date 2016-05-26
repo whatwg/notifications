@@ -288,7 +288,7 @@ removed from the <a>list of notifications</a>.
 <p class=example>A <a>persistent notification</a> could have the
 {{close()!!method}} method invoked of one of its {{Notification}} objects.
 
-<p>User agents should display <a>persistent notification</a> in a platform's
+<p>User agents should display <a>persistent notifications</a> in a platform's
 "notification center" (if available).
 
 
@@ -676,12 +676,12 @@ dictionary NotificationAction {
 callback NotificationPermissionCallback = void (NotificationPermission permission);
 </pre>
 
-<p>A <a>non-persistent notification</a> is represented one {{Notification}}
-objects and can be created through {{Notification}}'s
+<p>A <a>non-persistent notification</a> is represented by one {{Notification}}
+object and can be created through {{Notification}}'s
 <a constructor lt="Notification(title, options)">constructor</a>.
 
 <p>A <a>persistent notification</a> is represented by zero or more
-{{Notification}} objects can be created through the
+{{Notification}} objects and can be created through the
 {{ServiceWorkerRegistration/showNotification()}} method.
 
 <h3 id=garbage-collection>Garbage collection</h3>

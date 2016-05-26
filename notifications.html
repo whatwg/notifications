@@ -8,12 +8,159 @@
   <link href="https://resources.whatwg.org/bikeshed.css" rel="stylesheet">
   <link href="https://resources.whatwg.org/logo-notifications.svg" rel="icon">
   <meta content="Bikeshed 1.0.0" name="generator">
+<style>/* style-md-lists */
+
+            /* This is a weird hack for me not yet following the commonmark spec
+               regarding paragraph and lists. */
+            [data-md] > :first-child {
+                margin-top: 0;
+            }
+            [data-md] > :last-child {
+                margin-bottom: 0;
+            }</style>
+<style>/* style-counters */
+
+            body {
+                counter-reset: example figure issue;
+            }
+            .issue {
+                counter-increment: issue;
+            }
+            .issue:not(.no-marker)::before {
+                content: "Issue " counter(issue);
+            }
+
+            .example {
+                counter-increment: example;
+            }
+            .example:not(.no-marker)::before {
+                content: "Example " counter(example);
+            }
+            .invalid.example:not(.no-marker)::before,
+            .illegal.example:not(.no-marker)::before {
+                content: "Invalid Example" counter(example);
+            }
+
+            figure {
+                counter-increment: figure;
+            }
+            figcaption:not(.no-marker)::before {
+                content: "Figure " counter(figure);
+            }</style>
+<style>/* style-selflinks */
+
+            .heading, .issue, .note, .example, li, dt {
+                position: relative;
+            }
+            a.self-link {
+                position: absolute;
+                top: 0;
+                left: calc(-1 * (3.5rem - 26px));
+                width: calc(3.5rem - 26px);
+                height: 2em;
+                text-align: center;
+                border: none;
+                transition: opacity .2s;
+                opacity: .5;
+            }
+            a.self-link:hover {
+                opacity: 1;
+            }
+            .heading > a.self-link {
+                font-size: 83%;
+            }
+            li > a.self-link {
+                left: calc(-1 * (3.5rem - 26px) - 2em);
+            }
+            dfn > a.self-link {
+                top: auto;
+                left: auto;
+                opacity: 0;
+                width: 1.5em;
+                height: 1.5em;
+                background: gray;
+                color: white;
+                font-style: normal;
+                transition: opacity .2s, background-color .2s, color .2s;
+            }
+            dfn:hover > a.self-link {
+                opacity: 1;
+            }
+            dfn > a.self-link:hover {
+                color: black;
+            }
+
+            a.self-link::before            { content: "¶"; }
+            .heading > a.self-link::before { content: "§"; }
+            dfn > a.self-link::before      { content: "#"; }</style>
+<style>/* style-autolinks */
+
+            .css.css, .property.property, .descriptor.descriptor {
+                color: #005a9c;
+                font-size: inherit;
+                font-family: inherit;
+            }
+            .css::before, .property::before, .descriptor::before {
+                content: "‘";
+            }
+            .css::after, .property::after, .descriptor::after {
+                content: "’";
+            }
+            .property, .descriptor {
+                /* Don't wrap property and descriptor names */
+                white-space: nowrap;
+            }
+            .type { /* CSS value <type> */
+                font-style: italic;
+            }
+            pre .property::before, pre .property::after {
+                content: "";
+            }
+            [data-link-type="property"]::before,
+            [data-link-type="propdesc"]::before,
+            [data-link-type="descriptor"]::before,
+            [data-link-type="value"]::before,
+            [data-link-type="function"]::before,
+            [data-link-type="at-rule"]::before,
+            [data-link-type="selector"]::before,
+            [data-link-type="maybe"]::before {
+                content: "‘";
+            }
+            [data-link-type="property"]::after,
+            [data-link-type="propdesc"]::after,
+            [data-link-type="descriptor"]::after,
+            [data-link-type="value"]::after,
+            [data-link-type="function"]::after,
+            [data-link-type="at-rule"]::after,
+            [data-link-type="selector"]::after,
+            [data-link-type="maybe"]::after {
+                content: "’";
+            }
+
+            [data-link-type].production::before,
+            [data-link-type].production::after,
+            .prod [data-link-type]::before,
+            .prod [data-link-type]::after {
+                content: "";
+            }
+
+            [data-link-type=element],
+            [data-link-type=element-attr] {
+                font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace;
+                font-size: .9em;
+            }
+            [data-link-type=element]::before { content: "<" }
+            [data-link-type=element]::after  { content: ">" }
+
+            [data-link-type=biblio] {
+                white-space: pre;
+            }</style>
  <body class="h-entry status-LS">
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://whatwg.org/"> <img alt="WHATWG" height="100" src="https://resources.whatwg.org/logo-notifications.svg"> </a> </p>
    <hgroup>
     <h1 class="p-name no-ref" id="title">Notifications API</h1>
-    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-05-13">13 May 2016</time></span></h2>
+    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-05-26">26 May 2016</time></span></h2>
    </hgroup>
    <div data-fill-with="spec-metadata">
     <dl>
@@ -237,7 +384,7 @@ platform’s "notification center" (if available). </p>
    <p>User agents should persist <a data-link-type="dfn" href="#persistent-notification">persistent notifications</a> until they are
 removed from the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>. </p>
    <p class="example" id="example-38bbd8ee"><a class="self-link" href="#example-38bbd8ee"></a>A <a data-link-type="dfn" href="#persistent-notification">persistent notification</a> could have the <code class="idl"><a class="idl-code" data-link-type="method" href="#dom-notification-close">close()</a></code> method invoked of one of its <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects. </p>
-   <p>User agents should display <a data-link-type="dfn" href="#persistent-notification">persistent notification</a> in a platform’s
+   <p>User agents should display <a data-link-type="dfn" href="#persistent-notification">persistent notifications</a> in a platform’s
 "notification center" (if available). </p>
    <h3 class="heading settled" data-level="2.2" id="permission-model"><span class="secno">2.2. </span><span class="content">Permission model</span><a class="self-link" href="#permission-model"></a></h3>
    <p><a data-link-type="dfn" href="#concept-notification">Notifications</a> can only be displayed if the
@@ -440,31 +587,31 @@ or vibrating the device again, unless the <a data-link-type="dfn" href="#renotif
 <pre class="idl def">[<a class="idl-code" data-link-type="constructor" href="#dom-notification-notification">Constructor</a>(DOMString <dfn class="idl-code" data-dfn-for="Notification/Notification(title, options)" data-dfn-type="argument" data-export="" id="dom-notification-notification-title-options-title">title<a class="self-link" href="#dom-notification-notification-title-options-title"></a></dfn>, optional <a data-link-type="idl-name" href="#dictdef-notificationoptions">NotificationOptions</a> <dfn class="idl-code" data-dfn-for="Notification/Notification(title, options)" data-dfn-type="argument" data-export="" id="dom-notification-notification-title-options-options">options<a class="self-link" href="#dom-notification-notification-title-options-options"></a></dfn>),
  Exposed=(Window,Worker)]
 interface <dfn class="idl-code" data-dfn-type="interface" data-export="" id="notification">Notification<a class="self-link" href="#notification"></a></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
-  static readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="NotificationPermission " href="#dom-notification-permission">permission</a>;
+  static readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="NotificationPermission" href="#dom-notification-permission">permission</a>;
   [Exposed=Window] static Promise&lt;<a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a>> <a class="idl-code" data-link-type="method" href="#dom-notification-requestpermission">requestPermission</a>(optional <a data-link-type="idl-name" href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a> <dfn class="idl-code" data-dfn-for="Notification/requestPermission(deprecatedCallback), Notification/requestPermission()" data-dfn-type="argument" data-export="" id="dom-notification-requestpermission-deprecatedcallback-deprecatedcallback">deprecatedCallback<a class="self-link" href="#dom-notification-requestpermission-deprecatedcallback-deprecatedcallback"></a></dfn>);
 
-  static readonly attribute unsigned long <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="unsigned long " href="#dom-notification-maxactions">maxActions</a>;
+  static readonly attribute unsigned long <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="unsigned long" href="#dom-notification-maxactions">maxActions</a>;
 
-  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-notification-onclick">onclick</a>;
-  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-notification-onerror">onerror</a>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-notification-onclick">onclick</a>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-notification-onerror">onerror</a>;
 
-  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-title">title</a>;
-  readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationdirection">NotificationDirection</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="NotificationDirection " href="#dom-notification-dir">dir</a>;
-  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-lang">lang</a>;
-  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-body">body</a>;
-  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-tag">tag</a>;
-  readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-icon">icon</a>;
-  readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-badge">badge</a>;
-  readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-sound">sound</a>;
-  [SameObject] readonly attribute FrozenArray&lt;unsigned long> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long> " href="#dom-notification-vibrate">vibrate</a>;
-  readonly attribute <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp " href="#dom-notification-timestamp">timestamp</a>;
-  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-renotify">renotify</a>;
-  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
-  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-noscreen">noscreen</a>;
-  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-requireinteraction">requireInteraction</a>;
-  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-sticky">sticky</a>;
-  [SameObject] readonly attribute any <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="any " href="#dom-notification-data">data</a>;
-  [SameObject] readonly attribute FrozenArray&lt;<a data-link-type="idl-name" href="#dictdef-notificationaction">NotificationAction</a>> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<NotificationAction> " href="#dom-notification-actions">actions</a>;
+  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString" href="#dom-notification-title">title</a>;
+  readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationdirection">NotificationDirection</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="NotificationDirection" href="#dom-notification-dir">dir</a>;
+  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString" href="#dom-notification-lang">lang</a>;
+  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString" href="#dom-notification-body">body</a>;
+  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString" href="#dom-notification-tag">tag</a>;
+  readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString" href="#dom-notification-icon">icon</a>;
+  readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString" href="#dom-notification-badge">badge</a>;
+  readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString" href="#dom-notification-sound">sound</a>;
+  [SameObject] readonly attribute FrozenArray&lt;unsigned long> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long>" href="#dom-notification-vibrate">vibrate</a>;
+  readonly attribute <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp" href="#dom-notification-timestamp">timestamp</a>;
+  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-renotify">renotify</a>;
+  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-silent">silent</a>;
+  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-noscreen">noscreen</a>;
+  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-requireinteraction">requireInteraction</a>;
+  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-sticky">sticky</a>;
+  [SameObject] readonly attribute any <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="any" href="#dom-notification-data">data</a>;
+  [SameObject] readonly attribute FrozenArray&lt;<a data-link-type="idl-name" href="#dictdef-notificationaction">NotificationAction</a>> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<NotificationAction>" href="#dom-notification-actions">actions</a>;
 
   void <a class="idl-code" data-link-type="method" href="#dom-notification-close">close</a>();
 };
@@ -489,15 +636,15 @@ dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" id="d
 };
 
 enum <dfn class="idl-code" data-dfn-type="enum" data-export="" id="enumdef-notificationpermission">NotificationPermission<a class="self-link" href="#enumdef-notificationpermission"></a></dfn> {
-  <dfn class="idl-code" data-dfn-for="NotificationPermission" data-dfn-type="enum-value" data-export="" id="dom-notificationpermission-default">"default"<a class="self-link" href="#dom-notificationpermission-default"></a></dfn>,
-  <dfn class="idl-code" data-dfn-for="NotificationPermission" data-dfn-type="enum-value" data-export="" id="dom-notificationpermission-denied">"denied"<a class="self-link" href="#dom-notificationpermission-denied"></a></dfn>,
-  <dfn class="idl-code" data-dfn-for="NotificationPermission" data-dfn-type="enum-value" data-export="" id="dom-notificationpermission-granted">"granted"<a class="self-link" href="#dom-notificationpermission-granted"></a></dfn>
+  <dfn class="idl-code" data-dfn-for="NotificationPermission" data-dfn-type="enum-value" data-export="" data-lt="&quot;default&quot;|default" id="dom-notificationpermission-default">"default"<a class="self-link" href="#dom-notificationpermission-default"></a></dfn>,
+  <dfn class="idl-code" data-dfn-for="NotificationPermission" data-dfn-type="enum-value" data-export="" data-lt="&quot;denied&quot;|denied" id="dom-notificationpermission-denied">"denied"<a class="self-link" href="#dom-notificationpermission-denied"></a></dfn>,
+  <dfn class="idl-code" data-dfn-for="NotificationPermission" data-dfn-type="enum-value" data-export="" data-lt="&quot;granted&quot;|granted" id="dom-notificationpermission-granted">"granted"<a class="self-link" href="#dom-notificationpermission-granted"></a></dfn>
 };
 
 enum <dfn class="idl-code" data-dfn-type="enum" data-export="" id="enumdef-notificationdirection">NotificationDirection<a class="self-link" href="#enumdef-notificationdirection"></a></dfn> {
-  <dfn class="idl-code" data-dfn-for="NotificationDirection" data-dfn-type="enum-value" data-export="" id="dom-notificationdirection-auto">"auto"<a class="self-link" href="#dom-notificationdirection-auto"></a></dfn>,
-  <dfn class="idl-code" data-dfn-for="NotificationDirection" data-dfn-type="enum-value" data-export="" id="dom-notificationdirection-ltr">"ltr"<a class="self-link" href="#dom-notificationdirection-ltr"></a></dfn>,
-  <dfn class="idl-code" data-dfn-for="NotificationDirection" data-dfn-type="enum-value" data-export="" id="dom-notificationdirection-rtl">"rtl"<a class="self-link" href="#dom-notificationdirection-rtl"></a></dfn>
+  <dfn class="idl-code" data-dfn-for="NotificationDirection" data-dfn-type="enum-value" data-export="" data-lt="&quot;auto&quot;|auto" id="dom-notificationdirection-auto">"auto"<a class="self-link" href="#dom-notificationdirection-auto"></a></dfn>,
+  <dfn class="idl-code" data-dfn-for="NotificationDirection" data-dfn-type="enum-value" data-export="" data-lt="&quot;ltr&quot;|ltr" id="dom-notificationdirection-ltr">"ltr"<a class="self-link" href="#dom-notificationdirection-ltr"></a></dfn>,
+  <dfn class="idl-code" data-dfn-for="NotificationDirection" data-dfn-type="enum-value" data-export="" data-lt="&quot;rtl&quot;|rtl" id="dom-notificationdirection-rtl">"rtl"<a class="self-link" href="#dom-notificationdirection-rtl"></a></dfn>
 };
 
 dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-notificationaction">NotificationAction<a class="self-link" href="#dictdef-notificationaction"></a></dfn> {
@@ -508,8 +655,8 @@ dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" id="d
 
 callback <dfn class="idl-code" data-dfn-type="callback" data-export="" id="callbackdef-notificationpermissioncallback">NotificationPermissionCallback<a class="self-link" href="#callbackdef-notificationpermissioncallback"></a></dfn> = void (<a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <dfn class="idl-code" data-dfn-for="NotificationPermissionCallback" data-dfn-type="argument" data-export="" id="dom-notificationpermissioncallback-permission">permission<a class="self-link" href="#dom-notificationpermissioncallback-permission"></a></dfn>);
 </pre>
-   <p>A <a data-link-type="dfn" href="#non-persistent-notification">non-persistent notification</a> is represented one <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects and can be created through <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code>'s <a class="idl-code" data-link-type="constructor" href="#dom-notification-notification">constructor</a>. </p>
-   <p>A <a data-link-type="dfn" href="#persistent-notification">persistent notification</a> is represented by zero or more <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects can be created through the <code class="idl"><a data-link-type="idl" href="#dom-serviceworkerregistration-shownotification">showNotification()</a></code> method. </p>
+   <p>A <a data-link-type="dfn" href="#non-persistent-notification">non-persistent notification</a> is represented by one <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object and can be created through <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code>'s <a class="idl-code" data-link-type="constructor" href="#dom-notification-notification">constructor</a>. </p>
+   <p>A <a data-link-type="dfn" href="#persistent-notification">persistent notification</a> is represented by zero or more <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects and can be created through the <code class="idl"><a data-link-type="idl" href="#dom-serviceworkerregistration-shownotification">showNotification()</a></code> method. </p>
    <h3 class="heading settled" data-level="3.1" id="garbage-collection"><span class="secno">3.1. </span><span class="content">Garbage collection</span><a class="self-link" href="#garbage-collection"></a></h3>
    <p>A <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object must not be garbage collected while its
 corresponding <a data-link-type="dfn" href="#concept-notification">notification</a> is in the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a> and the <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object in question has an <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-listener">event listener</a> whose <b>type</b> is <code>click</code> or <code>error</code>. </p>
@@ -723,8 +870,8 @@ partial interface <a class="idl-code" data-link-type="interface" href="https://s
 [<dfn class="idl-code" data-dfn-for="NotificationEvent" data-dfn-type="constructor" data-export="" data-lt="NotificationEvent(type, eventInitDict)" id="dom-notificationevent-notificationevent">Constructor<a class="self-link" href="#dom-notificationevent-notificationevent"></a></dfn>(DOMString <dfn class="idl-code" data-dfn-for="NotificationEvent/NotificationEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-notificationevent-notificationevent-type-eventinitdict-type">type<a class="self-link" href="#dom-notificationevent-notificationevent-type-eventinitdict-type"></a></dfn>, <a data-link-type="idl-name" href="#dictdef-notificationeventinit">NotificationEventInit</a> <dfn class="idl-code" data-dfn-for="NotificationEvent/NotificationEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict">eventInitDict<a class="self-link" href="#dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict"></a></dfn>),
  Exposed=ServiceWorker]
 interface <dfn class="idl-code" data-dfn-type="interface" data-export="" id="notificationevent">NotificationEvent<a class="self-link" href="#notificationevent"></a></dfn> : <a data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendableevent">ExtendableEvent</a> {
-  readonly attribute <a data-link-type="idl-name" href="#notification">Notification</a> <dfn class="idl-code" data-dfn-for="NotificationEvent" data-dfn-type="attribute" data-export="" data-readonly="" data-type="Notification " id="dom-notificationevent-notification">notification<a class="self-link" href="#dom-notificationevent-notification"></a></dfn>;
-  readonly attribute DOMString <dfn class="idl-code" data-dfn-for="NotificationEvent" data-dfn-type="attribute" data-export="" data-readonly="" data-type="DOMString " id="dom-notificationevent-action">action<a class="self-link" href="#dom-notificationevent-action"></a></dfn>;
+  readonly attribute <a data-link-type="idl-name" href="#notification">Notification</a> <dfn class="idl-code" data-dfn-for="NotificationEvent" data-dfn-type="attribute" data-export="" data-readonly="" data-type="Notification" id="dom-notificationevent-notification">notification<a class="self-link" href="#dom-notificationevent-notification"></a></dfn>;
+  readonly attribute DOMString <dfn class="idl-code" data-dfn-for="NotificationEvent" data-dfn-type="attribute" data-export="" data-readonly="" data-type="DOMString" id="dom-notificationevent-action">action<a class="self-link" href="#dom-notificationevent-action"></a></dfn>;
 };
 
 dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-notificationeventinit">NotificationEventInit<a class="self-link" href="#dictdef-notificationeventinit"></a></dfn> : <a data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendableeventinit">ExtendableEventInit</a> {
@@ -733,8 +880,8 @@ dictionary <dfn class="idl-code" data-dfn-type="dictionary" data-export="" id="d
 };
 
 partial interface <a class="idl-code" data-link-type="interface" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a> {
-  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a>;
-  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-serviceworkerglobalscope-onnotificationclose">onnotificationclose</a>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-serviceworkerglobalscope-onnotificationclose">onnotificationclose</a>;
 };
 </pre>
    <p>The <dfn class="idl-code" data-dfn-for="ServiceWorkerRegistration" data-dfn-type="method" data-export="" data-lt="showNotification(title, options)|showNotification(title)" id="dom-serviceworkerregistration-shownotification"><code>showNotification(title, options)</code><a class="self-link" href="#dom-serviceworkerregistration-shownotification"></a></dfn> method, when invoked, must run these steps: </p>
@@ -879,6 +1026,7 @@ neighboring rights to this work. </p>
    <li><a href="#action-title">action title</a><span>, in §2</span>
    <li><a href="#alert-steps">alert steps</a><span>, in §2.11</span>
    <li><a href="#dom-notificationdirection-auto">"auto"</a><span>, in §3</span>
+   <li><a href="#dom-notificationdirection-auto">auto</a><span>, in §3</span>
    <li>
     badge
     <ul>
@@ -910,7 +1058,9 @@ neighboring rights to this work. </p>
      <li><a href="#dom-notification-data">attribute for Notification</a><span>, in §3.4</span>
     </ul>
    <li><a href="#dom-notificationpermission-default">"default"</a><span>, in §3</span>
+   <li><a href="#dom-notificationpermission-default">default</a><span>, in §3</span>
    <li><a href="#dom-notificationpermission-denied">"denied"</a><span>, in §3</span>
+   <li><a href="#dom-notificationpermission-denied">denied</a><span>, in §3</span>
    <li>
     dir
     <ul>
@@ -924,6 +1074,7 @@ neighboring rights to this work. </p>
    <li><a href="#dom-serviceworkerregistration-getnotifications">getNotifications()</a><span>, in §4</span>
    <li><a href="#dom-serviceworkerregistration-getnotifications">getNotifications(filter)</a><span>, in §4</span>
    <li><a href="#dom-notificationpermission-granted">"granted"</a><span>, in §3</span>
+   <li><a href="#dom-notificationpermission-granted">granted</a><span>, in §3</span>
    <li>
     icon
     <ul>
@@ -940,6 +1091,7 @@ neighboring rights to this work. </p>
      <li><a href="#dom-notification-lang">attribute for Notification</a><span>, in §3.4</span>
     </ul>
    <li><a href="#list-of-notifications">list of notifications</a><span>, in §2.1</span>
+   <li><a href="#dom-notificationdirection-ltr">ltr</a><span>, in §3</span>
    <li><a href="#dom-notificationdirection-ltr">"ltr"</a><span>, in §3</span>
    <li><a href="#dom-notification-maxactions">maxActions</a><span>, in §3.3</span>
    <li><a href="#maximum-number-of-actions">maximum number of actions</a><span>, in §2</span>
@@ -995,6 +1147,7 @@ neighboring rights to this work. </p>
      <li><a href="#dom-notification-requireinteraction">attribute for Notification</a><span>, in §3.4</span>
     </ul>
    <li><a href="#require-interaction-preference-flag">require interaction preference flag</a><span>, in §2</span>
+   <li><a href="#dom-notificationdirection-rtl">rtl</a><span>, in §3</span>
    <li><a href="#dom-notificationdirection-rtl">"rtl"</a><span>, in §3</span>
    <li><a href="#screen-off-preference-flag">screen off preference flag</a><span>, in §2</span>
    <li><a href="#service-worker-registration">service worker registration</a><span>, in §2</span>
@@ -1070,7 +1223,7 @@ neighboring rights to this work. </p>
    <dt id="biblio-url">[URL]
    <dd>Anne van Kesteren; Sam Ruby. <a href="https://url.spec.whatwg.org/">URL Standard</a>. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
    <dt id="biblio-vibration">[VIBRATION]
-   <dd>Anssi Kostiainen. <a href="http://dev.w3.org/2009/dap/vibration/">Vibration API</a>. 10 February 2015. REC. URL: <a href="http://dev.w3.org/2009/dap/vibration/">http://dev.w3.org/2009/dap/vibration/</a>
+   <dd>Anssi Kostiainen. <a href="https://w3c.github.io/vibration/">Vibration API</a>. 10 February 2015. REC. URL: <a href="https://w3c.github.io/vibration/">https://w3c.github.io/vibration/</a>
    <dt id="biblio-webidl">[WEBIDL]
    <dd>Cameron McCormack; Jonas Sicking. <a href="https://heycam.github.io/webidl/">Web IDL</a>. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
   </dl>
@@ -1078,31 +1231,31 @@ neighboring rights to this work. </p>
 <pre class="idl def">[<a class="idl-code" data-link-type="constructor" href="#dom-notification-notification">Constructor</a>(DOMString <a href="#dom-notification-notification-title-options-title">title</a>, optional <a data-link-type="idl-name" href="#dictdef-notificationoptions">NotificationOptions</a> <a href="#dom-notification-notification-title-options-options">options</a>),
  Exposed=(Window,Worker)]
 interface <a href="#notification">Notification</a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
-  static readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="NotificationPermission " href="#dom-notification-permission">permission</a>;
+  static readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="NotificationPermission" href="#dom-notification-permission">permission</a>;
   [Exposed=Window] static Promise&lt;<a data-link-type="idl-name" href="#enumdef-notificationpermission">NotificationPermission</a>> <a class="idl-code" data-link-type="method" href="#dom-notification-requestpermission">requestPermission</a>(optional <a data-link-type="idl-name" href="#callbackdef-notificationpermissioncallback">NotificationPermissionCallback</a> <a href="#dom-notification-requestpermission-deprecatedcallback-deprecatedcallback">deprecatedCallback</a>);
 
-  static readonly attribute unsigned long <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="unsigned long " href="#dom-notification-maxactions">maxActions</a>;
+  static readonly attribute unsigned long <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="unsigned long" href="#dom-notification-maxactions">maxActions</a>;
 
-  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-notification-onclick">onclick</a>;
-  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-notification-onerror">onerror</a>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-notification-onclick">onclick</a>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-notification-onerror">onerror</a>;
 
-  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-title">title</a>;
-  readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationdirection">NotificationDirection</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="NotificationDirection " href="#dom-notification-dir">dir</a>;
-  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-lang">lang</a>;
-  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-body">body</a>;
-  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString " href="#dom-notification-tag">tag</a>;
-  readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-icon">icon</a>;
-  readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-badge">badge</a>;
-  readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString " href="#dom-notification-sound">sound</a>;
-  [SameObject] readonly attribute FrozenArray&lt;unsigned long> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long> " href="#dom-notification-vibrate">vibrate</a>;
-  readonly attribute <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp " href="#dom-notification-timestamp">timestamp</a>;
-  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-renotify">renotify</a>;
-  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-silent">silent</a>;
-  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-noscreen">noscreen</a>;
-  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-requireinteraction">requireInteraction</a>;
-  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean " href="#dom-notification-sticky">sticky</a>;
-  [SameObject] readonly attribute any <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="any " href="#dom-notification-data">data</a>;
-  [SameObject] readonly attribute FrozenArray&lt;<a data-link-type="idl-name" href="#dictdef-notificationaction">NotificationAction</a>> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<NotificationAction> " href="#dom-notification-actions">actions</a>;
+  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString" href="#dom-notification-title">title</a>;
+  readonly attribute <a data-link-type="idl-name" href="#enumdef-notificationdirection">NotificationDirection</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="NotificationDirection" href="#dom-notification-dir">dir</a>;
+  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString" href="#dom-notification-lang">lang</a>;
+  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString" href="#dom-notification-body">body</a>;
+  readonly attribute DOMString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMString" href="#dom-notification-tag">tag</a>;
+  readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString" href="#dom-notification-icon">icon</a>;
+  readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString" href="#dom-notification-badge">badge</a>;
+  readonly attribute USVString <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="USVString" href="#dom-notification-sound">sound</a>;
+  [SameObject] readonly attribute FrozenArray&lt;unsigned long> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long>" href="#dom-notification-vibrate">vibrate</a>;
+  readonly attribute <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp" href="#dom-notification-timestamp">timestamp</a>;
+  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-renotify">renotify</a>;
+  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-silent">silent</a>;
+  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-noscreen">noscreen</a>;
+  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-requireinteraction">requireInteraction</a>;
+  readonly attribute boolean <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-sticky">sticky</a>;
+  [SameObject] readonly attribute any <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="any" href="#dom-notification-data">data</a>;
+  [SameObject] readonly attribute FrozenArray&lt;<a data-link-type="idl-name" href="#dictdef-notificationaction">NotificationAction</a>> <a class="idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<NotificationAction>" href="#dom-notification-actions">actions</a>;
 
   void <a class="idl-code" data-link-type="method" href="#dom-notification-close">close</a>();
 };
@@ -1158,8 +1311,8 @@ partial interface <a class="idl-code" data-link-type="interface" href="https://s
 [<a href="#dom-notificationevent-notificationevent">Constructor</a>(DOMString <a href="#dom-notificationevent-notificationevent-type-eventinitdict-type">type</a>, <a data-link-type="idl-name" href="#dictdef-notificationeventinit">NotificationEventInit</a> <a href="#dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict">eventInitDict</a>),
  Exposed=ServiceWorker]
 interface <a href="#notificationevent">NotificationEvent</a> : <a data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendableevent">ExtendableEvent</a> {
-  readonly attribute <a data-link-type="idl-name" href="#notification">Notification</a> <a data-readonly="" data-type="Notification " href="#dom-notificationevent-notification">notification</a>;
-  readonly attribute DOMString <a data-readonly="" data-type="DOMString " href="#dom-notificationevent-action">action</a>;
+  readonly attribute <a data-link-type="idl-name" href="#notification">Notification</a> <a data-readonly="" data-type="Notification" href="#dom-notificationevent-notification">notification</a>;
+  readonly attribute DOMString <a data-readonly="" data-type="DOMString" href="#dom-notificationevent-action">action</a>;
 };
 
 dictionary <a href="#dictdef-notificationeventinit">NotificationEventInit</a> : <a data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendableeventinit">ExtendableEventInit</a> {
@@ -1168,8 +1321,8 @@ dictionary <a href="#dictdef-notificationeventinit">NotificationEventInit</a> : 
 };
 
 partial interface <a class="idl-code" data-link-type="interface" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a> {
-  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a>;
-  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler " href="#dom-serviceworkerglobalscope-onnotificationclose">onnotificationclose</a>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a>;
+  attribute <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-serviceworkerglobalscope-onnotificationclose">onnotificationclose</a>;
 };
 
 </pre>
