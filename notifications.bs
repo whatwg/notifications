@@ -617,7 +617,8 @@ bandwidth.
 <ol>
   <li><p>Let <var>selectedURL</var> and <var>selectedIcon</var> be null.
 
-  <li><p>For each <var>icon</var> in <var>icons</var> run these substeps:
+  <li>
+    <p>For each <var>icon</var> in <var>icons</var> run these substeps:
 
     <ol>
       <li>
