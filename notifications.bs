@@ -291,6 +291,14 @@ removed from the <a>list of notifications</a>.
 <p>User agents should display <a>persistent notifications</a> in a platform's
 "notification center" (if available).
 
+<p>User agents should only expose properties on the {{Notification}} object when
+the associated feature impacts the user agent's presentation or behavior of
+<a lt="concept notification">notifications</a>, for instance when the feature is
+supported by the platform's "notification center" or alternative presentation.
+
+<p class=note>Only exposing the supported properties enables authors to employ
+feature detection to decide on alternative ways of delivering content when a
+particular feature cannot be supported.
 
 <h3 id=permission-model>Permission model</h3>
 
