@@ -93,13 +93,13 @@ dismisses the notification.
 <p>A <a lt="concept notification">notification</a> has an associated
 <dfn>sticky preference flag</dfn> which is initially unset. When set indicates
 that the end user should not be able to easily clear the
-<a lt="concept notification">notification</a> <span class=note>Only makes sense
-for <a>persistent notifications</a>.
+<a lt="concept notification">notification</a>. <span class=note>Only makes
+sense for <a>persistent notifications</a>.</span>
 
-<p>A <a lt="concept notification">notification</a> <em>can</em> have up to three
+<p>A <a lt="concept notification">notification</a> <em>can</em> have these
 associated graphics: an <dfn>image URL</dfn>, <dfn>icon URL</dfn>, and
-<dfn>badge URL</dfn>; and their corresponding <a>image resource</a>, <a>icon
-resource</a>, and <a>badge resource</a>.
+<dfn>badge URL</dfn>; and their corresponding <a>image resource</a>,
+<a>icon resource</a>, and <a>badge resource</a>.
 
 <p>An <dfn>image resource</dfn> is a picture shown as part of the content of the
 <a lt="concept notification">notification</a>, and should be displayed with
