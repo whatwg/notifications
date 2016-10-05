@@ -309,7 +309,7 @@ platform's "notification center" (if available).
 <p>User agents should persist <a>persistent notifications</a> until they are
 removed from the <a>list of notifications</a>.
 
-<p class=example>A <a>persistent notification</a> could have the
+<p class=example id=example-38bbd8ee>A <a>persistent notification</a> could have the
 {{close()!!method}} method invoked of one of its {{Notification}} objects.
 
 <p>User agents should display <a>persistent notifications</a> in a platform's
@@ -982,7 +982,7 @@ generate desired behaviors.
 <p>The <code>click</code> event dispatches when the user activates a
 notification.
 
-<pre class=example>
+<pre class=example id=example-08e8ecea>
 var not = new Notification("Gebrünn Gebrünn by Paul Kalkbrenner", { icon: "newsong.svg", tag: "song" });
 not.onclick = function() { displaySong(this); };</pre>
 
@@ -998,7 +998,7 @@ notification without having to open the website (for example the notification
 platform might show a button on the notification). The user can also activate
 the main body of the notification to open their inbox.
 
-<pre class=example>
+<pre class=example id=example-50e7c86c>
 self.registration.showNotification("New mail from Alice", {
   actions: [{action: 'archive', title: "Archive"}]
 });
@@ -1023,7 +1023,7 @@ instances to easily coordinate, by using the <code>tag</code> member.
 <p>Notifications which represent the same conceptual event can be tagged in the
 same way, and when both are shown, the user will only receive one notification.
 
-<pre class=example>
+<pre class=example id=example-2e2c735a>
 Instance 1                                   | Instance 2
                                              |
 // Instance notices there is new mail.       |
@@ -1048,7 +1048,7 @@ application to keep its notifications as current as possible as state changes.
 multiple messages while Alice is idle, the application may prefer that Alice not
 see a desktop notification for each message.
 
-<pre class=example>
+<pre class=example id=example-a1d95db4>
 // Bob says "Hi"
 new Notification("Bob: Hi", { tag: 'chat_Bob' });
 
