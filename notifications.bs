@@ -524,7 +524,7 @@ specified) run these steps:
   <li><p>Otherwise, <a>queue a task</a> to run these substeps:
 
   <ol>
-    <li><p><a lt="concept event fire">Fire an event</a> named <code>click</code>
+    <li><p><a>Fire an event</a> named <code>click</code>
     with its <code> <a lt="dom event cancelable">cancelable</a></code> attribute
     initialized to true on the {{Notification}} object representing
     <var>notification</var>.
@@ -725,7 +725,7 @@ object and can be created through {{Notification}}'s
 <p>A {{Notification}} object must not be garbage collected while its
 corresponding <a>notification</a> is in the
 <a>list of notifications</a> and the {{Notification}} object in question has an
-<a lt="concept event listener">event listener</a> whose <b>type</b> is
+<a for=/>event listener</a> whose <b>type</b> is
 <code>click</code> or <code>error</code>.
 
 <h3 id=constructors>Constructors</h3>
@@ -1134,11 +1134,11 @@ the same underlying <a>notification</a> of {{Notification}} objects already in e
 
 <p>To <dfn>fire a service worker notification event named <var>e</var></dfn>
 given <var>notification</var> and <var>action</var>,
-<a lt="concept event fire">fire an event named <var>e</var></a> with an
-<a lt="concept event">event</a> using the {{NotificationEvent}} interface whose
-{{NotificationEvent/notification}} attribute is initialized to a new
-{{Notification}} object representing <var>notification</var>, and whose
-{{NotificationEvent/action}} attribute is initialized to <var>action</var>.
+<a>fire an event</a> named <var>e</var>, using {{NotificationEvent}}, with the
+{{NotificationEvent/notification}} attribute initialized to a new
+{{Notification}} object representing <var>notification</var> and the
+{{NotificationEvent/action}} attribute initialized to <var>action</var>.
+<!-- XXX need to define at what the event is fired -->
 
 <p>The {{NotificationEvent/notification}} attribute's getter must return the
 value it was initialized to.
@@ -1219,33 +1219,19 @@ neighboring rights to this work.
 url: https://heycam.github.io/webidl/#common-DOMTimeStamp; type: interface; text: DOMTimeStamp
 urlPrefix: https://heycam.github.io/webidl/#dfn-; type: dfn
   text: create frozen array
-  text: throw
 urlPrefix: https://html.spec.whatwg.org/multipage/
   urlPrefix: interaction.html; type: dfn
     text: dom window focus
     text: structured clone
   urlPrefix: webappapis.html; type: dfn
     text: entry settings object
-    text: event handler event types
-    text: event handlers
-urlPrefix: https://slightlyoff.github.io/ServiceWorker/spec/service_worker/; type: dfn
-  text: handle functional event
+urlPrefix: https://w3c.github.io/ServiceWorker/; type: dfn
+  text: handle functional event; url:handle-functional-event-algorithm
   text: dfn active worker
-urlPrefix: https://slightlyoff.github.io/ServiceWorker/spec/service_worker/; type: interface
-  text: ExtendableEvent
-  text: ExtendableEventInit
-  text: ServiceWorker
-  text: ServiceWorkerGlobalScope
-  text: ServiceWorkerRegistration
 urlPrefix: https://dom.spec.whatwg.org/; type: dfn
   text: canceled flag
   text: concept event
-  text: concept event fire
-  text: concept event listener
-  text: context object
   text: dom event cancelable
-urlPrefix: https://dom.spec.whatwg.org/; type: interface
-  text: EventTarget
 urlPrefix: https://w3c.github.io/vibration/
   urlPrefix: #dfn-; type: dfn
     text: perform vibration

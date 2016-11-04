@@ -435,7 +435,7 @@ specified) run these steps: </p>
       <li>
        <p>Let <var>callback</var> be an algorithm that when invoked with a <var>global</var>, <a data-link-type="dfn" href="#fire-a-service-worker-notification-event-named-e"> fires a service worker notification event</a> named <code>notificationclick</code> given <var>notification</var> and <var>action</var> on <var>global</var>. </p>
       <li>
-       <p>Then run <a data-link-type="dfn" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#handle-functional-event">Handle Functional Event</a> with <var>notification</var>’s <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a> and <var>callback</var>. </p>
+       <p>Then run <a data-link-type="dfn" href="https://w3c.github.io/ServiceWorker/#handle-functional-event-algorithm">Handle Functional Event</a> with <var>notification</var>’s <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a> and <var>callback</var>. </p>
      </ol>
     <li>
      <p>Otherwise, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to run these substeps: </p>
@@ -467,7 +467,7 @@ must be run. </p>
       <li>
        <p>Let <var>callback</var> be an algorithm that when invoked with a <var>global</var>, <a data-link-type="dfn" href="#fire-a-service-worker-notification-event-named-e"> fires a service worker notification event</a> named <code>notificationclose</code> given <var>notification</var> on <var>global</var>. </p>
       <li>
-       <p>Then run <a data-link-type="dfn" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#handle-functional-event">Handle Functional Event</a> with <var>notification</var>’s <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a> and <var>callback</var>. </p>
+       <p>Then run <a data-link-type="dfn" href="https://w3c.github.io/ServiceWorker/#handle-functional-event-algorithm">Handle Functional Event</a> with <var>notification</var>’s <a data-link-type="dfn" href="#service-worker-registration">service worker registration</a> and <var>callback</var>. </p>
      </ol>
     <li>
      <p>Remove <var>notification</var> from the <a data-link-type="dfn" href="#list-of-notifications">list of notifications</a>. </p>
@@ -597,7 +597,7 @@ these steps: </p>
     <li>
      <p>If <var>options</var>’s <code>sticky</code> is present, <a data-link-type="dfn" href="https://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception. </p>
     <li>
-     <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-global">global object</a> is a <code class="idl"><a data-link-type="idl" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a></code> object,
+     <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-global">global object</a> is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/ServiceWorker/#service-worker-global-scope-interface">ServiceWorkerGlobalScope</a></code> object,
   then <a data-link-type="dfn" href="https://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception. </p>
     <li>
      <p>Let <var>notification</var> be the result of <a data-link-type="dfn" href="#create-a-notification">creating a notification</a> given <var>title</var> and <var>options</var>. Rethrow any exceptions. </p>
@@ -653,12 +653,12 @@ thus far where asking the user upfront makes sense. Specifications for other
 APIs should not use this pattern and instead employ one of the <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html"> many more suitable alternatives</a>. </p>
    <p>The static <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-maxactions"><code>maxActions</code><a class="self-link" href="#dom-notification-maxactions"></a></dfn> attribute’s getter must return the <a data-link-type="dfn" href="#maximum-number-of-actions">maximum number of actions</a> supported. </p>
    <h3 class="heading settled" data-level="3.4" id="object-members"><span class="secno">3.4. </span><span class="content">Object members</span><a class="self-link" href="#object-members"></a></h3>
-   <p>The following are the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handlers</a> (and their corresponding <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-types">event handler event types</a>) that must be supported as attributes by the <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object. </p>
+   <p>The following are the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handlers</a> (and their corresponding <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">event handler event types</a>) that must be supported as attributes by the <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object. </p>
    <table>
     <thead>
      <tr>
       <th><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handler</a> 
-      <th><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-types">event handler event type</a> 
+      <th><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">event handler event type</a> 
     <tbody>
      <tr>
       <td><dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-onclick"><code>onclick</code><a class="self-link" href="#dom-notification-onclick"></a></dfn> 
@@ -730,7 +730,7 @@ notification. </p>
 <pre class="example" id="example-08e8ecea"><a class="self-link" href="#example-08e8ecea"></a>var not = new Notification("Gebrünn Gebrünn by Paul Kalkbrenner", { icon: "newsong.svg", tag: "song" });
 not.onclick = function() { displaySong(this); };</pre>
    <h4 class="heading settled" data-level="3.5.2" id="using-actions"><span class="secno">3.5.2. </span><span class="content">Using actions from a service worker</span><a class="self-link" href="#using-actions"></a></h4>
-   <p><a data-link-type="dfn" href="#persistent-notification">Persistent notifications</a> fire <code>notificationclick</code> events on the <code class="idl"><a data-link-type="idl" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a></code>. </p>
+   <p><a data-link-type="dfn" href="#persistent-notification">Persistent notifications</a> fire <code>notificationclick</code> events on the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/ServiceWorker/#service-worker-global-scope-interface">ServiceWorkerGlobalScope</a></code>. </p>
    <p>Here a service worker shows a notification with a single "Archive" <a data-link-type="dfn" href="#actions">action</a>, allowing users to perform this common task from the
 notification without having to open the website (for example the notification
 platform might show a button on the notification). The user can also activate
@@ -786,24 +786,24 @@ a similar result could be achieved using the <code class="idl"><a data-link-type
   <span class="kt">DOMString</span> <dfn class="nv idl-code" data-default="&quot;&quot;" data-dfn-for="GetNotificationOptions" data-dfn-type="dict-member" data-export="" data-type="DOMString " id="dom-getnotificationoptions-tag">tag<a class="self-link" href="#dom-getnotificationoptions-tag"></a></dfn> = "";
 };
 
-<span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerregistration">ServiceWorkerRegistration</a> {
+<span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://w3c.github.io/ServiceWorker/#service-worker-registration-interface">ServiceWorkerRegistration</a> {
   <span class="kt">Promise</span>&lt;<span class="kt">void</span>> <a class="nv idl-code" data-link-type="method" href="#dom-serviceworkerregistration-shownotification">showNotification</a>(<span class="kt">DOMString</span> <dfn class="nv idl-code" data-dfn-for="ServiceWorkerRegistration/showNotification(title, options), ServiceWorkerRegistration/showNotification(title)" data-dfn-type="argument" data-export="" id="dom-serviceworkerregistration-shownotification-title-options-title">title<a class="self-link" href="#dom-serviceworkerregistration-shownotification-title-options-title"></a></dfn>, <span class="kt">optional</span> <a class="n" data-link-type="idl-name" href="#dictdef-notificationoptions">NotificationOptions</a> <dfn class="nv idl-code" data-dfn-for="ServiceWorkerRegistration/showNotification(title, options), ServiceWorkerRegistration/showNotification(title)" data-dfn-type="argument" data-export="" id="dom-serviceworkerregistration-shownotification-title-options-options">options<a class="self-link" href="#dom-serviceworkerregistration-shownotification-title-options-options"></a></dfn>);
   <span class="kt">Promise</span>&lt;<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#notification">Notification</a>>> <a class="nv idl-code" data-link-type="method" href="#dom-serviceworkerregistration-getnotifications">getNotifications</a>(<span class="kt">optional</span> <a class="n" data-link-type="idl-name" href="#dictdef-getnotificationoptions">GetNotificationOptions</a> <dfn class="nv idl-code" data-dfn-for="ServiceWorkerRegistration/getNotifications(filter), ServiceWorkerRegistration/getNotifications()" data-dfn-type="argument" data-export="" id="dom-serviceworkerregistration-getnotifications-filter-filter">filter<a class="self-link" href="#dom-serviceworkerregistration-getnotifications-filter-filter"></a></dfn>);
 };
 
 [<dfn class="nv idl-code" data-dfn-for="NotificationEvent" data-dfn-type="constructor" data-export="" data-lt="NotificationEvent(type, eventInitDict)" id="dom-notificationevent-notificationevent">Constructor<a class="self-link" href="#dom-notificationevent-notificationevent"></a></dfn>(<span class="kt">DOMString</span> <dfn class="nv idl-code" data-dfn-for="NotificationEvent/NotificationEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-notificationevent-notificationevent-type-eventinitdict-type">type<a class="self-link" href="#dom-notificationevent-notificationevent-type-eventinitdict-type"></a></dfn>, <a class="n" data-link-type="idl-name" href="#dictdef-notificationeventinit">NotificationEventInit</a> <dfn class="nv idl-code" data-dfn-for="NotificationEvent/NotificationEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict">eventInitDict<a class="self-link" href="#dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict"></a></dfn>),
  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed">Exposed</a>=<span class="n">ServiceWorker</span>]
-<span class="kt">interface</span> <dfn class="nv idl-code" data-dfn-type="interface" data-export="" id="notificationevent">NotificationEvent<a class="self-link" href="#notificationevent"></a></dfn> : <a class="n" data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendableevent">ExtendableEvent</a> {
+<span class="kt">interface</span> <dfn class="nv idl-code" data-dfn-type="interface" data-export="" id="notificationevent">NotificationEvent<a class="self-link" href="#notificationevent"></a></dfn> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/ServiceWorker/#extendable-event-interface">ExtendableEvent</a> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#notification">Notification</a> <dfn class="nv idl-code" data-dfn-for="NotificationEvent" data-dfn-type="attribute" data-export="" data-readonly="" data-type="Notification" id="dom-notificationevent-notification">notification<a class="self-link" href="#dom-notificationevent-notification"></a></dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">DOMString</span> <dfn class="nv idl-code" data-dfn-for="NotificationEvent" data-dfn-type="attribute" data-export="" data-readonly="" data-type="DOMString" id="dom-notificationevent-action">action<a class="self-link" href="#dom-notificationevent-action"></a></dfn>;
 };
 
-<span class="kt">dictionary</span> <dfn class="nv idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-notificationeventinit">NotificationEventInit<a class="self-link" href="#dictdef-notificationeventinit"></a></dfn> : <a class="n" data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendableeventinit">ExtendableEventInit</a> {
+<span class="kt">dictionary</span> <dfn class="nv idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-notificationeventinit">NotificationEventInit<a class="self-link" href="#dictdef-notificationeventinit"></a></dfn> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/ServiceWorker/#dictdef-extendableeventinit">ExtendableEventInit</a> {
   <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#notification">Notification</a> <dfn class="nv idl-code" data-dfn-for="NotificationEventInit" data-dfn-type="dict-member" data-export="" data-type="Notification " id="dom-notificationeventinit-notification">notification<a class="self-link" href="#dom-notificationeventinit-notification"></a></dfn>;
   <span class="kt">DOMString</span> <dfn class="nv idl-code" data-default="&quot;&quot;" data-dfn-for="NotificationEventInit" data-dfn-type="dict-member" data-export="" data-type="DOMString " id="dom-notificationeventinit-action">action<a class="self-link" href="#dom-notificationeventinit-action"></a></dfn> = "";
 };
 
-<span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a> {
+<span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://w3c.github.io/ServiceWorker/#service-worker-global-scope-interface">ServiceWorkerGlobalScope</a> {
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="nv idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a>;
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="nv idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-serviceworkerglobalscope-onnotificationclose">onnotificationclose</a>;
 };
@@ -813,7 +813,7 @@ a similar result could be achieved using the <code class="idl"><a data-link-type
     <li>
      <p>Let <var>promise</var> be a new promise. </p>
     <li>
-     <p>If the <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#context-object">context object</a>’s <a data-link-type="dfn" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#dfn-active-worker">active worker</a> is null, reject <var>promise</var> with a <code>TypeError</code> exception and return <var>promise</var>. </p>
+     <p>If the <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#context-object">context object</a>’s <a data-link-type="dfn" href="https://w3c.github.io/ServiceWorker/#dfn-active-worker">active worker</a> is null, reject <var>promise</var> with a <code>TypeError</code> exception and return <var>promise</var>. </p>
     <li>
      <p>Let <var>serviceWorkerRegistration</var> be the <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#context-object">context object</a>. </p>
     <li>
@@ -862,17 +862,17 @@ a similar result could be achieved using the <code class="idl"><a data-link-type
    <p class="note" role="note">This method returns zero or more new <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects which might represent
 the same underlying <a data-link-type="dfn" href="#concept-notification">notification</a> of <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> objects already in existence. </p>
    <hr>
-   <p>To <dfn data-dfn-type="dfn" data-noexport="" id="fire-a-service-worker-notification-event-named-e">fire a service worker notification event named <var>e</var><a class="self-link" href="#fire-a-service-worker-notification-event-named-e"></a></dfn> given <var>notification</var> and <var>action</var>, <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire">fire an event named <var>e</var></a> with an <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event">event</a> using the <code class="idl"><a data-link-type="idl" href="#notificationevent">NotificationEvent</a></code> interface whose <code class="idl"><a data-link-type="idl" href="#dom-notificationevent-notification">notification</a></code> attribute is initialized to a new <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object representing <var>notification</var>, and whose <code class="idl"><a data-link-type="idl" href="#dom-notificationevent-action">action</a></code> attribute is initialized to <var>action</var>. </p>
+   <p>To <dfn data-dfn-type="dfn" data-noexport="" id="fire-a-service-worker-notification-event-named-e">fire a service worker notification event named <var>e</var><a class="self-link" href="#fire-a-service-worker-notification-event-named-e"></a></dfn> given <var>notification</var> and <var>action</var>, <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire">fire an event</a> named <var>e</var>, using <code class="idl"><a data-link-type="idl" href="#notificationevent">NotificationEvent</a></code>, with the <code class="idl"><a data-link-type="idl" href="#dom-notificationevent-notification">notification</a></code> attribute initialized to a new <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object representing <var>notification</var> and the <code class="idl"><a data-link-type="idl" href="#dom-notificationevent-action">action</a></code> attribute initialized to <var>action</var>. </p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-notificationevent-notification">notification</a></code> attribute’s getter must return the
 value it was initialized to. </p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-notificationevent-action">action</a></code> attribute’s getter must return the value it
 was initialized to. </p>
-   <p>The following is the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handler</a> (and its corresponding <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-types">event handler event type</a>) that must be supported as attribute by the <code class="idl"><a data-link-type="idl" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a></code> object: </p>
+   <p>The following is the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handler</a> (and its corresponding <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">event handler event type</a>) that must be supported as attribute by the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/ServiceWorker/#service-worker-global-scope-interface">ServiceWorkerGlobalScope</a></code> object: </p>
    <table>
     <thead>
      <tr>
       <th><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handler</a> 
-      <th><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-types">event handler event type</a> 
+      <th><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">event handler event type</a> 
     <tbody>
      <tr>
       <td><dfn class="idl-code" data-dfn-for="ServiceWorkerGlobalScope" data-dfn-type="attribute" data-export="" data-lt="onnotificationclick" id="dom-serviceworkerglobalscope-onnotificationclick"><code> onnotificationclick</code><a class="self-link" href="#dom-serviceworkerglobalscope-onnotificationclick"></a></dfn> 
@@ -1151,6 +1151,9 @@ neighboring rights to this work. </p>
    <li>
     <a data-link-type="biblio">[DOM]</a> defines the following terms:
     <ul>
+     <li><a href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a>
+     <li><a href="https://dom.spec.whatwg.org/#context-object">context object</a>
+     <li><a href="https://dom.spec.whatwg.org/#concept-event-listener">event listener</a>
      <li><a href="https://dom.spec.whatwg.org/#concept-event-fire">fire an event</a>
     </ul>
    <li>
@@ -1166,6 +1169,8 @@ neighboring rights to this work. </p>
     <ul>
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a>
      <li><a href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a>
+     <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handler</a>
+     <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">event handler event type</a>
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-global">global object</a>
      <li><a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>
      <li><a href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin">origin</a>
@@ -1173,6 +1178,14 @@ neighboring rights to this work. </p>
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a>
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#report-the-exception">report the exception</a>
      <li><a href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin">same origin</a>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[service-workers-1]</a> defines the following terms:
+    <ul>
+     <li><a href="https://w3c.github.io/ServiceWorker/#extendable-event-interface">ExtendableEvent</a>
+     <li><a href="https://w3c.github.io/ServiceWorker/#dictdef-extendableeventinit">ExtendableEventInit</a>
+     <li><a href="https://w3c.github.io/ServiceWorker/#service-worker-global-scope-interface">ServiceWorkerGlobalScope</a>
+     <li><a href="https://w3c.github.io/ServiceWorker/#service-worker-registration-interface">ServiceWorkerRegistration</a>
     </ul>
    <li>
     <a data-link-type="biblio">[URL]</a> defines the following terms:
@@ -1185,6 +1198,7 @@ neighboring rights to this work. </p>
     <ul>
      <li><a href="https://heycam.github.io/webidl/#Exposed">Exposed</a>
      <li><a href="https://heycam.github.io/webidl/#SameObject">SameObject</a>
+     <li><a href="https://heycam.github.io/webidl/#dfn-throw">throw</a>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -1202,6 +1216,8 @@ neighboring rights to this work. </p>
    <dd>Addison Phillips; Mark Davis. <a href="https://tools.ietf.org/html/bcp47">Tags for Identifying Languages; Matching of Language Tags</a>. URL: <a href="https://tools.ietf.org/html/bcp47">https://tools.ietf.org/html/bcp47</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
+   <dt id="biblio-service-workers-1">[SERVICE-WORKERS-1]
+   <dd>Alex Russell; et al. <a href="https://w3c.github.io/ServiceWorker/v1/">Service Workers 1</a>. URL: <a href="https://w3c.github.io/ServiceWorker/v1/">https://w3c.github.io/ServiceWorker/v1/</a>
    <dt id="biblio-url">[URL]
    <dd>Anne van Kesteren. <a href="https://url.spec.whatwg.org/">URL Standard</a>. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
    <dt id="biblio-vibration">[VIBRATION]
@@ -1287,24 +1303,24 @@ neighboring rights to this work. </p>
   <span class="kt">DOMString</span> <a class="nv" data-default="&quot;&quot;" data-type="DOMString " href="#dom-getnotificationoptions-tag">tag</a> = "";
 };
 
-<span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerregistration">ServiceWorkerRegistration</a> {
+<span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://w3c.github.io/ServiceWorker/#service-worker-registration-interface">ServiceWorkerRegistration</a> {
   <span class="kt">Promise</span>&lt;<span class="kt">void</span>> <a class="nv idl-code" data-link-type="method" href="#dom-serviceworkerregistration-shownotification">showNotification</a>(<span class="kt">DOMString</span> <a class="nv" href="#dom-serviceworkerregistration-shownotification-title-options-title">title</a>, <span class="kt">optional</span> <a class="n" data-link-type="idl-name" href="#dictdef-notificationoptions">NotificationOptions</a> <a class="nv" href="#dom-serviceworkerregistration-shownotification-title-options-options">options</a>);
   <span class="kt">Promise</span>&lt;<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#notification">Notification</a>>> <a class="nv idl-code" data-link-type="method" href="#dom-serviceworkerregistration-getnotifications">getNotifications</a>(<span class="kt">optional</span> <a class="n" data-link-type="idl-name" href="#dictdef-getnotificationoptions">GetNotificationOptions</a> <a class="nv" href="#dom-serviceworkerregistration-getnotifications-filter-filter">filter</a>);
 };
 
 [<a class="nv" href="#dom-notificationevent-notificationevent">Constructor</a>(<span class="kt">DOMString</span> <a class="nv" href="#dom-notificationevent-notificationevent-type-eventinitdict-type">type</a>, <a class="n" data-link-type="idl-name" href="#dictdef-notificationeventinit">NotificationEventInit</a> <a class="nv" href="#dom-notificationevent-notificationevent-type-eventinitdict-eventinitdict">eventInitDict</a>),
  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed">Exposed</a>=<span class="n">ServiceWorker</span>]
-<span class="kt">interface</span> <a class="nv" href="#notificationevent">NotificationEvent</a> : <a class="n" data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendableevent">ExtendableEvent</a> {
+<span class="kt">interface</span> <a class="nv" href="#notificationevent">NotificationEvent</a> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/ServiceWorker/#extendable-event-interface">ExtendableEvent</a> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#notification">Notification</a> <a class="nv" data-readonly="" data-type="Notification" href="#dom-notificationevent-notification">notification</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">DOMString</span> <a class="nv" data-readonly="" data-type="DOMString" href="#dom-notificationevent-action">action</a>;
 };
 
-<span class="kt">dictionary</span> <a class="nv" href="#dictdef-notificationeventinit">NotificationEventInit</a> : <a class="n" data-link-type="idl-name" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#extendableeventinit">ExtendableEventInit</a> {
+<span class="kt">dictionary</span> <a class="nv" href="#dictdef-notificationeventinit">NotificationEventInit</a> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/ServiceWorker/#dictdef-extendableeventinit">ExtendableEventInit</a> {
   <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#notification">Notification</a> <a class="nv" data-type="Notification " href="#dom-notificationeventinit-notification">notification</a>;
   <span class="kt">DOMString</span> <a class="nv" data-default="&quot;&quot;" data-type="DOMString " href="#dom-notificationeventinit-action">action</a> = "";
 };
 
-<span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a> {
+<span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://w3c.github.io/ServiceWorker/#service-worker-global-scope-interface">ServiceWorkerGlobalScope</a> {
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="nv idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-serviceworkerglobalscope-onnotificationclick">onnotificationclick</a>;
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="nv idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-serviceworkerglobalscope-onnotificationclose">onnotificationclose</a>;
 };
