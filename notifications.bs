@@ -524,18 +524,17 @@ specified) run these steps:
   <li><p>Otherwise, <a>queue a task</a> to run these substeps:
 
   <ol>
-    <li><p><a>Fire an event</a> named <code>click</code>
-    with its <code> <a lt="dom event cancelable">cancelable</a></code> attribute
-    initialized to true on the {{Notification}} object representing
-    <var>notification</var>.
+    <li>
+      <p>Let <var>intoFocus</var> be the result of <a lt="fire an event">firing an event</a> named
+      <code>click</code> on the {{Notification}} object representing <var>notification</var>, with
+      its {{Event/cancelable}} attribute initialized to true.
 
-    <p class="note">User agents are encouraged to make <code>
-    <a lt="dom window focus">window.focus()</a></code> work from within the
-    event listener for the event named <code>click</code>.
+      <p class="note">User agents are encouraged to make
+      <code><a lt="dom window focus">window.focus()</a></code> work from within the event listener
+      for the event named <code>click</code>.
 
-    <li><p>If the <a lt="concept event">event</a>'s <a>canceled flag</a> is
-    unset, the user agent should bring the <var>notification</var>'s related
-    <a for=/>browsing context</a>'s viewport into focus.
+    <li><p>If <var>intoFocus</var> is true, then the user agent should bring the
+    <var>notification</var>'s related <a for=/>browsing context</a>'s viewport into focus.
   </ol>
 </ol>
 
@@ -1225,10 +1224,6 @@ urlPrefix: https://html.spec.whatwg.org/multipage/
 urlPrefix: https://w3c.github.io/ServiceWorker/; type: dfn
   text: handle functional event; url:handle-functional-event-algorithm
   text: dfn active worker
-urlPrefix: https://dom.spec.whatwg.org/; type: dfn
-  text: canceled flag
-  text: concept event
-  text: dom event cancelable
 urlPrefix: https://w3c.github.io/vibration/
   urlPrefix: #dfn-; type: dfn
     text: perform vibration

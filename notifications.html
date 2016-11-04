@@ -441,13 +441,12 @@ specified) run these steps: </p>
      <p>Otherwise, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to run these substeps: </p>
      <ol>
       <li>
-       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire">Fire an event</a> named <code>click</code> with its <code> <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#dom-event-cancelable">cancelable</a></code> attribute
-    initialized to true on the <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object representing <var>notification</var>. </p>
-       <p class="note" role="note">User agents are encouraged to make <code> <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#dom-window-focus">window.focus()</a></code> work from within the
-    event listener for the event named <code>click</code>. </p>
+       <p>Let <var>intoFocus</var> be the result of <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire">firing an event</a> named <code>click</code> on the <code class="idl"><a data-link-type="idl" href="#notification">Notification</a></code> object representing <var>notification</var>, with
+      its <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#dom-event-cancelable">cancelable</a></code> attribute initialized to true. </p>
+       <p class="note" role="note">User agents are encouraged to make <code><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#dom-window-focus">window.focus()</a></code> work from within the event listener
+      for the event named <code>click</code>. </p>
       <li>
-       <p>If the <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event">event</a>’s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#canceled-flag">canceled flag</a> is
-    unset, the user agent should bring the <var>notification</var>’s related <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a>’s viewport into focus. </p>
+       <p>If <var>intoFocus</var> is true, then the user agent should bring the <var>notification</var>’s related <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a>’s viewport into focus. </p>
      </ol>
    </ol>
    <p class="note" role="note">Throughout the web platform "activate" is intentionally
@@ -1152,6 +1151,7 @@ neighboring rights to this work. </p>
     <a data-link-type="biblio">[DOM]</a> defines the following terms:
     <ul>
      <li><a href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a>
+     <li><a href="https://dom.spec.whatwg.org/#dom-event-cancelable">cancelable</a>
      <li><a href="https://dom.spec.whatwg.org/#context-object">context object</a>
      <li><a href="https://dom.spec.whatwg.org/#concept-event-listener">event listener</a>
      <li><a href="https://dom.spec.whatwg.org/#concept-event-fire">fire an event</a>
