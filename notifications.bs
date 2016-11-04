@@ -1155,13 +1155,11 @@ was initialized to.
       <th><a>event handler event type</a>
   <tbody>
     <tr>
-      <td><dfn attribute for=ServiceWorkerGlobalScope><code>
-      onnotificationclick</code></dfn>
-      <td><code>notificationclick
+      <td><dfn attribute for=ServiceWorkerGlobalScope><code>onnotificationclick</code></dfn>
+      <td><code>notificationclick</code>
     <tr>
-      <td><dfn attribute for=ServiceWorkerGlobalScope><code>
-      onnotificationclose</code></dfn>
-      <td><code>notificationclose
+      <td><dfn attribute for=ServiceWorkerGlobalScope><code>onnotificationclose</code></dfn>
+      <td><code>notificationclose</code>
 </table>
 
 
