@@ -1236,42 +1236,8 @@ urlPrefix: https://tc39.github.io/ecma262/#sec-object.; type: dfn
 
 <pre class="biblio">
 {
-    "DOM": {
-        "authors": [
-            "Anne van Kesteren",
-            "Aryeh Gregor",
-            "Ms2ger"
-        ],
-        "href": "https://dom.spec.whatwg.org/",
-        "title": "DOM",
-        "publisher": "WHATWG"
-    },
-    "WEBIDL": {
-        "authors": [
-            "Cameron McCormack",
-            "Jonas Sicking"
-        ],
-        "href": "https://heycam.github.io/webidl/",
-        "title": "Web IDL",
-        "publisher": "W3C"
-    },
-    "URL": {
-        "authors": [
-            "Anne van Kesteren",
-            "Sam Ruby"
-        ],
-        "href": "https://url.spec.whatwg.org/",
-        "title": "URL",
-        "publisher": "WHATWG"
-    },
     "LANG": {
-        "authors": [
-            "Addison Phillips",
-            "Mark Davis"
-        ],
-        "href": "https://tools.ietf.org/html/bcp47",
-        "title": "Tags for Identifying Languages; Matching of Language Tags",
-        "publisher": "IETF"
+        "aliasOf" : "BCP47"
     }
 }
 </pre>
