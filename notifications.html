@@ -173,13 +173,8 @@ unset. When set indicates that the end user should be alerted after the <a data-
 run. </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-for="notification" data-dfn-type="dfn" data-noexport="" id="silent-preference-flag">silent preference flag<a class="self-link" href="#silent-preference-flag"></a></dfn> which is initially
 unset. When set indicates that no sounds or vibrations should be made. </p>
-   <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="screen-off-preference-flag">screen off preference flag<a class="self-link" href="#screen-off-preference-flag"></a></dfn> which is initially unset. When set
-indicates that the screen of the device should not be enabled. </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-for="notification" data-dfn-type="dfn" data-noexport="" id="require-interaction-preference-flag">require interaction preference flag<a class="self-link" href="#require-interaction-preference-flag"></a></dfn> which is initially unset. When set, indicates that on devices with a sufficiently large screen, the
 notification should remain readily available until the user activates or dismisses the notification. </p>
-   <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-type="dfn" data-noexport="" id="sticky-preference-flag">sticky preference flag<a class="self-link" href="#sticky-preference-flag"></a></dfn> which is initially unset. When set indicates
-that the end user should not be able to easily clear the <a data-link-type="dfn" href="#concept-notification">notification</a>. <span class="note">Only makes sense
-for <a data-link-type="dfn" href="#persistent-notification">persistent notifications</a>. </span></p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> <em>can</em> have these associated graphics: an <dfn data-dfn-for="notification" data-dfn-type="dfn" data-noexport="" id="image-url">image URL<a class="self-link" href="#image-url"></a></dfn>, <dfn data-dfn-for="notification" data-dfn-type="dfn" data-noexport="" id="icon-url">icon URL<a class="self-link" href="#icon-url"></a></dfn>, and <dfn data-dfn-for="notification" data-dfn-type="dfn" data-noexport="" id="badge-url">badge URL<a class="self-link" href="#badge-url"></a></dfn>; and their corresponding <a data-link-type="dfn" href="#image-resource">image resource</a>, <a data-link-type="dfn" href="#icon-resource">icon resource</a>, and <a data-link-type="dfn" href="#badge-resource">badge resource</a>. </p>
    <p>An <dfn data-dfn-for="notification" data-dfn-type="dfn" data-noexport="" id="image-resource">image resource<a class="self-link" href="#image-resource"></a></dfn> is a picture shown as part of the
 content of the <a data-link-type="dfn" href="#concept-notification">notification</a>, and should be displayed with higher visual priority than the <a data-link-type="dfn" href="#icon-resource">icon resource</a> and <a data-link-type="dfn" href="#badge-resource">badge resource</a>, though it may be
@@ -267,11 +262,7 @@ these steps: </p>
     <li>
      <p>If <var>options</var>’s <code>silent</code> is true, set <var>notification</var>’s <a data-link-type="dfn" href="#silent-preference-flag">silent preference flag</a>. </p>
     <li>
-     <p>If <var>options</var>’s <code>noscreen</code> is true, set <var>notification</var>’s <a data-link-type="dfn" href="#screen-off-preference-flag">screen off preference flag</a>. </p>
-    <li>
      <p>If <var>options</var>’s <code>requireInteraction</code> is true, set <var>notification</var>’s <a data-link-type="dfn" href="#require-interaction-preference-flag">require interaction preference flag</a>. </p>
-    <li>
-     <p>If <var>options</var>’s <code>sticky</code> is true, set <var>notification</var>’s <a data-link-type="dfn" href="#sticky-preference-flag">sticky preference flag</a>. </p>
     <li>
      <p>Set <var>notification</var>’s list of <a data-link-type="dfn" href="#actions">actions</a> to an empty list,
   then for each <var>entry</var> in <var>options</var>’s <code>actions</code>,
@@ -535,9 +526,7 @@ or vibrating the device again, unless the <a data-link-type="dfn" href="#renotif
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp" href="#dom-notification-timestamp">timestamp</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-renotify">renotify</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-silent">silent</a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-noscreen">noscreen</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-requireinteraction">requireInteraction</a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-sticky">sticky</a>;
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">any</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="any" href="#dom-notification-data">data</a>;
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-notificationaction">NotificationAction</a>> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<NotificationAction>" href="#dom-notification-actions">actions</a>;
 
@@ -557,9 +546,7 @@ or vibrating the device again, unless the <a data-link-type="dfn" href="#renotif
   <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <dfn class="nv idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="DOMTimeStamp " id="dom-notificationoptions-timestamp">timestamp<a class="self-link" href="#dom-notificationoptions-timestamp"></a></dfn>;
   <span class="kt">boolean</span> <dfn class="nv idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-renotify">renotify<a class="self-link" href="#dom-notificationoptions-renotify"></a></dfn> = <span class="kt">false</span>;
   <span class="kt">boolean</span> <dfn class="nv idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-silent">silent<a class="self-link" href="#dom-notificationoptions-silent"></a></dfn> = <span class="kt">false</span>;
-  <span class="kt">boolean</span> <dfn class="nv idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-noscreen">noscreen<a class="self-link" href="#dom-notificationoptions-noscreen"></a></dfn> = <span class="kt">false</span>;
   <span class="kt">boolean</span> <dfn class="nv idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-requireinteraction">requireInteraction<a class="self-link" href="#dom-notificationoptions-requireinteraction"></a></dfn> = <span class="kt">false</span>;
-  <span class="kt">boolean</span> <dfn class="nv idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-sticky">sticky<a class="self-link" href="#dom-notificationoptions-sticky"></a></dfn> = <span class="kt">false</span>;
   <span class="kt">any</span> <dfn class="nv idl-code" data-default="null" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="any " id="dom-notificationoptions-data">data<a class="self-link" href="#dom-notificationoptions-data"></a></dfn> = <span class="kt">null</span>;
   <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-notificationaction">NotificationAction</a>> <dfn class="nv idl-code" data-default="None" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="sequence<NotificationAction> " id="dom-notificationoptions-actions">actions<a class="self-link" href="#dom-notificationoptions-actions"></a></dfn> = [];
 };
@@ -593,8 +580,6 @@ corresponding <a data-link-type="dfn" href="#concept-notification">notification<
    <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="constructor" data-export="" data-lt="Notification(title, options)" id="dom-notification-notification"><code>Notification(title, options) </code><a class="self-link" href="#dom-notification-notification"></a></dfn> constructor, when invoked, must (unless otherwise indicated) run
 these steps: </p>
    <ol>
-    <li>
-     <p>If <var>options</var>’s <code>sticky</code> is present, <a data-link-type="dfn" href="https://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception. </p>
     <li>
      <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-global">global object</a> is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/ServiceWorker/#service-worker-global-scope-interface">ServiceWorkerGlobalScope</a></code> object,
   then <a data-link-type="dfn" href="https://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception. </p>
@@ -689,11 +674,8 @@ the <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a
    <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-renotify"><code>renotify</code><a class="self-link" href="#dom-notification-renotify"></a></dfn> attribute’s getter must return
 the <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#renotify-preference-flag">renotify preference flag</a>. </p>
    <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-silent"><code>silent</code><a class="self-link" href="#dom-notification-silent"></a></dfn> attribute’s getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#silent-preference-flag">silent preference flag</a>. </p>
-   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-noscreen"><code>noscreen</code><a class="self-link" href="#dom-notification-noscreen"></a></dfn> attribute’s getter must return
-the <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#screen-off-preference-flag">screen off preference flag</a>. </p>
    <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-requireinteraction"><code>requireInteraction</code><a class="self-link" href="#dom-notification-requireinteraction"></a></dfn> attribute’s getter must
 return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#require-interaction-preference-flag">require interaction preference flag</a>. </p>
-   <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-sticky"><code>sticky</code><a class="self-link" href="#dom-notification-sticky"></a></dfn> attribute’s getter must return the <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#sticky-preference-flag">sticky preference flag</a>. </p>
    <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-data"><code>data</code><a class="self-link" href="#dom-notification-data"></a></dfn> attribute’s getter must return a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#structured-clone">structured clone</a> of <a data-link-type="dfn" href="#concept-notification">notification</a>’s <a data-link-type="dfn" href="#data">data</a>. </p>
    <p>The <dfn class="idl-code" data-dfn-for="Notification" data-dfn-type="attribute" data-export="" id="dom-notification-actions"><code>actions</code><a class="self-link" href="#dom-notification-actions"></a></dfn> attribute’s getter must return the
 result of the following steps: </p>
@@ -974,8 +956,8 @@ neighboring rights to this work. </p>
     </ul>
    <li><a href="#dom-notificationpermission-default">"default"</a><span>, in §3</span>
    <li><a href="#dom-notificationpermission-default">default</a><span>, in §3</span>
-   <li><a href="#dom-notificationpermission-denied">"denied"</a><span>, in §3</span>
    <li><a href="#dom-notificationpermission-denied">denied</a><span>, in §3</span>
+   <li><a href="#dom-notificationpermission-denied">"denied"</a><span>, in §3</span>
    <li>
     dir
     <ul>
@@ -989,8 +971,8 @@ neighboring rights to this work. </p>
    <li><a href="#dictdef-getnotificationoptions">GetNotificationOptions</a><span>, in §4</span>
    <li><a href="#dom-serviceworkerregistration-getnotifications">getNotifications()</a><span>, in §4</span>
    <li><a href="#dom-serviceworkerregistration-getnotifications">getNotifications(filter)</a><span>, in §4</span>
-   <li><a href="#dom-notificationpermission-granted">"granted"</a><span>, in §3</span>
    <li><a href="#dom-notificationpermission-granted">granted</a><span>, in §3</span>
+   <li><a href="#dom-notificationpermission-granted">"granted"</a><span>, in §3</span>
    <li>
     icon
     <ul>
@@ -1026,18 +1008,12 @@ neighboring rights to this work. </p>
     </ul>
    <li><a href="#concept-language">language</a><span>, in §2</span>
    <li><a href="#list-of-notifications">list of notifications</a><span>, in §2.1</span>
-   <li><a href="#dom-notificationdirection-ltr">ltr</a><span>, in §3</span>
    <li><a href="#dom-notificationdirection-ltr">"ltr"</a><span>, in §3</span>
+   <li><a href="#dom-notificationdirection-ltr">ltr</a><span>, in §3</span>
    <li><a href="#dom-notification-maxactions">maxActions</a><span>, in §3.3</span>
    <li><a href="#maximum-number-of-actions">maximum number of actions</a><span>, in §2</span>
    <li><a href="#action-name">name</a><span>, in §2</span>
    <li><a href="#non-persistent-notification">non-persistent notification</a><span>, in §2</span>
-   <li>
-    noscreen
-    <ul>
-     <li><a href="#dom-notificationoptions-noscreen">dict-member for NotificationOptions</a><span>, in §3</span>
-     <li><a href="#dom-notification-noscreen">attribute for Notification</a><span>, in §3.4</span>
-    </ul>
    <li><a href="#notification">Notification</a><span>, in §3</span>
    <li>
     notification
@@ -1087,7 +1063,6 @@ neighboring rights to this work. </p>
    <li><a href="#require-interaction-preference-flag">require interaction preference flag</a><span>, in §2</span>
    <li><a href="#dom-notificationdirection-rtl">rtl</a><span>, in §3</span>
    <li><a href="#dom-notificationdirection-rtl">"rtl"</a><span>, in §3</span>
-   <li><a href="#screen-off-preference-flag">screen off preference flag</a><span>, in §2</span>
    <li><a href="#service-worker-registration">service worker registration</a><span>, in §2</span>
    <li><a href="#dom-serviceworkerregistration-shownotification">showNotification(title)</a><span>, in §4</span>
    <li><a href="#dom-serviceworkerregistration-shownotification">showNotification(title, options)</a><span>, in §4</span>
@@ -1107,13 +1082,6 @@ neighboring rights to this work. </p>
     </ul>
    <li><a href="#sound-resource">sound resource</a><span>, in §2</span>
    <li><a href="#sound-url">sound URL</a><span>, in §2</span>
-   <li>
-    sticky
-    <ul>
-     <li><a href="#dom-notificationoptions-sticky">dict-member for NotificationOptions</a><span>, in §3</span>
-     <li><a href="#dom-notification-sticky">attribute for Notification</a><span>, in §3.4</span>
-    </ul>
-   <li><a href="#sticky-preference-flag">sticky preference flag</a><span>, in §2</span>
    <li>
     tag
     <ul>
@@ -1251,9 +1219,7 @@ neighboring rights to this work. </p>
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp" href="#dom-notification-timestamp">timestamp</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-renotify">renotify</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-silent">silent</a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-noscreen">noscreen</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-requireinteraction">requireInteraction</a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-sticky">sticky</a>;
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">any</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="any" href="#dom-notification-data">data</a>;
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-notificationaction">NotificationAction</a>> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<NotificationAction>" href="#dom-notification-actions">actions</a>;
 
@@ -1273,9 +1239,7 @@ neighboring rights to this work. </p>
   <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="nv" data-type="DOMTimeStamp " href="#dom-notificationoptions-timestamp">timestamp</a>;
   <span class="kt">boolean</span> <a class="nv" data-default="false" data-type="boolean " href="#dom-notificationoptions-renotify">renotify</a> = <span class="kt">false</span>;
   <span class="kt">boolean</span> <a class="nv" data-default="false" data-type="boolean " href="#dom-notificationoptions-silent">silent</a> = <span class="kt">false</span>;
-  <span class="kt">boolean</span> <a class="nv" data-default="false" data-type="boolean " href="#dom-notificationoptions-noscreen">noscreen</a> = <span class="kt">false</span>;
   <span class="kt">boolean</span> <a class="nv" data-default="false" data-type="boolean " href="#dom-notificationoptions-requireinteraction">requireInteraction</a> = <span class="kt">false</span>;
-  <span class="kt">boolean</span> <a class="nv" data-default="false" data-type="boolean " href="#dom-notificationoptions-sticky">sticky</a> = <span class="kt">false</span>;
   <span class="kt">any</span> <a class="nv" data-default="null" data-type="any " href="#dom-notificationoptions-data">data</a> = <span class="kt">null</span>;
   <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-notificationaction">NotificationAction</a>> <a class="nv" data-default="None" data-type="sequence<NotificationAction> " href="#dom-notificationoptions-actions">actions</a> = [];
 };

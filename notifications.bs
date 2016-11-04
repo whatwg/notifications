@@ -81,19 +81,9 @@ run.
 unset. When set indicates that no sounds or vibrations should be made.
 
 <p>A <a>notification</a> has an associated
-<dfn>screen off preference flag</dfn> which is initially unset. When set
-indicates that the screen of the device should not be enabled.
-
-<p>A <a>notification</a> has an associated
 <dfn for=notification id=require-interaction-preference-flag>require interaction preference flag</dfn>
 which is initially unset. When set, indicates that on devices with a sufficiently large screen, the
 notification should remain readily available until the user activates or dismisses the notification.
-
-<p>A <a>notification</a> has an associated
-<dfn>sticky preference flag</dfn> which is initially unset. When set indicates
-that the end user should not be able to easily clear the
-<a>notification</a>. <span class=note>Only makes sense
-for <a>persistent notifications</a>.
 
 <p>A <a>notification</a> <em>can</em> have these associated graphics: an
 <dfn for=notification id=image-url>image URL</dfn>,
@@ -255,16 +245,10 @@ these steps:
   <var>notification</var>'s <a for=notification>renotify preference flag</a>.
 
   <li><p>If <var>options</var>'s <code>silent</code> is true, set
-  <var>notification</var>'s <a>silent preference flag</a>.
-
-  <li><p>If <var>options</var>'s <code>noscreen</code> is true, set
-  <var>notification</var>'s <a>screen off preference flag</a>.
+  <var>notification</var>'s <a for=notification>silent preference flag</a>.
 
   <li><p>If <var>options</var>'s <code>requireInteraction</code> is true, set
-  <var>notification</var>'s <a>require interaction preference flag</a>.
-
-  <li><p>If <var>options</var>'s <code>sticky</code> is true, set
-  <var>notification</var>'s <a>sticky preference flag</a>.
+  <var>notification</var>'s <a for=notification>require interaction preference flag</a>.
 
   <li><p>Set <var>notification</var>'s list of <a>actions</a> to an empty list,
   then for each <var>entry</var> in <var>options</var>'s <code>actions</code>,
@@ -661,9 +645,7 @@ interface Notification : EventTarget {
   readonly attribute DOMTimeStamp timestamp;
   readonly attribute boolean renotify;
   readonly attribute boolean silent;
-  readonly attribute boolean noscreen;
   readonly attribute boolean requireInteraction;
-  readonly attribute boolean sticky;
   [SameObject] readonly attribute any data;
   [SameObject] readonly attribute FrozenArray&lt;NotificationAction> actions;
 
@@ -683,9 +665,7 @@ dictionary NotificationOptions {
   DOMTimeStamp timestamp;
   boolean renotify = false;
   boolean silent = false;
-  boolean noscreen = false;
   boolean requireInteraction = false;
-  boolean sticky = false;
   any data = null;
   sequence&lt;NotificationAction> actions = [];
 };
@@ -734,9 +714,6 @@ corresponding <a>notification</a> is in the
 these steps:
 
 <ol>
-  <li><p>If <var>options</var>'s <code>sticky</code> is present, <a>throw</a>
-  a <code>TypeError</code> exception.
-
   <li><p>If the <a>entry settings object</a>'s
   <a for="environment settings object">global object</a> is a {{ServiceWorkerGlobalScope}} object,
   then <a>throw</a> a <code>TypeError</code> exception.
@@ -889,14 +866,8 @@ the <a>notification</a>'s <a for=notification>renotify preference flag</a>.
 <p>The <dfn attribute for=Notification><code>silent</code></dfn> attribute's getter must return the
 <a>notification</a>'s <a for=notification>silent preference flag</a>.
 
-<p>The <dfn attribute for=Notification><code>noscreen</code></dfn> attribute's getter must return
-the <a>notification</a>'s <a>screen off preference flag</a>.
-
 <p>The <dfn attribute for=Notification><code>requireInteraction</code></dfn> attribute's getter must
 return the <a>notification</a>'s <a for=notification>require interaction preference flag</a>.
-
-<p>The <dfn attribute for=Notification><code>sticky</code></dfn> attribute's getter must return the
-<a>notification</a>'s <a>sticky preference flag</a>.
 
 <p>The <dfn attribute for=Notification><code>data</code></dfn> attribute's getter must return a
 <a>structured clone</a> of <a>notification</a>'s <a for=notification>data</a>.
