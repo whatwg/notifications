@@ -934,8 +934,7 @@ result of the following steps:
     <li><p>Append <var>action</var> to <var>frozenActions</var>.
   </ol>
 
-  <li><p><a lt="create frozen array">Create a frozen array</a> from
-  <var>frozenActions</var>.
+  <li><p><a>Create a frozen array</a> from <var>frozenActions</var>.
 </ol>
 
 <h3 id=examples>Examples</h3>
@@ -1217,8 +1216,6 @@ neighboring rights to this work.
 
 <pre class="anchors">
 url: https://heycam.github.io/webidl/#common-DOMTimeStamp; type: interface; text: DOMTimeStamp
-urlPrefix: https://heycam.github.io/webidl/#dfn-; type: dfn
-  text: create frozen array
 urlPrefix: https://html.spec.whatwg.org/multipage/
   urlPrefix: interaction.html; type: dfn
     text: dom window focus
