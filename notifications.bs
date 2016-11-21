@@ -7,19 +7,20 @@ Status: LS
 No Editor: true
 Abstract: This standard defines an API to display notifications to the end user, typically outside the top-level browsing context's viewport. It is designed to be compatible with existing notification systems, while remaining platform-independent.
 Logo: https://resources.whatwg.org/logo-notifications.svg
-Boilerplate: omit feedback-header
+Boilerplate: omit feedback-header, omit conformance
 !Participate: <a href=https://github.com/whatwg/notifications>GitHub whatwg/notifications</a> (<a href=https://github.com/whatwg/notifications/issues/new>new issue</a>, <a href=https://github.com/whatwg/notifications/issues>open issues</a>)
 !Participate: <a href=https://wiki.whatwg.org/wiki/IRC>IRC: #whatwg on Freenode</a>
 !Commits: <a href="https://github.com/whatwg/notifications/commits">GitHub whatwg/notifications/commits</a>
 !Commits: <a href="https://twitter.com/notifyapi">@notifyapi</a>
-!Translation (non-normative and likely out-of-date): <span title="Simplified Chinese"><a href=https://w3c-html-ig-zh.github.io/notifications/whatwg/ lang=zh>简体中文</a></span>
-Indent: 2
+!Translation (non-normative): <span title="Simplified Chinese"><a href=https://w3c-html-ig-zh.github.io/notifications/whatwg/ lang=zh hreflang=zh rel=alternate>简体中文</a></span>
 </pre>
 
 <script src=https://resources.whatwg.org/file-issue.js async></script>
-<script id=head src=https://resources.whatwg.org/dfn.js defer></script>
+<script src=https://resources.whatwg.org/dfn.js defer></script>
 
 <h2 id=terminology>Terminology</h2>
+
+<p>This specification depends on the Infra Standard. [[!INFRA]]
 
 <p>Some terms used in this specification are defined in the DOM, Fetch,
 HTML, IDL, URL and Vibration API Standards.
@@ -1185,22 +1186,22 @@ neighboring rights to this work.
 <pre class="anchors">
 url: https://heycam.github.io/webidl/#common-DOMTimeStamp; type: interface; text: DOMTimeStamp
 urlPrefix: https://html.spec.whatwg.org/multipage/
-  urlPrefix: interaction.html; type: dfn
-    text: dom window focus
-    text: structured clone
-  urlPrefix: webappapis.html; type: dfn
-    text: entry settings object
+    urlPrefix: interaction.html; type: dfn
+        text: dom window focus
+        text: structured clone
+    urlPrefix: webappapis.html; type: dfn
+        text: entry settings object
 urlPrefix: https://w3c.github.io/ServiceWorker/; type: dfn
-  text: handle functional event; url:handle-functional-event-algorithm
-  text: dfn active worker
+    text: handle functional event; url:handle-functional-event-algorithm
+    text: dfn active worker
 urlPrefix: https://w3c.github.io/vibration/
-  urlPrefix: #dfn-; type: dfn
-    text: perform vibration
-    text: validate and normalize
-  urlPrefix: #idl-def-; type: interface
-    text: VibratePattern; url: vibratepattern
+    urlPrefix: #dfn-; type: dfn
+        text: perform vibration
+        text: validate and normalize
+    urlPrefix: #idl-def-; type: interface
+        text: VibratePattern; url: vibratepattern
 urlPrefix: https://tc39.github.io/ecma262/#sec-object.; type: dfn
-  text: freeze
+    text: freeze
 </pre>
 
 <pre class="biblio">
