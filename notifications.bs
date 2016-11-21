@@ -715,9 +715,8 @@ corresponding <a>notification</a> is in the
 these steps:
 
 <ol>
-  <li><p>If the <a>entry settings object</a>'s
-  <a for="environment settings object">global object</a> is a {{ServiceWorkerGlobalScope}} object,
-  then <a>throw</a> a <code>TypeError</code> exception.
+  <li><p>If the <a>current global object</a> is a {{ServiceWorkerGlobalScope}} object, then
+  <a>throw</a> a <code>TypeError</code> exception.
 
   <li><p>Let <var>notification</var> be the result of
   <a lt="create a notification">creating a notification</a> given

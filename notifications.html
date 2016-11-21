@@ -581,8 +581,7 @@ corresponding <a data-link-type="dfn" href="#concept-notification">notification<
 these steps: </p>
    <ol>
     <li>
-     <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#entry-settings-object">entry settings object</a>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-global">global object</a> is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/ServiceWorker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a></code> object,
-  then <a data-link-type="dfn" href="https://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception. </p>
+     <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#current-global-object">current global object</a> is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/ServiceWorker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a></code> object, then <a data-link-type="dfn" href="https://heycam.github.io/webidl/#dfn-throw">throw</a> a <code>TypeError</code> exception. </p>
     <li>
      <p>Let <var>notification</var> be the result of <a data-link-type="dfn" href="#create-a-notification">creating a notification</a> given <var>title</var> and <var>options</var>. Rethrow any exceptions. </p>
     <li>
@@ -1131,9 +1130,9 @@ neighboring rights to this work. </p>
     <ul>
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a>
      <li><a href="https://html.spec.whatwg.org/multipage/browsers.html#browsing-context">browsing context</a>
+     <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#current-global-object">current global object</a>
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers">event handler</a>
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-event-type">event handler event type</a>
-     <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-global">global object</a>
      <li><a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>
      <li><a href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin">origin</a>
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-origin">origin <small>(for environment settings object)</small></a>
