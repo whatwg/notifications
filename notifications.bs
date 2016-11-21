@@ -22,12 +22,13 @@ Boilerplate: omit feedback-header, omit conformance
 
 <p>This specification depends on the Infra Standard. [[!INFRA]]
 
-<p>Some terms used in this specification are defined in the DOM, Fetch,
-HTML, IDL, URL and Vibration API Standards.
+<p>Some terms used in this specification are defined in the DOM, Fetch, HTML, IDL, Service Workers,
+URL, and Vibration API Standards.
 [[!DOM]]
 [[!FETCH]]
 [[!HTML]]
 [[!WEBIDL]]
+[[!SERVICE-WORKERS]]
 [[!URL]]
 [[!VIBRATION]]
 
@@ -1035,9 +1036,9 @@ method, when invoked, must run these steps:
 <ol>
   <li><p>Let <var>promise</var> be a new promise.
 
-  <li><p>If the <a>context object</a>'s
-  <a lt="dfn active worker">active worker</a> is null, reject <var>promise</var>
-  with a <code>TypeError</code> exception and return <var>promise</var>.
+  <li><p>If the <a>context object</a>'s <a for="service worker registration">active worker</a> is
+  null, then reject <var>promise</var> with a <code>TypeError</code> exception and return
+  <var>promise</var>.
 
   <li><p>Let <var>serviceWorkerRegistration</var> be the <a>context object</a>.
 
@@ -1183,7 +1184,6 @@ the extent possible under law, the editors have waived all copyright and related
 neighboring rights to this work.
 
 <pre class="anchors">
-url: https://heycam.github.io/webidl/#common-DOMTimeStamp; type: interface; text: DOMTimeStamp
 urlPrefix: https://html.spec.whatwg.org/multipage/
     urlPrefix: interaction.html; type: dfn
         text: dom window focus
@@ -1192,7 +1192,6 @@ urlPrefix: https://html.spec.whatwg.org/multipage/
         text: entry settings object
 urlPrefix: https://w3c.github.io/ServiceWorker/; type: dfn
     text: handle functional event; url:handle-functional-event-algorithm
-    text: dfn active worker
 urlPrefix: https://w3c.github.io/vibration/
     urlPrefix: #dfn-; type: dfn
         text: perform vibration

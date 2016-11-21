@@ -147,8 +147,8 @@ pre.idl.highlight { color: #708090; }
 <script defer="" src="https://resources.whatwg.org/dfn.js"></script>
    <h2 class="heading settled" data-level="1" id="terminology"><span class="secno">1. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <p>This specification depends on the Infra Standard. <a data-link-type="biblio" href="#biblio-infra">[INFRA]</a> </p>
-   <p>Some terms used in this specification are defined in the DOM, Fetch,
-HTML, IDL, URL and Vibration API Standards. <a data-link-type="biblio" href="#biblio-dom">[DOM]</a> <a data-link-type="biblio" href="#biblio-fetch">[FETCH]</a> <a data-link-type="biblio" href="#biblio-html">[HTML]</a> <a data-link-type="biblio" href="#biblio-webidl">[WEBIDL]</a> <a data-link-type="biblio" href="#biblio-url">[URL]</a> <a data-link-type="biblio" href="#biblio-vibration">[VIBRATION]</a> </p>
+   <p>Some terms used in this specification are defined in the DOM, Fetch, HTML, IDL, Service Workers,
+URL, and Vibration API Standards. <a data-link-type="biblio" href="#biblio-dom">[DOM]</a> <a data-link-type="biblio" href="#biblio-fetch">[FETCH]</a> <a data-link-type="biblio" href="#biblio-html">[HTML]</a> <a data-link-type="biblio" href="#biblio-webidl">[WEBIDL]</a> <a data-link-type="biblio" href="#biblio-service-workers">[SERVICE-WORKERS]</a> <a data-link-type="biblio" href="#biblio-url">[URL]</a> <a data-link-type="biblio" href="#biblio-vibration">[VIBRATION]</a> </p>
    <h2 class="heading settled" data-level="2" id="notifications"><span class="secno">2. </span><span class="content">Notifications</span><a class="self-link" href="#notifications"></a></h2>
    <p>A <dfn data-dfn-type="dfn" data-noexport="" id="concept-notification">notification<a class="self-link" href="#concept-notification"></a></dfn> is an abstract
 representation of something that happened, such as the delivery of a message. </p>
@@ -161,7 +161,7 @@ representing either a valid BCP 47 language tag or the empty string. </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-for="notification" data-dfn-type="dfn" data-noexport="" id="tag">tag<a class="self-link" href="#tag"></a></dfn> which is a DOMString. </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-for="notification" data-dfn-type="dfn" data-noexport="" id="data">data<a class="self-link" href="#data"></a></dfn>. </p>
    <p>A <a data-link-type="dfn" href="#concept-notification">notification</a> has an associated <dfn data-dfn-for="notification" data-dfn-type="dfn" data-noexport="" id="timestamp">timestamp<a class="self-link" href="#timestamp"></a></dfn> which
-is a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a></code> representing the time, in milliseconds since 00:00:00 UTC on 1 January 1970,
+is a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#DOMTimeStamp">DOMTimeStamp</a></code> representing the time, in milliseconds since 00:00:00 UTC on 1 January 1970,
 of the event for which the notification was created. </p>
    <p class="note" role="note">Timestamps can be used to indicate the time at which a notification
 is actual. For example, this could be in the past when a notification is used for
@@ -523,7 +523,7 @@ or vibrating the device again, unless the <a data-link-type="dfn" href="#renotif
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">USVString</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="USVString" href="#dom-notification-badge">badge</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">USVString</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="USVString" href="#dom-notification-sound">sound</a>;
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<span class="kt">unsigned</span> <span class="kt">long</span>> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long>" href="#dom-notification-vibrate">vibrate</a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp" href="#dom-notification-timestamp">timestamp</a>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#DOMTimeStamp">DOMTimeStamp</a> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp" href="#dom-notification-timestamp">timestamp</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-renotify">renotify</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-silent">silent</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-requireinteraction">requireInteraction</a>;
@@ -543,7 +543,7 @@ or vibrating the device again, unless the <a data-link-type="dfn" href="#renotif
   <span class="kt">USVString</span> <dfn class="nv idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="USVString " id="dom-notificationoptions-badge">badge<a class="self-link" href="#dom-notificationoptions-badge"></a></dfn>;
   <span class="kt">USVString</span> <dfn class="nv idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="USVString " id="dom-notificationoptions-sound">sound<a class="self-link" href="#dom-notificationoptions-sound"></a></dfn>;
   <a class="n" data-link-type="idl-name" href="https://w3c.github.io/vibration/#idl-def-vibratepattern">VibratePattern</a> <dfn class="nv idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="VibratePattern " id="dom-notificationoptions-vibrate">vibrate<a class="self-link" href="#dom-notificationoptions-vibrate"></a></dfn>;
-  <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <dfn class="nv idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="DOMTimeStamp " id="dom-notificationoptions-timestamp">timestamp<a class="self-link" href="#dom-notificationoptions-timestamp"></a></dfn>;
+  <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#DOMTimeStamp">DOMTimeStamp</a> <dfn class="nv idl-code" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="DOMTimeStamp " id="dom-notificationoptions-timestamp">timestamp<a class="self-link" href="#dom-notificationoptions-timestamp"></a></dfn>;
   <span class="kt">boolean</span> <dfn class="nv idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-renotify">renotify<a class="self-link" href="#dom-notificationoptions-renotify"></a></dfn> = <span class="kt">false</span>;
   <span class="kt">boolean</span> <dfn class="nv idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-silent">silent<a class="self-link" href="#dom-notificationoptions-silent"></a></dfn> = <span class="kt">false</span>;
   <span class="kt">boolean</span> <dfn class="nv idl-code" data-default="false" data-dfn-for="NotificationOptions" data-dfn-type="dict-member" data-export="" data-type="boolean " id="dom-notificationoptions-requireinteraction">requireInteraction<a class="self-link" href="#dom-notificationoptions-requireinteraction"></a></dfn> = <span class="kt">false</span>;
@@ -793,7 +793,8 @@ a similar result could be achieved using the <code class="idl"><a data-link-type
     <li>
      <p>Let <var>promise</var> be a new promise. </p>
     <li>
-     <p>If the <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#context-object">context object</a>’s <a data-link-type="dfn" href="https://w3c.github.io/ServiceWorker/#dfn-active-worker">active worker</a> is null, reject <var>promise</var> with a <code>TypeError</code> exception and return <var>promise</var>. </p>
+     <p>If the <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#context-object">context object</a>’s <a data-link-type="dfn" href="https://w3c.github.io/ServiceWorker/#dfn-active-worker">active worker</a> is
+  null, then reject <var>promise</var> with a <code>TypeError</code> exception and return <var>promise</var>. </p>
     <li>
      <p>Let <var>serviceWorkerRegistration</var> be the <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#context-object">context object</a>. </p>
     <li>
@@ -1141,12 +1142,13 @@ neighboring rights to this work. </p>
      <li><a href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin">same origin</a>
     </ul>
    <li>
-    <a data-link-type="biblio">[service-workers-1]</a> defines the following terms:
+    <a data-link-type="biblio">[SERVICE-WORKERS]</a> defines the following terms:
     <ul>
      <li><a href="https://w3c.github.io/ServiceWorker/#extendableevent">ExtendableEvent</a>
      <li><a href="https://w3c.github.io/ServiceWorker/#dictdef-extendableeventinit">ExtendableEventInit</a>
      <li><a href="https://w3c.github.io/ServiceWorker/#serviceworkerglobalscope">ServiceWorkerGlobalScope</a>
      <li><a href="https://w3c.github.io/ServiceWorker/#serviceworkerregistration">ServiceWorkerRegistration</a>
+     <li><a href="https://w3c.github.io/ServiceWorker/#dfn-active-worker">active worker</a>
     </ul>
    <li>
     <a data-link-type="biblio">[URL]</a> defines the following terms:
@@ -1157,6 +1159,7 @@ neighboring rights to this work. </p>
    <li>
     <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
     <ul>
+     <li><a href="https://heycam.github.io/webidl/#DOMTimeStamp">DOMTimeStamp</a>
      <li><a href="https://heycam.github.io/webidl/#Exposed">Exposed</a>
      <li><a href="https://heycam.github.io/webidl/#SameObject">SameObject</a>
      <li><a href="https://heycam.github.io/webidl/#dfn-create-frozen-array">create a frozen array</a>
@@ -1178,7 +1181,7 @@ neighboring rights to this work. </p>
    <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/">Infra Standard</a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
    <dt id="biblio-lang">[LANG]
    <dd>A. Phillips; M. Davis. <a href="https://tools.ietf.org/html/bcp47">Tags for Identifying Languages</a>. September 2009. IETF Best Current Practice. URL: <a href="https://tools.ietf.org/html/bcp47">https://tools.ietf.org/html/bcp47</a>
-   <dt id="biblio-service-workers-1">[SERVICE-WORKERS-1]
+   <dt id="biblio-service-workers">[SERVICE-WORKERS]
    <dd>Alex Russell; et al. <a href="https://w3c.github.io/ServiceWorker/">Service Workers 1</a>. URL: <a href="https://w3c.github.io/ServiceWorker/">https://w3c.github.io/ServiceWorker/</a>
    <dt id="biblio-url">[URL]
    <dd>Anne van Kesteren. <a href="https://url.spec.whatwg.org/">URL Standard</a>. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
@@ -1209,7 +1212,7 @@ neighboring rights to this work. </p>
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">USVString</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="USVString" href="#dom-notification-badge">badge</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">USVString</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="USVString" href="#dom-notification-sound">sound</a>;
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<span class="kt">unsigned</span> <span class="kt">long</span>> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="FrozenArray<unsigned long>" href="#dom-notification-vibrate">vibrate</a>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp" href="#dom-notification-timestamp">timestamp</a>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#DOMTimeStamp">DOMTimeStamp</a> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="DOMTimeStamp" href="#dom-notification-timestamp">timestamp</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-renotify">renotify</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-silent">silent</a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <a class="nv idl-code" data-link-type="attribute" data-readonly="" data-type="boolean" href="#dom-notification-requireinteraction">requireInteraction</a>;
@@ -1229,7 +1232,7 @@ neighboring rights to this work. </p>
   <span class="kt">USVString</span> <a class="nv" data-type="USVString " href="#dom-notificationoptions-badge">badge</a>;
   <span class="kt">USVString</span> <a class="nv" data-type="USVString " href="#dom-notificationoptions-sound">sound</a>;
   <a class="n" data-link-type="idl-name" href="https://w3c.github.io/vibration/#idl-def-vibratepattern">VibratePattern</a> <a class="nv" data-type="VibratePattern " href="#dom-notificationoptions-vibrate">vibrate</a>;
-  <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-DOMTimeStamp">DOMTimeStamp</a> <a class="nv" data-type="DOMTimeStamp " href="#dom-notificationoptions-timestamp">timestamp</a>;
+  <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#DOMTimeStamp">DOMTimeStamp</a> <a class="nv" data-type="DOMTimeStamp " href="#dom-notificationoptions-timestamp">timestamp</a>;
   <span class="kt">boolean</span> <a class="nv" data-default="false" data-type="boolean " href="#dom-notificationoptions-renotify">renotify</a> = <span class="kt">false</span>;
   <span class="kt">boolean</span> <a class="nv" data-default="false" data-type="boolean " href="#dom-notificationoptions-silent">silent</a> = <span class="kt">false</span>;
   <span class="kt">boolean</span> <a class="nv" data-default="false" data-type="boolean " href="#dom-notificationoptions-requireinteraction">requireInteraction</a> = <span class="kt">false</span>;
