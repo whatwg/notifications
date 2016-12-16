@@ -375,90 +375,116 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 <a>notification</a> <var>notification</var> are:
 
 <ol>
-  <!-- XXX https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055 -->
-  <li><p>If the notification platform supports images, <a for=/>fetch</a>
+ <!-- XXX https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055 -->
+ <li>
+  <p>If the notification platform supports images, <a for=/>fetch</a>
   <var>notification</var>'s <a>image URL</a>, if <a>image URL</a> is set.
 
-  <p>Then, <a>in parallel</a>:
-
-  <ol>
-    <li><p>Wait for the <a for=/>response</a>.
-
-    <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
-    "<code>default</code>", then attempt to decode the resource as image.
-
-    <li><p>If the image format is supported, set <var>notification</var>'s
-    <a>image resource</a> to the decoded resource. (Otherwise
-    <var>notification</var> has no <a>image resource</a>.)
-  </ol>
-
-  <li><p>If the notification platform supports icons, <a for=/>fetch</a>
-  <var>notification</var>'s <a for=notification>icon URL</a>, if <a for=notification>icon URL</a> is set.
+  <p class=note>The intent is to fetch this resource similar to an
+  <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
+  but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
 
   <p>Then, <a>in parallel</a>:
 
   <ol>
-    <li><p>Wait for the <a for=/>response</a>.
+   <li><p>Wait for the <a for=/>response</a>.
 
-    <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
-    "<code>default</code>", then attempt to decode the resource as image.
+   <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
+   "<code>default</code>", then attempt to decode the resource as image.
 
-    <li><p>If the image format is supported, set <var>notification</var>'s
-    <a for=notification>icon resource</a> to the decoded resource. (Otherwise
-    <var>notification</var> has no <a for=notification>icon resource</a>.)
+   <li><p>If the image format is supported, set <var>notification</var>'s
+   <a>image resource</a> to the decoded resource. (Otherwise
+   <var>notification</var> has no <a>image resource</a>.)
   </ol>
 
-  <li><p>If the notification platform supports badges, <a for=/>fetch</a>
-  <var>notification</var>'s <a for=notification>badge URL</a>, if <a for=notification>badge URL</a> is set.
+ <li>
+  <p>If the notification platform supports icons, <a for=/>fetch</a>
+  <var>notification</var>'s <a for=notification>icon URL</a>, if <a for=notification>icon URL</a>
+  is set.
+
+  <p class=note>The intent is to fetch this resource similar to an
+  <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
+  but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
 
   <p>Then, <a>in parallel</a>:
 
   <ol>
-    <li><p>Wait for the <a for=/>response</a>.
+   <li><p>Wait for the <a for=/>response</a>.
 
-    <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
-    "<code>default</code>", then attempt to decode the resource as image.
+   <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
+   "<code>default</code>", then attempt to decode the resource as image.
 
-    <li><p>If the image format is supported, set <var>notification</var>'s
-    <a for=notification>badge resource</a> to the decoded resource. (Otherwise
-    <var>notification</var> has no <a for=notification>badge resource</a>.)
+   <li><p>If the image format is supported, set <var>notification</var>'s
+   <a for=notification>icon resource</a> to the decoded resource. (Otherwise
+   <var>notification</var> has no <a for=notification>icon resource</a>.)
   </ol>
+ </li>
 
-  <li><p>If the notification platform supports actions and action icons, then
-  for each <var>action</var> in <var>notification</var>'s list of <a>actions</a>
-  <a for=/>fetch</a> <var>action</var>'s <a for=action>icon URL</a>, if
-  <a for=action>icon URL</a> is set.
+ <li>
+  <p>If the notification platform supports badges, <a for=/>fetch</a> <var>notification</var>'s
+  <a for=notification>badge URL</a>, if <a for=notification>badge URL</a> is set.
+
+  <p class=note>The intent is to fetch this resource similar to an
+  <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
+  but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
 
   <p>Then, <a>in parallel</a>:
 
   <ol>
-    <li><p>Wait for the <a for=/>response</a>.
+   <li><p>Wait for the <a for=/>response</a>.
 
-    <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
-    "<code>default</code>", then attempt to decode the resource as image.
+   <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
+   "<code>default</code>", then attempt to decode the resource as image.
 
-    <li><p>If the image format is supported, set <var>action</var>'s
-    <a for=action>icon resource</a> to the decoded resource. (Otherwise
-    <var>action</var> has no <a for=action>icon resource</a>.)
+   <li><p>If the image format is supported, set <var>notification</var>'s
+   <a for=notification>badge resource</a> to the decoded resource. (Otherwise
+   <var>notification</var> has no <a for=notification>badge resource</a>.)
   </ol>
+ </li>
 
-  <li><p>If the notification platform supports sounds, and the <var>notification</var>
-  is either not <a>replaceable</a> or has the <a for=notification>renotify preference flag</a> set,
-  <a for=/>fetch</a> <var>notification</var>'s <a for=notification>sound URL</a> if it has been set.
+ <li>
+  <p>If the notification platform supports actions and action icons, then for each <var>action</var>
+  in <var>notification</var>'s list of <a>actions</a> <a for=/>fetch</a> <var>action</var>'s
+  <a for=action>icon URL</a>, if <a for=action>icon URL</a> is set.
+
+  <p class=note>The intent is to fetch this resource similar to an
+  <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
+  but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
 
   <p>Then, <a>in parallel</a>:
 
   <ol>
-    <li><p>Wait for the <a for=/>response</a>.
+   <li><p>Wait for the <a for=/>response</a>.
 
-    <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
-    "<code>default</code>", then attempt to decode the resource as sound.
-    <!-- XXX xref -->
+   <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
+   "<code>default</code>", then attempt to decode the resource as image.
 
-    <li><p>If the sound format is supported, set <var>notification</var>'s
-    <a>sound resource</a> to the decoded resource. (Otherwise
-    <var>notification</var> has no <a>sound resource</a>.)
+   <li><p>If the image format is supported, set <var>action</var>'s
+   <a for=action>icon resource</a> to the decoded resource. (Otherwise
+   <var>action</var> has no <a for=action>icon resource</a>.)
   </ol>
+ </li>
+
+ <li>
+  <p>If the notification platform supports sounds, and the <var>notification</var>
+  is either not <a>replaceable</a> or has the <a for=notification>renotify preference flag</a>
+  set, <a for=/>fetch</a> <var>notification</var>'s <a for=notification>sound URL</a> if it has
+  been set.
+
+  <p>Then, <a>in parallel</a>:
+
+  <ol>
+   <li><p>Wait for the <a for=/>response</a>.
+
+   <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
+   "<code>default</code>", then attempt to decode the resource as sound.
+   <!-- XXX xref -->
+
+   <li><p>If the sound format is supported, set <var>notification</var>'s
+   <a>sound resource</a> to the decoded resource. (Otherwise
+   <var>notification</var> has no <a>sound resource</a>.)
+  </ol>
+ </li>
 </ol>
 
 
