@@ -7,7 +7,7 @@
   <link href="https://resources.whatwg.org/standard.css" rel="stylesheet">
   <link href="https://resources.whatwg.org/bikeshed.css" rel="stylesheet">
   <link href="https://resources.whatwg.org/logo-notifications.svg" rel="icon">
-  <meta content="Bikeshed version 645534c1532bca4fdb4f3859efc66268a218d7c8" name="generator">
+  <meta content="Bikeshed version ef1890cdd543bf72ba03a0fa16211e40619adc83" name="generator">
 <style>/* style-syntax-highlighting */
 pre.idl.highlight { color: #708090; }
         .highlight:not(.idl) { background: hsl(24, 20%, 95%); }
@@ -71,7 +71,7 @@ pre.idl.highlight { color: #708090; }
    <p data-fill-with="logo"><a class="logo" href="https://whatwg.org/"> <img alt="WHATWG" height="100" src="https://resources.whatwg.org/logo-notifications.svg"> </a> </p>
    <hgroup>
     <h1 class="p-name no-ref" id="title">Notifications API</h1>
-    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-11-21">21 November 2016</time></span></h2>
+    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Living Standard — Last Updated <time class="dt-updated" datetime="2016-12-16">16 December 2016</time></span></h2>
    </hgroup>
    <div data-fill-with="spec-metadata">
     <dl>
@@ -357,8 +357,8 @@ interpreted as a language tag. Validity or well-formedness are not enforced. <a 
       <li>
        <p>Wait for the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>. </p>
       <li>
-       <p>If the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-internal-response">internal response</a>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response-type">type</a> is <i>default</i>, attempt to decode the
-    resource as image. </p>
+       <p>If the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-internal-response">internal response</a>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response-type">type</a> is
+    "<code>default</code>", then attempt to decode the resource as image. </p>
       <li>
        <p>If the image format is supported, set <var>notification</var>’s <a data-link-type="dfn" href="#icon-resource">icon resource</a> to the decoded resource. (Otherwise <var>notification</var> has no <a data-link-type="dfn" href="#icon-resource">icon resource</a>.) </p>
      </ol>
@@ -382,8 +382,8 @@ interpreted as a language tag. Validity or well-formedness are not enforced. <a 
       <li>
        <p>Wait for the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>. </p>
       <li>
-       <p>If the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-internal-response">internal response</a>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response-type">type</a> is "<code>default</code>", attempt to decode the
-    resource as image. </p>
+       <p>If the <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response">response</a>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-internal-response">internal response</a>’s <a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response-type">type</a> is
+    "<code>default</code>", then attempt to decode the resource as image. </p>
       <li>
        <p>If the image format is supported, set <var>action</var>’s <a data-link-type="dfn" href="#action-icon-resource">icon resource</a> to the decoded resource. (Otherwise <var>action</var> has no <a data-link-type="dfn" href="#action-icon-resource">icon resource</a>.) </p>
      </ol>
