@@ -1079,11 +1079,11 @@ method, when invoked, must run these steps:
     "<code>granted</code>", then reject <var>promise</var> with a <code>TypeError</code> exception,
     and terminate these substeps.
 
-    <li><p>Resolve <var>promise</var> with undefined.
-
     <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
 
     <li><p>Run the <a>show steps</a> for <var>notification</var>.
+
+    <li><p>Resolve <var>promise</var> with undefined.
   </ol>
 
   <li><p>Return <var>promise</var>.
