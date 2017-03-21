@@ -190,8 +190,8 @@ these steps:
   <var>options</var>'s <code>tag</code> is the empty string, <a>throw</a> a
   <code>TypeError</code> exception.
 
-  <li><p>Set <var>notification</var>'s <a for=notification>data</a> to a <a>structured clone</a>
-  of <var>options</var>'s <code>data</code>. Rethrow any exceptions.
+  <li><p>Set <var>notification</var>'s <a for=notification>data</a> to
+  <span>StructuredSerialize</span>(<var>options</var>'s <code>data</code>). Rethrow any exceptions.
 
   <li><p>Set <var>notification</var>'s <a for=notification>title</a>
   to <var>options</var>'s <code>title</code>.
@@ -895,8 +895,10 @@ the <a>notification</a>'s <a for=notification>renotify preference flag</a>.
 <p>The <dfn attribute for=Notification><code>requireInteraction</code></dfn> attribute's getter must
 return the <a>notification</a>'s <a for=notification>require interaction preference flag</a>.
 
-<p>The <dfn attribute for=Notification><code>data</code></dfn> attribute's getter must return a
-<a>structured clone</a> of <a>notification</a>'s <a for=notification>data</a>.
+<p>The <dfn attribute for=Notification><code>data</code></dfn> attribute's getter must return
+<span>StructuredDeserialize</span>(<a>notification</a>'s <a for=notification>data</a>,
+<a>context object</a>'s <a>relevant Realm</a>). If this throws an exception, then return null.
+<!-- Relies on SameObject becoming Cached as proposed -->
 
 <p>The <dfn attribute for=Notification><code>actions</code></dfn> attribute's getter must return the
 result of the following steps:
@@ -1212,7 +1214,6 @@ neighboring rights to this work.
 urlPrefix: https://html.spec.whatwg.org/multipage/
     urlPrefix: interaction.html; type: dfn
         text: dom window focus
-        text: structured clone
     urlPrefix: webappapis.html; type: dfn
         text: entry settings object
 urlPrefix: https://w3c.github.io/ServiceWorker/; type: dfn
