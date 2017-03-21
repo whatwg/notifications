@@ -13,6 +13,7 @@ Boilerplate: omit feedback-header, omit conformance
 !Commits: <a href="https://github.com/whatwg/notifications/commits">GitHub whatwg/notifications/commits</a>
 !Commits: [SNAPSHOT-LINK]
 !Commits: <a href="https://twitter.com/notifyapi">@notifyapi</a>
+!Tests: <a href=https://github.com/w3c/web-platform-tests/tree/master/notifications>web-platform-tests notifications/</a> (<a href=https://github.com/w3c/web-platform-tests/labels/notifications>ongoing work</a>)
 !Translation (non-normative): <span title="Simplified Chinese"><a href=https://w3c-html-ig-zh.github.io/notifications/whatwg/ lang=zh hreflang=zh rel=alternate>简体中文</a></span>
 </pre>
 
