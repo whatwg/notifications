@@ -814,9 +814,9 @@ method, when invoked, must run these steps:
  <li><p>Return <var>promise</var>.
 </ol>
 
-<p class="warning">In designing the platform notifications are the one instance
-thus far where asking the user upfront makes sense. Specifications for other
-APIs should not use this pattern and instead employ one of the
+<p class="warning">Notifications are the one instance thus far where asking the
+user upfront makes sense. Specifications for other APIs should not use this
+pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">
 many more suitable alternatives</a>.
 
