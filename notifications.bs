@@ -121,7 +121,7 @@ the <a>notification</a>, but then it should have less visual priority than the
 <a for=notification lt="badge resource">badge</a>,
 <a for=notification lt="sound resource">sound</a>, or <a for=notification>vibration pattern</a> that
 is not otherwise accessible to the end user, especially since notification platforms that do not
-support these features may ignore them.
+support these features might ignore them.
 
 <p>A <a>notification</a> has an associated list of
 zero or more <dfn for=notification lt=action id=actions>actions</dfn>. Each
@@ -137,11 +137,10 @@ notification platform.
 encouraged to make sure that any action a user can invoke from a notification is
 also available within the web application.
 
-<p class="note no-backref">Some platforms may modify an
-<a for=action>icon resource</a> to better match the platform's visual style before
-displaying it to the user, for example by rounding the corners or painting it in
-a specific color. It is recommended to use an icon that handles such cases
-gracefully and does not lose important information through, e.g., loss of color or
+<p class="note no-backref">Some platforms might modify an <a for=action>icon resource</a> to better
+match the platform's visual style before displaying it to the user, for example by rounding the
+corners or painting it in a specific color. Developers are encouraged to use an icon that handles
+such cases gracefully and does not lose important information through, e.g., loss of color or
 clipped corners.
 
 <p>A <dfn>non-persistent notification</dfn> is a
