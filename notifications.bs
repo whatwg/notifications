@@ -161,8 +161,8 @@ the <var>notification</var>'s <a>tag</a>, and whose <a for=notification>origin</
 
 <hr>
 
-<p>To <dfn>create a notification</dfn>, given a <var>title</var>,
-<var>options</var>, and optionally a <var>serviceWorkerRegistration</var>, run
+<p>To <dfn lt="create a notification|creating a notification">create a notification</dfn>, given a
+<var>title</var>, <var>options</var>, and optionally a <var>serviceWorkerRegistration</var>, run
 these steps:
 
 <ol>
@@ -192,8 +192,7 @@ these steps:
   <li><p>Set <var>notification</var>'s <a for=notification>data</a> to
   <span>StructuredSerialize</span>(<var>options</var>'s <code>data</code>). Rethrow any exceptions.
 
-  <li><p>Set <var>notification</var>'s <a for=notification>title</a>
-  to <var>options</var>'s <code>title</code>.
+  <li><p>Set <var>notification</var>'s <a for=notification>title</a> to <var>title</var>.
 
   <li><p>Set <var>notification</var>'s
   <a for=notification>direction</a> to <var>options</var>'s
@@ -735,16 +734,14 @@ corresponding <a>notification</a> is in the
 
 <h3 id=constructors>Constructors</h3>
 
-<p>The <dfn constructor for=Notification><code>Notification(title, options)
-</code></dfn> constructor, when invoked, must (unless otherwise indicated) run
-these steps:
+<p>The <dfn constructor for=Notification><code>Notification(title, options)</code></dfn>
+constructor, when invoked, must run these steps:
 
 <ol>
   <li><p>If the <a>current global object</a> is a {{ServiceWorkerGlobalScope}} object, then
   <a>throw</a> a <code>TypeError</code> exception.
 
-  <li><p>Let <var>notification</var> be the result of
-  <a lt="create a notification">creating a notification</a> given
+  <li><p>Let <var>notification</var> be the result of <a>creating a notification</a> given
   <var>title</var> and <var>options</var>. Rethrow any exceptions.
 
   <li><p>Let <var>n</var> be a new {{Notification}} object associated with
@@ -1068,11 +1065,9 @@ method, when invoked, must run these steps:
 
   <li><p>Let <var>serviceWorkerRegistration</var> be the <a>context object</a>.
 
-  <li><p>Let <var>notification</var> be the result of
-  <a lt="create a notification">creating a notification</a> given
-  <var>title</var>, <var>options</var> and <var>serviceWorkerRegistration</var>.
-  If this threw an exception, reject <var>promise</var> with that exception and
-  return <var>promise</var>.
+  <li><p>Let <var>notification</var> be the result of <a>creating a notification</a> given
+  <var>title</var>, <var>options</var>, and <var>serviceWorkerRegistration</var>. If this threw an
+  exception, reject <var>promise</var> with that exception and return <var>promise</var>.
 
   <li><p>Run these substeps <a>in parallel</a>:
 
