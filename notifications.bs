@@ -17,6 +17,10 @@ Boilerplate: omit feedback-header, omit conformance
 !Translation (non-normative): <span title="Simplified Chinese"><a href=https://w3c-html-ig-zh.github.io/notifications/whatwg/ lang=zh hreflang=zh rel=alternate>简体中文</a></span>
 </pre>
 
+<pre class="link-defaults">
+spec: fetch; type: dfn; for: /; text: response
+</pre>
+
 <script src=https://resources.whatwg.org/file-issue.js async></script>
 <script src=https://resources.whatwg.org/commit-snapshot-shortcut-key.js async></script>
 <script src=https://resources.whatwg.org/dfn.js defer></script>
