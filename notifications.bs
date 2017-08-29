@@ -370,7 +370,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
   <var>notification</var>'s <a>image URL</a>, if <a>image URL</a> is set.
 
   <p class=note>The intent is to fetch this resource similar to an
-  <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
+  <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
   but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
 
   <p>Then, <a>in parallel</a>:
@@ -392,7 +392,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
   is set.
 
   <p class=note>The intent is to fetch this resource similar to an
-  <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
+  <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
   but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
 
   <p>Then, <a>in parallel</a>:
@@ -414,7 +414,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
   <a for=notification>badge URL</a>, if <a for=notification>badge URL</a> is set.
 
   <p class=note>The intent is to fetch this resource similar to an
-  <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
+  <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
   but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
 
   <p>Then, <a>in parallel</a>:
@@ -437,7 +437,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
   <a for=action>icon URL</a>, if <a for=action>icon URL</a> is set.
 
   <p class=note>The intent is to fetch this resource similar to an
-  <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
+  <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
   but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
 
   <p>Then, <a>in parallel</a>:
