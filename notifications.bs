@@ -582,6 +582,10 @@ must be run.
   <li><p>Remove <var>notification</var> from the <a>list of notifications</a>.
 </ol>
 
+<p class="warning">Because not all notification centers reliably dispatch an event when a
+notification is closed, the <code>notificationclose</code> event will be delivered on a best-effort
+basis. User agents should aim to support the event whenever possible.
+
 
 <h3 id=displaying-notification>Displaying notifications</h3>
 
