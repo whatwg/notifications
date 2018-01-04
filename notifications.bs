@@ -1,25 +1,11 @@
-<pre class="metadata">
-Title: Notifications API Standard
+<pre class=metadata>
 Group: WHATWG
 H1: Notifications API
 Shortname: notifications
-Status: LS
-No Editor: true
+Text Macro: TWITTER notifyapi
 Abstract: This standard defines an API to display notifications to the end user, typically outside the top-level browsing context's viewport. It is designed to be compatible with existing notification systems, while remaining platform-independent.
-Logo: https://resources.whatwg.org/logo-notifications.svg
-Boilerplate: omit feedback-header, omit conformance
-!Participate: <a href=https://github.com/whatwg/notifications>GitHub whatwg/notifications</a> (<a href=https://github.com/whatwg/notifications/issues/new>new issue</a>, <a href=https://github.com/whatwg/notifications/issues>open issues</a>)
-!Participate: <a href=https://wiki.whatwg.org/wiki/IRC>IRC: #whatwg on Freenode</a>
-!Commits: <a href="https://github.com/whatwg/notifications/commits">GitHub whatwg/notifications/commits</a>
-!Commits: [SNAPSHOT-LINK]
-!Commits: <a href="https://twitter.com/notifyapi">@notifyapi</a>
-!Tests: <a href=https://github.com/w3c/web-platform-tests/tree/master/notifications>web-platform-tests notifications/</a> (<a href=https://github.com/w3c/web-platform-tests/labels/notifications>ongoing work</a>)
-!Translation (non-normative): <span title="Simplified Chinese"><a href=https://w3c-html-ig-zh.github.io/notifications/whatwg/ lang=zh hreflang=zh rel=alternate>简体中文</a></span>
+Translation: zh-cn https://w3c-html-ig-zh.github.io/notifications/whatwg/
 </pre>
-
-<script src=https://resources.whatwg.org/file-issue.js async></script>
-<script src=https://resources.whatwg.org/commit-snapshot-shortcut-key.js async></script>
-<script src=https://resources.whatwg.org/dfn.js defer></script>
 
 <h2 id=terminology>Terminology</h2>
 
@@ -1200,10 +1186,6 @@ for being awesome.
 <a href=mailto:annevk@annevk.nl>annevk@annevk.nl</a>). An earlier iteration was written
 by John Gregg (<a href=https://www.google.com/>Google</a>,
 <a href=mailto:johnnyg@google.com>johnnyg@google.com</a>).
-
-<p>Per <a rel=license href=https://creativecommons.org/publicdomain/zero/1.0/>CC0</a>, to
-the extent possible under law, the editors have waived all copyright and related or
-neighboring rights to this work.
 
 <pre class="anchors">
 urlPrefix: https://html.spec.whatwg.org/multipage/
