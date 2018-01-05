@@ -4,6 +4,7 @@ H1: Notifications API
 Shortname: notifications
 Text Macro: TWITTER notifyapi
 Abstract: This standard defines an API to display notifications to the end user, typically outside the top-level browsing context's viewport. It is designed to be compatible with existing notification systems, while remaining platform-independent.
+Translation: ja https://triple-underscore.github.io/notifications-ja.html
 Translation: zh-cn https://w3c-html-ig-zh.github.io/notifications/whatwg/
 </pre>
 
@@ -1176,8 +1177,9 @@ Rich Tibbett,
 Robert Bindar,
 박상현 (Sanghyun Park),
 Simon Pieters,
-Theresa O'Connor, and
-timeless
+Theresa O'Connor,
+timeless, and
+triple-underscore
 for being awesome.
 
 <p>This standard is written by
