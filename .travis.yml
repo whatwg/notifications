@@ -5,7 +5,7 @@ env:
     - ENCRYPTION_LABEL="4e018593088f"
 
 script:
-  - curl --remote-name --fail https://resources.whatwg.org/build/deploy.sh && bash ./deploy.sh
+  - make deploy
 
 branches:
   only:
