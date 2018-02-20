@@ -775,8 +775,12 @@ method, when invoked, must run these steps:
    <a>entry settings object</a>'s <a for="environment settings object">origin</a>.
    <!-- XXX context object's global object's environment settings object's origin -->
 
-   <li><p>If <var>permission</var> is "<code>default</code>", ask the user whether showing
-   notifications for the <a>entry settings object</a>'s
+   <li><p>If the <a>entry settings object</a> is not a <a>secure context</a>, then set
+   <a>permission</a> for the <a>entry settings object</a>'s
+   <a for="environment settings object">origin</a> to <var>denied</var>.
+
+   <li><p>Otherwise, if <var>permission</var> is "<code>default</code>", ask the user
+   whether showing notifications for the <a>entry settings object</a>'s
    <a for="environment settings object">origin</a> is acceptable. If it is, set
    <var>permission</var> to "<code>granted</code>", and "<code>denied</code>" otherwise.
 
@@ -1205,6 +1209,8 @@ urlPrefix: https://w3c.github.io/vibration/
         text: VibratePattern; url: vibratepattern
 urlPrefix: https://tc39.github.io/ecma262/#sec-object.; type: dfn
     text: freeze
+urlPrefix: https://w3c.github.io/webappsec-secure-contexts/; type: dfn
+    text: secure context
 </pre>
 
 <pre class="biblio">
