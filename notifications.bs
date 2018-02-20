@@ -1210,7 +1210,7 @@ urlPrefix: https://w3c.github.io/vibration/
 urlPrefix: https://tc39.github.io/ecma262/#sec-object.; type: dfn
     text: freeze
 urlPrefix: https://w3c.github.io/webappsec-secure-contexts/; type: dfn
-    text: secure context
+    text: secure context; url: #secure-contexts
 </pre>
 
 <pre class="biblio">
