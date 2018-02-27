@@ -487,7 +487,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 
  <li><p>Otherwise, run the <a>display steps</a> for <var>notification</var>.
 
- <li>If <var>notification</var> is <a>non-persistent</a>, then <a>fire an event</a> named
+ <li><p>If <var>notification</var> is <a>non-persistent</a>, then <a>fire an event</a> named
  <code>show</code> on the {{Notification}} object representing <var>notification</var>.
 </ol>
 
