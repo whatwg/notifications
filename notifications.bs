@@ -99,7 +99,7 @@ not enough space to display the <a>notification</a> itself. It <em>may</em> also
 the <a>notification</a>, but then it should have less visual priority than the
 <a for=notification>image resource</a> and <a for=notification>icon resource</a>.
 
-<p>A <a>notification</a> <em>can</em> have an <dfn for=notification id=sound-url>sound URL</dfn>,
+<p>A <a>notification</a> <em>can</em> have a <dfn for=notification id=sound-url>sound URL</dfn>,
 <dfn for=notification id=sound-resource>sound resource</dfn>,
 <dfn for=notification id=vibration-pattern>vibration pattern</dfn>.
 
@@ -323,8 +323,7 @@ for the application to ask for <a>permission</a>.
 section of HTML. [[!HTML]]
 
 <!-- keep this in sync with
-     https://html.spec.whatwg.org/multipage/rendering.html#text-rendered-in-native-user-interfaces
-     except spell "behaviour" as "behavior" -->
+     https://html.spec.whatwg.org/multipage/rendering.html#text-rendered-in-native-user-interfaces -->
 
 <p>User agents are expected to honor the Unicode semantics of the text of a
 <a>notification</a>'s <a for=notification>title</a>, <a for=notification>body</a>, and the
