@@ -528,9 +528,8 @@ specified) run these steps:
     <code>click</code> on the {{Notification}} object representing <var>notification</var>, with its
     {{Event/cancelable}} attribute initialized to true.
 
-    <p class="note">User agents are encouraged to make
-    <code><a lt="dom window focus">window.focus()</a></code> work from within the event listener for
-    the event named <code>click</code>.
+    <p class="note">User agents are encouraged to make {{Window/focus()}} work from within the event
+    listener for the event named <code>click</code>.
 
    <li><p>If <var>intoFocus</var> is true, then the user agent should bring the
    <var>notification</var>'s related <a for=/>browsing context</a>'s viewport into focus.
@@ -1210,8 +1209,6 @@ by John Gregg (<a href=https://www.google.com/>Google</a>,
 
 <pre class="anchors">
 urlPrefix: https://html.spec.whatwg.org/multipage/
-    urlPrefix: interaction.html; type: dfn
-        text: dom window focus
     urlPrefix: webappapis.html; type: dfn
         text: entry settings object
 urlPrefix: https://w3c.github.io/ServiceWorker/; type: dfn
