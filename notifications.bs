@@ -482,11 +482,13 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 <a>notification</a> <var>notification</var> are:
 
 <ol>
-  <li><p>If <var>notification</var> is <a>replaceable</a>, run the
-  <a>replace steps</a> for that <a>notification</a>
-  and <var>notification</var>, and then terminate these steps.
+ <li><p>If <var>notification</var> is <a>replaceable</a>, then run the <a>replace steps</a> for that
+ <a>notification</a> and <var>notification</var>.
 
-  <li><p>Otherwise, run the <a>display steps</a> for <var>notification</var>.
+ <li><p>Otherwise, run the <a>display steps</a> for <var>notification</var>.
+
+ <li><p>If <var>notification</var> is <a>non-persistent</a>, then <a>fire an event</a> named
+ <code>show</code> on the {{Notification}} object representing <var>notification</var>.
 </ol>
 
 
@@ -548,24 +550,33 @@ must be run.
 <p>The <dfn>close steps</dfn> for a given <var>notification</var> are:
 
 <ol>
-  <li><p>If <var>notification</var> is not in the <a>list of notifications</a>,
-  terminate these steps.
+ <li><p>If <var>notification</var> is not in the <a>list of notifications</a>, terminate these
+ steps.
 
-  <li><p>If <var>notification</var> is a <a>persistent notification</a> and
-  <var>notification</var> was closed by the user, run these substeps:
+ <li><p><a>Handle close events</a> with <var>notification</var>.
+
+ <li><p>Remove <var>notification</var> from the <a>list of notifications</a>.
+</ol>
+
+<p>To <dfn>handle close events</dfn> given a <var>notification</var>, run these steps:
+
+<ol>
+ <li>
+  <p>If <var>notification</var> is a <a>persistent notification</a> and
+  <var>notification</var> was closed by the user, then:
 
   <ol>
-    <li><p>Let <var>callback</var> be an algorithm that when invoked with a
-    <var>global</var>, <a lt="fire a service worker notification event named e">
-    fires a service worker notification event</a> named
-    <code>notificationclose</code> given <var>notification</var> on
-    <var>global</var>.
+   <li><p>Let <var>callback</var> be an algorithm that when invoked with a <var>global</var>,
+   <a lt="fire a service worker notification event named e">fires a service worker notification event</a>
+   named <code>notificationclose</code> given <var>notification</var> on <var>global</var>.
 
-    <li><p>Then run <a>Handle Functional Event</a> with <var>notification</var>'s
-    <a for=notification>service worker registration</a> and <var>callback</var>.
+   <li><p>Then run <a>Handle Functional Event</a> with <var>notification</var>'s
+   <a for=notification>service worker registration</a> and <var>callback</var>.
   </ol>
 
-  <li><p>Remove <var>notification</var> from the <a>list of notifications</a>.
+ <li><p>If <var>notification</var> is a <a>non-persistent notification</a>, then
+ <a>fire an event</a> named <code>close</code> on the {{Notification}} object representing
+ <var>notification</var>.
 </ol>
 
 
@@ -603,6 +614,8 @@ must be run.
 
   <li><p>Replace <var>old</var> with <var>new</var>, in the same position, in the
   <a>list of notifications</a>.
+
+  <li><p><a>Handle close events</a> with <var>old</var>.
 
   <li><p>If <var>notification</var>'s <a for=notification>renotify preference flag</a> has been set,
   perform the <a>alert steps</a> for <var>new</var>.
@@ -642,7 +655,9 @@ interface Notification : EventTarget {
   static readonly attribute unsigned long maxActions;
 
   attribute EventHandler onclick;
+  attribute EventHandler onshow;
   attribute EventHandler onerror;
+  attribute EventHandler onclose;
 
   readonly attribute DOMString title;
   readonly attribute NotificationDirection dir;
@@ -711,13 +726,14 @@ object and can be created through {{Notification}}'s
 {{Notification}} objects and can be created through the
 {{ServiceWorkerRegistration/showNotification()}} method.
 
+
 <h3 id=garbage-collection>Garbage collection</h3>
 
-<p>A {{Notification}} object must not be garbage collected while its
-corresponding <a>notification</a> is in the
-<a>list of notifications</a> and the {{Notification}} object in question has an
-<a for=/>event listener</a> whose <b>type</b> is
-<code>click</code> or <code>error</code>.
+<p>A {{Notification}} object must not be garbage collected while its corresponding
+<a>notification</a> is in the <a>list of notifications</a> and the {{Notification}} object in
+question has an <a for=/>event listener</a> whose <b>type</b> is <code>click</code>,
+<code>show</code>, <code>close</code>, or <code>error</code>.
+
 
 <h3 id=constructors>Constructors</h3>
 
@@ -822,8 +838,14 @@ attribute's getter must return the <a>maximum number of actions</a> supported.
    <td><dfn attribute for=Notification><code>onclick</code></dfn>
    <td><code>click</code>
   <tr>
+   <td><dfn attribute for=Notification><code>onshow</code></dfn>
+   <td><code>show</code>
+  <tr>
    <td><dfn attribute for=Notification><code>onerror</code></dfn>
    <td><code>error</code>
+  <tr>
+   <td><dfn attribute for=Notification><code>onclose</code></dfn>
+   <td><code>close</code>
 </table>
 
 <p>The <dfn method for=Notification><code>close()</code></dfn> method, when
