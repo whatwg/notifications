@@ -270,8 +270,8 @@ these steps:
 
 <h3 id=lifetime-and-ui-integrations>Lifetime and UI integration</h3>
 
-<p>The user agent must keep a <dfn>list of notifications</dfn> that consists of
-zero or more <a>notifications</a>.
+<p>The user agent must keep a <dfn>list of notifications</dfn>, which is a <a for=/>list</a> of zero
+or more <a>notifications</a>.
 
 <p>User agents should run the <a>close steps</a> for a
 <a>non-persistent notification</a> a couple of seconds after they have been
@@ -487,8 +487,9 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 
  <li><p>Otherwise, run the <a>display steps</a> for <var>notification</var>.
 
- <li><p>If <var>notification</var> is <a>non-persistent</a>, then <a>fire an event</a> named
- <code>show</code> on the {{Notification}} object representing <var>notification</var>.
+ <li><p>If <var>notification</var> is a <a>non-persistent notification</a>, then
+ <a>fire an event</a> named <code>show</code> on the {{Notification}} object representing
+ <var>notification</var>.
 </ol>
 
 
@@ -500,45 +501,42 @@ notification platform supports activation, the user agent must (unless otherwise
 specified) run these steps:
 
 <ol>
-  <li><p>If <var>notification</var> is a <a>persistent notification</a>, run
-  these substeps:
+ <li>
+  <p>If <var>notification</var> is a <a>persistent notification</a>, then:
 
   <ol>
-    <li><p>Let <var>action</var> be the empty string.
+   <li><p>Let <var>action</var> be the empty string.
 
-    <li><p>If one of <var>notification</var>'s <a for=notification>actions</a> was activated by the
-    user, then set <var>action</var> to that <a for=notification>action</a>'s
-    <a for=action>name</a>.
+   <li><p>If one of <var>notification</var>'s <a for=notification>actions</a> was activated by the
+   user, then set <var>action</var> to that <a for=notification>action</a>'s <a for=action>name</a>.
 
-    <li><p>Let <var>callback</var> be an algorithm that when invoked with a
-    <var>global</var>, <a lt="fire a service worker notification event named e">
-    fires a service worker notification event</a> named
-    <code>notificationclick</code> given <var>notification</var> and
-    <var>action</var> on <var>global</var>.
+   <li><p>Let <var>callback</var> be an algorithm that when invoked with a <var>global</var>,
+   <a lt="fire a service worker notification event named e">fires a service worker notification event</a>
+   named <code>notificationclick</code> given <var>notification</var> and <var>action</var> on
+   <var>global</var>.
 
-    <li><p>Then run <a>Handle Functional Event</a> with <var>notification</var>'s
-    <a for=notification>service worker registration</a> and <var>callback</var>.
+   <li><p>Then run <a>Handle Functional Event</a> with <var>notification</var>'s
+   <a for=notification>service worker registration</a> and <var>callback</var>.
   </ol>
 
-  <li><p>Otherwise, <a>queue a task</a> to run these substeps:
+ <li>
+  <p>Otherwise, <a>queue a task</a> to run these steps:
 
   <ol>
-    <li>
-      <p>Let <var>intoFocus</var> be the result of <a lt="fire an event">firing an event</a> named
-      <code>click</code> on the {{Notification}} object representing <var>notification</var>, with
-      its {{Event/cancelable}} attribute initialized to true.
+   <li>
+    <p>Let <var>intoFocus</var> be the result of <a lt="fire an event">firing an event</a> named
+    <code>click</code> on the {{Notification}} object representing <var>notification</var>, with its
+    {{Event/cancelable}} attribute initialized to true.
 
-      <p class="note">User agents are encouraged to make
-      <code><a lt="dom window focus">window.focus()</a></code> work from within the event listener
-      for the event named <code>click</code>.
+    <p class="note">User agents are encouraged to make {{Window/focus()}} work from within the event
+    listener for the event named <code>click</code>.
 
-    <li><p>If <var>intoFocus</var> is true, then the user agent should bring the
-    <var>notification</var>'s related <a for=/>browsing context</a>'s viewport into focus.
+   <li><p>If <var>intoFocus</var> is true, then the user agent should bring the
+   <var>notification</var>'s related <a for=/>browsing context</a>'s viewport into focus.
   </ol>
 </ol>
 
-<p class="note">Throughout the web platform "activate" is intentionally
-misnamed as "click".
+<p class="note">Throughout the web platform "activate" is intentionally misnamed as "click".
 
 
 <h3 id=closing-a-notification>Closing a notification</h3>
@@ -550,12 +548,12 @@ must be run.
 <p>The <dfn>close steps</dfn> for a given <var>notification</var> are:
 
 <ol>
- <li><p>If <var>notification</var> is not in the <a>list of notifications</a>, terminate these
- steps.
+ <li><p>If the <a>list of notifications</a> does not <a for=list>contain</a>
+ <var>notification</var>, then abort these steps.
 
  <li><p><a>Handle close events</a> with <var>notification</var>.
 
- <li><p>Remove <var>notification</var> from the <a>list of notifications</a>.
+ <li><p><a for=list>Remove</a> <var>notification</var> from the <a>list of notifications</a>.
 </ol>
 
 <p>To <dfn>handle close events</dfn> given a <var>notification</var>, run these steps:
@@ -596,7 +594,7 @@ must be run.
 
   <li><p>Run the <a>alert steps</a> for <var>notification</var>.
 
-  <li><p>Append <var>notification</var> to the <a>list of notifications</a>.
+  <li><p><a for=list>Append</a> <var>notification</var> to the <a>list of notifications</a>.
 </ol>
 
 
@@ -612,7 +610,7 @@ must be run.
   (if any), as well as the <a for=action>icon resources</a> for the <var>notification</var>'s
   <a for=notification>actions</a> (if any).
 
-  <li><p>Replace <var>old</var> with <var>new</var>, in the same position, in the
+  <li><p><a for=list>Replace</a> <var>old</var> with <var>new</var>, in the same position, in the
   <a>list of notifications</a>.
 
   <li><p><a>Handle close events</a> with <var>old</var>.
@@ -729,10 +727,10 @@ object and can be created through {{Notification}}'s
 
 <h3 id=garbage-collection>Garbage collection</h3>
 
-<p>A {{Notification}} object must not be garbage collected while its corresponding
-<a>notification</a> is in the <a>list of notifications</a> and the {{Notification}} object in
-question has an <a for=/>event listener</a> whose <b>type</b> is <code>click</code>,
-<code>show</code>, <code>close</code>, or <code>error</code>.
+<p>A {{Notification}} object must not be garbage collected while the <a>list of notifications</a>
+<a for=list>contains</a> its corresponding <a>notification</a> and it has an
+<a for=/>event listener</a> whose <b>type</b> is <code>click</code>, <code>show</code>,
+<code>close</code>, or <code>error</code>.
 
 
 <h3 id=constructors>Constructors</h3>
@@ -750,12 +748,12 @@ constructor, when invoked, must run these steps:
   <li><p>Let <var>n</var> be a new {{Notification}} object associated with
   <var>notification</var>.
 
-  <li><p>Run these substeps <a>in parallel</a>:
+  <li><p>Run these steps <a>in parallel</a>:
 
   <ol>
     <li><p>If <a>permission</a> for <var>notification</var>'s <a for=notification>origin</a> is not
     "<code>granted</code>", then <a>queue a task</a> to <a>fire an event</a> named
-    <code>error</code> on <var>n</var>, and terminate these substeps.
+    <code>error</code> on <var>n</var>, and abort these steps.
 
     <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
 
@@ -783,7 +781,7 @@ method, when invoked, must run these steps:
  <li><p>Let <var>promise</var> be a new promise.
 
  <li>
-  <p>Run these substeps <a>in parallel</a>:
+  <p>Run these steps <a>in parallel</a>:
 
   <ol>
    <li><p>Let <var>permission</var> be <a>permission</a> for
@@ -796,7 +794,7 @@ method, when invoked, must run these steps:
    <var>permission</var> to "<code>granted</code>", and "<code>denied</code>" otherwise.
 
    <li>
-    <p><a>Queue a task</a> to run these subsubsteps:
+    <p><a>Queue a task</a> to run these steps:
 
     <ol>
      <li><p>Set <a>permission</a> for the <a>entry settings object</a>'s
@@ -1078,12 +1076,12 @@ method, when invoked, must run these steps:
   <var>title</var>, <var>options</var>, and <var>serviceWorkerRegistration</var>. If this threw an
   exception, reject <var>promise</var> with that exception and return <var>promise</var>.
 
-  <li><p>Run these substeps <a>in parallel</a>:
+  <li><p>Run these steps <a>in parallel</a>:
 
   <ol>
     <li><p>If <a>permission</a> for <var>notification</var>'s <a for=notification>origin</a> is not
     "<code>granted</code>", then reject <var>promise</var> with a <code>TypeError</code> exception,
-    and terminate these substeps.
+    and abort these steps.
 
     <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
 
@@ -1102,13 +1100,12 @@ method, when invoked, must run these steps:
 <ol>
   <li><p>Let <var>promise</var> be a new promise.
 
-  <li><p>Run these substeps <a>in parallel</a>:
+  <li><p>Run these steps <a>in parallel</a>:
 
   <ol>
     <li><p>Let <var>tag</var> be <var>filter</var>'s <code>tag</code>.
 
-    <li><p>Let <var>notifications</var> be a list of all
-    <a>notifications</a> in the
+    <li><p>Let <var>notifications</var> be a <a for=/>list</a> of all <a>notifications</a> in the
     <a>list of notifications</a> whose <a for=notification>origin</a> is the
     <a>entry settings object</a>'s <a for="environment settings object">origin</a>, whose
     <a for=notification>service worker registration</a> is the <a>context object</a>, and whose
@@ -1116,7 +1113,7 @@ method, when invoked, must run these steps:
 
     <li><p>Let <var>objects</var> be an empty JavaScript array.
 
-    <li><p>For each <a>notification</a> in
+    <li><p><a for=list>For each</a> <a>notification</a> in
     <var>notifications</var>, in creation order, create a new {{Notification}}
     object representing <a>notification</a> and push
     that object to <var>objects</var>.
@@ -1212,8 +1209,6 @@ by John Gregg (<a href=https://www.google.com/>Google</a>,
 
 <pre class="anchors">
 urlPrefix: https://html.spec.whatwg.org/multipage/
-    urlPrefix: interaction.html; type: dfn
-        text: dom window focus
     urlPrefix: webappapis.html; type: dfn
         text: entry settings object
 urlPrefix: https://w3c.github.io/ServiceWorker/; type: dfn
