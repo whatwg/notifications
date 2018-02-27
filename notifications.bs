@@ -99,7 +99,7 @@ not enough space to display the <a>notification</a> itself. It <em>may</em> also
 the <a>notification</a>, but then it should have less visual priority than the
 <a for=notification>image resource</a> and <a for=notification>icon resource</a>.
 
-<p>A <a>notification</a> <em>can</em> have an <dfn for=notification id=sound-url>sound URL</dfn>,
+<p>A <a>notification</a> <em>can</em> have a <dfn for=notification id=sound-url>sound URL</dfn>,
 <dfn for=notification id=sound-resource>sound resource</dfn>,
 <dfn for=notification id=vibration-pattern>vibration pattern</dfn>.
 
@@ -323,8 +323,7 @@ for the application to ask for <a>permission</a>.
 section of HTML. [[!HTML]]
 
 <!-- keep this in sync with
-     https://html.spec.whatwg.org/multipage/rendering.html#text-rendered-in-native-user-interfaces
-     except spell "behaviour" as "behavior" -->
+     https://html.spec.whatwg.org/multipage/rendering.html#text-rendered-in-native-user-interfaces -->
 
 <p>User agents are expected to honor the Unicode semantics of the text of a
 <a>notification</a>'s <a for=notification>title</a>, <a for=notification>body</a>, and the
@@ -370,7 +369,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
   <var>notification</var>'s <a>image URL</a>, if <a>image URL</a> is set.
 
   <p class=note>The intent is to fetch this resource similar to an
-  <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
+  <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
   but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
 
   <p>Then, <a>in parallel</a>:
@@ -392,7 +391,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
   is set.
 
   <p class=note>The intent is to fetch this resource similar to an
-  <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
+  <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
   but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
 
   <p>Then, <a>in parallel</a>:
@@ -414,7 +413,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
   <a for=notification>badge URL</a>, if <a for=notification>badge URL</a> is set.
 
   <p class=note>The intent is to fetch this resource similar to an
-  <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
+  <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
   but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
 
   <p>Then, <a>in parallel</a>:
@@ -437,7 +436,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
   <a for=action>icon URL</a>, if <a for=action>icon URL</a> is set.
 
   <p class=note>The intent is to fetch this resource similar to an
-  <a href="https://html.spec.whatwg.org/multipage/embedded-content.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
+  <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
   but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
 
   <p>Then, <a>in parallel</a>:
