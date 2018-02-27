@@ -928,7 +928,7 @@ result of the following steps:
 
     <li><p>Let <var>jsAction</var> be <var>action</var>, <a>converted to an ECMAScript value</a>.
 
-    <li><p>Perform <a>SetIntegrityLevel</a>(<var>jsAction</var>, "frozen").
+    <li><p>Perform <a abstract-op>SetIntegrityLevel</a>(<var>jsAction</var>, "frozen").
 
     <li><p>Let <var>idlAction</var> be <var>jsAction</var>, <a>converted to an IDL value</a>.
     <!-- See https://www.w3.org/Bugs/Public/show_bug.cgi?id=29004 about replacing the above 3 steps
