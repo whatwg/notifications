@@ -99,14 +99,12 @@ not enough space to display the <a>notification</a> itself. It <em>may</em> also
 the <a>notification</a>, but then it should have less visual priority than the
 <a for=notification>image resource</a> and <a for=notification>icon resource</a>.
 
-<p>A <a>notification</a> <em>can</em> have a <dfn for=notification id=sound-url>sound URL</dfn>,
-<dfn for=notification id=sound-resource>sound resource</dfn>,
+<p>A <a>notification</a> <em>can</em> have a
 <dfn for=notification id=vibration-pattern>vibration pattern</dfn>.
 
 <p class=note>Developers are encouraged to not convey information through an
 <a for=notification lt="image resource">image</a>, <a for=notification lt="icon resource">icon</a>,
-<a for=notification lt="badge resource">badge</a>,
-<a for=notification lt="sound resource">sound</a>, or <a for=notification>vibration pattern</a> that
+<a for=notification lt="badge resource">badge</a>, or <a for=notification>vibration pattern</a> that
 is not otherwise accessible to the end user, especially since notification platforms that do not
 support these features might ignore them.
 
@@ -167,8 +165,7 @@ these steps:
   <p class=note><a>Actions</a> are only currently supported for
   <a>persistent notifications</a>.
 
-  <li><p>If <var>options</var>'s <code>silent</code> is true, and either
-  <var>options</var>'s <code>sound</code> is present or <var>options</var>'s
+  <li><p>If <var>options</var>'s <code>silent</code> is true and <var>options</var>'s
   <code>vibrate</code> is present, <a>throw</a> a <code>TypeError</code>
   exception.
 
@@ -215,11 +212,6 @@ these steps:
   <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
   return failure, set <var>notification</var>'s <a for=notification>badge URL</a> to the return
   value. (Otherwise <a for=notification>badge URL</a> is not set.)
-
-  <li><p>If <var>options</var>'s <code>sound</code> is present,
-  <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
-  return failure, set <var>notification</var>'s <a for=notification>sound URL</a> to the return
-  value. (Otherwise <a for=notification>sound URL</a> is not set.)
 
   <li><p>If <var>options</var>'s <code>vibrate</code> is present,
   <a>validate and normalize</a> it and set <var>notification</var>'s
@@ -452,27 +444,6 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
    <var>action</var> has no <a for=action>icon resource</a>.)
   </ol>
  </li>
-
- <li>
-  <p>If the notification platform supports sounds, and the <var>notification</var>
-  is either not <a>replaceable</a> or has the <a for=notification>renotify preference flag</a>
-  set, <a for=/>fetch</a> <var>notification</var>'s <a for=notification>sound URL</a> if it has
-  been set.
-
-  <p>Then, <a>in parallel</a>:
-
-  <ol>
-   <li><p>Wait for the <a for=/>response</a>.
-
-   <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
-   "<code>default</code>", then attempt to decode the resource as sound.
-   <!-- XXX xref -->
-
-   <li><p>If the sound format is supported, set <var>notification</var>'s
-   <a>sound resource</a> to the decoded resource. (Otherwise
-   <var>notification</var> has no <a>sound resource</a>.)
-  </ol>
- </li>
 </ol>
 
 
@@ -584,10 +555,10 @@ must be run.
 
 <ol>
   <li><p>Wait for any <a for=/ lt=fetch>fetches</a> to complete and <var>notification</var>'s
-  <a for=notification>image resource</a> <a for=notification>icon resource</a>,
-  <a for=notification>badge resource</a>, and <a for=notification>sound resource</a> to be set
-  (if any), as well as the <a for=action>icon resources</a> for the <var>notification</var>'s
-  <a for=notification>actions</a> (if any).
+  <a for=notification>image resource</a> <a for=notification>icon resource</a>, and
+  <a for=notification>badge resource</a> to be set (if any), as well as the
+  <a for=action>icon resources</a> for the <var>notification</var>'s <a for=notification>actions</a>
+  (if any).
 
   <li><p>Display <var>notification</var> on the device (e.g., by calling the
   appropriate notification platform API).
@@ -605,10 +576,10 @@ must be run.
 
 <ol>
   <li><p>Wait for any <a for=/ lt=fetch>fetches</a> to complete and <var>notification</var>'s
-  <a for=notification>image resource</a> <a for=notification>icon resource</a>,
-  <a for=notification>badge resource</a>, and <a for=notification>sound resource</a> to be set
-  (if any), as well as the <a for=action>icon resources</a> for the <var>notification</var>'s
-  <a for=notification>actions</a> (if any).
+  <a for=notification>image resource</a> <a for=notification>icon resource</a>, and
+  <a for=notification>badge resource</a> to be set (if any), as well as the
+  <a for=action>icon resources</a> for the <var>notification</var>'s <a for=notification>actions</a>
+  (if any).
 
   <li><p><a for=list>Replace</a> <var>old</var> with <var>new</var>, in the same position, in the
   <a>list of notifications</a>.
@@ -634,8 +605,6 @@ or vibrating the device again, unless the <a for=notification>renotify preferenc
 <var>notification</var> are:
 
 <ol>
- <li><p>Play the <var>notification</var>'s <a>sound resource</a>, if any.
-
  <li><p><a>Perform vibration</a> using <var>notification</var>'s
  <a for=notification>vibration pattern</a>, if any.
 </ol>
@@ -665,7 +634,6 @@ interface Notification : EventTarget {
   readonly attribute USVString image;
   readonly attribute USVString icon;
   readonly attribute USVString badge;
-  readonly attribute USVString sound;
   [SameObject] readonly attribute FrozenArray&lt;unsigned long> vibrate;
   readonly attribute DOMTimeStamp timestamp;
   readonly attribute boolean renotify;
@@ -685,7 +653,6 @@ dictionary NotificationOptions {
   USVString image;
   USVString icon;
   USVString badge;
-  USVString sound;
   VibratePattern vibrate;
   DOMTimeStamp timestamp;
   boolean renotify = false;
@@ -877,10 +844,6 @@ the empty string if there is no <a>notification</a>'s <a for=notification>icon U
 <p>The <dfn attribute for=Notification><code>badge</code></dfn> attribute's getter must return the
 <a>notification</a>'s <a for=notification>badge URL</a>, <a lt="url serializer">serialized</a>, and
 the empty string if there is no <a>notification</a>'s <a for=notification>badge URL</a> otherwise.
-
-<p>The <dfn attribute for=Notification><code>sound</code></dfn> attribute's getter must return the
-<a>notification</a>'s <a for=notification>sound URL</a>, <a lt="url serializer">serialized</a>, and
-the empty string if there is no <a>notification</a>'s <a for=notification>sound URL</a> otherwise.
 
 <p>The <dfn attribute for=Notification><code>vibrate</code></dfn> attribute's getter must return the
 <a>notification</a>'s <a for=notification>vibration pattern</a>, if any, and the empty list
