@@ -136,12 +136,6 @@ clipped corners.
 <a>notification</a> with an associated
 <a for=notification>service worker registration</a>.
 
-<p>A <var>notification</var> is considered to be
-<dfn for=notification id=replaceable>replaceable</dfn> if there is a <a>notification</a> in the
-<a>list of notifications</a> whose <a for=notification>tag</a> is not the empty string and equals
-the <var>notification</var>'s <a>tag</a>, and whose <a for=notification>origin</a> is
-<a>same origin</a> with <var>notification</var>'s <a for=notification>origin</a>.
-
 <!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
 
 <hr>
@@ -451,15 +445,62 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 
 <p>The <dfn>show steps</dfn> for a given
 <a>notification</a> <var>notification</var> are:
+<!-- These steps are invoked from "in parallel" steps -->
 
 <ol>
- <li><p>If <var>notification</var> is <a>replaceable</a>, then run the <a>replace steps</a> for that
- <a>notification</a> and <var>notification</var>.
+ <li><p>Wait for any <a for=/ lt=fetch>fetches</a> to complete and <var>notification</var>'s
+ <a for=notification>image resource</a> <a for=notification>icon resource</a>, and
+ <a for=notification>badge resource</a> to be set (if any), as well as the
+ <a for=action>icon resources</a> for the <var>notification</var>'s <a for=notification>actions</a>
+ (if any).
 
- <li><p>Otherwise, run the <a>display steps</a> for <var>notification</var>.
+ <li><p>Let <var>shown</var> be false.
 
- <li><p>If <var>notification</var> is a <a>non-persistent notification</a>, then
- <a>fire an event</a> named <code>show</code> on the {{Notification}} object representing
+ <li><p>Let <var>oldNotification</var> be the <a>notification</a> in the
+ <a>list of notifications</a> whose <a for=notification>tag</a> is not the empty string and is
+ <var>notification</var>'s <a for=notification>tag</a>, and whose <a for=notification>origin</a> is
+ <a>same origin</a> with <var>notification</var>'s <a for=notification>origin</a>, if any, and null
+ otherwise.
+
+ <li>
+  <p>If <var>oldNotification</var> is non-null, then:
+
+  <ol>
+   <li><p><a>Handle close events</a> with <var>oldNotification</var>.
+
+   <li>
+    <p>If the notification platform supports replacement, then:
+
+    <ol>
+     <li><p><a for=list>Replace</a> <var>oldNotification</var> with <var>notification</var>, in the
+     <a>list of notifications</a>.
+
+     <li><p>Set <var>shown</var> to true.
+    </ol>
+
+    <p class="note no-backref">Notification platforms are strongly encouraged to support native
+    replacement as it leads to a better user experience.
+
+   <li><p>Otherwise, <a for=list>remove</a> <var>oldNotification</var> from the
+   <a>list of notifications</a>.
+  </ol>
+
+ <li>
+  <p>If <var>shown</var> is false, then:
+
+  <ol>
+   <li><p><a for=list>Append</a> <var>notification</var> to the <a>list of notifications</a>.
+
+   <li><p>Display <var>notification</var> on the device (e.g., by calling the appropriate
+   notification platform API).
+  </ol>
+
+ <li><p>If <var>shown</var> is false or <var>oldNotification</var> is non-null and
+ <var>notification</var>'s <a for=notification>renotify preference flag</a> has been set, then run
+ the <a>alert steps</a> for <var>notification</var>.
+
+ <li><p>If <var>notification</var> is a <a>non-persistent notification</a>, then <a>queue a task</a>
+ to <a>fire an event</a> named <code>show</code> on the {{Notification}} object representing
  <var>notification</var>.
 </ol>
 
@@ -543,60 +584,10 @@ must be run.
    <a for=notification>service worker registration</a> and <var>callback</var>.
   </ol>
 
- <li><p>If <var>notification</var> is a <a>non-persistent notification</a>, then
- <a>fire an event</a> named <code>close</code> on the {{Notification}} object representing
+ <li><p>If <var>notification</var> is a <a>non-persistent notification</a>, then <a>queue a task</a>
+ to <a>fire an event</a> named <code>close</code> on the {{Notification}} object representing
  <var>notification</var>.
 </ol>
-
-
-<h3 id=displaying-notification>Displaying notifications</h3>
-
-<p>The <dfn>display steps</dfn> for a given <var>notification</var> are:
-
-<ol>
-  <li><p>Wait for any <a for=/ lt=fetch>fetches</a> to complete and <var>notification</var>'s
-  <a for=notification>image resource</a> <a for=notification>icon resource</a>, and
-  <a for=notification>badge resource</a> to be set (if any), as well as the
-  <a for=action>icon resources</a> for the <var>notification</var>'s <a for=notification>actions</a>
-  (if any).
-
-  <li><p>Display <var>notification</var> on the device (e.g., by calling the
-  appropriate notification platform API).
-
-  <li><p>Run the <a>alert steps</a> for <var>notification</var>.
-
-  <li><p><a for=list>Append</a> <var>notification</var> to the <a>list of notifications</a>.
-</ol>
-
-
-<h3 id=replacing-a-notification>Replacing a notification</h3>
-
-<p>The <dfn>replace steps</dfn> for replacing an <var>old</var>
-<a>notification</a> with a <var>new</var> one are:
-
-<ol>
-  <li><p>Wait for any <a for=/ lt=fetch>fetches</a> to complete and <var>notification</var>'s
-  <a for=notification>image resource</a> <a for=notification>icon resource</a>, and
-  <a for=notification>badge resource</a> to be set (if any), as well as the
-  <a for=action>icon resources</a> for the <var>notification</var>'s <a for=notification>actions</a>
-  (if any).
-
-  <li><p><a for=list>Replace</a> <var>old</var> with <var>new</var>, in the same position, in the
-  <a>list of notifications</a>.
-
-  <li><p><a>Handle close events</a> with <var>old</var>.
-
-  <li><p>If <var>notification</var>'s <a for=notification>renotify preference flag</a> has been set,
-  perform the <a>alert steps</a> for <var>new</var>.
-</ol>
-
-<p>If the notification platform does not support replacement this requirement may be
-addressed by running the <a>close steps</a> for <var>old</var> and then running the
-<a>display steps</a> for <var>new</var>.
-
-<p class="note no-backref">Notification platforms are strongly encouraged to support
-native replacement. It is much nicer and has no side effects, such as playing sounds
-or vibrating the device again, unless the <a for=notification>renotify preference flag</a> is set.
 
 
 <h3 id=alerting-the-user>Alerting the user</h3>
