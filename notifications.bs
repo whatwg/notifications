@@ -70,7 +70,7 @@ run.
 
 <p>A <a>notification</a> has an associated
 <dfn for=notification id=silent-preference-flag>silent preference flag</dfn> which is initially
-unset. When set indicates that no sounds or vibrations should be made.
+unset. When set indicates that no vibrations should be performed.
 
 <p>A <a>notification</a> has an associated
 <dfn for=notification id=require-interaction-preference-flag>require interaction preference flag</dfn>
