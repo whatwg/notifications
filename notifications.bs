@@ -108,31 +108,31 @@ the <a>notification</a>, but then it should have less visual priority than the
 is not otherwise accessible to the end user, especially since notification platforms that do not
 support these features might ignore them.
 
-<p>A <a>notification</a> has <dfn for=notification lt=action id=actions>actions</dfn>, 
-a <a for=/>list</a> of <a>notification actions</a>, initially empty.
+<p>A <a>notification</a> has an action list (a <a for=/>list</a> of
+<dfn for=notification lt=action id=actions>actions</dfn>). It is initially empty.
 
 <p>A <dfn id=notification-action>notification action</dfn> defines a way the user can interact with
 a notification, as an alternative to activing the notification itself.
 
 <div dfn-for="notification action">
-  <p>A <a>notification action</a> has a <dfn id=notification-action-type>type</dfn>, that is
-  "<code>button</code>" or "<code>text</code>".
-  
-  <p class=note>Actions of type "<code>button</code>" can only be activated, whereas actions of type
-  "<code>text</code>" allow the user to input text during activation.
+ <p>A <a>notification action</a> has a <dfn>type</dfn>, that is "<code>button</code>" or
+ "<code>text</code>".
 
-  <p>A <a>notification action</a> has a <dfn id=notification-action-title>title</dfn> (a DOMString).
+ <p class=note>Actions of type "<code>button</code>" can only be activated, whereas actions of type
+ "<code>text</code>" allow the user to input text during activation.
 
-  <p>A <a>notification action</a> has a <dfn id=notification-action-name>name</dfn> (a DOMString).
+ <p>A <a>notification action</a> has a <dfn id=action-title>title</dfn> (a string).
 
-  <p>A <a>notification action</a> has an <dfn id=notification-action-icon-url>icon URL</dfn> (null
-  or a <a>URL</a>). Unless stated otherwise, it is null.
+ <p>A <a>notification action</a> has a <dfn id=action-name>name</dfn> (a string).
 
-  <p>A <a>notification action</a> has an <dfn id=notification-action-icon-resource>icon resource</dfn>
-  (null or an image). Unless stated otherwise, it is null.
+ <p>A <a>notification action</a> has an <dfn>icon URL</dfn> (null or a <a>URL</a>). Unless stated
+ otherwise, it is null.
 
-  <p>A <a>notification action</a> has a <dfn id=notification-action-placeholder>placeholder</dfn>
-  (a DOMString). Unless stated otherwise, it is an empty string.
+ <p>A <a>notification action</a> has an <dfn>icon resource</dfn> (null or an image). Unless stated
+ otherwise, it is null.
+
+ <p>A <a>notification action</a> has a <dfn>placeholder</dfn> (a string). Unless stated otherwise,
+ it is an empty string.
 </div>
 
 <p>The user agent must determine the <dfn>maximum number of actions</dfn> supported, within the
@@ -142,8 +142,8 @@ constraints of the notification platform.
 encouraged to make sure that any action a user can invoke from a notification is
 also available within the web application. The ability to reply inline to
 notifications during activation is also platform-dependent, so developers are encouraged to
-handle the case where a text action was activated but the reply was null (e.g.
-by focusing a chat window).
+handle the case where a text action was activated but the reply was null (e.g., by focusing a chat
+window).
 
 <p class="note no-backref">Some platforms might modify an <a for=action>icon resource</a> to better
 match the platform's visual style before displaying it to the user, for example by rounding the
@@ -250,18 +250,18 @@ these steps:
   <li><p>If <var>options</var>'s <code>requireInteraction</code> is true, set
   <var>notification</var>'s <a for=notification>require interaction preference flag</a>.
 
-  <li>For each <var>entry</var> in <var>options</var>'s <code>actions</code>:
+  <li><p>For each <var>entry</var> in <var>options</var>'s <code>actions</code>:
 
   <ol>
-    <li>If the user agent does not support additional actions, break.
+    <li><p>If the user agent does not support additional actions, then break.
 
     <li><p>Let <var>action</var> be a new <a lt="actions">action</a>.
 
     <li><p>Set <var>action</var>'s <a for=action>type</a> to the <var>entry</var>'s
     <code>type</code> property.
 
-    <li>If the user agent does not support additional actions of this
-    <a for="notification action">type</a>, continue.
+    <li><p>If the user agent does not support additional actions of this
+    <a for="notification action">type</a>, then continue.
 
     <p class=note>For instance, some operating systems don't support buttons if a text action has
     been provided, or vice-versa.
@@ -560,14 +560,14 @@ specified) run these steps:
    user, then set <var>action</var> to that <a for=notification>action</a>'s <a for=action>name</a>.
 
    <li><p>If one of <var>notification</var>'s <a for=notification>actions</a>
-   with type <i>'text'</i> was activated by the user, and the opportunity to
+   with type <code>text</code> was activated by the user, and the opportunity to
    input a reply was provided, then set <var>reply</var> to the text entered by
    the user during activation.
 
    <li><p>Let <var>callback</var> be an algorithm that when invoked with a <var>global</var>,
    <a lt="fire a service worker notification event named e">fires a service worker notification event</a>
-   named <code>notificationclick</code> given <var>notification</var> and <var>action</var> on
-   <var>global</var>.
+   named <code>notificationclick</code> given <var>notification</var>, <var>action</var> and
+   <var>reply</var> on <var>global</var>.
 
    <li><p>Then run <a>Handle Functional Event</a> with <var>notification</var>'s
    <a for=notification>service worker registration</a> and <var>callback</var>.
@@ -1140,7 +1140,7 @@ the same underlying <a>notification</a> of {{Notification}} objects already in e
 <hr>
 
 <p>To <dfn>fire a service worker notification event named <var>e</var></dfn>
-given <var>notification</var> and <var>action</var>,
+given <var>notification</var>, <var>action</var> and <var>reply</var>,
 <a>fire an event</a> named <var>e</var>, using {{NotificationEvent}}, with the
 {{NotificationEvent/notification}} attribute initialized to a new
 {{Notification}} object representing <var>notification</var>, the
