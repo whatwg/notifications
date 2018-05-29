@@ -121,17 +121,17 @@ notification, as an alternative to activing the notification itself.
  <p class=note>Actions of type "<code>button</code>" can only be activated, whereas actions of type
  "<code>text</code>" allow the user to input text during activation.
 
- <p>A <a for=notification>action</a> has a <dfn id=action-title>title</dfn> (a string).
+ <p>An <a for=notification>action</a> has a <dfn id=action-title>title</dfn> (a string).
 
- <p>A <a for=notification>action</a> has a <dfn id=action-name>name</dfn> (a string).
+ <p>An <a for=notification>action</a> has a <dfn id=action-name>name</dfn> (a string).
 
- <p>A <a for=notification>action</a> has an <dfn>icon URL</dfn> (null or a <a>URL</a>). Unless
+ <p>An <a for=notification>action</a> has an <dfn>icon URL</dfn> (null or a <a>URL</a>). Unless
  stated otherwise, it is null.
 
- <p>A <a for=notification>action</a> has an <dfn>icon resource</dfn> (null or an image). Unless
+ <p>An <a for=notification>action</a> has an <dfn>icon resource</dfn> (null or an image). Unless
  stated otherwise, it is null.
 
- <p>A <a for=notification>action</a> has a <dfn>placeholder</dfn> (a string). Unless stated
+ <p>An <a for=notification>action</a> has a <dfn>placeholder</dfn> (a string). Unless stated
  otherwise, it is an empty string.
 </div>
 
