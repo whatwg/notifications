@@ -1,8 +1,13 @@
-local: notifications.bs
-	bikeshed spec notifications.bs notifications.html --md-Text-Macro="SNAPSHOT-LINK LOCAL COPY"
-
 remote: notifications.bs
 	curl https://api.csswg.org/bikeshed/ -f -F file=@notifications.bs > notifications.html -F md-Text-Macro="SNAPSHOT-LINK LOCAL COPY"
 
+local: notifications.bs
+	bikeshed spec notifications.bs notifications.html --md-Text-Macro="SNAPSHOT-LINK LOCAL COPY"
+
 deploy: notifications.bs
-	curl --remote-name --fail https://resources.whatwg.org/build/deploy.sh && bash ./deploy.sh
+	curl --remote-name --fail https://resources.whatwg.org/build/deploy.sh
+	bash ./deploy.sh
+
+review: notifications.bs
+	curl --remote-name --fail https://resources.whatwg.org/build/review.sh
+	bash ./review.sh
