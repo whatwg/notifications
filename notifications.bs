@@ -132,7 +132,7 @@ notification, as an alternative to activing the notification itself.
  stated otherwise, it is null.
 
  <p>An <a for=notification>action</a> has a <dfn>placeholder</dfn> (a string). Unless stated
- otherwise, it is an empty string.
+ otherwise, it is the empty string.
 </div>
 
 <p>The user agent must determine the <dfn>maximum number of actions</dfn> supported, within the
@@ -254,19 +254,12 @@ these steps:
   <p>For each <var>entry</var> in <var>options</var>'s <code>actions</code>:
 
   <ol>
-   <li><p>If the user agent does not support additional actions, then break.
+   <li><p>If the <a>maximum number of actions</a> has already been added, then break.
 
    <li><p>Let <var>action</var> be a new <a for=notification>action</a>.
 
    <li><p>Set <var>action</var>'s <a for=action>type</a> to <var>entry</var>'s <code>type</code>
    member.
-
-   <li>
-    <p>If the user agent does not support additional actions of this <a for=action>type</a>, then
-    continue.
-
-    <p class=note>For instance, some operating systems don't support buttons if a text action has
-    been provided, or vice-versa.
 
    <li><p>Set <var>action</var>'s <a for=action>name</a> to <var>entry</var>'s <code>action</code>.
 
@@ -527,6 +520,10 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
    notification platform API).
   </ol>
 
+ <p class="note">If the platform does not support entering text within a notification, implementers
+ are expected to treat text actions as regular buttons and update their type to <code>button</code>
+ accordingly.
+
  <li><p>If <var>shown</var> is false or <var>oldNotification</var> is non-null and
  <var>notification</var>'s <a for=notification>renotify preference flag</a> has been set, then run
  the <a>alert steps</a> for <var>notification</var>.
@@ -549,7 +546,7 @@ specified) run these steps:
   <p>If <var>notification</var> is a <a>persistent notification</a>, then:
 
   <ol>
-   <li><p>Let <var>action</var> be an empty string.
+   <li><p>Let <var>action</var> be the empty string.
 
    <li><p>Let <var>reply</var> be null.
 
