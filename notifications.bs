@@ -614,7 +614,8 @@ must be run.
   <ol>
    <li><p>Let <var>callback</var> be an algorithm that when invoked with a <var>global</var>,
    <a lt="fire a service worker notification event named e">fires a service worker notification event</a>
-   named <code>notificationclose</code> given <var>notification</var> on <var>global</var>.
+   named <code>notificationclose</code> given <var>notification</var>, <var>action</var>
+   set to the empty string and <var>reply</var> set to null on <var>global</var>.
 
    <li><p>Then run <a>Handle Functional Event</a> with <var>notification</var>'s
    <a for=notification>service worker registration</a> and <var>callback</var>.
