@@ -533,6 +533,9 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
  <var>notification</var>.
 </ol>
 
+<p class="note">User agents are strongly encouraged to attribute notifications to the origin they
+are associated with. This reduces the possibility of phishing attacks where a notification has been
+designed to look like it originates from another origin.
 
 <h3 id=activating-a-notification>Activating a notification</h3>
 
