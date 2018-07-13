@@ -521,8 +521,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
   </ol>
 
  <p class="note">If the platform does not support entering text within a notification, implementers
- are expected to treat text actions as regular buttons and update their type to <code>button</code>
- accordingly.
+ are expected to present text actions as button actions.
 
  <li><p>If <var>shown</var> is false or <var>oldNotification</var> is non-null and
  <var>notification</var>'s <a for=notification>renotify preference flag</a> has been set, then run
