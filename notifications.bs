@@ -108,19 +108,42 @@ the <a>notification</a>, but then it should have less visual priority than the
 is not otherwise accessible to the end user, especially since notification platforms that do not
 support these features might ignore them.
 
-<p>A <a>notification</a> has an associated list of
-zero or more <dfn for=notification lt=action id=actions>actions</dfn>. Each
-<a for=notification>action</a> has an associated
-<dfn for=action id=action-title>title</dfn> and <dfn for=action id=action-name>name</dfn> and
-<em>can</em> have an associated <dfn for=action>icon URL</dfn> and
-<dfn for=action>icon resource</dfn>. Users may activate actions, as alternatives to
-activating the notification itself. The user agent must determine the
-<dfn>maximum number of actions</dfn> supported, within the constraints of the
-notification platform.
+<p>A <a>notification</a> has an <dfn for=notification>action list</dfn> (a <a for=/>list</a> of
+<a for=notification>actions</a>). It is initially empty.
+
+<p>An <dfn for=notification id=actions>action</dfn> defines a way the user can interact with a
+notification, as an alternative to activing the notification itself.
+
+<div dfn-for=action>
+ <p>An <a for=notification>action</a> has a <dfn>type</dfn>, that is "<code>button</code>" or
+ "<code>text</code>".
+
+ <p class=note>Actions of type "<code>button</code>" can only be activated, whereas actions of type
+ "<code>text</code>" allow the user to input text during activation.
+
+ <p>An <a for=notification>action</a> has a <dfn id=action-title>title</dfn> (a string).
+
+ <p>An <a for=notification>action</a> has a <dfn id=action-name>name</dfn> (a string).
+
+ <p>An <a for=notification>action</a> has an <dfn>icon URL</dfn> (null or a <a>URL</a>). Unless
+ stated otherwise, it is null.
+
+ <p>An <a for=notification>action</a> has an <dfn>icon resource</dfn> (null or an image). Unless
+ stated otherwise, it is null.
+
+ <p>An <a for=notification>action</a> has a <dfn>placeholder</dfn> (a string). Unless stated
+ otherwise, it is the empty string.
+</div>
+
+<p>The user agent must determine the <dfn>maximum number of actions</dfn> supported, within the
+constraints of the notification platform.
 
 <p class=note>Since display of actions is platform-dependent, developers are
 encouraged to make sure that any action a user can invoke from a notification is
-also available within the web application.
+also available within the web application. The ability to reply inline to
+notifications during activation is also platform-dependent, so developers are encouraged to
+handle the case where a text action was activated but the reply was null (e.g., by focusing a chat
+window).
 
 <p class="note no-backref">Some platforms might modify an <a for=action>icon resource</a> to better
 match the platform's visual style before displaying it to the user, for example by rounding the
@@ -152,11 +175,11 @@ these steps:
   <var>notification</var>'s <a for=notification>service worker registration</a> to
   <var>serviceWorkerRegistration</var>.
 
-  <li><p>If a <var>serviceWorkerRegistration</var> was not provided and
-  <var>options</var>'s <code>actions</code> is not empty, <a>throw</a> a
-  <code>TypeError</code> exception.
+ <li>
+  <p>If a <var>serviceWorkerRegistration</var> was not provided and <var>options</var>'s
+  <code>actions</code> is not empty, then <a>throw</a> a {{TypeError}}.
 
-  <p class=note><a>Actions</a> are only currently supported for
+  <p class=note><a for=notification>Actions</a> are only currently supported for
   <a>persistent notifications</a>.
 
   <li><p>If <var>options</var>'s <code>silent</code> is true and <var>options</var>'s
@@ -227,27 +250,29 @@ these steps:
   <li><p>If <var>options</var>'s <code>requireInteraction</code> is true, set
   <var>notification</var>'s <a for=notification>require interaction preference flag</a>.
 
-  <li><p>Set <var>notification</var>'s list of <a>actions</a> to an empty list,
-  then for each <var>entry</var> in <var>options</var>'s <code>actions</code>,
-  up to the <a>maximum number of actions</a> supported (skip any excess
-  entries), perform the following steps:
+ <li>
+  <p>For each <var>entry</var> in <var>options</var>'s <code>actions</code>:
 
   <ol>
-    <li><p>Let <var>action</var> be a new <a lt="actions">action</a>.
+   <li><p>If the <a>maximum number of actions</a> has already been added, then break.
 
-    <li><p>Set <var>action</var>'s <a for=action>name</a> to the <var>entry</var>'s
-    <code>action</code>.
+   <li><p>Let <var>action</var> be a new <a for=notification>action</a>.
 
-    <li><p>Set <var>action</var>'s <a for=action>title</a> to the
-    <var>entry</var>'s <code>title</code>.
+   <li><p>Set <var>action</var>'s <a for=action>type</a> to <var>entry</var>'s <code>type</code>
+   member.
 
-    <li><p>If <var>entry</var>'s <code>icon</code> is present,
-    <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does
-    not return failure, set <var>action</var>'s <a for=action>icon URL</a> to the
-    return value. (Otherwise <a for=action>icon URL</a> is not set.)
+   <li><p>Set <var>action</var>'s <a for=action>name</a> to <var>entry</var>'s <code>action</code>.
 
-    <li><p>Append <var>action</var> to <var>notification</var>'s list of
-    <a>actions</a>.
+   <li><p>Set <var>action</var>'s <a for=action>title</a> to <var>entry</var>'s <code>title</code>.
+
+   <li><p>If <var>entry</var>'s <code>icon</code> is present, <a lt="url parser">parse</a> it using
+   <var>baseURL</var>, and if that does not return failure, set <var>action</var>'s
+   <a for=action>icon URL</a> to the return value.
+
+   <li><p>If <var>entry</var>'s <code>placeholder</code> is present, then set action's
+   <a for=action>placeholder</a> to the <var>entry</var>'s <code>placeholder</code>.
+
+   <li><p>Append <var>action</var> to <var>notification</var>'s <a for=notification>action list</a>.
   </ol>
 
   <li><p>Return <var>notification</var>.
@@ -418,8 +443,8 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 
  <li>
   <p>If the notification platform supports actions and action icons, then for each <var>action</var>
-  in <var>notification</var>'s list of <a>actions</a> <a for=/>fetch</a> <var>action</var>'s
-  <a for=action>icon URL</a>, if <a for=action>icon URL</a> is set.
+  in <var>notification</var>'s <a for=notification>action list</a>: <a for=/>fetch</a>
+  <var>action</var>'s <a for=action>icon URL</a>, if <a for=action>icon URL</a> is set.
 
   <p class=note>The intent is to fetch this resource similar to an
   <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
@@ -495,6 +520,9 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
    notification platform API).
   </ol>
 
+ <p class="note">If the platform does not support entering text within a notification, implementers
+ are expected to present text actions as button actions.
+
  <li><p>If <var>shown</var> is false or <var>oldNotification</var> is non-null and
  <var>notification</var>'s <a for=notification>renotify preference flag</a> has been set, then run
  the <a>alert steps</a> for <var>notification</var>.
@@ -504,6 +532,10 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
  <var>notification</var>.
 </ol>
 
+<p class="note">User agents are required to attribute notifications to the origin they
+are associated with. This reduces the possibility of phishing attacks where a notification has been
+designed to look like it originates from another origin. The user should be aware that data entered
+into the notification will be made available to the attributed origin.
 
 <h3 id=activating-a-notification>Activating a notification</h3>
 
@@ -519,13 +551,20 @@ specified) run these steps:
   <ol>
    <li><p>Let <var>action</var> be the empty string.
 
+   <li><p>Let <var>reply</var> be null.
+
    <li><p>If one of <var>notification</var>'s <a for=notification>actions</a> was activated by the
    user, then set <var>action</var> to that <a for=notification>action</a>'s <a for=action>name</a>.
 
+   <li><p>If one of <var>notification</var>'s <a for=notification>actions</a>
+   with type <code>text</code> was activated by the user, and the opportunity to
+   input a reply was provided, then set <var>reply</var> to the text entered by
+   the user during activation.
+
    <li><p>Let <var>callback</var> be an algorithm that when invoked with a <var>global</var>,
    <a lt="fire a service worker notification event named e">fires a service worker notification event</a>
-   named <code>notificationclick</code> given <var>notification</var> and <var>action</var> on
-   <var>global</var>.
+   named <code>notificationclick</code> given <var>notification</var>, <var>action</var> and
+   <var>reply</var> on <var>global</var>.
 
    <li><p>Then run <a>Handle Functional Event</a> with <var>notification</var>'s
    <a for=notification>service worker registration</a> and <var>callback</var>.
@@ -578,7 +617,8 @@ must be run.
   <ol>
    <li><p>Let <var>callback</var> be an algorithm that when invoked with a <var>global</var>,
    <a lt="fire a service worker notification event named e">fires a service worker notification event</a>
-   named <code>notificationclose</code> given <var>notification</var> on <var>global</var>.
+   named <code>notificationclose</code> given <var>notification</var>, <var>action</var>
+   set to the empty string and <var>reply</var> set to null on <var>global</var>.
 
    <li><p>Then run <a>Handle Functional Event</a> with <var>notification</var>'s
    <a for=notification>service worker registration</a> and <var>callback</var>.
@@ -666,9 +706,16 @@ enum NotificationDirection {
 };
 
 dictionary NotificationAction {
+  NotificationActionType type = "button";
   required DOMString action;
   required DOMString title;
   USVString icon;
+  DOMString? placeholder = "";
+};
+
+enum NotificationActionType {
+  "button",
+  "text"
 };
 
 callback NotificationPermissionCallback = void (NotificationPermission permission);
@@ -861,35 +908,41 @@ return the <a>notification</a>'s <a for=notification>require interaction prefere
 result of the following steps:
 
 <ol>
-  <li><p>Let <var>frozenActions</var> be an empty list of type {{NotificationAction}}.
+ <li><p>Let <var>frozenActions</var> be an empty list of type {{NotificationAction}}.
 
-  <li><p>For each <var>entry</var> in the <a>notification</a>'s list of
-  <a for=notification>actions</a>, perform the following steps:
+ <li>
+  <p>For each <var>entry</var> in <a>notification</a>'s <a for=notification>action list</a>:
 
   <ol>
-    <li><p>Let <var>action</var> be a new {{NotificationAction}}.
+   <li><p>Let <var>action</var> be a new {{NotificationAction}}.
 
-    <li><p>Set <var>action</var>'s {{NotificationAction/action}} to
-    <var>entry</var>'s <a for=action>name</a>.
+   <li><p>Set <var>action</var>'s {{NotificationAction/type}} to <var>entry</var>'s
+   <a for=action>type</a>.
 
-    <li><p>Set <var>action</var>'s {{NotificationAction/title}} to
-    <var>entry</var>'s <a for=action>title</a>.
+   <li><p>Set <var>action</var>'s {{NotificationAction/action}} to <var>entry</var>'s
+   <a for=action>name</a>.
 
-    <li><p>Set <var>action</var>'s {{NotificationAction/icon}} to
-    <var>entry</var>'s <a for=action>icon URL</a>.
+   <li><p>Set <var>action</var>'s {{NotificationAction/title}} to <var>entry</var>'s
+   <a for=action>title</a>.
 
-    <!-- XXX IDL dictionaries are usually returned by value, so don't need to be
-         immutable. But FrozenArray reifies the dictionaries to mutable JS
-         objects accessed by reference, so we explicitly freeze them.
-         It would be better to do this with IDL primitives instead of JS - see
-         https://www.w3.org/Bugs/Public/show_bug.cgi?id=29004 -->
-    <li><p>Call <a lt="freeze">Object.freeze</a> on <var>action</var>, to
-    prevent accidental mutation by scripts.
+   <li><p>Set <var>action</var>'s {{NotificationAction/icon}} to <var>entry</var>'s
+   <a for=action>icon URL</a>.
 
-    <li><p>Append <var>action</var> to <var>frozenActions</var>.
+   <li><p>Set <var>action</var>'s {{NotificationAction/placeholder}} to <var>entry</var>'s
+   <a for=action>placeholder</a>.
+
+   <!-- XXX IDL dictionaries are usually returned by value, so don't need to be
+        immutable. But FrozenArray reifies the dictionaries to mutable JS
+        objects accessed by reference, so we explicitly freeze them.
+        It would be better to do this with IDL primitives instead of JS - see
+        https://www.w3.org/Bugs/Public/show_bug.cgi?id=29004 -->
+   <li><p>Call <a lt="freeze">Object.freeze</a> on <var>action</var>, to prevent accidental mutation
+   by scripts.
+
+   <li><p>Append <var>action</var> to <var>frozenActions</var>.
   </ol>
 
-  <li><p><a>Create a frozen array</a> from <var>frozenActions</var>.
+ <li><p><a>Create a frozen array</a> from <var>frozenActions</var>.
 </ol>
 
 <h3 id=examples>Examples</h3>
@@ -1000,11 +1053,13 @@ partial interface ServiceWorkerRegistration {
 interface NotificationEvent : ExtendableEvent {
   readonly attribute Notification notification;
   readonly attribute DOMString action;
+  readonly attribute DOMString? reply;
 };
 
 dictionary NotificationEventInit : ExtendableEventInit {
   required Notification notification;
   DOMString action = "";
+  DOMString? reply = null;
 };
 
 partial interface ServiceWorkerGlobalScope {
@@ -1084,17 +1139,22 @@ the same underlying <a>notification</a> of {{Notification}} objects already in e
 <hr>
 
 <p>To <dfn>fire a service worker notification event named <var>e</var></dfn>
-given <var>notification</var> and <var>action</var>,
+given <var>notification</var>, <var>action</var> and <var>reply</var>,
 <a>fire an event</a> named <var>e</var>, using {{NotificationEvent}}, with the
 {{NotificationEvent/notification}} attribute initialized to a new
-{{Notification}} object representing <var>notification</var> and the
-{{NotificationEvent/action}} attribute initialized to <var>action</var>.
+{{Notification}} object representing <var>notification</var>, the
+{{NotificationEvent/action}} attribute initialized to <var>action</var>, and the
+{{NotificationEvent/reply}} attribute initialized to <var>reply</var>.
+
 <!-- XXX need to define at what the event is fired -->
 
 <p>The {{NotificationEvent/notification}} attribute's getter must return the
 value it was initialized to.
 
 <p>The {{NotificationEvent/action}} attribute's getter must return the value it
+was initialized to.
+
+<p>The {{NotificationEvent/reply}} attribute's getter must return the value it
 was initialized to.
 
 <p>The following is the <a>event handler</a> (and its corresponding
@@ -1122,6 +1182,7 @@ was initialized to.
 Addison Phillips,
 Aharon (Vladimir) Lanin,
 Alex Russell,
+Anita Woodruff,
 Anssi Kostiainen,
 Arkadiusz Michalski,
 Boris Zbarsky,
