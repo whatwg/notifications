@@ -567,7 +567,7 @@ must be run.
 
 <ol>
  <li><p>If <var>notification</var> is a <a>persistent notification</a> and <var>notification</var>
- was closed by the user, then <a>Fire a service worker notification event</a> named
+ was closed by the user, then <a>fire a service worker notification event</a> named
  "<code>notificationclose</code>" given <var>notification</var>.
 
  <li><p>If <var>notification</var> is a <a>non-persistent notification</a>, then <a>queue a task</a>
