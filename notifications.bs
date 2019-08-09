@@ -977,11 +977,11 @@ dictionary GetNotificationOptions {
 };
 
 partial interface ServiceWorkerRegistration {
-  Promise&lt;void> showNotification(DOMString title, optional NotificationOptions options);
+  Promise&lt;void> showNotification(DOMString title, optional NotificationOptions options = {});
   Promise&lt;sequence&lt;Notification>> getNotifications(optional GetNotificationOptions filter = {});
 };
 
-[Constructor(DOMString type, NotificationEventInit eventInitDict = {}),
+[Constructor(DOMString type, NotificationEventInit eventInitDict),
  Exposed=ServiceWorker]
 interface NotificationEvent : ExtendableEvent {
   readonly attribute Notification notification;
