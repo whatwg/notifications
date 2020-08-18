@@ -620,7 +620,7 @@ interface Notification : EventTarget {
   [SameObject] readonly attribute any data;
   [SameObject] readonly attribute FrozenArray&lt;NotificationAction> actions;
 
-  void close();
+  undefined close();
 };
 
 dictionary NotificationOptions {
@@ -658,7 +658,7 @@ dictionary NotificationAction {
   USVString icon;
 };
 
-callback NotificationPermissionCallback = void (NotificationPermission permission);
+callback NotificationPermissionCallback = undefined (NotificationPermission permission);
 </pre>
 
 <p>A <a>non-persistent notification</a> is represented by one {{Notification}}
@@ -978,7 +978,7 @@ dictionary GetNotificationOptions {
 };
 
 partial interface ServiceWorkerRegistration {
-  Promise&lt;void> showNotification(DOMString title, optional NotificationOptions options = {});
+  Promise&lt;undefined> showNotification(DOMString title, optional NotificationOptions options = {});
   Promise&lt;sequence&lt;Notification>> getNotifications(optional GetNotificationOptions filter = {});
 };
 
