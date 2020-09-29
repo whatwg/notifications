@@ -3,6 +3,7 @@ Group: WHATWG
 H1: Notifications API
 Shortname: notifications
 Text Macro: TWITTER notifyapi
+Text Macro: LATESTRD 2020-01
 Abstract: This standard defines an API to display notifications to the end user, typically outside the top-level browsing context's viewport. It is designed to be compatible with existing notification systems, while remaining platform-independent.
 Translation: ja https://triple-underscore.github.io/notifications-ja.html
 Translation: zh-cn https://w3c-html-ig-zh.github.io/notifications/whatwg/
