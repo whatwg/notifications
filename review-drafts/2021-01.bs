@@ -1,5 +1,6 @@
 <pre class=metadata>
 Group: WHATWG
+Date: 2021-01-18
 H1: Notifications API
 Shortname: notifications
 Text Macro: TWITTER notifyapi
