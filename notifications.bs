@@ -721,36 +721,41 @@ permissions are like synchronous IO, a bad idea.
 
 <p>The static
 <dfn method for=Notification><code>requestPermission(<var>deprecatedCallback</var>)</code></dfn>
-method, when invoked, must run these steps:
+method steps are:
 
 <ol>
- <li><p>Let <var>promise</var> be a new promise.
+ <li><p>Let <var>global</var> be <a>this</a>'s <a>relevant global object</a>.
+
+ <li><p>Let <var>origin</var> be <a>this</a>'s <a>relevant settings object</a>'s
+ <a for="environment settings object">origin</a>.
+ <!-- Arguably this should snapshot origin somehow so that changes to it do not impact the
+      in parallel part. -->
+
+ <li><p>Let <var>promise</var> be <a for=/>a new promise</a> in <var>global</var>'s
+ <a for="global object">Realm</a>.
 
  <li>
   <p>Run these steps <a>in parallel</a>:
 
   <ol>
-   <li><p>Let <var>permission</var> be <a>permission</a> for
-   <a>entry settings object</a>'s <a for="environment settings object">origin</a>.
-   <!-- XXX context object's global object's environment settings object's origin -->
+   <li><p>Let <var>permission</var> be <a>permission</a> for <var>origin</var>.
 
-   <li><p>If <var>permission</var> is "<code>default</code>", ask the user whether showing
-   notifications for the <a>entry settings object</a>'s
-   <a for="environment settings object">origin</a> is acceptable. If it is, set
-   <var>permission</var> to "<code>granted</code>", and "<code>denied</code>" otherwise.
+   <li><p>If <var>permission</var> is "<code>default</code>", then ask the user whether showing
+   notifications for <var>origin</var> is acceptable. If it is, then set <var>permission</var> to
+   "<code>granted</code>"; otherwise "<code>denied</code>".
 
    <li>
-    <p><a>Queue a task</a> to run these steps:
+    <p><a>Queue a global task</a> on the <a>DOM manipulation task source</a> given <var>global</var>
+    to run these steps:
 
     <ol>
-     <li><p>Set <a>permission</a> for the <a>entry settings object</a>'s
-     <a for="environment settings object">origin</a> to <var>permission</var>.
+     <li><p>Set <a>permission</a> for <var>origin</var> to <var>permission</var>.
 
-     <li><p>If <var>deprecatedCallback</var> is given, invoke
-     <var>deprecatedCallback</var> with <var>permission</var> as single argument. If this
-     throws an exception, <a>report the exception</a>.
+     <li><p>If <var>deprecatedCallback</var> is given, then <a for=/>invoke</a>
+     <var>deprecatedCallback</var> with « <var>permission</var> ». If this throws an exception, then
+     <a>report the exception</a>.
 
-     <li><p>Fullfil <var>promise</var> with <var>permission</var>.
+     <li><p><a for=/>Resolve</a> <var>promise</var> with <var>permission</var>.
     </ol>
   </ol>
 
@@ -1002,69 +1007,90 @@ partial interface ServiceWorkerGlobalScope {
 };
 </pre>
 
-<p>The
-<dfn method for=ServiceWorkerRegistration><code>showNotification(title, options)</code></dfn>
-method, when invoked, must run these steps:
+<p>The <dfn method for=ServiceWorkerRegistration><code>showNotification(title, options)</code></dfn>
+method steps are:
 
 <ol>
-  <li><p>Let <var>promise</var> be a new promise.
+ <li><p>Let <var>global</var> be <a>this</a>'s <a>relevant global object</a>
 
-  <li><p>If the <a>context object</a>'s <a for="service worker registration">active worker</a> is
-  null, then reject <var>promise</var> with a <code>TypeError</code> exception and return
-  <var>promise</var>.
+ <li><p>Let <var>promise</var> be <a>a new promise</a> in <var>global</var>'s
+ <a for="global object">Realm</a>.
 
-  <li><p>Let <var>serviceWorkerRegistration</var> be the <a>context object</a>.
+ <li><p>If <a>this</a>'s <a for="service worker registration">active worker</a> is null, then
+ <a for=/>reject</a> <var>promise</var> with a {{TypeError}} and return <var>promise</var>.
+ <!-- We might have to throw directly here and below, see
+      https://github.com/web-platform-tests/wpt/pull/24601 -->
 
-  <li><p>Let <var>notification</var> be the result of <a>creating a notification</a> given
-  <var>title</var>, <var>options</var>, and <var>serviceWorkerRegistration</var>. If this threw an
-  exception, reject <var>promise</var> with that exception and return <var>promise</var>.
+ <li><p>Let <var>serviceWorkerRegistration</var> be <a>this</a>.
 
-  <li><p>Run these steps <a>in parallel</a>:
+ <li><p>Let <var>notification</var> be the result of <a>creating a notification</a> given
+ <var>title</var>, <var>options</var>, and <var>serviceWorkerRegistration</var>. If this threw an
+ exception, then <a for=/>reject</a> <var>promise</var> with that exception and return
+ <var>promise</var>.
+
+ <li>
+  <p>Run these steps <a>in parallel</a>:
 
   <ol>
-    <li><p>If <a>permission</a> for <var>notification</var>'s <a for=notification>origin</a> is not
-    "<code>granted</code>", then reject <var>promise</var> with a <code>TypeError</code> exception,
-    and abort these steps.
+   <li><p>If <a>permission</a> for <var>notification</var>'s <a for=notification>origin</a> is not
+   "<code>granted</code>", then <a>queue a global task</a> on the
+   <a>DOM manipulation task source</a> given <var>global</var> to <a for=/>reject</a>
+   <var>promise</var> with a {{TypeError}}, and abort these steps.
 
-    <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
+   <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
 
-    <li><p>Run the <a>show steps</a> for <var>notification</var>.
+   <li><p>Run the <a>show steps</a> for <var>notification</var>.
 
-    <li><p>Resolve <var>promise</var> with undefined.
+   <li><p><a>Queue a global task</a> on the <a>DOM manipulation task source</a> given
+   <var>global</var> to <a for=/>resolve</a> <var>promise</var> with undefined.
   </ol>
 
-  <li><p>Return <var>promise</var>.
+ <li><p>Return <var>promise</var>.
 </ol>
 
 <p>The
 <dfn method for=ServiceWorkerRegistration><code>getNotifications(<var>filter</var>)</code></dfn>
-method, when invoked, must run these steps:
+method steps are:
 
 <ol>
-  <li><p>Let <var>promise</var> be a new promise.
+ <li><p>Let <var>global</var> be <a>this</a>'s <a>relevant global object</a>.
 
-  <li><p>Run these steps <a>in parallel</a>:
+ <li><p>Let <var>realm</var> be <var>global</var>'s <a for="global object">Realm</a>.
+
+ <li><p>Let <var>origin</var> be <a>this</a>'s <a>relevant settings object</a>'s
+ <a for="environment settings object">origin</a>.
+ <!-- Arguably this should snapshot origin somehow so that changes to it do not impact the
+      in parallel part. -->
+
+ <li><p>Let <var>promise</var> be <a for=/>a new promise</a> in <var>realm</var>.
+
+ <li>
+  <p>Run these steps <a>in parallel</a>:
 
   <ol>
-    <li><p>Let <var>tag</var> be <var>filter</var>'s <code>tag</code>.
+   <li><p>Let <var>tag</var> be <var>filter</var>'s <code>tag</code>.
 
-    <li><p>Let <var>notifications</var> be a <a for=/>list</a> of all <a>notifications</a> in the
-    <a>list of notifications</a> whose <a for=notification>origin</a> is the
-    <a>entry settings object</a>'s <a for="environment settings object">origin</a>, whose
-    <a for=notification>service worker registration</a> is the <a>context object</a>, and whose
-    <a for=notification>tag</a>, if <var>tag</var> is not the empty string, is <var>tag</var>.
+   <li><p>Let <var>notifications</var> be a <a for=/>list</a> of all <a>notifications</a> in the
+   <a>list of notifications</a> whose <a for=notification>origin</a> is <a>same origin</a> with
+   <var>origin</var>, whose <a for=notification>service worker registration</a> is <a>this</a>, and
+   whose <a for=notification>tag</a>, if <var>tag</var> is not the empty string, is <var>tag</var>.
 
-    <li><p>Let <var>objects</var> be an empty JavaScript array.
+   <li>
+    <p><a>Queue a global task</a> on the <a>DOM manipulation task source</a> given <var>global</var>
+    to run these steps:</p>
 
-    <li><p><a for=list>For each</a> <a>notification</a> in
-    <var>notifications</var>, in creation order, create a new {{Notification}}
-    object representing <a>notification</a> and push
-    that object to <var>objects</var>.
+    <ol>
+     <li><p>Let <var>objects</var> be a <a for=/>list</a>.
 
-    <li><p>Resolve <var>promise</var> with <var>objects</var>.
+     <li><p><a for=list>For each</a> <a>notification</a> in <var>notifications</var>, in creation
+     order, create a <a for=/>new</a> {{Notification}} object with <var>realm</var> representing
+     <a>notification</a>, and <a for=list>append</a> it to <var>objects</var>.
+
+     <li><p><a for=/>Resolve</a> <var>promise</var> with <var>objects</var>.
+    </ol>
   </ol>
 
-  <li><p>Return <var>promise</var>.
+ <li><p>Return <var>promise</var>.
 </ol>
 
 <p class=note>This method returns zero or more new {{Notification}} objects which might represent
