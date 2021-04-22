@@ -108,8 +108,8 @@ not enough space to display the <a>notification</a> itself. It <em>may</em> also
 the <a>notification</a>, but then it should have less visual priority than the
 <a for=notification>image resource</a> and <a for=notification>icon resource</a>.
 
-<p>A <a>notification</a> <em>can</em> have a
-<dfn for=notification id=vibration-pattern>vibration pattern</dfn>.
+<p>A <a>notification</a> has an associated
+<dfn for=notification id=vibration-pattern>vibration pattern</dfn>, which is initially « ».
 
 <p class=note>Developers are encouraged to not convey information through an
 <a for=notification lt="image resource">image</a>, <a for=notification lt="icon resource">icon</a>,
@@ -718,9 +718,9 @@ constructor, when invoked, must run these steps:
 
 <h3 id=static-members>Static members</h3>
 
-<p>The static <dfn attribute for=Notification><code>permission</code></dfn>
-attribute's getter must return <a>permission</a> for the
-<a>entry settings object</a>'s <a for="environment settings object">origin</a>.
+<p>The static <dfn attribute for=Notification><code>permission</code></dfn> getter steps are to
+return the <a>permission</a> for the <a>entry settings object</a>'s
+<a for="environment settings object">origin</a>.
 
 <p class=note>If you edit standards please refrain from copying the above. Synchronous
 permissions are like synchronous IO, a bad idea.
@@ -773,8 +773,8 @@ pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">
 many more suitable alternatives</a>.
 
-<p>The static <dfn attribute for=Notification><code>maxActions</code></dfn>
-attribute's getter must return the <a>maximum number of actions</a> supported.
+<p>The static <dfn attribute for=Notification><code>maxActions</code></dfn> geter steps are to
+return the <a>maximum number of actions</a> supported.
 
 <h3 id=object-members>Object members</h3>
 
@@ -802,92 +802,109 @@ attribute's getter must return the <a>maximum number of actions</a> supported.
    <td><code>close</code>
 </table>
 
-<p>The <dfn method for=Notification><code>close()</code></dfn> method, when
-invoked, must run the <a>close steps</a> for the
-<a>notification</a>.
+<p>The <dfn method for=Notification><code>close()</code></dfn> method steps are to run the
+<a>close steps</a> for <a>this</a>'s <a>notification</a>.
 
-<p>The <dfn attribute for=Notification><code>title</code></dfn> attribute's getter must return the
-<a>notification</a>'s <a for=notification>title</a>.
+<p>The <dfn attribute for=Notification><code>title</code></dfn> getter steps are to return
+<a>this</a>'s <a>notification</a>'s <a for=notification>title</a>.
 
-<p>The <dfn attribute for=Notification><code>dir</code></dfn> attribute's getter must return the
-<a>notification</a>'s <a for=notification>direction</a>.
+<p>The <dfn attribute for=Notification><code>dir</code></dfn> getter steps are to return
+<a>this</a>'s <a>notification</a>'s <a for=notification>direction</a>.
 
-<p>The <dfn attribute for=Notification><code>lang</code></dfn> attribute's getter must return the
-<a>notification</a>'s <a for=notification>language</a>.
+<p>The <dfn attribute for=Notification><code>lang</code></dfn> getter steps are to return
+<a>this</a>'s <a>notification</a>'s <a for=notification>language</a>.
 
-<p>The <dfn attribute for=Notification><code>body</code></dfn> attribute's getter must return the
-<a>notification</a>'s <a for=notification>body</a>.
+<p>The <dfn attribute for=Notification><code>body</code></dfn> getter steps are to return
+<a>this</a>'s <a>notification</a>'s <a for=notification>body</a>.
 
-<p>The <dfn attribute for=Notification><code>tag</code></dfn> attribute's getter must return the
-<a>notification</a>'s <a for=notification>tag</a>.
+<p>The <dfn attribute for=Notification><code>tag</code></dfn> getter steps are to return
+<a>this</a>'s <a>notification</a>'s <a for=notification>tag</a>.
 
-<p>The <dfn attribute dfn-for=Notification><code>image</code></dfn> attribute's getter must return
-the <a>notification</a>'s <a for=notification>image URL</a>, <a lt="url serializer">serialized</a>,
-and the empty string if there is no <a>notification</a>'s <a for=notification>image URL</a>
-otherwise.
-
-<p>The <dfn attribute for=Notification><code>icon</code></dfn> attribute's getter must return the
-<a>notification</a>'s <a for=notification>icon URL</a>, <a lt="url serializer">serialized</a>, and
-the empty string if there is no <a>notification</a>'s <a for=notification>icon URL</a> otherwise.
-
-<p>The <dfn attribute for=Notification><code>badge</code></dfn> attribute's getter must return the
-<a>notification</a>'s <a for=notification>badge URL</a>, <a lt="url serializer">serialized</a>, and
-the empty string if there is no <a>notification</a>'s <a for=notification>badge URL</a> otherwise.
-
-<p>The <dfn attribute for=Notification><code>vibrate</code></dfn> attribute's getter must return the
-<a>notification</a>'s <a for=notification>vibration pattern</a>, if any, and the empty list
-otherwise.
-
-<p>The <dfn attribute for=Notification><code>timestamp</code></dfn> attribute's getter must return
-the <a>notification</a>'s <a for=notification>timestamp</a>.
-
-<p>The <dfn attribute for=Notification><code>renotify</code></dfn> attribute's getter must return
-the <a>notification</a>'s <a for=notification>renotify preference flag</a>.
-
-<p>The <dfn attribute for=Notification><code>silent</code></dfn> attribute's getter must return the
-<a>notification</a>'s <a for=notification>silent preference flag</a>.
-
-<p>The <dfn attribute for=Notification><code>requireInteraction</code></dfn> attribute's getter must
-return the <a>notification</a>'s <a for=notification>require interaction preference flag</a>.
-
-<p>The <dfn attribute for=Notification><code>data</code></dfn> attribute's getter must return
-<a abstract-op>StructuredDeserialize</a>(<a>notification</a>'s <a for=notification>data</a>,
-<a>this</a>'s <a>relevant Realm</a>). If this throws an exception, then return null.
-<!-- Relies on SameObject becoming Cached as proposed -->
-
-<p>The <dfn attribute for=Notification><code>actions</code></dfn> attribute's getter must return the
-result of the following steps:
+<p>The <dfn attribute dfn-for=Notification><code>image</code></dfn> getter steps are:
 
 <ol>
-  <li><p>Let <var>frozenActions</var> be an empty list of type {{NotificationAction}}.
+ <li><p>If there is no <a>this</a>'s <a>notification</a>'s <a for=notification>image URL</a>, then
+ return the empty string.
 
-  <li><p>For each <var>entry</var> in the <a>notification</a>'s list of
-  <a for=notification>actions</a>, perform the following steps:
+ <li><p>Return <a>this</a>'s <a>notification</a>'s <a for=notification>image URL</a>,
+ <a lt="URL serializer">serialized</a>.
+</ol>
+
+<p>The <dfn attribute for=Notification><code>icon</code></dfn> getter steps are:
+
+<ol>
+ <li><p>If there is no <a>this</a>'s <a>notification</a>'s <a for=notification>icon URL</a>, then
+ return the empty string.
+
+ <li><p>Return <a>this</a>'s <a>notification</a>'s <a for=notification>icon URL</a>,
+ <a lt="URL serializer">serialized</a>.
+</ol>
+
+<p>The <dfn attribute for=Notification><code>badge</code></dfn> getter steps are:
+
+<ol>
+ <li><p>If there is no <a>this</a>'s <a>notification</a>'s <a for=notification>badge URL</a>, then
+ return the empty string.
+
+ <li><p>Return <a>this</a>'s <a>notification</a>'s <a for=notification>badge URL</a>,
+ <a lt="URL serializer">serialized</a>.
+</ol>
+
+<p>The <dfn attribute for=Notification><code>vibrate</code></dfn> getter steps are to return
+<a>this</a>'s <a>notification</a>'s <a for=notification>vibration pattern</a>.
+
+<p>The <dfn attribute for=Notification><code>timestamp</code></dfn> getter steps are to return
+<a>this</a>'s <a>notification</a>'s <a for=notification>timestamp</a>.
+
+<p>The <dfn attribute for=Notification><code>renotify</code></dfn> getter steps are to return
+<a>this</a>'s <a>notification</a>'s <a for=notification>renotify preference flag</a>.
+
+<p>The <dfn attribute for=Notification><code>silent</code></dfn> getter steps are to return
+<a>this</a>'s <a>notification</a>'s <a for=notification>silent preference flag</a>.
+
+<p>The <dfn attribute for=Notification><code>requireInteraction</code></dfn> getter steps are to
+return <a>this</a>'s <a>notification</a>'s
+<a for=notification>require interaction preference flag</a>.
+
+<p>The <dfn attribute for=Notification><code>data</code></dfn> getter steps are to return
+<a abstract-op>StructuredDeserialize</a>(<a>this</a>'s <a>notification</a>'s
+<a for=notification>data</a>, <a>this</a>'s <a>relevant Realm</a>). If this throws an exception,
+then return null.
+<!-- Relies on SameObject becoming Cached as proposed -->
+
+<p>The <dfn attribute for=Notification><code>actions</code></dfn> getter steps are:
+
+<ol>
+ <li><p>Let <var>frozenActions</var> be an empty list of type {{NotificationAction}}.
+
+ <li>
+  <p><a for=list>For each</a> <var>entry</var> of <a>this</a>'s <a>notification</a>'s list of
+  <a for=notification>actions</a>:
 
   <ol>
-    <li><p>Let <var>action</var> be a new {{NotificationAction}}.
+   <li><p>Let <var>action</var> be a new {{NotificationAction}}.
 
-    <li><p>Set <var>action</var>'s {{NotificationAction/action}} to
-    <var>entry</var>'s <a for=action>name</a>.
+   <li><p>Set <var>action</var>'s {{NotificationAction/action}} to <var>entry</var>'s
+   <a for=action>name</a>.
 
-    <li><p>Set <var>action</var>'s {{NotificationAction/title}} to
-    <var>entry</var>'s <a for=action>title</a>.
+   <li><p>Set <var>action</var>'s {{NotificationAction/title}} to <var>entry</var>'s
+   <a for=action>title</a>.
 
-    <li><p>Set <var>action</var>'s {{NotificationAction/icon}} to
-    <var>entry</var>'s <a for=action>icon URL</a>.
+   <li><p>Set <var>action</var>'s {{NotificationAction/icon}} to <var>entry</var>'s
+   <a for=action>icon URL</a>.
 
-    <!-- XXX IDL dictionaries are usually returned by value, so don't need to be
-         immutable. But FrozenArray reifies the dictionaries to mutable JS
-         objects accessed by reference, so we explicitly freeze them.
-         It would be better to do this with IDL primitives instead of JS - see
-         https://www.w3.org/Bugs/Public/show_bug.cgi?id=29004 -->
-    <li><p>Call <a lt="freeze">Object.freeze</a> on <var>action</var>, to
-    prevent accidental mutation by scripts.
+   <!-- XXX IDL dictionaries are usually returned by value, so don't need to be
+        immutable. But FrozenArray reifies the dictionaries to mutable JS
+        objects accessed by reference, so we explicitly freeze them.
+        It would be better to do this with IDL primitives instead of JS - see
+        https://www.w3.org/Bugs/Public/show_bug.cgi?id=29004 -->
+   <li><p>Call <a lt="freeze">Object.freeze</a> on <var>action</var>, to
+   prevent accidental mutation by scripts.
 
-    <li><p>Append <var>action</var> to <var>frozenActions</var>.
+   <li><p>Append <var>action</var> to <var>frozenActions</var>.
   </ol>
 
-  <li><p><a>Create a frozen array</a> from <var>frozenActions</var>.
+ <li><p><a>Create a frozen array</a> from <var>frozenActions</var>.
 </ol>
 
 <h3 id=examples>Examples</h3>
@@ -1115,11 +1132,10 @@ defaulting to the empty string), <a>Fire Functional Event</a> <var>name</var> us
  <dd><var>action</var>
 </dl>
 
-<p>The {{NotificationEvent/notification}} attribute's getter must return the
-value it was initialized to.
+<p>The {{NotificationEvent/notification}} getter steps are to return the value it was initialized
+to.
 
-<p>The {{NotificationEvent/action}} attribute's getter must return the value it
-was initialized to.
+<p>The {{NotificationEvent/action}} getter steps are to return the value it was initialized to.
 
 <p>The following is the <a>event handler</a> (and its corresponding
 <a>event handler event type</a>) that must be supported as attribute by the
