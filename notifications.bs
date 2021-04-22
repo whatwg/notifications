@@ -9,6 +9,14 @@ Translation: ja https://triple-underscore.github.io/notifications-ja.html
 Translation: zh-cn https://w3c-html-ig-zh.github.io/notifications/whatwg/
 </pre>
 
+<!-- Remove this once https://github.com/whatwg/html/pull/6360 is resolved. -->
+<pre class=anchors>
+urlPrefix: https://html.spec.whatwg.org/multipage/webappapis.html#; spec: html;
+    type: dfn;
+        text: DOM manipulation task source; url: dom-manipulation-task-source
+</pre>
+
+
 <h2 id=terminology>Terminology</h2>
 
 <p>This specification depends on the Infra Standard. [[!INFRA]]
