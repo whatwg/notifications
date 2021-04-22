@@ -859,13 +859,13 @@ return the <a>notification</a>'s <a for=notification>require interaction prefere
 result of the following steps:
 
 <ol>
-  <li><p>Let <var>frozenActions</var> be an empty list of type {{NotificationAction}}.
+  <li><p>Let <var>frozenActions</var> be a new <a for=/>list</a>.
 
   <li><p>For each <var>entry</var> in the <a>notification</a>'s list of
   <a for=notification>actions</a>, perform the following steps:
 
   <ol>
-    <li><p>Let <var>action</var> be a new {{NotificationAction}}.
+    <li><p>Let <var>action</var> be a new {{NotificationAction}} <a for=/>dictionary</a>.
 
     <li><p>Set <var>action</var>'s {{NotificationAction/action}} to
     <var>entry</var>'s <a for=action>name</a>.
@@ -876,15 +876,15 @@ result of the following steps:
     <li><p>Set <var>action</var>'s {{NotificationAction/icon}} to
     <var>entry</var>'s <a for=action>icon URL</a>.
 
-    <!-- XXX IDL dictionaries are usually returned by value, so don't need to be
-         immutable. But FrozenArray reifies the dictionaries to mutable JS
-         objects accessed by reference, so we explicitly freeze them.
-         It would be better to do this with IDL primitives instead of JS - see
-         https://www.w3.org/Bugs/Public/show_bug.cgi?id=29004 -->
-    <li><p>Call <a lt="freeze">Object.freeze</a> on <var>action</var>, to
-    prevent accidental mutation by scripts.
+    <li><p>Let <var>jsAction</var> be <var>action</var>, <a>converted to an ECMAScript value</a>.
 
-    <li><p>Append <var>action</var> to <var>frozenActions</var>.
+    <li><p>Perform <a abstract-op>SetIntegrityLevel</a>(<var>jsAction</var>, "frozen").
+
+    <li><p>Let <var>idlAction</var> be <var>jsAction</var>, <a>converted to an IDL value</a>.
+    <!-- See https://www.w3.org/Bugs/Public/show_bug.cgi?id=29004 about replacing the above 3 steps
+         with something simpler. -->
+
+    <li><p><a for=list>Append</a> <var>idlAction</var> to <var>frozenActions</var>.
   </ol>
 
   <li><p><a>Create a frozen array</a> from <var>frozenActions</var>.
@@ -1195,8 +1195,8 @@ urlPrefix: https://w3c.github.io/vibration/
         text: validate and normalize
     urlPrefix: #idl-def-; type: interface
         text: VibratePattern; url: vibratepattern
-urlPrefix: https://tc39.github.io/ecma262/#sec-object.; type: dfn
-    text: freeze
+urlPrefix: https://tc39.github.io/ecma262/#sec-; spec: ECMA-262; type: abstract-op
+    text: SetIntegrityLevel
 </pre>
 
 <pre class="biblio">
