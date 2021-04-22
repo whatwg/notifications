@@ -9,6 +9,14 @@ Translation: ja https://triple-underscore.github.io/notifications-ja.html
 Translation: zh-cn https://w3c-html-ig-zh.github.io/notifications/whatwg/
 </pre>
 
+<!-- Remove this once https://github.com/whatwg/html/pull/6360 is resolved. -->
+<pre class=anchors>
+urlPrefix: https://html.spec.whatwg.org/multipage/webappapis.html#; spec: html;
+    type: dfn;
+        text: DOM manipulation task source; url: dom-manipulation-task-source
+</pre>
+
+
 <h2 id=terminology>Terminology</h2>
 
 <p>This specification depends on the Infra Standard. [[!INFRA]]
@@ -154,82 +162,80 @@ these steps:
   <var>serviceWorkerRegistration</var>.
 
   <li><p>If a <var>serviceWorkerRegistration</var> was not provided and
-  <var>options</var>'s <code>actions</code> is not empty, <a>throw</a> a
-  <code>TypeError</code> exception.
+  <var>options</var>["{{NotificationOptions/actions}}"] is not empty, then <a>throw</a> a
+  {{TypeError}}.
 
   <p class=note><a>Actions</a> are only currently supported for
   <a>persistent notifications</a>.
 
-  <li><p>If <var>options</var>'s <code>silent</code> is true and <var>options</var>'s
-  <code>vibrate</code> is present, <a>throw</a> a <code>TypeError</code>
-  exception.
+  <li><p>If <var>options</var>["{{NotificationOptions/silent}}"] is true and
+  <var>options</var>["{{NotificationOptions/vibrate}}"] <a for=map>exists</a>, then <a>throw</a> a
+  {{TypeError}}.
 
-  <li><p>If <var>options</var>'s <code>renotify</code> is true and
-  <var>options</var>'s <code>tag</code> is the empty string, <a>throw</a> a
-  <code>TypeError</code> exception.
+  <li><p>If <var>options</var>["{{NotificationOptions/renotify}}"] is true and
+  <var>options</var>["{{NotificationOptions/tag}}"] is the empty string, then <a>throw</a> a
+  {{TypeError}}.
 
   <li><p>Set <var>notification</var>'s <a for=notification>data</a> to
-  <a abstract-op>StructuredSerializeForStorage</a>(<var>options</var>'s <code>data</code>). Rethrow
-  any exceptions.
+  <a abstract-op>StructuredSerializeForStorage</a>(<var>options</var>["{{NotificationOptions/data}}"]).
 
   <li><p>Set <var>notification</var>'s <a for=notification>title</a> to <var>title</var>.
 
   <li><p>Set <var>notification</var>'s
-  <a for=notification>direction</a> to <var>options</var>'s
-  <code>dir</code>.
+  <a for=notification>direction</a> to <var>options</var>["{{NotificationOptions/dir}}"].
 
   <li><p>Set <var>notification</var>'s <a for=notification>language</a> to
-  <var>options</var>'s <code>lang</code>.
+  <var>options</var>["{{NotificationOptions/lang}}"].
 
   <li><p>Set <var>notification</var>'s <a for=notification>origin</a> to the
   <a>entry settings object</a>'s <a for="environment settings object">origin</a>.
 
-  <li><p>Set <var>notification</var>'s <a for=notification>body</a> to <var>options</var>'s
-  <code>body</code>.
+  <li><p>Set <var>notification</var>'s <a for=notification>body</a> to
+  <var>options</var>["{{NotificationOptions/body}}"].
 
-  <li><p>Set <var>notification</var>'s <a for=notification>tag</a> to <var>options</var>'s
-  <code>tag</code>.
+  <li><p>Set <var>notification</var>'s <a for=notification>tag</a> to
+  <var>options</var>["{{NotificationOptions/tag}}"].
 
   <li><p>Let <var>baseURL</var> be the API base URL specified by the
   <a>entry settings object</a>. <span class=XXX>Or incumbent?</span>
 
-  <li><p>If <var>options</var>'s <code>image</code> is present,
+  <li><p>If <var>options</var>["{{NotificationOptions/image}}"] <a for=map>exists</a>,
   <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
   return failure, set <var>notification</var>'s <a>image URL</a> to the return
   value. (Otherwise <a>image URL</a> is not set.)
 
-  <li><p>If <var>options</var>'s <code>icon</code> is present,
+  <li><p>If <var>options</var>["{{NotificationOptions/icon}}"] <a for=map>exists</a>,
   <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
   return failure, set <var>notification</var>'s <a for=notification>icon URL</a> to the return
   value. (Otherwise <a for=notification>icon URL</a> is not set.)
 
-  <li><p>If <var>options</var>'s <code>badge</code> is present,
+  <li><p>If <var>options</var>["{{NotificationOptions/badge}}"] <a for=map>exists</a>,
   <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
   return failure, set <var>notification</var>'s <a for=notification>badge URL</a> to the return
   value. (Otherwise <a for=notification>badge URL</a> is not set.)
 
-  <li><p>If <var>options</var>'s <code>vibrate</code> is present,
+  <li><p>If <var>options</var>["{{NotificationOptions/vibrate}}"] <a for=map>exists</a>,
   <a>validate and normalize</a> it and set <var>notification</var>'s
   <a for=notification>vibration pattern</a> to the return value. (Otherwise
   <a for=notification>vibration pattern</a> is not set.)
 
-  <li><p>If <var>options</var>'s <code>timestamp</code> is present, set
+  <li><p>If <var>options</var>["{{NotificationOptions/timestamp}}"] <a for=map>exists</a>, set
   <var>notification</var>'s <a for=notification>timestamp</a> to the value. Otherwise, set
   <var>notification</var>'s <a for=notification>timestamp</a> to the number of milliseconds that
   passed between 00:00:00 UTC on 1 January 1970 and the time at which the
   <code>Notification</code> constructor was called.
 
-  <li><p>If <var>options</var>'s <code>renotify</code> is true, set
+  <li><p>If <var>options</var>["{{NotificationOptions/renotify}}"] is true, set
   <var>notification</var>'s <a for=notification>renotify preference flag</a>.
 
-  <li><p>If <var>options</var>'s <code>silent</code> is true, set
+  <li><p>If <var>options</var>["{{NotificationOptions/silent}}"] is true, set
   <var>notification</var>'s <a for=notification>silent preference flag</a>.
 
-  <li><p>If <var>options</var>'s <code>requireInteraction</code> is true, set
+  <li><p>If <var>options</var>["{{NotificationOptions/requireInteraction}}"] is true, set
   <var>notification</var>'s <a for=notification>require interaction preference flag</a>.
 
   <li><p>Set <var>notification</var>'s list of <a>actions</a> to an empty list,
-  then for each <var>entry</var> in <var>options</var>'s <code>actions</code>,
+  then for each <var>entry</var> in <var>options</var>["{{NotificationOptions/actions}}"],
   up to the <a>maximum number of actions</a> supported (skip any excess
   entries), perform the following steps:
 
@@ -686,7 +692,7 @@ constructor, when invoked, must run these steps:
 
 <ol>
   <li><p>If the <a>current global object</a> is a {{ServiceWorkerGlobalScope}} object, then
-  <a>throw</a> a <code>TypeError</code> exception.
+  <a>throw</a> a {{TypeError}}.
 
   <li><p>Let <var>notification</var> be the result of <a>creating a notification</a> given
   <var>title</var> and <var>options</var>. Rethrow any exceptions.
@@ -721,36 +727,40 @@ permissions are like synchronous IO, a bad idea.
 
 <p>The static
 <dfn method for=Notification><code>requestPermission(<var>deprecatedCallback</var>)</code></dfn>
-method, when invoked, must run these steps:
+method steps are:
 
 <ol>
- <li><p>Let <var>promise</var> be a new promise.
+ <li><p>Let <var>global</var> be <a>this</a>'s <a>relevant global object</a>.
+
+ <li><p>Let <var>origin</var> be <a>this</a>'s <a>relevant settings object</a>'s
+ <a for="environment settings object">origin</a>.
+ <!-- Arguably this should snapshot origin somehow so that changes to it do not impact the
+      in parallel part. -->
+
+ <li><p>Let <var>promise</var> be <a for=/>a new promise</a> in <a>this</a>'s <a>relevant Realm</a>.
 
  <li>
   <p>Run these steps <a>in parallel</a>:
 
   <ol>
-   <li><p>Let <var>permission</var> be <a>permission</a> for
-   <a>entry settings object</a>'s <a for="environment settings object">origin</a>.
-   <!-- XXX context object's global object's environment settings object's origin -->
+   <li><p>Let <var>permission</var> be <a>permission</a> for <var>origin</var>.
 
-   <li><p>If <var>permission</var> is "<code>default</code>", ask the user whether showing
-   notifications for the <a>entry settings object</a>'s
-   <a for="environment settings object">origin</a> is acceptable. If it is, set
-   <var>permission</var> to "<code>granted</code>", and "<code>denied</code>" otherwise.
+   <li><p>If <var>permission</var> is "<code>default</code>", then ask the user whether showing
+   notifications for <var>origin</var> is acceptable. If it is, then set <var>permission</var> to
+   "<code>granted</code>"; otherwise "<code>denied</code>".
 
    <li>
-    <p><a>Queue a task</a> to run these steps:
+    <p><a>Queue a global task</a> on the <a>DOM manipulation task source</a> given <var>global</var>
+    to run these steps:
 
     <ol>
-     <li><p>Set <a>permission</a> for the <a>entry settings object</a>'s
-     <a for="environment settings object">origin</a> to <var>permission</var>.
+     <li><p>Set <a>permission</a> for <var>origin</var> to <var>permission</var>.
 
-     <li><p>If <var>deprecatedCallback</var> is given, invoke
-     <var>deprecatedCallback</var> with <var>permission</var> as single argument. If this
-     throws an exception, <a>report the exception</a>.
+     <li><p>If <var>deprecatedCallback</var> is given, then <a for=/>invoke</a>
+     <var>deprecatedCallback</var> with « <var>permission</var> ». If this throws an exception, then
+     <a>report the exception</a>.
 
-     <li><p>Fullfil <var>promise</var> with <var>permission</var>.
+     <li><p><a for=/>Resolve</a> <var>promise</var> with <var>permission</var>.
     </ol>
   </ol>
 
@@ -842,7 +852,7 @@ return the <a>notification</a>'s <a for=notification>require interaction prefere
 
 <p>The <dfn attribute for=Notification><code>data</code></dfn> attribute's getter must return
 <a abstract-op>StructuredDeserialize</a>(<a>notification</a>'s <a for=notification>data</a>,
-<a>context object</a>'s <a>relevant Realm</a>). If this throws an exception, then return null.
+<a>this</a>'s <a>relevant Realm</a>). If this throws an exception, then return null.
 <!-- Relies on SameObject becoming Cached as proposed -->
 
 <p>The <dfn attribute for=Notification><code>actions</code></dfn> attribute's getter must return the
@@ -1002,69 +1012,89 @@ partial interface ServiceWorkerGlobalScope {
 };
 </pre>
 
-<p>The
-<dfn method for=ServiceWorkerRegistration><code>showNotification(title, options)</code></dfn>
-method, when invoked, must run these steps:
+<p>The <dfn method for=ServiceWorkerRegistration><code>showNotification(title, options)</code></dfn>
+method steps are:
 
 <ol>
-  <li><p>Let <var>promise</var> be a new promise.
+ <li><p>Let <var>global</var> be <a>this</a>'s <a>relevant global object</a>
 
-  <li><p>If the <a>context object</a>'s <a for="service worker registration">active worker</a> is
-  null, then reject <var>promise</var> with a <code>TypeError</code> exception and return
-  <var>promise</var>.
+ <li><p>Let <var>promise</var> be <a>a new promise</a> in <a>this</a>'s <a>relevant Realm</a>.
 
-  <li><p>Let <var>serviceWorkerRegistration</var> be the <a>context object</a>.
+ <li><p>If <a>this</a>'s <a for="service worker registration">active worker</a> is null, then
+ <a for=/>reject</a> <var>promise</var> with a {{TypeError}} and return <var>promise</var>.
+ <!-- We might have to throw directly here and below, see
+      https://github.com/web-platform-tests/wpt/pull/24601 -->
 
-  <li><p>Let <var>notification</var> be the result of <a>creating a notification</a> given
-  <var>title</var>, <var>options</var>, and <var>serviceWorkerRegistration</var>. If this threw an
-  exception, reject <var>promise</var> with that exception and return <var>promise</var>.
+ <li><p>Let <var>serviceWorkerRegistration</var> be <a>this</a>.
 
-  <li><p>Run these steps <a>in parallel</a>:
+ <li><p>Let <var>notification</var> be the result of <a>creating a notification</a> given
+ <var>title</var>, <var>options</var>, and <var>serviceWorkerRegistration</var>. If this threw an
+ exception, then <a for=/>reject</a> <var>promise</var> with that exception and return
+ <var>promise</var>.
+
+ <li>
+  <p>Run these steps <a>in parallel</a>:
 
   <ol>
-    <li><p>If <a>permission</a> for <var>notification</var>'s <a for=notification>origin</a> is not
-    "<code>granted</code>", then reject <var>promise</var> with a <code>TypeError</code> exception,
-    and abort these steps.
+   <li><p>If <a>permission</a> for <var>notification</var>'s <a for=notification>origin</a> is not
+   "<code>granted</code>", then <a>queue a global task</a> on the
+   <a>DOM manipulation task source</a> given <var>global</var> to <a for=/>reject</a>
+   <var>promise</var> with a {{TypeError}}, and abort these steps.
 
-    <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
+   <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
 
-    <li><p>Run the <a>show steps</a> for <var>notification</var>.
+   <li><p>Run the <a>show steps</a> for <var>notification</var>.
 
-    <li><p>Resolve <var>promise</var> with undefined.
+   <li><p><a>Queue a global task</a> on the <a>DOM manipulation task source</a> given
+   <var>global</var> to <a for=/>resolve</a> <var>promise</var> with undefined.
   </ol>
 
-  <li><p>Return <var>promise</var>.
+ <li><p>Return <var>promise</var>.
 </ol>
 
 <p>The
 <dfn method for=ServiceWorkerRegistration><code>getNotifications(<var>filter</var>)</code></dfn>
-method, when invoked, must run these steps:
+method steps are:
 
 <ol>
-  <li><p>Let <var>promise</var> be a new promise.
+ <li><p>Let <var>global</var> be <a>this</a>'s <a>relevant global object</a>.
 
-  <li><p>Run these steps <a>in parallel</a>:
+ <li><p>Let <var>realm</var> be <a>this</a>'s <a>relevant Realm</a>.
+
+ <li><p>Let <var>origin</var> be <a>this</a>'s <a>relevant settings object</a>'s
+ <a for="environment settings object">origin</a>.
+ <!-- Arguably this should snapshot origin somehow so that changes to it do not impact the
+      in parallel part. -->
+
+ <li><p>Let <var>promise</var> be <a for=/>a new promise</a> in <var>realm</var>.
+
+ <li>
+  <p>Run these steps <a>in parallel</a>:
 
   <ol>
-    <li><p>Let <var>tag</var> be <var>filter</var>'s <code>tag</code>.
+   <li><p>Let <var>tag</var> be <var>filter</var>["{{GetNotificationOptions/tag}}"].
 
-    <li><p>Let <var>notifications</var> be a <a for=/>list</a> of all <a>notifications</a> in the
-    <a>list of notifications</a> whose <a for=notification>origin</a> is the
-    <a>entry settings object</a>'s <a for="environment settings object">origin</a>, whose
-    <a for=notification>service worker registration</a> is the <a>context object</a>, and whose
-    <a for=notification>tag</a>, if <var>tag</var> is not the empty string, is <var>tag</var>.
+   <li><p>Let <var>notifications</var> be a <a for=/>list</a> of all <a>notifications</a> in the
+   <a>list of notifications</a> whose <a for=notification>origin</a> is <a>same origin</a> with
+   <var>origin</var>, whose <a for=notification>service worker registration</a> is <a>this</a>, and
+   whose <a for=notification>tag</a>, if <var>tag</var> is not the empty string, is <var>tag</var>.
 
-    <li><p>Let <var>objects</var> be an empty JavaScript array.
+   <li>
+    <p><a>Queue a global task</a> on the <a>DOM manipulation task source</a> given <var>global</var>
+    to run these steps:</p>
 
-    <li><p><a for=list>For each</a> <a>notification</a> in
-    <var>notifications</var>, in creation order, create a new {{Notification}}
-    object representing <a>notification</a> and push
-    that object to <var>objects</var>.
+    <ol>
+     <li><p>Let <var>objects</var> be a <a for=/>list</a>.
 
-    <li><p>Resolve <var>promise</var> with <var>objects</var>.
+     <li><p><a for=list>For each</a> <a>notification</a> in <var>notifications</var>, in creation
+     order, create a <a for=/>new</a> {{Notification}} object with <var>realm</var> representing
+     <a>notification</a>, and <a for=list>append</a> it to <var>objects</var>.
+
+     <li><p><a for=/>Resolve</a> <var>promise</var> with <var>objects</var>.
+    </ol>
   </ol>
 
-  <li><p>Return <var>promise</var>.
+ <li><p>Return <var>promise</var>.
 </ol>
 
 <p class=note>This method returns zero or more new {{Notification}} objects which might represent
