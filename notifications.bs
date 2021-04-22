@@ -852,7 +852,7 @@ return the <a>notification</a>'s <a for=notification>require interaction prefere
 
 <p>The <dfn attribute for=Notification><code>data</code></dfn> attribute's getter must return
 <a abstract-op>StructuredDeserialize</a>(<a>notification</a>'s <a for=notification>data</a>,
-<a>context object</a>'s <a>relevant Realm</a>). If this throws an exception, then return null.
+<a>this</a>'s <a>relevant Realm</a>). If this throws an exception, then return null.
 <!-- Relies on SameObject becoming Cached as proposed -->
 
 <p>The <dfn attribute for=Notification><code>actions</code></dfn> attribute's getter must return the
