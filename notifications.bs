@@ -73,18 +73,20 @@ or in the future for a meeting that is about to start.
 <dfn for=notification id=concept-origin>origin</dfn>.
 
 <p>A <a>notification</a> has an associated
-<dfn for=notification id=renotify-preference-flag>renotify preference flag</dfn> which is initially
-unset. When set indicates that the end user should be alerted after the <a>show steps</a> have run
-with a new notification that has the same <a for=notification>tag</a> as an existing notification.
+<dfn for=notification id=renotify-preference-flag>renotify preference</dfn> boolean, which is
+initially false. When true, indicates that the end user should be alerted after the
+<a>show steps</a> have run with a new notification that has the same <a for=notification>tag</a> as
+an existing notification.
 
 <p>A <a>notification</a> has an associated
-<dfn for=notification id=silent-preference-flag>silent preference flag</dfn> which is initially
-unset. When set indicates that no sounds or vibrations should be made.
+<dfn for=notification id=silent-preference-flag>silent preference</dfn> boolean, which is initially
+false. When true, indicates that no sounds or vibrations should be made.
 
 <p>A <a>notification</a> has an associated
-<dfn for=notification id=require-interaction-preference-flag>require interaction preference flag</dfn>
-which is initially unset. When set, indicates that on devices with a sufficiently large screen, the
-notification should remain readily available until the user activates or dismisses the notification.
+<dfn for=notification id=require-interaction-preference-flag>require interaction preference</dfn>
+boolean, which is initially false. When true, indicates that on devices with a sufficiently large
+screen, the notification should remain readily available until the user activates or dismisses the
+notification.
 
 <p>A <a>notification</a> <em>can</em> have these associated graphics: an
 <dfn for=notification id=image-url>image URL</dfn>,
@@ -154,107 +156,103 @@ clipped corners.
 these steps:
 
 <ol>
-  <li><p>Let <var>notification</var> be a new
-  <a>notification</a>.
+ <li><p>Let <var>notification</var> be a new <a>notification</a>.
 
-  <li><p>If a <var>serviceWorkerRegistration</var> was provided, set
-  <var>notification</var>'s <a for=notification>service worker registration</a> to
-  <var>serviceWorkerRegistration</var>.
+ <li><p>If a <var>serviceWorkerRegistration</var> was provided, then set <var>notification</var>'s
+ <a for=notification>service worker registration</a> to <var>serviceWorkerRegistration</var>.
 
-  <li><p>If a <var>serviceWorkerRegistration</var> was not provided and
+ <li>
+  <p>If a <var>serviceWorkerRegistration</var> was not provided and
   <var>options</var>["{{NotificationOptions/actions}}"] is not empty, then <a>throw</a> a
   {{TypeError}}.
 
-  <p class=note><a>Actions</a> are only currently supported for
-  <a>persistent notifications</a>.
+  <p class=note><a>Actions</a> are only currently supported for <a>persistent notifications</a>.
 
-  <li><p>If <var>options</var>["{{NotificationOptions/silent}}"] is true and
-  <var>options</var>["{{NotificationOptions/vibrate}}"] <a for=map>exists</a>, then <a>throw</a> a
-  {{TypeError}}.
+ <li><p>If <var>options</var>["{{NotificationOptions/silent}}"] is true and
+ <var>options</var>["{{NotificationOptions/vibrate}}"] <a for=map>exists</a>, then <a>throw</a> a
+ {{TypeError}}.
 
-  <li><p>If <var>options</var>["{{NotificationOptions/renotify}}"] is true and
-  <var>options</var>["{{NotificationOptions/tag}}"] is the empty string, then <a>throw</a> a
-  {{TypeError}}.
+ <li><p>If <var>options</var>["{{NotificationOptions/renotify}}"] is true and
+ <var>options</var>["{{NotificationOptions/tag}}"] is the empty string, then <a>throw</a> a
+ {{TypeError}}.
 
-  <li><p>Set <var>notification</var>'s <a for=notification>data</a> to
-  <a abstract-op>StructuredSerializeForStorage</a>(<var>options</var>["{{NotificationOptions/data}}"]).
+ <li><p>Set <var>notification</var>'s <a for=notification>data</a> to
+ <a abstract-op>StructuredSerializeForStorage</a>(<var>options</var>["{{NotificationOptions/data}}"]).
 
-  <li><p>Set <var>notification</var>'s <a for=notification>title</a> to <var>title</var>.
+ <li><p>Set <var>notification</var>'s <a for=notification>title</a> to <var>title</var>.
 
-  <li><p>Set <var>notification</var>'s
-  <a for=notification>direction</a> to <var>options</var>["{{NotificationOptions/dir}}"].
+ <li><p>Set <var>notification</var>'s <a for=notification>direction</a> to
+ <var>options</var>["{{NotificationOptions/dir}}"].
 
-  <li><p>Set <var>notification</var>'s <a for=notification>language</a> to
-  <var>options</var>["{{NotificationOptions/lang}}"].
+ <li><p>Set <var>notification</var>'s <a for=notification>language</a> to
+ <var>options</var>["{{NotificationOptions/lang}}"].
 
-  <li><p>Set <var>notification</var>'s <a for=notification>origin</a> to the
-  <a>entry settings object</a>'s <a for="environment settings object">origin</a>.
+ <li><p>Set <var>notification</var>'s <a for=notification>origin</a> to the
+ <a>entry settings object</a>'s <a for="environment settings object">origin</a>.
 
-  <li><p>Set <var>notification</var>'s <a for=notification>body</a> to
-  <var>options</var>["{{NotificationOptions/body}}"].
+ <li><p>Set <var>notification</var>'s <a for=notification>body</a> to
+ <var>options</var>["{{NotificationOptions/body}}"].
 
-  <li><p>Set <var>notification</var>'s <a for=notification>tag</a> to
-  <var>options</var>["{{NotificationOptions/tag}}"].
+ <li><p>Set <var>notification</var>'s <a for=notification>tag</a> to
+ <var>options</var>["{{NotificationOptions/tag}}"].
 
-  <li><p>Let <var>baseURL</var> be the API base URL specified by the
-  <a>entry settings object</a>. <span class=XXX>Or incumbent?</span>
+ <li><p>Let <var>baseURL</var> be the API base URL specified by the
+ <a>entry settings object</a>. <span class=XXX>Or incumbent?</span>
 
-  <li><p>If <var>options</var>["{{NotificationOptions/image}}"] <a for=map>exists</a>,
-  <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
-  return failure, set <var>notification</var>'s <a>image URL</a> to the return
-  value. (Otherwise <a>image URL</a> is not set.)
+ <li><p>If <var>options</var>["{{NotificationOptions/image}}"] <a for=map>exists</a>, then
+ <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not return failure, set
+ <var>notification</var>'s <a>image URL</a> to the return value. (Otherwise <a>image URL</a> is not
+ set.)
 
-  <li><p>If <var>options</var>["{{NotificationOptions/icon}}"] <a for=map>exists</a>,
-  <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
-  return failure, set <var>notification</var>'s <a for=notification>icon URL</a> to the return
-  value. (Otherwise <a for=notification>icon URL</a> is not set.)
+ <li><p>If <var>options</var>["{{NotificationOptions/icon}}"] <a for=map>exists</a>, then
+ <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not return failure, set
+ <var>notification</var>'s <a for=notification>icon URL</a> to the return value. (Otherwise
+ <a for=notification>icon URL</a> is not set.)
 
-  <li><p>If <var>options</var>["{{NotificationOptions/badge}}"] <a for=map>exists</a>,
-  <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not
-  return failure, set <var>notification</var>'s <a for=notification>badge URL</a> to the return
-  value. (Otherwise <a for=notification>badge URL</a> is not set.)
+ <li><p>If <var>options</var>["{{NotificationOptions/badge}}"] <a for=map>exists</a>, then
+ <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not return failure, set
+ <var>notification</var>'s <a for=notification>badge URL</a> to the return value. (Otherwise
+ <a for=notification>badge URL</a> is not set.)
 
-  <li><p>If <var>options</var>["{{NotificationOptions/vibrate}}"] <a for=map>exists</a>,
-  <a>validate and normalize</a> it and set <var>notification</var>'s
-  <a for=notification>vibration pattern</a> to the return value. (Otherwise
-  <a for=notification>vibration pattern</a> is not set.)
+ <li><p>If <var>options</var>["{{NotificationOptions/vibrate}}"] <a for=map>exists</a>,
+ <a>validate and normalize</a> it and set <var>notification</var>'s
+ <a for=notification>vibration pattern</a> to the return value.
 
-  <li><p>If <var>options</var>["{{NotificationOptions/timestamp}}"] <a for=map>exists</a>, set
-  <var>notification</var>'s <a for=notification>timestamp</a> to the value. Otherwise, set
-  <var>notification</var>'s <a for=notification>timestamp</a> to the number of milliseconds that
-  passed between 00:00:00 UTC on 1 January 1970 and the time at which the
-  <code>Notification</code> constructor was called.
+ <li><p>If <var>options</var>["{{NotificationOptions/timestamp}}"] <a for=map>exists</a>, then set
+ <var>notification</var>'s <a for=notification>timestamp</a> to the value. Otherwise, set
+ <var>notification</var>'s <a for=notification>timestamp</a> to the number of milliseconds that
+ passed between 00:00:00 UTC on 1 January 1970 and the time at which the {{Notification}}
+ constructor was called.
 
-  <li><p>If <var>options</var>["{{NotificationOptions/renotify}}"] is true, set
-  <var>notification</var>'s <a for=notification>renotify preference flag</a>.
+ <li><p>Set <var>notification</var>'s <a for=notification>renotify preference</a> to
+ <var>options</var>["{{NotificationOptions/renotify}}"].
 
-  <li><p>If <var>options</var>["{{NotificationOptions/silent}}"] is true, set
-  <var>notification</var>'s <a for=notification>silent preference flag</a>.
+ <li><p>Set <var>notification</var>'s <a for=notification>silent preference</a> to
+ <var>options</var>["{{NotificationOptions/silent}}"].
 
-  <li><p>If <var>options</var>["{{NotificationOptions/requireInteraction}}"] is true, set
-  <var>notification</var>'s <a for=notification>require interaction preference flag</a>.
+ <li><p>Set <var>notification</var>'s <a for=notification>require interaction preference</a> to
+ <var>options</var>["{{NotificationOptions/requireInteraction}}"].
 
-  <li><p>Set <var>notification</var>'s list of <a>actions</a> to an empty list,
-  then for each <var>entry</var> in <var>options</var>["{{NotificationOptions/actions}}"],
-  up to the <a>maximum number of actions</a> supported (skip any excess
-  entries), perform the following steps:
+ <li>
+  <p>Set <var>notification</var>'s list of <a>actions</a> to an empty list, then for each
+  <var>entry</var> in <var>options</var>["{{NotificationOptions/actions}}"], up to the
+  <a>maximum number of actions</a> supported (skip any excess entries), perform the following steps:
 
   <ol>
-    <li><p>Let <var>action</var> be a new <a lt="actions">action</a>.
+   <li><p>Let <var>action</var> be a new <a lt="actions">action</a>.
 
-    <li><p>Set <var>action</var>'s <a for=action>name</a> to the <var>entry</var>'s
-    <code>action</code>.
+   <li><p>Set <var>action</var>'s <a for=action>name</a> to
+   <var>entry</var>["{{NotificationAction/action}}"].
 
-    <li><p>Set <var>action</var>'s <a for=action>title</a> to the
-    <var>entry</var>'s <code>title</code>.
+   <li><p>Set <var>action</var>'s <a for=action>title</a> to
+   <var>entry</var>["{{NotificationAction/title}}"].
 
-    <li><p>If <var>entry</var>'s <code>icon</code> is present,
-    <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does
-    not return failure, set <var>action</var>'s <a for=action>icon URL</a> to the
-    return value. (Otherwise <a for=action>icon URL</a> is not set.)
+   <li><p>If <var>entry</var>["{{NotificationAction/icon}}"] <a for=map>exists</a>, then
+   <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not return failure,
+   set <var>action</var>'s <a for=action>icon URL</a> to the return value. (Otherwise
+   <a for=action>icon URL</a> is not set.)
 
-    <li><p>Append <var>action</var> to <var>notification</var>'s list of
-    <a>actions</a>.
+   <li><p>Append <var>action</var> to <var>notification</var>'s list of <a>actions</a>.
   </ol>
 
   <li><p>Return <var>notification</var>.
@@ -502,9 +500,9 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
    notification platform API).
   </ol>
 
- <li><p>If <var>shown</var> is false or <var>oldNotification</var> is non-null and
- <var>notification</var>'s <a for=notification>renotify preference flag</a> has been set, then run
- the <a>alert steps</a> for <var>notification</var>.
+ <li><p>If <var>shown</var> is false or <var>oldNotification</var> is non-null, and
+ <var>notification</var>'s <a for=notification>renotify preference</a> is true, then run the
+ <a>alert steps</a> for <var>notification</var>.
 
  <li><p>If <var>notification</var> is a <a>non-persistent notification</a>, then <a>queue a task</a>
  to <a>fire an event</a> named <code>show</code> on the {{Notification}} object representing
@@ -688,7 +686,7 @@ object and can be created through {{Notification}}'s
 <h3 id=constructors>Constructors</h3>
 
 <p>The
-<dfn constructor for=Notification lt="Notification(title, options)"><code>new Notification(title, options)</code></dfn>
+<dfn constructor for=Notification lt="Notification(title, options)"><code>new Notification(<var>title</var>, <var>options</var>)</code></dfn>
 constructor steps are:
 
 <ol>
@@ -696,7 +694,7 @@ constructor steps are:
  <a>throw</a> a {{TypeError}}.
 
  <li><p>Let <var>notification</var> be the result of <a>creating a notification</a> given
- <var>title</var> and <var>options</var>. Rethrow any exceptions.
+ <var>title</var> and <var>options</var>.
 
  <li><p>Associate <a>this</a> with <var>notification</var>.
 
@@ -772,7 +770,7 @@ pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">
 many more suitable alternatives</a>.
 
-<p>The static <dfn attribute for=Notification><code>maxActions</code></dfn> geter steps are to
+<p>The static <dfn attribute for=Notification><code>maxActions</code></dfn> getter steps are to
 return the <a>maximum number of actions</a> supported.
 
 <h3 id=object-members>Object members</h3>
@@ -856,14 +854,13 @@ return the <a>maximum number of actions</a> supported.
 <a>this</a>'s <a>notification</a>'s <a for=notification>timestamp</a>.
 
 <p>The <dfn attribute for=Notification><code>renotify</code></dfn> getter steps are to return
-<a>this</a>'s <a>notification</a>'s <a for=notification>renotify preference flag</a>.
+<a>this</a>'s <a>notification</a>'s <a for=notification>renotify preference</a>.
 
 <p>The <dfn attribute for=Notification><code>silent</code></dfn> getter steps are to return
-<a>this</a>'s <a>notification</a>'s <a for=notification>silent preference flag</a>.
+<a>this</a>'s <a>notification</a>'s <a for=notification>silent preference</a>.
 
 <p>The <dfn attribute for=Notification><code>requireInteraction</code></dfn> getter steps are to
-return <a>this</a>'s <a>notification</a>'s
-<a for=notification>require interaction preference flag</a>.
+return <a>this</a>'s <a>notification</a>'s <a for=notification>require interaction preference</a>.
 
 <p>The <dfn attribute for=Notification><code>data</code></dfn> getter steps are to return
 <a abstract-op>StructuredDeserialize</a>(<a>this</a>'s <a>notification</a>'s
@@ -883,13 +880,13 @@ then return null.
   <ol>
    <li><p>Let <var>action</var> be a new {{NotificationAction}}.
 
-   <li><p>Set <var>action</var>'s {{NotificationAction/action}} to <var>entry</var>'s
+   <li><p>Set <var>action</var>["{{NotificationAction/action}}"] to <var>entry</var>'s
    <a for=action>name</a>.
 
-   <li><p>Set <var>action</var>'s {{NotificationAction/title}} to <var>entry</var>'s
+   <li><p>Set <var>action</var>["{{NotificationAction/title}}"] to <var>entry</var>'s
    <a for=action>title</a>.
 
-   <li><p>Set <var>action</var>'s {{NotificationAction/icon}} to <var>entry</var>'s
+   <li><p>Set <var>action</var>["{{NotificationAction/icon}}"] <var>entry</var>'s
    <a for=action>icon URL</a>.
 
    <!-- XXX IDL dictionaries are usually returned by value, so don't need to be
@@ -903,7 +900,7 @@ then return null.
    <li><p>Append <var>action</var> to <var>frozenActions</var>.
   </ol>
 
- <li><p><a>Create a frozen array</a> from <var>frozenActions</var>.
+ <li><p>Return the result of <a>create a frozen array</a> from <var>frozenActions</var>.
 </ol>
 
 <h3 id=examples>Examples</h3>
