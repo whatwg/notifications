@@ -205,7 +205,8 @@ string <var>title</var>, {{NotificationOptions}} <a for=/>dictionary</a> <var>op
  <li><p>Set <var>notification</var>'s <a for=notification>tag</a> to
  <var>options</var>["{{NotificationOptions/tag}}"].
 
- <li><p>Let <var>baseURL</var> be the API base URL specified by <var>settings</var>.
+ <li><p>Let <var>baseURL</var> be <var>settings</var>'s
+ <a for="environment settings object">API base URL</a>.
 
  <li><p>If <var>options</var>["{{NotificationOptions/image}}"] <a for=map>exists</a>, then
  <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not return failure, set
@@ -697,8 +698,8 @@ object and can be created through {{Notification}}'s
 constructor steps are:
 
 <ol>
- <li><p>If the <a>current global object</a> is a {{ServiceWorkerGlobalScope}} object, then
- <a>throw</a> a {{TypeError}}.
+ <li><p>If <a>this</a>'s <a>relevant global object</a> is a {{ServiceWorkerGlobalScope}} object,
+ then <a>throw</a> a {{TypeError}}.
 
  <li><p>Let <var>notification</var> be the result of <a>creating a notification</a> given
  <var>title</var>, <var>options</var>, and <a>this</a>'s <a>relevant settings object</a>.
@@ -723,7 +724,7 @@ constructor steps are:
 <h3 id=static-members>Static members</h3>
 
 <p>The static <dfn attribute for=Notification><code>permission</code></dfn> getter steps are to
-return the <a>permission</a> for <a>this</a>'s <a>relevant settings object</a>'s
+return the <a>permission</a> for the <a>current settings object</a>'s
 <a for="environment settings object">origin</a>.
 
 <p class=note>If you edit standards please refrain from copying the above. Synchronous
@@ -734,9 +735,9 @@ permissions are like synchronous IO, a bad idea.
 method steps are:
 
 <ol>
- <li><p>Let <var>global</var> be <a>this</a>'s <a>relevant global object</a>.
+ <li><p>Let <var>global</var> be the <a>current global object</a>.
 
- <li><p>Let <var>origin</var> be <a>this</a>'s <a>relevant settings object</a>'s
+ <li><p>Let <var>origin</var> be the <a>current settings object</a>'s
  <a for="environment settings object">origin</a>.
  <!-- Arguably this should snapshot origin somehow so that changes to it do not impact the
       in parallel part. -->
