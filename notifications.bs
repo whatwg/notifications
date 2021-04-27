@@ -9,11 +9,19 @@ Translation: ja https://triple-underscore.github.io/notifications-ja.html
 Translation: zh-cn https://w3c-html-ig-zh.github.io/notifications/whatwg/
 </pre>
 
-<!-- Remove this once https://github.com/whatwg/html/pull/6360 is resolved. -->
+<!-- Remove the HTML entry once https://github.com/whatwg/html/pull/6360 is resolved. -->
 <pre class=anchors>
 urlPrefix: https://html.spec.whatwg.org/multipage/webappapis.html#; spec: html;
     type: dfn;
         text: DOM manipulation task source; url: dom-manipulation-task-source
+urlPrefix: https://w3c.github.io/vibration/
+    urlPrefix: #dfn-; type: dfn
+        text: perform vibration
+        text: validate and normalize
+    urlPrefix: #idl-def-; type: interface
+        text: VibratePattern; url: vibratepattern
+urlPrefix: https://tc39.github.io/ecma262/#sec-object.; type: dfn
+    text: freeze
 </pre>
 
 
@@ -152,8 +160,9 @@ clipped corners.
 <hr>
 
 <p>To <dfn lt="create a notification|creating a notification">create a notification</dfn>, given a
-<var>title</var>, <var>options</var>, and optionally a <var>serviceWorkerRegistration</var>, run
-these steps:
+string <var>title</var>, {{NotificationOptions}} <a for=/>dictionary</a> <var>options</var>,
+<a for=/>environment settings object</a> <var>settings</var>, and optionally a
+{{ServiceWorkerRegistration}} object <var>serviceWorkerRegistration</var>, run these steps:
 
 <ol>
  <li><p>Let <var>notification</var> be a new <a>notification</a>.
@@ -163,8 +172,8 @@ these steps:
 
  <li>
   <p>If a <var>serviceWorkerRegistration</var> was not provided and
-  <var>options</var>["{{NotificationOptions/actions}}"] is not empty, then <a>throw</a> a
-  {{TypeError}}.
+  <var>options</var>["{{NotificationOptions/actions}}"] is not <a for=list>empty</a>, then
+  <a>throw</a> a {{TypeError}}.
 
   <p class=note><a>Actions</a> are only currently supported for <a>persistent notifications</a>.
 
@@ -187,8 +196,8 @@ these steps:
  <li><p>Set <var>notification</var>'s <a for=notification>language</a> to
  <var>options</var>["{{NotificationOptions/lang}}"].
 
- <li><p>Set <var>notification</var>'s <a for=notification>origin</a> to the
- <a>entry settings object</a>'s <a for="environment settings object">origin</a>.
+ <li><p>Set <var>notification</var>'s <a for=notification>origin</a> to <var>settings</var>'s
+ <a for="environment settings object">origin</a>.
 
  <li><p>Set <var>notification</var>'s <a for=notification>body</a> to
  <var>options</var>["{{NotificationOptions/body}}"].
@@ -196,8 +205,8 @@ these steps:
  <li><p>Set <var>notification</var>'s <a for=notification>tag</a> to
  <var>options</var>["{{NotificationOptions/tag}}"].
 
- <li><p>Let <var>baseURL</var> be the API base URL specified by the
- <a>entry settings object</a>. <span class=XXX>Or incumbent?</span>
+ <li><p>Let <var>baseURL</var> be <var>settings</var>'s
+ <a for="environment settings object">API base URL</a>.
 
  <li><p>If <var>options</var>["{{NotificationOptions/image}}"] <a for=map>exists</a>, then
  <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not return failure, set
@@ -214,15 +223,14 @@ these steps:
  <var>notification</var>'s <a for=notification>badge URL</a> to the return value. (Otherwise
  <a for=notification>badge URL</a> is not set.)
 
- <li><p>If <var>options</var>["{{NotificationOptions/vibrate}}"] <a for=map>exists</a>,
+ <li><p>If <var>options</var>["{{NotificationOptions/vibrate}}"] <a for=map>exists</a>, then
  <a>validate and normalize</a> it and set <var>notification</var>'s
  <a for=notification>vibration pattern</a> to the return value.
 
  <li><p>If <var>options</var>["{{NotificationOptions/timestamp}}"] <a for=map>exists</a>, then set
  <var>notification</var>'s <a for=notification>timestamp</a> to the value. Otherwise, set
  <var>notification</var>'s <a for=notification>timestamp</a> to the number of milliseconds that
- passed between 00:00:00 UTC on 1 January 1970 and the time at which the {{Notification}}
- constructor was called.
+ passed between 00:00:00 UTC on 1 January 1970 and now.
 
  <li><p>Set <var>notification</var>'s <a for=notification>renotify preference</a> to
  <var>options</var>["{{NotificationOptions/renotify}}"].
@@ -236,7 +244,7 @@ these steps:
  <li>
   <p>Set <var>notification</var>'s list of <a>actions</a> to an empty list, then for each
   <var>entry</var> in <var>options</var>["{{NotificationOptions/actions}}"], up to the
-  <a>maximum number of actions</a> supported (skip any excess entries), perform the following steps:
+  <a>maximum number of actions</a> supported (skip any excess entries):
 
   <ol>
    <li><p>Let <var>action</var> be a new <a lt="actions">action</a>.
@@ -255,7 +263,7 @@ these steps:
    <li><p>Append <var>action</var> to <var>notification</var>'s list of <a>actions</a>.
   </ol>
 
-  <li><p>Return <var>notification</var>.
+ <li><p>Return <var>notification</var>.
 </ol>
 
 
@@ -343,7 +351,7 @@ the notification platform displays them side by side.
 <a>notification</a>'s <a for=notification>title</a>, <a for=notification>body</a> and the
 <a for=notification>title</a> of each of its <a for=notification>actions</a>. Its value is a string.
 The empty string indicates that the primary language is unknown. Any other string must be
-interpreted as a language tag. Validity or well-formedness are not enforced. [[!LANG]]
+interpreted as a language tag. Validity or well-formedness are not enforced. [[!BCP47]]
 
 <p class=note>Developers are encouraged to only use valid language tags.
 
@@ -690,11 +698,11 @@ object and can be created through {{Notification}}'s
 constructor steps are:
 
 <ol>
- <li><p>If the <a>current global object</a> is a {{ServiceWorkerGlobalScope}} object, then
- <a>throw</a> a {{TypeError}}.
+ <li><p>If <a>this</a>'s <a>relevant global object</a> is a {{ServiceWorkerGlobalScope}} object,
+ then <a>throw</a> a {{TypeError}}.
 
  <li><p>Let <var>notification</var> be the result of <a>creating a notification</a> given
- <var>title</var> and <var>options</var>.
+ <var>title</var>, <var>options</var>, and <a>this</a>'s <a>relevant settings object</a>.
 
  <li><p>Associate <a>this</a> with <var>notification</var>.
 
@@ -716,7 +724,7 @@ constructor steps are:
 <h3 id=static-members>Static members</h3>
 
 <p>The static <dfn attribute for=Notification><code>permission</code></dfn> getter steps are to
-return the <a>permission</a> for the <a>entry settings object</a>'s
+return the <a>permission</a> for the <a>current settings object</a>'s
 <a for="environment settings object">origin</a>.
 
 <p class=note>If you edit standards please refrain from copying the above. Synchronous
@@ -727,9 +735,9 @@ permissions are like synchronous IO, a bad idea.
 method steps are:
 
 <ol>
- <li><p>Let <var>global</var> be <a>this</a>'s <a>relevant global object</a>.
+ <li><p>Let <var>global</var> be the <a>current global object</a>.
 
- <li><p>Let <var>origin</var> be <a>this</a>'s <a>relevant settings object</a>'s
+ <li><p>Let <var>origin</var> be the <a>current settings object</a>'s
  <a for="environment settings object">origin</a>.
  <!-- Arguably this should snapshot origin somehow so that changes to it do not impact the
       in parallel part. -->
@@ -1029,7 +1037,7 @@ partial interface ServiceWorkerGlobalScope {
 method steps are:
 
 <ol>
- <li><p>Let <var>global</var> be <a>this</a>'s <a>relevant global object</a>
+ <li><p>Let <var>global</var> be <a>this</a>'s <a>relevant global object</a>.
 
  <li><p>Let <var>promise</var> be <a>a new promise</a> in <a>this</a>'s <a>relevant Realm</a>.
 
@@ -1041,9 +1049,9 @@ method steps are:
  <li><p>Let <var>serviceWorkerRegistration</var> be <a>this</a>.
 
  <li><p>Let <var>notification</var> be the result of <a>creating a notification</a> given
- <var>title</var>, <var>options</var>, and <var>serviceWorkerRegistration</var>. If this threw an
- exception, then <a for=/>reject</a> <var>promise</var> with that exception and return
- <var>promise</var>.
+ <var>title</var>, <var>options</var>, <a>this</a>'s <a>relevant settings object</a>, and
+ <var>serviceWorkerRegistration</var>. If this threw an exception, then <a for=/>reject</a>
+ <var>promise</var> with that exception and return <var>promise</var>.
 
  <li>
   <p>Run these steps <a>in parallel</a>:
@@ -1196,25 +1204,3 @@ for being awesome.
 <a href=mailto:annevk@annevk.nl>annevk@annevk.nl</a>). An earlier iteration was written
 by John Gregg (<a href=https://www.google.com/>Google</a>,
 <a href=mailto:johnnyg@google.com>johnnyg@google.com</a>).
-
-<pre class="anchors">
-urlPrefix: https://html.spec.whatwg.org/multipage/
-    urlPrefix: webappapis.html; type: dfn
-        text: entry settings object
-urlPrefix: https://w3c.github.io/vibration/
-    urlPrefix: #dfn-; type: dfn
-        text: perform vibration
-        text: validate and normalize
-    urlPrefix: #idl-def-; type: interface
-        text: VibratePattern; url: vibratepattern
-urlPrefix: https://tc39.github.io/ecma262/#sec-object.; type: dfn
-    text: freeze
-</pre>
-
-<pre class="biblio">
-{
-    "LANG": {
-        "aliasOf" : "BCP47"
-    }
-}
-</pre>
