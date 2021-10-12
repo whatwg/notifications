@@ -317,6 +317,14 @@ meaning "<code>granted</code>". In that case
 "<code>granted</code>" is simply returned as there would be no reason
 for the application to ask for <a>permission</a>.
 
+<h3 id="permissions-integration">Permissions integration</h3>
+
+<p>The Notifications API is a <a>powerful feature</a> which is identified by the string
+"notifications" and has its <a for="powerful feature">allowed in non-secure contexts</a> flag set.
+[[!Permissions]]
+
+<p class="note">This specification's "<code>default</code>" <a>permission</a>
+state maps to the [=permission/prompt=] permission state in the Permissions API.
 
 <h3 id=direction>Direction</h3>
 
@@ -729,8 +737,20 @@ constructor steps are:
 return the <a>permission</a> for the <a>current settings object</a>'s
 <a for="environment settings object">origin</a>.
 
-<p class=note>If you edit standards please refrain from copying the above. Synchronous
-permissions are like synchronous IO, a bad idea.
+<div class=note>
+ <p>If you edit standards please refrain from copying the above. Synchronous permissions are like
+ synchronous IO, a bad idea.
+
+ <p>Developers are encouraged to use the Permissions {{Permissions/query()}} method
+ instead. [[Permissions]]
+
+ <pre class="example" id="permissions-query-example">
+    const permission = await navigator.permissions.query({name: "notifications"});
+    if (permission.state === "granted") {
+       // We have permission to use the API…
+    }
+ </pre>
+</div>
 
 <p>The static
 <dfn method for=Notification><code>requestPermission(<var>deprecatedCallback</var>)</code></dfn>
@@ -739,10 +759,12 @@ method steps are:
 <ol>
  <li><p>Let <var>global</var> be the <a>current global object</a>.
 
- <li><p>Let <var>origin</var> be the <a>current settings object</a>'s
- <a for="environment settings object">origin</a>.
- <!-- Arguably this should snapshot origin somehow so that changes to it do not impact the
-      in parallel part. -->
+ <li><p>Let <var>permissionDescriptor</var> be the {{PermissionDescriptor}} with
+ {{PermissionDescriptor/name}} set to "<code>notifications</code>".
+
+ <li><p>Let <var>permissionStatus</var> be the result of
+ <a lt="create a PermissionStatus">creating a `PermissionStatus`</a> for
+ <var>permissionDescriptor</var>.
 
  <li><p>Let <var>promise</var> be <a for=/>a new promise</a> in <a>this</a>'s <a>relevant Realm</a>.
 
@@ -750,24 +772,25 @@ method steps are:
   <p>Run these steps <a>in parallel</a>:
 
   <ol>
-   <li><p>Let <var>permission</var> be <a>permission</a> for <var>origin</var>.
+   <li><p>Run the <a for="powerful feature">permission query algorithm</a> with
+   <var>permissionDescriptor</var> and <var>permissionStatus</var>.
 
-   <li><p>If <var>permission</var> is "<code>default</code>", then ask the user whether showing
-   notifications for <var>origin</var> is acceptable. If it is, then set <var>permission</var> to
-   "<code>granted</code>"; otherwise "<code>denied</code>".
+   <li><p>Let <var>permissionState</var> be <var>permissionStatus</var>'s
+   {{PermissionStatus/state}}.
+
+   <li><p>If <var>permissionState</var> is {{PermissionState/"prompt"}}, then set
+   <var>permissionState</var> to "<code>default</code>".
 
    <li>
     <p><a>Queue a global task</a> on the <a>DOM manipulation task source</a> given <var>global</var>
     to run these steps:
 
     <ol>
-     <li><p>Set <a>permission</a> for <var>origin</var> to <var>permission</var>.
-
      <li><p>If <var>deprecatedCallback</var> is given, then <a for=/>invoke</a>
-     <var>deprecatedCallback</var> with « <var>permission</var> ». If this throws an exception, then
-     <a>report the exception</a>.
+     <var>deprecatedCallback</var> with « <var>permissionState</var> ». If this throws an
+     exception, then <a>report the exception</a>.
 
-     <li><p><a for=/>Resolve</a> <var>promise</var> with <var>permission</var>.
+     <li><p><a for=/>Resolve</a> <var>promise</var> with <var>permissionState</var>.
     </ol>
   </ol>
 
@@ -1186,6 +1209,7 @@ Michael Cooper,
 Michael Henretty,
 Michael™ Smith,
 Michael van Ouwerkerk,
+Mike Taylor,
 Nicolás Satragno,
 Olli Pettay,
 Peter Beverloo,
