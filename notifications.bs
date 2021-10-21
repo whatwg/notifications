@@ -22,6 +22,9 @@ urlPrefix: https://w3c.github.io/vibration/
         text: VibratePattern; url: vibratepattern
 urlPrefix: https://tc39.github.io/ecma262/#sec-object.; type: dfn
     text: freeze
+urlPrefix: https://w3c.github.io/hr-time/#
+    type: typedef; text: EpochTimeStamp; urlPrefix: dom-
+    type: dfn; text: epoch-relative timestamp; urlPrefix: dfn-
 </pre>
 
 
@@ -29,10 +32,11 @@ urlPrefix: https://tc39.github.io/ecma262/#sec-object.; type: dfn
 
 <p>This specification depends on the Infra Standard. [[!INFRA]]
 
-<p>Some terms used in this specification are defined in the DOM, Fetch, HTML, IDL, Service Workers,
-URL, and Vibration API Standards.
+<p>Some terms used in this specification are defined in the DOM, Fetch, High Resolution Time, HTML,
+IDL, Service Workers, URL, and Vibration API Standards.
 [[!DOM]]
 [[!FETCH]]
+[[!HR-TIME]]
 [[!HTML]]
 [[!WEBIDL]]
 [[!SERVICE-WORKERS]]
@@ -69,8 +73,7 @@ representing either a valid BCP 47 language tag or the empty string.
 <dfn for=notification id=data>data</dfn>.
 
 <p>A <a>notification</a> has an associated <dfn for=notification id=timestamp>timestamp</dfn> which
-is a {{DOMTimeStamp}} representing the time, in milliseconds since 00:00:00 UTC on 1 January 1970,
-of the event for which the notification was created.
+is an {{EpochTimeStamp}} representing the time.
 
 <p class=note>Timestamps can be used to indicate the time at which a notification
 is actual. For example, this could be in the past when a notification is used for
@@ -229,8 +232,7 @@ string <var>title</var>, {{NotificationOptions}} <a for=/>dictionary</a> <var>op
 
  <li><p>If <var>options</var>["{{NotificationOptions/timestamp}}"] <a for=map>exists</a>, then set
  <var>notification</var>'s <a for=notification>timestamp</a> to the value. Otherwise, set
- <var>notification</var>'s <a for=notification>timestamp</a> to the number of milliseconds that
- passed between 00:00:00 UTC on 1 January 1970 and now.
+ <var>notification</var>'s <a for=notification>timestamp</a> to the <a>epoch-relative timestamp</a>.
 
  <li><p>Set <var>notification</var>'s <a for=notification>renotify preference</a> to
  <var>options</var>["{{NotificationOptions/renotify}}"].
@@ -626,7 +628,7 @@ interface Notification : EventTarget {
   readonly attribute USVString icon;
   readonly attribute USVString badge;
   [SameObject] readonly attribute FrozenArray&lt;unsigned long> vibrate;
-  readonly attribute DOMTimeStamp timestamp;
+  readonly attribute EpochTimeStamp timestamp;
   readonly attribute boolean renotify;
   readonly attribute boolean silent;
   readonly attribute boolean requireInteraction;
@@ -645,7 +647,7 @@ dictionary NotificationOptions {
   USVString icon;
   USVString badge;
   VibratePattern vibrate;
-  DOMTimeStamp timestamp;
+  EpochTimeStamp timestamp;
   boolean renotify = false;
   boolean silent = false;
   boolean requireInteraction = false;
