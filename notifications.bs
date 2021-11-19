@@ -1068,7 +1068,7 @@ method steps are:
   <p>Run these steps <a>in parallel</a>:
 
   <ol>
-   <li><p>If <a>permission</a> for <var>notification</var>'s <a for=notification>origin</a> is not
+   <li><p>If the result of <a>getting the notifications permission state</a> is not
    "<code>granted</code>", then <a>queue a global task</a> on the
    <a>DOM manipulation task source</a> given <var>global</var> to <a for=/>reject</a>
    <var>promise</var> with a {{TypeError}}, and abort these steps.
