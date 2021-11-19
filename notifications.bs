@@ -325,6 +325,7 @@ for the application to ask for <a>permission</a>.
 <p class="note">This specification's "<code>default</code>" <a>permission</a>
 state maps to the [=permission/prompt=] permission state in the Permissions API.
 
+
 <h3 id=direction>Direction</h3>
 
 <p>This section is written in terms equivalent to those used in the Rendering
