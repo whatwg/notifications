@@ -297,6 +297,17 @@ removed from the <a>list of notifications</a>.
 "notifications" and has its <a for="powerful feature">allowed in non-secure contexts</a> flag set.
 [[!Permissions]]
 
+<p>To <dfn>get the notifications permission state</dfn>, run these steps:
+
+<ol>
+ <li><p>Let <var>permissionState</var> be the result of <a>getting the current permission state</a>
+ with "notifications".
+
+ <li><p>If <var>permissionState</var> is "<code>prompt</code>", then return "<code>default</code>".
+
+ <li><p>Return <var>permissionState</var>.
+</ol>
+
 <p class="note">This specification's "<code>default</code>" <a>permission</a>
 state maps to the [=permission/prompt=] permission state in the Permissions API.
 
