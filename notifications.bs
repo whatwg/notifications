@@ -291,32 +291,6 @@ removed from the <a>list of notifications</a>.
 "notification center" (if available).
 
 
-<h3 id=permission-model>Permission model</h3>
-
-<p><a>Notifications</a> can only be displayed if the
-user (or user agent on behalf of the user) has granted <dfn>permission</dfn>.
-The <a>permission</a> to show <a>notifications</a>
-for a given <a for=/>origin</a> is one of three strings:
-
-<dl>
-  <dt>"<code>default</code>"
-  <dd><p>This is equivalent to "<code>denied</code>", but the user has made no
-  explicit choice thus far.
-
-  <dt>"<code>denied</code>"
-  <dd><p>This means the user does not want
-  <a>notifications</a>.
-
-  <dt>"<code>granted</code>"
-  <dd><p>This means <a>notifications</a> can be
-  displayed.
-</dl>
-
-<p class=note>There is no equivalent to "<code>default</code>"
-meaning "<code>granted</code>". In that case
-"<code>granted</code>" is simply returned as there would be no reason
-for the application to ask for <a>permission</a>.
-
 <h3 id="permissions-integration">Permissions integration</h3>
 
 <p>The Notifications API is a <a>powerful feature</a> which is identified by the string
