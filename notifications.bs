@@ -293,9 +293,8 @@ removed from the <a>list of notifications</a>.
 
 <h3 id="permissions-integration">Permissions integration</h3>
 
-<p>The Notifications API is a <a>powerful feature</a> which is identified by the string
-"notifications" and has its <a for="powerful feature">allowed in non-secure contexts</a> flag set.
-[[!Permissions]]
+<p>The Notifications API is a <a>powerful feature</a> which is identified by the <a for="powerful
+feature">name</a> "notifications". [[!Permissions]]
 
 <p>To <dfn>get the notifications permission state</dfn>, run these steps:
 
