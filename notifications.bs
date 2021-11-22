@@ -293,22 +293,19 @@ removed from the <a>list of notifications</a>.
 
 <h3 id="permissions-integration">Permissions integration</h3>
 
-<p>The Notifications API is a <a>powerful feature</a> which is identified by the <a for="powerful
-feature">name</a> "notifications". [[!Permissions]]
+<p>The Notifications API is a <a>powerful feature</a> which is identified by the 
+<a for="powerful feature">name</a> "`notifications`". [[!Permissions]]
 
 <p>To <dfn>get the notifications permission state</dfn>, run these steps:
 
 <ol>
  <li><p>Let <var>permissionState</var> be the result of <a>getting the current permission state</a>
- with "notifications".
+ with "`notifications`".
 
  <li><p>If <var>permissionState</var> is "<code>prompt</code>", then return "<code>default</code>".
 
  <li><p>Return <var>permissionState</var>.
 </ol>
-
-<p class="note">This specification's "<code>default</code>" <a>permission</a>
-state maps to the [=permission/prompt=] permission state in the Permissions API.
 
 
 <h3 id=direction>Direction</h3>
