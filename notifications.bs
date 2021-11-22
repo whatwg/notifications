@@ -294,13 +294,13 @@ removed from the <a>list of notifications</a>.
 <h3 id="permissions-integration">Permissions integration</h3>
 
 <p>The Notifications API is a <a>powerful feature</a> which is identified by the
-<a for="powerful feature">name</a> "`notifications`". [[!Permissions]]
+<a for="powerful feature">name</a> "<code>notifications</code>". [[!Permissions]]
 
 <p>To <dfn>get the notifications permission state</dfn>, run these steps:
 
 <ol>
  <li><p>Let <var>permissionState</var> be the result of <a>getting the current permission state</a>
- with "`notifications`".
+ with "<code>notifications</code>".
 
  <li><p>If <var>permissionState</var> is "<code>prompt</code>", then return "<code>default</code>".
 
@@ -747,7 +747,7 @@ method steps are:
 
   <ol>
    <li><p>Let <var>permissionState</var> be the result of
-   <a>getting the notifications permission state</a>.
+   <a>requesting permission to use</a> {{PermissionName/notifications}}.
 
    <li>
     <p><a>Queue a global task</a> on the <a>DOM manipulation task source</a> given <var>global</var>
