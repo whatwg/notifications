@@ -291,40 +291,21 @@ removed from the <a>list of notifications</a>.
 "notification center" (if available).
 
 
-<h3 id=permission-model>Permission model</h3>
-
-<p><a>Notifications</a> can only be displayed if the
-user (or user agent on behalf of the user) has granted <dfn>permission</dfn>.
-The <a>permission</a> to show <a>notifications</a>
-for a given <a for=/>origin</a> is one of three strings:
-
-<dl>
-  <dt>"<code>default</code>"
-  <dd><p>This is equivalent to "<code>denied</code>", but the user has made no
-  explicit choice thus far.
-
-  <dt>"<code>denied</code>"
-  <dd><p>This means the user does not want
-  <a>notifications</a>.
-
-  <dt>"<code>granted</code>"
-  <dd><p>This means <a>notifications</a> can be
-  displayed.
-</dl>
-
-<p class=note>There is no equivalent to "<code>default</code>"
-meaning "<code>granted</code>". In that case
-"<code>granted</code>" is simply returned as there would be no reason
-for the application to ask for <a>permission</a>.
-
 <h3 id="permissions-integration">Permissions integration</h3>
 
-<p>The Notifications API is a <a>powerful feature</a> which is identified by the string
-"notifications" and has its <a for="powerful feature">allowed in non-secure contexts</a> flag set.
-[[!Permissions]]
+<p>The Notifications API is a <a>powerful feature</a> which is identified by the
+<a for="powerful feature">name</a> "{{PermissionName/notifications}}". [[!Permissions]]
 
-<p class="note">This specification's "<code>default</code>" <a>permission</a>
-state maps to the [=permission/prompt=] permission state in the Permissions API.
+<p>To <dfn>get the notifications permission state</dfn>, run these steps:
+
+<ol>
+ <li><p>Let <var>permissionState</var> be the result of <a>getting the current permission state</a>
+ with "{{PermissionName/notifications}}".
+
+ <li><p>If <var>permissionState</var> is "<code>prompt</code>", then return "<code>default</code>".
+
+ <li><p>Return <var>permissionState</var>.
+</ol>
 
 
 <h3 id=direction>Direction</h3>
@@ -721,9 +702,9 @@ constructor steps are:
   <p>Run these steps <a>in parallel</a>:
 
   <ol>
-   <li><p>If <a>permission</a> for <var>notification</var>'s <a for=notification>origin</a> is not
-   "<code>granted</code>", then <a>queue a task</a> to <a>fire an event</a> named <code>error</code>
-   on <a>this</a>, and abort these steps.
+   <li><p>If the result of <a>getting the notifications permission state</a> is not
+   "<code>granted</code>", then <a>queue a task</a> to <a>fire an event</a> named
+   <code>error</code> on <a>this</a>, and abort these steps.
 
    <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
 
@@ -735,8 +716,7 @@ constructor steps are:
 <h3 id=static-members>Static members</h3>
 
 <p>The static <dfn attribute for=Notification><code>permission</code></dfn> getter steps are to
-return the <a>permission</a> for the <a>current settings object</a>'s
-<a for="environment settings object">origin</a>.
+return the result of <a>getting the notifications permission state</a>.
 
 <div class=note>
  <p>If you edit standards please refrain from copying the above. Synchronous permissions are like
@@ -760,27 +740,14 @@ method steps are:
 <ol>
  <li><p>Let <var>global</var> be the <a>current global object</a>.
 
- <li><p>Let <var>permissionDescriptor</var> be the {{PermissionDescriptor}} with
- {{PermissionDescriptor/name}} set to "<code>notifications</code>".
-
- <li><p>Let <var>permissionStatus</var> be the result of
- <a lt="create a PermissionStatus">creating a `PermissionStatus`</a> for
- <var>permissionDescriptor</var>.
-
  <li><p>Let <var>promise</var> be <a for=/>a new promise</a> in <a>this</a>'s <a>relevant Realm</a>.
 
  <li>
   <p>Run these steps <a>in parallel</a>:
 
   <ol>
-   <li><p>Run the <a for="powerful feature">permission query algorithm</a> with
-   <var>permissionDescriptor</var> and <var>permissionStatus</var>.
-
-   <li><p>Let <var>permissionState</var> be <var>permissionStatus</var>'s
-   {{PermissionStatus/state}}.
-
-   <li><p>If <var>permissionState</var> is {{PermissionState/"prompt"}}, then set
-   <var>permissionState</var> to "<code>default</code>".
+   <li><p>Let <var>permissionState</var> be the result of
+   <a>requesting permission to use</a> "{{PermissionName/notifications}}".
 
    <li>
     <p><a>Queue a global task</a> on the <a>DOM manipulation task source</a> given <var>global</var>
@@ -1083,7 +1050,7 @@ method steps are:
   <p>Run these steps <a>in parallel</a>:
 
   <ol>
-   <li><p>If <a>permission</a> for <var>notification</var>'s <a for=notification>origin</a> is not
+   <li><p>If the result of <a>getting the notifications permission state</a> is not
    "<code>granted</code>", then <a>queue a global task</a> on the
    <a>DOM manipulation task source</a> given <var>global</var> to <a for=/>reject</a>
    <var>promise</var> with a {{TypeError}}, and abort these steps.
