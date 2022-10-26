@@ -1193,9 +1193,7 @@ timeless, and
 triple-underscore
 for being awesome.
 
-<p>This standard is written by
-<a lang=nl href=https://annevankesteren.nl/>Anne van Kesteren</a>
-(<a href=https://www.mozilla.org/>Mozilla</a>,
-<a href=mailto:annevk@annevk.nl>annevk@annevk.nl</a>). An earlier iteration was written
-by John Gregg (<a href=https://www.google.com/>Google</a>,
+<p>This standard is written by <a lang=nl href=https://annevankesteren.nl/>Anne van Kesteren</a>
+(<a href=https://www.apple.com/>Apple</a>, <a href=mailto:annevk@annevk.nl>annevk@annevk.nl</a>). An
+earlier iteration was written by John Gregg (<a href=https://www.google.com/>Google</a>,
 <a href=mailto:johnnyg@google.com>johnnyg@google.com</a>).
