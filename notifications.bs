@@ -9,11 +9,7 @@ Translation: ja https://triple-underscore.github.io/notifications-ja.html
 Translation: zh-cn https://w3c-html-ig-zh.github.io/notifications/whatwg/
 </pre>
 
-<!-- Remove the HTML entry once https://github.com/whatwg/html/pull/6360 is resolved. -->
 <pre class=anchors>
-urlPrefix: https://html.spec.whatwg.org/multipage/webappapis.html#; spec: html;
-    type: dfn;
-        text: DOM manipulation task source; url: dom-manipulation-task-source
 urlPrefix: https://w3c.github.io/vibration/
     urlPrefix: #dfn-; type: dfn
         text: perform vibration
