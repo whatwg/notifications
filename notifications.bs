@@ -18,9 +18,6 @@ urlPrefix: https://w3c.github.io/vibration/
         text: VibratePattern; url: vibratepattern
 urlPrefix: https://tc39.github.io/ecma262/#sec-object.; type: dfn
     text: freeze
-urlPrefix: https://w3c.github.io/hr-time/#
-    type: typedef; text: EpochTimeStamp; urlPrefix: dom-
-    type: dfn; text: epoch-relative timestamp; urlPrefix: dfn-
 </pre>
 
 
@@ -228,7 +225,9 @@ string <var>title</var>, {{NotificationOptions}} <a for=/>dictionary</a> <var>op
 
  <li><p>If <var>options</var>["{{NotificationOptions/timestamp}}"] <a for=map>exists</a>, then set
  <var>notification</var>'s <a for=notification>timestamp</a> to the value. Otherwise, set
- <var>notification</var>'s <a for=notification>timestamp</a> to the <a>epoch-relative timestamp</a>.
+ <var>notification</var>'s <a for=notification>timestamp</a> to the number of milliseconds from the
+ <a>Unix epoch</a> to <var>settings</var>' <a for="environment settings object">current wall
+ time</a>, rounded to the nearest integer.
 
  <li><p>Set <var>notification</var>'s <a for=notification>renotify preference</a> to
  <var>options</var>["{{NotificationOptions/renotify}}"].
