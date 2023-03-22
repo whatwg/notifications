@@ -226,8 +226,8 @@ string <var>title</var>, {{NotificationOptions}} <a for=/>dictionary</a> <var>op
  <li><p>If <var>options</var>["{{NotificationOptions/timestamp}}"] <a for=map>exists</a>, then set
  <var>notification</var>'s <a for=notification>timestamp</a> to the value. Otherwise, set
  <var>notification</var>'s <a for=notification>timestamp</a> to the number of milliseconds from the
- <a>Unix epoch</a> to <var>settings</var>' <a for="environment settings object">current wall
- time</a>, rounded to the nearest integer.
+ <a>Unix epoch</a> to <var>settings</var>'s
+ <a for="environment settings object">current wall time</a>, rounded to the nearest integer.
 
  <li><p>Set <var>notification</var>'s <a for=notification>renotify preference</a> to
  <var>options</var>["{{NotificationOptions/renotify}}"].
