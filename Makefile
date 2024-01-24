@@ -16,7 +16,7 @@ remote: notifications.bs
 	);
 
 local: notifications.bs
-	bikeshed spec notifications.bs notifications.html --md-Text-Macro="COMMIT-SHA LOCAL COPY"
+	bikeshed spec notifications.bs notifications.html --md-Text-Macro="COMMIT-SHA LOCAL-COPY"
 
 deploy: notifications.bs
 	curl --remote-name --fail https://resources.whatwg.org/build/deploy.sh
