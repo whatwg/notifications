@@ -592,7 +592,7 @@ must be run.
 <h2 id=api>API</h2>
 
 <pre class=idl>
-[Exposed=(Window,Worker)]
+[Exposed=(Window,Worker), SecureContext]
 interface Notification : EventTarget {
   constructor(DOMString title, optional NotificationOptions options = {});
 
@@ -999,12 +999,13 @@ dictionary GetNotificationOptions {
   DOMString tag = "";
 };
 
+[SecureContext]
 partial interface ServiceWorkerRegistration {
   Promise&lt;undefined> showNotification(DOMString title, optional NotificationOptions options = {});
   Promise&lt;sequence&lt;Notification>> getNotifications(optional GetNotificationOptions filter = {});
 };
 
-[Exposed=ServiceWorker]
+[Exposed=ServiceWorker, SecureContext]
 interface NotificationEvent : ExtendableEvent {
   constructor(DOMString type, NotificationEventInit eventInitDict);
 
@@ -1017,6 +1018,7 @@ dictionary NotificationEventInit : ExtendableEventInit {
   DOMString action = "";
 };
 
+[SecureContext]
 partial interface ServiceWorkerGlobalScope {
   attribute EventHandler onnotificationclick;
   attribute EventHandler onnotificationclose;
