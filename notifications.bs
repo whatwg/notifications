@@ -451,7 +451,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 
 <ol>
  <li><p>Wait for any <a for=/ lt=fetch>fetches</a> to complete and <var>notification</var>'s
- <a for=notification>image resource</a> <a for=notification>icon resource</a>, and
+ <a for=notification>image resource</a>, <a for=notification>icon resource</a>, and
  <a for=notification>badge resource</a> to be set (if any), as well as the
  <a for=action>icon resources</a> for the <var>notification</var>'s <a for=notification>actions</a>
  (if any).
