@@ -46,21 +46,21 @@ representation of something that happened, such as the delivery of a message.
 <dfn for=notification id=service-worker-registration>service worker registration</dfn>.
 
 <p>A <a>notification</a> has an associated
-<dfn for=notification id=concept-title>title</dfn> which is a DOMString.
+<dfn for=notification id=concept-title>title</dfn> which is a string.
 
 <p>A <a>notification</a> has an associated
-<dfn for=notification id=body>body</dfn> which is a DOMString.
+<dfn for=notification id=body>body</dfn> which is a string.
 
 <p>A <a>notification</a> has an associated
-<dfn for=notification id=concept-direction>direction</dfn> which is one of
-<i>auto</i>, <i>ltr</i>, and <i>rtl</i>.
+<dfn for=notification id=concept-direction>direction</dfn> which is "<code>auto</code>",
+"<code>ltr</code>", or "<code>rtl</code>".
 
 <p>A <a>notification</a> has an associated
-<dfn for=notification id=concept-language>language</dfn> which is a DOMString
+<dfn for=notification id=concept-language>language</dfn> which is a string
 representing either a valid BCP 47 language tag or the empty string.
 
 <p>A <a>notification</a> has an associated
-<dfn for=notification id=tag>tag</dfn> which is a DOMString.
+<dfn for=notification id=tag>tag</dfn> which is a string.
 
 <p>A <a>notification</a> has an associated
 <dfn for=notification id=data>data</dfn>.
