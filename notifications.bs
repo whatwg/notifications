@@ -126,7 +126,7 @@ support these features might ignore them.
 
 <p>A <a>notification</a> has associated <dfn for=notification id=actions>actions</dfn> (a
 <a for=/>list</a> of zero or more <a for=/>actions</a>). An <dfn for=/>action</dfn> represents a
-choice for a end user. Each <a for=/>action</a> has an associated:
+choice for an end user. Each <a for=/>action</a> has an associated:
 
 <dl>
  <dt><dfn for=action id=action-title>title</dfn>
