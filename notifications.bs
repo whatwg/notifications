@@ -124,15 +124,27 @@ the <a>notification</a>, but then it should have less visual priority than the
 is not otherwise accessible to the end user, especially since notification platforms that do not
 support these features might ignore them.
 
-<p>A <a>notification</a> has an associated list of
-zero or more <dfn for=notification lt=action id=actions>actions</dfn>. Each
-<a for=notification>action</a> has an associated
-<dfn for=action id=action-title>title</dfn> and <dfn for=action id=action-name>name</dfn> and
-<em>can</em> have an associated <dfn for=action>icon URL</dfn> and
-<dfn for=action>icon resource</dfn>. Users may activate actions, as alternatives to
-activating the notification itself. The user agent must determine the
-<dfn>maximum number of actions</dfn> supported, within the constraints of the
-notification platform.
+<p>A <a>notification</a> has associated <dfn for=notification id=actions>actions</dfn> (a
+<a for=/>list</a> of zero or more <a for=/>actions</a>). An <dfn for=/>action</dfn> represents a
+choice for a end user. Each <a for=/>action</a> has an associated:
+
+<dl>
+ <dt><dfn for=action id=action-title>title</dfn>
+ <dd>A string.
+
+ <dt><dfn for=action id=action-name>name</dfn>
+ <dd>A string.
+
+ <dt><dfn for=action>icon URL</dfn>
+ <dd>Null or a <a for=/>URL</a>. It is initially null.
+
+ <dt><dfn for=action>icon resource</dfn>
+ <dd>Null or a resource. It is initially null.
+</dl>
+
+<p>Users may activate actions, as alternatives to activating the notification itself. The
+<dfn>maximum number of actions</dfn> supported is an <a>implementation-defined</a> integer of zero
+or more, within the constraints of the notification platform.
 
 <p class=note>Since display of actions is platform-dependent, developers are
 encouraged to make sure that any action a user can invoke from a notification is
@@ -239,9 +251,10 @@ string <var>title</var>, {{NotificationOptions}} <a for=/>dictionary</a> <var>op
  <li><p>Set <var>notification</var>'s <a for=notification>require interaction preference</a> to
  <var>options</var>["{{NotificationOptions/requireInteraction}}"].
 
+ <li><p>Set <var>notification</var>'s <a for=notification>actions</a> to « ».
+
  <li>
-  <p>Set <var>notification</var>'s list of <a>actions</a> to an empty list, then for each
-  <var>entry</var> in <var>options</var>["{{NotificationOptions/actions}}"], up to the
+  <p>For each <var>entry</var> in <var>options</var>["{{NotificationOptions/actions}}"], up to the
   <a>maximum number of actions</a> supported (skip any excess entries):
 
   <ol>
@@ -256,7 +269,7 @@ string <var>title</var>, {{NotificationOptions}} <a for=/>dictionary</a> <var>op
    <li><p>If <var>entry</var>["{{NotificationAction/icon}}"] <a for=map>exists</a>, then
    <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not return failure,
    set <var>action</var>'s <a for=action>icon URL</a> to the return value. (Otherwise
-   <a for=action>icon URL</a> is not set.)
+   <a for=action>icon URL</a> remains null.)
 
    <li><p>Append <var>action</var> to <var>notification</var>'s list of <a>actions</a>.
   </ol>
@@ -420,12 +433,12 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 
  <li>
   <p>If the notification platform supports actions and action icons, then for each <var>action</var>
-  in <var>notification</var>'s list of <a>actions</a> <a for=/>fetch</a> <var>action</var>'s
-  <a for=action>icon URL</a>, if <a for=action>icon URL</a> is set.
+  in <var>notification</var>'s <a for=notification>actions</a>: if <a for=action>icon URL</a> is
+  non-null, <a for=/>fetch</a> <var>action</var>'s <a for=action>icon URL</a>.
 
   <p class=note>The intent is to fetch this resource similar to an
   <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
-  but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
+  but this <a href="https://github.com/whatwg/html/issues/4474">needs abstracting</a>.
 
   <p>Then, <a>in parallel</a>:
 
@@ -435,9 +448,9 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
    <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
    "<code>default</code>", then attempt to decode the resource as image.
 
-   <li><p>If the image format is supported, set <var>action</var>'s
-   <a for=action>icon resource</a> to the decoded resource. (Otherwise
-   <var>action</var> has no <a for=action>icon resource</a>.)
+   <li><p>If the image format is supported, set <var>action</var>'s <a for=action>icon resource</a>
+   to the decoded resource. (Otherwise <var>action</var>'s <a for=action>icon resource</a> remains
+   null.)
   </ol>
  </li>
 </ol>
@@ -509,10 +522,9 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 
 <h3 id=activating-a-notification>Activating a notification</h3>
 
-<p>When a <a>notification</a> <var>notification</var>,
-or one of its <a>actions</a>, is activated by the user, assuming the underlying
-notification platform supports activation, the user agent must (unless otherwise
-specified) run these steps:
+<p>When a <a>notification</a> <var>notification</var>, or one of its
+<a for=notification>actions</a>, is activated by the user, assuming the underlying notification
+platform supports activation, the user agent must (unless otherwise specified) run these steps:
 
 <ol>
  <li>
@@ -522,7 +534,7 @@ specified) run these steps:
    <li><p>Let <var>action</var> be the empty string.
 
    <li><p>If one of <var>notification</var>'s <a for=notification>actions</a> was activated by the
-   user, then set <var>action</var> to that <a for=notification>action</a>'s <a for=action>name</a>.
+   user, then set <var>action</var> to that <a for=/>action</a>'s <a for=action>name</a>.
 
    <li><a>Fire a service worker notification event</a> named "<code>notificationclick</code>" given
    <var>notification</var> and <var>action</var>.
@@ -872,7 +884,7 @@ then return null.
  <li><p>Let <var>frozenActions</var> be an empty list of type {{NotificationAction}}.
 
  <li>
-  <p><a for=list>For each</a> <var>entry</var> of <a>this</a>'s <a>notification</a>'s list of
+  <p><a for=list>For each</a> <var>entry</var> of <a>this</a>'s <a>notification</a>'s
   <a for=notification>actions</a>:
 
   <ol>
@@ -884,8 +896,9 @@ then return null.
    <li><p>Set <var>action</var>["{{NotificationAction/title}}"] to <var>entry</var>'s
    <a for=action>title</a>.
 
-   <li><p>Set <var>action</var>["{{NotificationAction/icon}}"] <var>entry</var>'s
-   <a for=action>icon URL</a>.
+   <li><p>If <var>entry</var>'s <a for=action>icon URL</a> is non-null, then set
+   <var>action</var>["{{NotificationAction/icon}}"] to <var>entry</var>'s
+   <a for=action>icon URL</a>, <a lt="URL serializer">serialized</a>.
 
    <!-- XXX IDL dictionaries are usually returned by value, so don't need to be
         immutable. But FrozenArray reifies the dictionaries to mutable JS
@@ -922,11 +935,10 @@ not.onclick = function() { displaySong(this); };</pre>
 <p><a lt="persistent notification">Persistent notifications</a> fire
 <code>notificationclick</code> events on the {{ServiceWorkerGlobalScope}}.
 
-<p>Here a service worker shows a notification with a single "Archive"
-<a lt="actions">action</a>, allowing users to perform this common task from the
-notification without having to open the website (for example the notification
-platform might show a button on the notification). The user can also activate
-the main body of the notification to open their inbox.
+<p>Here a service worker shows a notification with a single "Archive" <a for=/>action</a>, allowing
+users to perform this common task from the notification without having to open the website (for
+example the, notification platform might show a button on the notification). The user can also
+activate the main body of the notification to open their inbox.
 
 <pre class=example id=example-50e7c86c>
 self.registration.showNotification("New mail from Alice", {
