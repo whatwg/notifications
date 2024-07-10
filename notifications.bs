@@ -258,7 +258,7 @@ string <var>title</var>, {{NotificationOptions}} <a for=/>dictionary</a> <var>op
   <a>maximum number of actions</a> supported (skip any excess entries):
 
   <ol>
-   <li><p>Let <var>action</var> be a new <a lt="actions">action</a>.
+   <li><p>Let <var>action</var> be a new <a for=/>action</a>.
 
    <li><p>Set <var>action</var>'s <a for=action>name</a> to
    <var>entry</var>["{{NotificationAction/action}}"].
@@ -271,7 +271,7 @@ string <var>title</var>, {{NotificationOptions}} <a for=/>dictionary</a> <var>op
    set <var>action</var>'s <a for=action>icon URL</a> to the return value. (Otherwise
    <a for=action>icon URL</a> remains null.)
 
-   <li><p>Append <var>action</var> to <var>notification</var>'s list of <a>actions</a>.
+   <li><p>Append <var>action</var> to <var>notification</var>'s <a for=notification>actions</a>.
   </ol>
 
  <li><p>Return <var>notification</var>.
