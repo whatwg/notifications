@@ -49,15 +49,15 @@ representation of something that happened, such as the delivery of a message.
 <dfn for=notification id=concept-title>title</dfn> which is a string.
 
 <p>A <a>notification</a> has an associated
-<dfn for=notification id=body>body</dfn> which is a string.
-
-<p>A <a>notification</a> has an associated
 <dfn for=notification id=concept-direction>direction</dfn> which is "<code>auto</code>",
 "<code>ltr</code>", or "<code>rtl</code>".
 
 <p>A <a>notification</a> has an associated
 <dfn for=notification id=concept-language>language</dfn> which is a string
 representing either a valid BCP 47 language tag or the empty string.
+
+<p>A <a>notification</a> has an associated <dfn for=notification id=body>body</dfn> which is a
+string.
 
 <p>A <a>notification</a> has an associated
 <dfn for=notification id=tag>tag</dfn> which is a string.
@@ -90,8 +90,8 @@ indicates that producing sounds or vibrations should be left to platform convent
 <p>A <a>notification</a> has an associated
 <dfn for=notification id=require-interaction-preference-flag>require interaction preference</dfn>
 boolean, which is initially false. When true, indicates that on devices with a sufficiently large
-screen, the notification should remain readily available until the user activates or dismisses the
-notification.
+screen, the notification should remain readily available until the end user activates or dismisses
+the notification.
 
 <p>A <a>notification</a> <em>can</em> have these associated graphics: an
 <dfn for=notification id=image-url>image URL</dfn>,
@@ -129,10 +129,10 @@ support these features might ignore them.
 for an end user. Each <a for=/>action</a> has an associated:
 
 <dl>
- <dt><dfn for=action id=action-title>title</dfn>
+ <dt><dfn for=action id=action-name>name</dfn>
  <dd>A string.
 
- <dt><dfn for=action id=action-name>name</dfn>
+ <dt><dfn for=action id=action-title>title</dfn>
  <dd>A string.
 
  <dt><dfn for=action>icon URL</dfn>
@@ -146,12 +146,12 @@ for an end user. Each <a for=/>action</a> has an associated:
 <dfn>maximum number of actions</dfn> supported is an <a>implementation-defined</a> integer of zero
 or more, within the constraints of the notification platform.
 
-<p class=note>Since display of actions is platform-dependent, developers are
-encouraged to make sure that any action a user can invoke from a notification is
-also available within the web application.
+<p class=note>Since display of actions is platform-dependent, developers are encouraged to make sure
+that any action an end user can invoke from a notification is also available within the web
+application.
 
 <p class="note no-backref">Some platforms might modify an <a for=action>icon resource</a> to better
-match the platform's visual style before displaying it to the user, for example by rounding the
+match the platform's visual style before displaying it to the end user, for example by rounding the
 corners or painting it in a specific color. Developers are encouraged to use an icon that handles
 such cases gracefully and does not lose important information through, e.g., loss of color or
 clipped corners.
@@ -218,19 +218,19 @@ string <var>title</var>, {{NotificationOptions}} <a for=/>dictionary</a> <var>op
  <a for="environment settings object">API base URL</a>.
 
  <li><p>If <var>options</var>["{{NotificationOptions/image}}"] <a for=map>exists</a>, then
- <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not return failure, set
- <var>notification</var>'s <a>image URL</a> to the return value. (Otherwise <a>image URL</a> is not
- set.)
+ <a lt="URL parser">parse</a> it using <var>baseURL</var>, and if that does not return failure, set
+ <var>notification</var>'s <a>image URL</a> to the return value. (Otherwise
+ <var>notification</var>'s <a>image URL</a> is not set.)
 
  <li><p>If <var>options</var>["{{NotificationOptions/icon}}"] <a for=map>exists</a>, then
- <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not return failure, set
+ <a lt="URL parser">parse</a> it using <var>baseURL</var>, and if that does not return failure, set
  <var>notification</var>'s <a for=notification>icon URL</a> to the return value. (Otherwise
- <a for=notification>icon URL</a> is not set.)
+ <var>notification</var>'s <a for=notification>icon URL</a> is not set.)
 
  <li><p>If <var>options</var>["{{NotificationOptions/badge}}"] <a for=map>exists</a>, then
- <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not return failure, set
+ <a lt="URL parser">parse</a> it using <var>baseURL</var>, and if that does not return failure, set
  <var>notification</var>'s <a for=notification>badge URL</a> to the return value. (Otherwise
- <a for=notification>badge URL</a> is not set.)
+ <var>notification</var>'s <a for=notification>badge URL</a> is not set.)
 
  <li><p>If <var>options</var>["{{NotificationOptions/vibrate}}"] <a for=map>exists</a>, then
  <a>validate and normalize</a> it and set <var>notification</var>'s
@@ -267,9 +267,9 @@ string <var>title</var>, {{NotificationOptions}} <a for=/>dictionary</a> <var>op
    <var>entry</var>["{{NotificationAction/title}}"].
 
    <li><p>If <var>entry</var>["{{NotificationAction/icon}}"] <a for=map>exists</a>, then
-   <a lt="url parser">parse</a> it using <var>baseURL</var>, and if that does not return failure,
+   <a lt="URL parser">parse</a> it using <var>baseURL</var>, and if that does not return failure,
    set <var>action</var>'s <a for=action>icon URL</a> to the return value. (Otherwise
-   <a for=action>icon URL</a> remains null.)
+   <var>action</var>'s <a for=action>icon URL</a> remains null.)
 
    <li><p>Append <var>action</var> to <var>notification</var>'s <a for=notification>actions</a>.
   </ol>
@@ -340,8 +340,8 @@ of U+000A LINE FEED (LF) characters. For each paragraph of the
 rules P2 and P3 if it has a value other than "<code>auto</code>". [[!BIDI]]
 
 <p>The <a>notification</a>'s <a for=notification>direction</a> also determines the relative order in
-which the <a>notification</a>'s <a for=notification>actions</a> should be displayed to the user, if
-the notification platform displays them side by side.
+which the <a>notification</a>'s <a for=notification>actions</a> should be displayed to the end user,
+if the notification platform displays them side by side.
 
 
 <h3 id=language>Language</h3>
@@ -523,7 +523,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 <h3 id=activating-a-notification>Activating a notification</h3>
 
 <p>When a <a>notification</a> <var>notification</var>, or one of its
-<a for=notification>actions</a>, is activated by the user, assuming the underlying notification
+<a for=notification>actions</a>, is activated by the end user, assuming the underlying notification
 platform supports activation, the user agent must (unless otherwise specified) run these steps:
 
 <ol>
@@ -562,9 +562,8 @@ platform supports activation, the user agent must (unless otherwise specified) r
 
 <h3 id=closing-a-notification>Closing a notification</h3>
 
-<p>When a <a>notification</a> is closed, either by the
-underlying notification platform or by the user, the <a>close steps</a> for it
-must be run.
+<p>When a <a>notification</a> is closed, either by the underlying notification platform or by the
+end user, the <a>close steps</a> for it must be run.
 
 <p>The <dfn>close steps</dfn> for a given <var>notification</var> are:
 
@@ -581,7 +580,7 @@ must be run.
 
 <ol>
  <li><p>If <var>notification</var> is a <a>persistent notification</a> and <var>notification</var>
- was closed by the user, then <a>fire a service worker notification event</a> named
+ was closed by the end user, then <a>fire a service worker notification event</a> named
  "<code>notificationclose</code>" given <var>notification</var>.
 
  <li><p>If <var>notification</var> is a <a>non-persistent notification</a>, then <a>queue a task</a>
@@ -590,10 +589,9 @@ must be run.
 </ol>
 
 
-<h3 id=alerting-the-user>Alerting the user</h3>
+<h3 id=alerting-the-user>Alerting the end user</h3>
 
-<p>The <dfn>alert steps</dfn> for alerting the user about a given
-<var>notification</var> are:
+<p>The <dfn>alert steps</dfn> for alerting the end user about a given <var>notification</var> are:
 
 <ol>
  <li><p><a>Perform vibration</a> using <var>notification</var>'s
@@ -774,11 +772,9 @@ method steps are:
  <li><p>Return <var>promise</var>.
 </ol>
 
-<p class="warning">Notifications are the one instance thus far where asking the
-user upfront makes sense. Specifications for other APIs should not use this
-pattern and instead employ one of the
-<a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">
-many more suitable alternatives</a>.
+<p class="warning">Notifications are the one instance thus far where asking the end user upfront
+makes sense. Specifications for other APIs should not use this pattern and instead employ one of the
+<a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">many more suitable alternatives</a>.
 
 <p>The static <dfn attribute for=Notification><code>maxActions</code></dfn> getter steps are to
 return the <a>maximum number of actions</a> supported.
@@ -922,8 +918,7 @@ then return null.
 objects dispatch events during their lifecycle, which developers can use to
 generate desired behaviors.
 
-<p>The <code>click</code> event dispatches when the user activates a
-notification.
+<p>The <code>click</code> event dispatches when the end user activates a notification.
 
 <pre class=example id=example-08e8ecea>
 var not = new Notification("Gebrünn Gebrünn by Paul Kalkbrenner", { icon: "newsong.svg", tag: "song" });
@@ -936,8 +931,8 @@ not.onclick = function() { displaySong(this); };</pre>
 <code>notificationclick</code> events on the {{ServiceWorkerGlobalScope}}.
 
 <p>Here a service worker shows a notification with a single "Archive" <a for=/>action</a>, allowing
-users to perform this common task from the notification without having to open the website (for
-example the, notification platform might show a button on the notification). The user can also
+end users to perform this common task from the notification without having to open the website (for
+example, the notification platform might show a button on the notification). The end user can also
 activate the main body of the notification to open their inbox.
 
 <pre class=example id=example-50e7c86c>
@@ -957,13 +952,13 @@ self.addEventListener('notificationclick', function(event) {
 
 <h4 id=tags-example>Using the <code>tag</code> member for multiple instances</h4>
 
-<p>Web applications frequently operate concurrently in multiple instances, such
-as when a user opens a mail application in multiple browser tabs. Since the
-desktop is a shared resource, the notifications API provides a way for these
-instances to easily coordinate, by using the <code>tag</code> member.
+<p>Web applications frequently operate concurrently in multiple instances, such as when an end user
+opens a mail application in multiple browser tabs. Since the desktop is a shared resource, the
+notifications API provides a way for these instances to easily coordinate, by using the
+<code>tag</code> member.
 
-<p>Notifications which represent the same conceptual event can be tagged in the
-same way, and when both are shown, the user will only receive one notification.
+<p>Notifications which represent the same conceptual event can be tagged in the same way, and when
+both are shown, the end user will only receive one notification.
 
 <pre class=example id=example-2e2c735a>
 Instance 1                                   | Instance 2
