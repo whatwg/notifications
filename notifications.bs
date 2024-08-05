@@ -762,8 +762,7 @@ method steps are:
 
     <ol>
      <li><p>If <var>deprecatedCallback</var> is given, then <a for=/>invoke</a>
-     <var>deprecatedCallback</var> with « <var>permissionState</var> ». If this throws an
-     exception, then <a>report the exception</a>.
+     <var>deprecatedCallback</var> with « <var>permissionState</var> » and "<code>report</code>".
 
      <li><p><a for=/>Resolve</a> <var>promise</var> with <var>permissionState</var>.
     </ol>
