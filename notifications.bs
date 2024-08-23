@@ -528,8 +528,8 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 
 <h3 id=activating-a-notification>Activating a notification</h3>
 
-<div algorithm>
-<p>When a <a>notification</a> <var>notification</var>, or one of its
+<div algorithm="activate steps">
+<p>When a <a for=/>notification</a> <var>notification</var>, or one of its
 <a for=notification>actions</a>, is activated by the end user, assuming the underlying notification
 platform supports activation, the user agent must (unless otherwise specified) run these steps:
 
