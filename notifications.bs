@@ -160,10 +160,8 @@ clipped corners.
 <p>A <dfn>non-persistent notification</dfn> is a <a>notification</a> whose
 <a for=notification>service worker registration</a> is null.
 
-<p>A <dfn>persistent notification</dfn> is a <a>notification</a> whose
+<p tracking-vector>A <dfn>persistent notification</dfn> is a <a>notification</a> whose
 <a for=notification>service worker registration</a> is non-null.
-
-<!-- XXX https://html.spec.whatwg.org/#fingerprinting-vector -->
 
 <hr>
 
@@ -312,6 +310,7 @@ removed from the <a>list of notifications</a>.
 <a for="powerful feature">name</a> "<dfn export permission><code>notifications</code></dfn>".
 [[!Permissions]]
 
+<div algorithm>
 <p>To <dfn>get the notifications permission state</dfn>, run these steps:
 
 <ol>
@@ -322,6 +321,7 @@ removed from the <a>list of notifications</a>.
 
  <li><p>Return <var>permissionState</var>.
 </ol>
+</div>
 
 
 <h3 id=direction>Direction</h3>
@@ -366,11 +366,11 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 
 <h3 id=resources>Resources</h3>
 
-<p>The <dfn>fetch steps</dfn> for a given
-<a>notification</a> <var>notification</var> are:
+<div algorithm>
+<p>The <dfn>fetch steps</dfn> for a given <a for=/>notification</a> <var>notification</var> are:
 
 <ol>
- <!-- XXX https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055 -->
+ <!-- XXX image fetching is underspecified: https://github.com/whatwg/html/issues/4474 -->
  <li>
   <p>If the notification platform supports images, <a for=/>fetch</a>
   <var>notification</var>'s <a>image URL</a>, if <a>image URL</a> is set.
@@ -460,12 +460,13 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
   </ol>
  </li>
 </ol>
+</div>
 
 
 <h3 id=showing-a-notification>Showing a notification</h3>
 
-<p>The <dfn>show steps</dfn> for a given
-<a>notification</a> <var>notification</var> are:
+<div algorithm>
+<p>The <dfn>show steps</dfn> for a given <a for=/>notification</a> <var>notification</var> are:
 <!-- These steps are invoked from "in parallel" steps -->
 
 <ol>
@@ -524,11 +525,13 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
  to <a>fire an event</a> named <code>show</code> on the {{Notification}} object representing
  <var>notification</var>.
 </ol>
+</div>
 
 
 <h3 id=activating-a-notification>Activating a notification</h3>
 
-<p>When a <a>notification</a> <var>notification</var>, or one of its
+<div algorithm="activate steps">
+<p>When a <a for=/>notification</a> <var>notification</var>, or one of its
 <a for=notification>actions</a>, is activated by the end user, assuming the underlying notification
 platform supports activation, the user agent must (unless otherwise specified) run these steps:
 
@@ -564,6 +567,7 @@ platform supports activation, the user agent must (unless otherwise specified) r
 </ol>
 
 <p class="note">Throughout the web platform "activate" is intentionally misnamed as "click".
+</div>
 
 
 <h3 id=closing-a-notification>Closing a notification</h3>
@@ -571,7 +575,8 @@ platform supports activation, the user agent must (unless otherwise specified) r
 <p>When a <a>notification</a> is closed, either by the underlying notification platform or by the
 end user, the <a>close steps</a> for it must be run.
 
-<p>The <dfn>close steps</dfn> for a given <var>notification</var> are:
+<div algorithm>
+<p>The <dfn>close steps</dfn> for a given <a for=/>notification</a> <var>notification</var> are:
 
 <ol>
  <li><p>If the <a>list of notifications</a> does not <a for=list>contain</a>
@@ -581,8 +586,10 @@ end user, the <a>close steps</a> for it must be run.
 
  <li><p><a for=list>Remove</a> <var>notification</var> from the <a>list of notifications</a>.
 </ol>
+</div>
 
-<p>To <dfn>handle close events</dfn> given a <var>notification</var>, run these steps:
+<div algorithm>
+<p>To <dfn>handle close events</dfn> given a <a for=/>notification</a> <var>notification</var>:
 
 <ol>
  <li><p>If <var>notification</var> is a <a>persistent notification</a> and <var>notification</var>
@@ -593,16 +600,20 @@ end user, the <a>close steps</a> for it must be run.
  to <a>fire an event</a> named <code>close</code> on the {{Notification}} object representing
  <var>notification</var>.
 </ol>
+</div>
 
 
 <h3 id=alerting-the-user>Alerting the end user</h3>
 
-<p>The <dfn>alert steps</dfn> for alerting the end user about a given <var>notification</var> are:
+<div algorithm>
+<p>The <dfn>alert steps</dfn> for alerting the end user about a given <a for=/>notification</a>
+<var>notification</var> are:
 
 <ol>
  <li><p><a>Perform vibration</a> using <var>notification</var>'s
  <a for=notification>vibration pattern</a>, if any.
 </ol>
+</div>
 
 
 <h2 id=api>API</h2>
