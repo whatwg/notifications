@@ -16,8 +16,10 @@ urlPrefix: https://w3c.github.io/vibration/
         text: validate and normalize
     urlPrefix: #idl-def-; type: interface
         text: VibratePattern; url: vibratepattern
-urlPrefix: https://tc39.github.io/ecma262/#sec-object.; type: dfn
-    text: freeze
+urlPrefix: https://tc39.github.io/ecma262/
+    urlPrefix: #sec-object.; type: dfn
+        text: freeze
+    url: #sec-list-and-record-specification-type; type: dfn; text: Record
 </pre>
 
 
@@ -42,59 +44,56 @@ IDL, Service Workers, URL, and Vibration API Standards.
 <p>A <dfn id=concept-notification>notification</dfn> is an abstract
 representation of something that happened, such as the delivery of a message.
 
-<p>A <a>notification</a> has an associated
+<p>A <a for=/>notification</a> has an associated
 <dfn for=notification id=service-worker-registration>service worker registration</dfn> (null
 or a <a for=/>service worker registration</a>). It is initially null.
 
-<p>A <a>notification</a> has an associated
-<dfn for=notification id=concept-title>title</dfn> which is a string.
+<p>A <a for=/>notification</a> has an associated <dfn for=notification id=concept-title>title</dfn> (a string).
 
-<p>A <a>notification</a> has an associated
-<dfn for=notification id=concept-direction>direction</dfn> which is "<code>auto</code>",
-"<code>ltr</code>", or "<code>rtl</code>".
+<p>A <a for=/>notification</a> has an associated
+<dfn for=notification id=concept-direction>direction</dfn> ("<code>auto</code>", "<code>ltr</code>",
+or "<code>rtl</code>").
 
-<p>A <a>notification</a> has an associated
-<dfn for=notification id=concept-language>language</dfn> which is a string
-representing either a valid BCP 47 language tag or the empty string.
+<p>A <a for=/>notification</a> has an associated
+<dfn for=notification id=concept-language>language</dfn> (a string).
 
-<p>A <a>notification</a> has an associated <dfn for=notification id=body>body</dfn> which is a
-string.
+<p>A <a for=/>notification</a> has an associated <dfn for=notification id=body>body</dfn> (a
+string).
 
-<p>A <a>notification</a> has an associated
-<dfn for=notification id=tag>tag</dfn> which is a string.
+<p>A <a for=/>notification</a> has an associated <dfn for=notification id=tag>tag</dfn> (a string).
 
-<p>A <a>notification</a> has an associated
-<dfn for=notification id=data>data</dfn>.
+<p>A <a for=/>notification</a> has an associated <dfn for=notification id=data>data</dfn> (a
+<a for=/>Record</a>).
 
-<p>A <a>notification</a> has an associated <dfn for=notification id=timestamp>timestamp</dfn> which
-is an {{EpochTimeStamp}} representing the time.
+<p>A <a for=/>notification</a> has an associated <dfn for=notification id=timestamp>timestamp</dfn>
+(an {{EpochTimeStamp}}).
 
 <p class=note>Timestamps can be used to indicate the time at which a notification
 is actual. For example, this could be in the past when a notification is used for
 a message that couldn't immediately be delivered because the device was offline,
 or in the future for a meeting that is about to start.
 
-<p>A <a>notification</a> has an associated
-<dfn for=notification id=concept-origin>origin</dfn>.
+<p>A <a for=/>notification</a> has an associated
+<dfn for=notification id=concept-origin>origin</dfn> (an <a for=/>origin</a>).
 
-<p>A <a>notification</a> has an associated
-<dfn for=notification id=renotify-preference-flag>renotify preference</dfn> boolean, which is
+<p>A <a for=/>notification</a> has an associated
+<dfn for=notification id=renotify-preference-flag>renotify preference</dfn> (a boolean). It is
 initially false. When true, indicates that the end user should be alerted after the
 <a>show steps</a> have run with a new notification that has the same <a for=notification>tag</a> as
 an existing notification.
 
-<p>A <a>notification</a> has an associated
-<dfn for=notification id=silent-preference-flag>silent preference</dfn> boolean or null, which is
+<p>A <a for=/>notification</a> has an associated
+<dfn for=notification id=silent-preference-flag>silent preference</dfn> (null or a boolean). It is
 initially null. When true, indicates that no sounds or vibrations should be made. When null,
 indicates that producing sounds or vibrations should be left to platform conventions.
 
-<p>A <a>notification</a> has an associated
+<p>A <a for=/>notification</a> has an associated
 <dfn for=notification id=require-interaction-preference-flag>require interaction preference</dfn>
-boolean, which is initially false. When true, indicates that on devices with a sufficiently large
+(a boolean). It is initially false. When true, indicates that on devices with a sufficiently large
 screen, the notification should remain readily available until the end user activates or dismisses
 the notification.
 
-<p>A <a>notification</a> <em>can</em> have these associated graphics: an
+<p>A <a for=/>notification</a> <em>can</em> have these associated graphics: an
 <dfn for=notification id=image-url>image URL</dfn>,
 <dfn for=notification id=icon-url>icon URL</dfn>, and
 <dfn for=notification id=badge-url>badge URL</dfn>; and their corresponding
@@ -102,22 +101,23 @@ the notification.
 <a for=notification>badge resource</a>.
 
 <p>An <dfn for=notification id=image-resource>image resource</dfn> is a picture shown as part of the
-content of the <a>notification</a>, and should be displayed with higher visual priority than the
+content of the <a for=/>notification</a>, and should be displayed with higher visual priority than the
 <a for=notification>icon resource</a> and <a for=notification>badge resource</a>, though it may be
 displayed in fewer circumstances.
 
 <p>An <dfn for=notification id=icon-resource>icon resource</dfn> is an image that reinforces the
-<a>notification</a> (such as an icon, or a photo of the sender).
+<a for=/>notification</a> (such as an icon, or a photo of the sender).
 
 <p>A <dfn for=notification id=badge-resource>badge resource</dfn> is an icon representing the web
-application, or the category of the <a>notification</a> if the web application sends a wide variety
-of <a>notifications</a>. It <em>may</em> be used to represent the <a>notification</a> when there is
-not enough space to display the <a>notification</a> itself. It <em>may</em> also be displayed inside
-the <a>notification</a>, but then it should have less visual priority than the
+application, or the category of the <a for=/>notification</a> if the web application sends a wide variety
+of <a>notifications</a>. It <em>may</em> be used to represent the <a for=/>notification</a> when there is
+not enough space to display the <a for=/>notification</a> itself. It <em>may</em> also be displayed inside
+the <a for=/>notification</a>, but then it should have less visual priority than the
 <a for=notification>image resource</a> and <a for=notification>icon resource</a>.
 
-<p>A <a>notification</a> has an associated
-<dfn for=notification id=vibration-pattern>vibration pattern</dfn>, which is initially « ».
+<p>A <a for=/>notification</a> has an associated
+<dfn for=notification id=vibration-pattern>vibration pattern</dfn> (a <a for=/>list</a>). It is
+initially « ».
 
 <p class=note>Developers are encouraged to not convey information through an
 <a for=notification lt="image resource">image</a>, <a for=notification lt="icon resource">icon</a>,
@@ -125,7 +125,7 @@ the <a>notification</a>, but then it should have less visual priority than the
 is not otherwise accessible to the end user, especially since notification platforms that do not
 support these features might ignore them.
 
-<p>A <a>notification</a> has associated <dfn for=notification id=actions>actions</dfn> (a
+<p>A <a for=/>notification</a> has associated <dfn for=notification id=actions>actions</dfn> (a
 <a for=/>list</a> of zero or more <a for=/>actions</a>). An <dfn>action</dfn> represents a choice
 for an end user. Each <a for=/>action</a> has an associated:
 
@@ -157,10 +157,10 @@ corners or painting it in a specific color. Developers are encouraged to use an 
 such cases gracefully and does not lose important information through, e.g., loss of color or
 clipped corners.
 
-<p>A <dfn>non-persistent notification</dfn> is a <a>notification</a> whose
+<p>A <dfn>non-persistent notification</dfn> is a <a for=/>notification</a> whose
 <a for=notification>service worker registration</a> is null.
 
-<p tracking-vector>A <dfn>persistent notification</dfn> is a <a>notification</a> whose
+<p tracking-vector>A <dfn>persistent notification</dfn> is a <a for=/>notification</a> whose
 <a for=notification>service worker registration</a> is non-null.
 
 <hr>
@@ -193,7 +193,7 @@ clipped corners.
 <var>fallbackTimestamp</var>:
 
 <ol>
- <li><p>Let <var>notification</var> be a new <a>notification</a>.
+ <li><p>Let <var>notification</var> be a new <a for=/>notification</a>.
 
  <li><p>If <var>options</var>["{{NotificationOptions/silent}}"] is true and
  <var>options</var>["{{NotificationOptions/vibrate}}"] <a for=map>exists</a>, then <a>throw</a> a
@@ -333,7 +333,7 @@ section of HTML. [[!HTML]]
      https://html.spec.whatwg.org/multipage/rendering.html#text-rendered-in-native-user-interfaces -->
 
 <p>User agents are expected to honor the Unicode semantics of the text of a
-<a>notification</a>'s <a for=notification>title</a>, <a for=notification>body</a>, and the
+<a for=/>notification</a>'s <a for=notification>title</a>, <a for=notification>body</a>, and the
 <a for=action>title</a> of each of its <a for=notification>actions</a>. Each is expected
 to be treated as an independent set of one or more bidirectional algorithm
 paragraphs when displayed, as defined by the bidirectional algorithm's rules P1,
@@ -341,13 +341,13 @@ P2, and P3, including, for instance, supporting the paragraph-breaking behavior
 of U+000A LINE FEED (LF) characters. For each paragraph of the
 <a for=notification>title</a>, <a for=notification>body</a> and the
 <a for=action>title</a> of each of the <a for=notification>actions</a>, the
-<a>notification</a>'s
+<a for=/>notification</a>'s
 <a for=notification>direction</a> provides the higher-level override of
 rules P2 and P3 if it has a value other than "<code>auto</code>". [[!BIDI]]
 
-<p>The <a>notification</a>'s <a for=notification>direction</a> also determines the relative order in
-which the <a>notification</a>'s <a for=notification>actions</a> should be displayed to the end user,
-if the notification platform displays them side by side.
+<p>The <a for=/>notification</a>'s <a for=notification>direction</a> also determines the relative
+order in which the <a for=/>notification</a>'s <a for=notification>actions</a> should be displayed
+to the end user, if the notification platform displays them side by side.
 
 
 <h3 id=language>Language</h3>
@@ -355,10 +355,10 @@ if the notification platform displays them side by side.
 <!-- keep this in sync with
      https://html.spec.whatwg.org/multipage/dom.html#attr-lang -->
 
-<p>The <a>notification</a>'s <a for=notification>language</a> specifies the primary language for the
-<a>notification</a>'s <a for=notification>title</a>, <a for=notification>body</a> and the
-<a for=notification>title</a> of each of its <a for=notification>actions</a>. Its value is a string.
-The empty string indicates that the primary language is unknown. Any other string must be
+<p>The <a for=/>notification</a>'s <a for=notification>language</a> specifies the primary language
+for the <a for=/>notification</a>'s <a for=notification>title</a>, <a for=notification>body</a> and
+the <a for=notification>title</a> of each of its <a for=notification>actions</a>. Its value is a
+string. The empty string indicates that the primary language is unknown. Any other string must be
 interpreted as a language tag. Validity or well-formedness are not enforced. [[!BCP47]]
 
 <p class=note>Developers are encouraged to only use valid language tags.
@@ -478,7 +478,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 
  <li><p>Let <var>shown</var> be false.
 
- <li><p>Let <var>oldNotification</var> be the <a>notification</a> in the
+ <li><p>Let <var>oldNotification</var> be the <a for=/>notification</a> in the
  <a>list of notifications</a> whose <a for=notification>tag</a> is not the empty string and is
  <var>notification</var>'s <a for=notification>tag</a>, and whose <a for=notification>origin</a> is
  <a>same origin</a> with <var>notification</var>'s <a for=notification>origin</a>, if any, and null
@@ -572,8 +572,8 @@ platform supports activation, the user agent must (unless otherwise specified) r
 
 <h3 id=closing-a-notification>Closing a notification</h3>
 
-<p>When a <a>notification</a> is closed, either by the underlying notification platform or by the
-end user, the <a>close steps</a> for it must be run.
+<p>When a <a for=/>notification</a> is closed, either by the underlying notification platform or by
+the end user, the <a>close steps</a> for it must be run.
 
 <div algorithm>
 <p>The <dfn>close steps</dfn> for a given <a for=/>notification</a> <var>notification</var> are:
@@ -702,7 +702,7 @@ object and can be created through {{Notification}}'s
 <h3 id=garbage-collection>Garbage collection</h3>
 
 <p>A {{Notification}} object must not be garbage collected while the <a>list of notifications</a>
-<a for=list>contains</a> its corresponding <a>notification</a> and it has an
+<a for=list>contains</a> its corresponding <a for=/>notification</a> and it has an
 <a for=/>event listener</a> whose <b>type</b> is <code>click</code>, <code>show</code>,
 <code>close</code>, or <code>error</code>.
 
@@ -835,70 +835,70 @@ return the <a>maximum number of actions</a> supported.
 </table>
 
 <p>The <dfn method for=Notification><code>close()</code></dfn> method steps are to run the
-<a>close steps</a> for <a>this</a>'s <a>notification</a>.
+<a>close steps</a> for <a>this</a>'s <a for=/>notification</a>.
 
 <p>The <dfn attribute for=Notification><code>title</code></dfn> getter steps are to return
-<a>this</a>'s <a>notification</a>'s <a for=notification>title</a>.
+<a>this</a>'s <a for=/>notification</a>'s <a for=notification>title</a>.
 
 <p>The <dfn attribute for=Notification><code>dir</code></dfn> getter steps are to return
-<a>this</a>'s <a>notification</a>'s <a for=notification>direction</a>.
+<a>this</a>'s <a for=/>notification</a>'s <a for=notification>direction</a>.
 
 <p>The <dfn attribute for=Notification><code>lang</code></dfn> getter steps are to return
-<a>this</a>'s <a>notification</a>'s <a for=notification>language</a>.
+<a>this</a>'s <a for=/>notification</a>'s <a for=notification>language</a>.
 
 <p>The <dfn attribute for=Notification><code>body</code></dfn> getter steps are to return
-<a>this</a>'s <a>notification</a>'s <a for=notification>body</a>.
+<a>this</a>'s <a for=/>notification</a>'s <a for=notification>body</a>.
 
 <p>The <dfn attribute for=Notification><code>tag</code></dfn> getter steps are to return
-<a>this</a>'s <a>notification</a>'s <a for=notification>tag</a>.
+<a>this</a>'s <a for=/>notification</a>'s <a for=notification>tag</a>.
 
 <p>The <dfn attribute dfn-for=Notification><code>image</code></dfn> getter steps are:
 
 <ol>
- <li><p>If there is no <a>this</a>'s <a>notification</a>'s <a for=notification>image URL</a>, then
+ <li><p>If there is no <a>this</a>'s <a for=/>notification</a>'s <a for=notification>image URL</a>, then
  return the empty string.
 
- <li><p>Return <a>this</a>'s <a>notification</a>'s <a for=notification>image URL</a>,
+ <li><p>Return <a>this</a>'s <a for=/>notification</a>'s <a for=notification>image URL</a>,
  <a lt="URL serializer">serialized</a>.
 </ol>
 
 <p>The <dfn attribute for=Notification><code>icon</code></dfn> getter steps are:
 
 <ol>
- <li><p>If there is no <a>this</a>'s <a>notification</a>'s <a for=notification>icon URL</a>, then
+ <li><p>If there is no <a>this</a>'s <a for=/>notification</a>'s <a for=notification>icon URL</a>, then
  return the empty string.
 
- <li><p>Return <a>this</a>'s <a>notification</a>'s <a for=notification>icon URL</a>,
+ <li><p>Return <a>this</a>'s <a for=/>notification</a>'s <a for=notification>icon URL</a>,
  <a lt="URL serializer">serialized</a>.
 </ol>
 
 <p>The <dfn attribute for=Notification><code>badge</code></dfn> getter steps are:
 
 <ol>
- <li><p>If there is no <a>this</a>'s <a>notification</a>'s <a for=notification>badge URL</a>, then
+ <li><p>If there is no <a>this</a>'s <a for=/>notification</a>'s <a for=notification>badge URL</a>, then
  return the empty string.
 
- <li><p>Return <a>this</a>'s <a>notification</a>'s <a for=notification>badge URL</a>,
+ <li><p>Return <a>this</a>'s <a for=/>notification</a>'s <a for=notification>badge URL</a>,
  <a lt="URL serializer">serialized</a>.
 </ol>
 
 <p>The <dfn attribute for=Notification><code>vibrate</code></dfn> getter steps are to return
-<a>this</a>'s <a>notification</a>'s <a for=notification>vibration pattern</a>.
+<a>this</a>'s <a for=/>notification</a>'s <a for=notification>vibration pattern</a>.
 
 <p>The <dfn attribute for=Notification><code>timestamp</code></dfn> getter steps are to return
-<a>this</a>'s <a>notification</a>'s <a for=notification>timestamp</a>.
+<a>this</a>'s <a for=/>notification</a>'s <a for=notification>timestamp</a>.
 
 <p>The <dfn attribute for=Notification><code>renotify</code></dfn> getter steps are to return
-<a>this</a>'s <a>notification</a>'s <a for=notification>renotify preference</a>.
+<a>this</a>'s <a for=/>notification</a>'s <a for=notification>renotify preference</a>.
 
 <p>The <dfn attribute for=Notification><code>silent</code></dfn> getter steps are to return
-<a>this</a>'s <a>notification</a>'s <a for=notification>silent preference</a>.
+<a>this</a>'s <a for=/>notification</a>'s <a for=notification>silent preference</a>.
 
 <p>The <dfn attribute for=Notification><code>requireInteraction</code></dfn> getter steps are to
-return <a>this</a>'s <a>notification</a>'s <a for=notification>require interaction preference</a>.
+return <a>this</a>'s <a for=/>notification</a>'s <a for=notification>require interaction preference</a>.
 
 <p>The <dfn attribute for=Notification><code>data</code></dfn> getter steps are to return
-<a abstract-op>StructuredDeserialize</a>(<a>this</a>'s <a>notification</a>'s
+<a abstract-op>StructuredDeserialize</a>(<a>this</a>'s <a for=/>notification</a>'s
 <a for=notification>data</a>, <a>this</a>'s <a>relevant Realm</a>). If this throws an exception,
 then return null.
 <!-- Relies on SameObject becoming Cached as proposed -->
@@ -909,7 +909,7 @@ then return null.
  <li><p>Let <var>frozenActions</var> be an empty list of type {{NotificationAction}}.
 
  <li>
-  <p><a for=list>For each</a> <var>entry</var> of <a>this</a>'s <a>notification</a>'s
+  <p><a for=list>For each</a> <var>entry</var> of <a>this</a>'s <a for=/>notification</a>'s
   <a for=notification>actions</a>:
 
   <ol>
@@ -1138,9 +1138,9 @@ method steps are:
     <ol>
      <li><p>Let <var>objects</var> be a <a for=/>list</a>.
 
-     <li><p><a for=list>For each</a> <a>notification</a> in <var>notifications</var>, in creation
+     <li><p><a for=list>For each</a> <a for=/>notification</a> in <var>notifications</var>, in creation
      order, create a <a for=/>new</a> {{Notification}} object with <var>realm</var> representing
-     <a>notification</a>, and <a for=list>append</a> it to <var>objects</var>.
+     <a for=/>notification</a>, and <a for=list>append</a> it to <var>objects</var>.
 
      <li><p><a for=/>Resolve</a> <var>promise</var> with <var>objects</var>.
     </ol>
@@ -1150,7 +1150,7 @@ method steps are:
 </ol>
 
 <p class=note>This method returns zero or more new {{Notification}} objects which might represent
-the same underlying <a>notification</a> of {{Notification}} objects already in existence.
+the same underlying <a for=/>notification</a> of {{Notification}} objects already in existence.
 </div>
 
 <hr>
