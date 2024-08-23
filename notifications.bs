@@ -711,7 +711,7 @@ constructor steps are:
   <p>If <var>options</var>["{{NotificationOptions/actions}}"] is not <a for=list>empty</a>, then
   <a>throw</a> a {{TypeError}}.
 
-  <p class=note><a>Actions</a> are only currently supported for <a>persistent notifications</a>.
+  <p class=note><a>Actions</a> are only supported for <a>persistent notifications</a>.
 
  <li><p>Let <var>notification</var> be the result of
  <a>creating a notification with a settings object</a> given <var>title</var>, <var>options</var>,
