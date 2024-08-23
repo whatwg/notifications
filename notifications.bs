@@ -1147,9 +1147,9 @@ the same underlying <a>notification</a> of {{Notification}} objects already in e
 <div algorithm>
 <p>To <dfn>fire a service worker notification event</dfn> named <var>name</var> given a
 <a for/>notification</a> <var>notification</var>, and an optional string <var>action</var> (default
-the empty string): <a>fire Functional Event</a> <var>name</var> using {{NotificationEvent}} on
-<var>notification</var>'s <a for=notification>service worker registration</a> with the following
-properties:
+the empty string): run <a>Fire Functional Event</a> given <var>name</var>, {{NotificationEvent}},
+<var>notification</var>'s <a for=notification>service worker registration</a>, and the following
+initialization:
 
 <dl>
  <dt>{{NotificationEvent/notification}}
