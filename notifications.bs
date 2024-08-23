@@ -1049,7 +1049,7 @@ partial interface ServiceWorkerGlobalScope {
 </pre>
 
 <div algorithm>
-<p>The <dfn method for=ServiceWorkerRegistration><code>showNotification(title, options)</code></dfn>
+<p>The <dfn method for=ServiceWorkerRegistration><code>showNotification(<var>title</var>, <var>options</var>)</code></dfn>
 method steps are:
 
 <ol>
