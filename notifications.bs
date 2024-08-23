@@ -310,6 +310,7 @@ removed from the <a>list of notifications</a>.
 <a for="powerful feature">name</a> "<dfn export permission><code>notifications</code></dfn>".
 [[!Permissions]]
 
+<div algorithm>
 <p>To <dfn>get the notifications permission state</dfn>, run these steps:
 
 <ol>
@@ -320,6 +321,7 @@ removed from the <a>list of notifications</a>.
 
  <li><p>Return <var>permissionState</var>.
 </ol>
+</div>
 
 
 <h3 id=direction>Direction</h3>
@@ -603,12 +605,15 @@ end user, the <a>close steps</a> for it must be run.
 
 <h3 id=alerting-the-user>Alerting the end user</h3>
 
-<p>The <dfn>alert steps</dfn> for alerting the end user about a given <var>notification</var> are:
+<div algorithm>
+<p>The <dfn>alert steps</dfn> for alerting the end user about a given <a for=/>notification</a>
+<var>notification</var> are:
 
 <ol>
  <li><p><a>Perform vibration</a> using <var>notification</var>'s
  <a for=notification>vibration pattern</a>, if any.
 </ol>
+</div>
 
 
 <h2 id=api>API</h2>
