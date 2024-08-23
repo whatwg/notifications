@@ -1049,7 +1049,8 @@ partial interface ServiceWorkerGlobalScope {
 </pre>
 
 <div algorithm>
-<p>The <dfn method for=ServiceWorkerRegistration><code>showNotification(<var>title</var>, <var>options</var>)</code></dfn>
+<p>The
+<dfn method for=ServiceWorkerRegistration><code>showNotification(<var>title</var>, <var>options</var>)</code></dfn>
 method steps are:
 
 <ol>
@@ -1159,12 +1160,13 @@ defaulting to the empty string), <a>Fire Functional Event</a> <var>name</var> us
 </div>
 
 <div algorithm>
-<p>The {{NotificationEvent/notification}} getter steps are to return the value it was initialized
-to.
+<p>The <dfn attribute for=NotificationEvent><code>notification</code></dfn> getter steps are to
+return the value it was initialized to.
 </div>
 
 <div algorithm>
-<p>The {{NotificationEvent/action}} getter steps are to return the value it was initialized to.
+<p>The <dfn attribute for=NotificationEvent><code>action</code></dfn> getter steps are to return the
+value it was initialized to.
 </div>
 
 <p>The following is the <a>event handler</a> (and its corresponding
