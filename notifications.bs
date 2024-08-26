@@ -79,8 +79,8 @@ or in the future for a meeting that is about to start.
 <p>A <a for=/>notification</a> has an associated
 <dfn for=notification id=renotify-preference-flag>renotify preference</dfn> (a boolean). It is
 initially false. When true, indicates that the end user should be alerted after the
-<a>show steps</a> have run with a new notification that has the same <a for=notification>tag</a> as
-an existing notification.
+<a for=/>notification show steps</a> have run with a new notification that has the same
+<a for=notification>tag</a> as an existing notification.
 
 <p>A <a for=/>notification</a> has an associated
 <dfn for=notification id=silent-preference-flag>silent preference</dfn> (null or a boolean). It is
@@ -466,10 +466,13 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 <h3 id=showing-a-notification>Showing a notification</h3>
 
 <div algorithm>
-<p>The <dfn>show steps</dfn> for a given <a for=/>notification</a> <var>notification</var> are:
+<p>The <dfn export>notification show steps</dfn> for a given <a for=/>notification</a>
+<var>notification</var> are:
 <!-- These steps are invoked from "in parallel" steps -->
 
 <ol>
+ <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
+
  <li><p>Wait for any <a for=/ lt=fetch>fetches</a> to complete and <var>notification</var>'s
  <a for=notification>image resource</a>, <a for=notification>icon resource</a>, and
  <a for=notification>badge resource</a> to be set (if any), as well as the
@@ -738,9 +741,7 @@ constructor steps are:
    "<code>granted</code>", then <a>queue a task</a> to <a>fire an event</a> named
    <code>error</code> on <a>this</a>, and abort these steps.
 
-   <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
-
-   <li><p>Run the <a>show steps</a> for <var>notification</var>.
+   <li><p>Run the <a for=/>notification show steps</a> for <var>notification</var>.
   </ol>
 </ol>
 </div>
@@ -1091,9 +1092,7 @@ method steps are:
    <a>DOM manipulation task source</a> given <var>global</var> to <a for=/>reject</a>
    <var>promise</var> with a {{TypeError}}, and abort these steps.
 
-   <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
-
-   <li><p>Run the <a>show steps</a> for <var>notification</var>.
+   <li><p>Run the <a for=/>notification show steps</a> for <var>notification</var>.
 
    <li><p><a>Queue a global task</a> on the <a>DOM manipulation task source</a> given
    <var>global</var> to <a for=/>resolve</a> <var>promise</var> with undefined.
