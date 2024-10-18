@@ -60,8 +60,8 @@ or "<code>rtl</code>").
 <p>A <a for=/>notification</a> has an associated <dfn for=notification id=body>body</dfn> (a
 string).
 
-<p>A <a for=/>notification</a> has an associated <dfn for=notification>URL</dfn> (null or a
-<a for=/>URL</a>). It is initially null.
+<p>A <a for=/>notification</a> has an associated <dfn for=notification>navigation URL</dfn> (null or
+a <a for=/>URL</a>). It is initially null.
 
 <p>A <a for=/>notification</a> has an associated <dfn for=notification id=tag>tag</dfn> (a string).
 
@@ -139,7 +139,7 @@ for an end user. Each <a for=/>action</a> has an associated:
  <dt><dfn for=action id=action-title>title</dfn>
  <dd>A string.
 
- <dt><dfn for=action>URL</dfn>
+ <dt><dfn for=action>navigation URL</dfn>
  <dd>Null or a <a for=/>URL</a>. It is initially null.
 
  <dt><dfn for=action>icon URL</dfn>
@@ -225,10 +225,10 @@ clipped corners.
  <li><p>Set <var>notification</var>'s <a for=notification>body</a> to
  <var>options</var>["{{NotificationOptions/body}}"].
 
- <li><p>If <var>options</var>["{{NotificationOptions/url}}"] <a for=map>exists</a>, then
+ <li><p>If <var>options</var>["{{NotificationOptions/navigate}}"] <a for=map>exists</a>, then
  <a lt="URL parser">parse</a> it using <var>baseURL</var>, and if that does not return failure, set
- <var>notification</var>'s <a for=notification>URL</a> to the return value. (Otherwise
- <var>notification</var>'s <a for=notification>URL</a> remains null.)
+ <var>notification</var>'s <a for=notification>navigation URL</a> to the return value. (Otherwise
+ <var>notification</var>'s <a for=notification>navigation URL</a> remains null.)
 
  <li><p>Set <var>notification</var>'s <a for=notification>tag</a> to
  <var>options</var>["{{NotificationOptions/tag}}"].
@@ -280,10 +280,10 @@ clipped corners.
    <li><p>Set <var>action</var>'s <a for=action>title</a> to
    <var>entry</var>["{{NotificationAction/title}}"].
 
-   <li><p>If <var>entry</var>["{{NotificationAction/url}}"] <a for=map>exists</a>, then
+   <li><p>If <var>entry</var>["{{NotificationAction/navigate}}"] <a for=map>exists</a>, then
    <a lt="URL parser">parse</a> it using <var>baseURL</var>, and if that does not return failure,
-   set <var>action</var>'s <a for=action>URL</a> to the return value. (Otherwise <var>action</var>'s
-   <a for=action>URL</a> remains null.)
+   set <var>action</var>'s <a for=action>navigation URL</a> to the return value. (Otherwise
+   <var>action</var>'s <a for=action>navigation URL</a> remains null.)
 
    <li><p>If <var>entry</var>["{{NotificationAction/icon}}"] <a for=map>exists</a>, then
    <a lt="URL parser">parse</a> it using <var>baseURL</var>, and if that does not return failure,
@@ -560,21 +560,22 @@ platform supports activation, the user agent must (unless otherwise specified) r
  <li><p>If one of <var>notification</var>'s <a for=notification>actions</a> was activated by the end
  user, then set <var>action</var> to that <a for=/>action</a>.
 
- <li><p>Let <var>url</var> be <var>notification</var>'s <a for=notification>URL</a>.
+ <li><p>Let <var>navigationURL</var> be <var>notification</var>'s
+ <a for=notification>navigation URL</a>.
 
  <li>
-  <p>If <var>action</var> is non-null, then set <var>url</var> to <var>action</var>'s
-  <a for=action>URL</a>.
+  <p>If <var>action</var> is non-null, then set <var>navigationURL</var> to <var>action</var>'s
+  <a for=action>navigation URL</a>.
 
   <p class=note>This intentionally makes it so that when an <a for=/>action</a>'s
-  <a for=action>URL</a> is null, it falls through to the <code>click</code> event, providing more
-  flexibility to the web developer.
+  <a for=action>navigation URL</a> is null, it falls through to the <code>click</code> event,
+  providing more flexibility to the web developer.
 
  <li>
-  <p>If <var>url</var> is non-null:
+  <p>If <var>navigationURL</var> is non-null:
 
   <ol>
-   <li><p><a>Create a fresh top-level traversable</a> given <var>url</var>.
+   <li><p><a>Create a fresh top-level traversable</a> given <var>navigationURL</var>.
    <!-- Should maybe set userInvolvement correctly here, even though it doesn't do anything today. -->
 
    <li><p>Return.
@@ -681,7 +682,7 @@ interface Notification : EventTarget {
   readonly attribute NotificationDirection dir;
   readonly attribute DOMString lang;
   readonly attribute DOMString body;
-  readonly attribute USVString url;
+  readonly attribute USVString navigate;
   readonly attribute DOMString tag;
   readonly attribute USVString image;
   readonly attribute USVString icon;
@@ -701,7 +702,7 @@ dictionary NotificationOptions {
   NotificationDirection dir = "auto";
   DOMString lang = "";
   DOMString body = "";
-  USVString url;
+  USVString navigate;
   DOMString tag = "";
   USVString image;
   USVString icon;
@@ -730,7 +731,7 @@ enum NotificationDirection {
 dictionary NotificationAction {
   required DOMString action;
   required DOMString title;
-  USVString url;
+  USVString navigate;
   USVString icon;
 };
 
@@ -894,13 +895,13 @@ return the <a>maximum number of actions</a> supported.
 <p>The <dfn attribute for=Notification><code>body</code></dfn> getter steps are to return
 <a>this</a>'s <a for=/>notification</a>'s <a for=notification>body</a>.
 
-<p>The <dfn attribute for=Notification><code>url</code></dfn> getter steps are:
+<p>The <dfn attribute for=Notification><code>navigate</code></dfn> getter steps are:
 
 <ol>
- <li><p>If <a>this</a>'s <a>notification</a>'s <a for=notification>URL</a> is null, then return the
- empty string.
+ <li><p>If <a>this</a>'s <a>notification</a>'s <a for=notification>navigation URL</a> is null, then
+ return the empty string.
 
- <li><p>Return <a>this</a>'s <a>notification</a>'s <a for=notification>URL</a>,
+ <li><p>Return <a>this</a>'s <a>notification</a>'s <a for=notification>navigation URL</a>,
  <a lt="URL serializer">serialized</a>.
 </ol>
 
@@ -976,9 +977,9 @@ then return null.
    <li><p>Set <var>action</var>["{{NotificationAction/title}}"] to <var>entry</var>'s
    <a for=action>title</a>.
 
-   <li><p>If <var>entry</var>'s <a for=action>URL</a> is non-null, then set
-   <var>action</var>["{{NotificationAction/url}}"] to <var>entry</var>'s <a for=action>URL</a>,
-   <a lt="URL serializer">serialized</a>.
+   <li><p>If <var>entry</var>'s <a for=action>navigation URL</a> is non-null, then set
+   <var>action</var>["{{NotificationAction/navigate}}"] to <var>entry</var>'s
+   <a for=action>navigation URL</a>, <a lt="URL serializer">serialized</a>.
 
    <li><p>If <var>entry</var>'s <a for=action>icon URL</a> is non-null, then set
    <var>action</var>["{{NotificationAction/icon}}"] to <var>entry</var>'s
