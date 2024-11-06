@@ -45,7 +45,7 @@ IDL, Service Workers, URL, and Vibration API Standards.
 representation of something that happened, such as the delivery of a message.
 
 <p>A <a for=/>notification</a> has an associated
-<dfn for=notification id=service-worker-registration>service worker registration</dfn> (null
+<dfn export for=notification id=service-worker-registration>service worker registration</dfn> (null
 or a <a for=/>service worker registration</a>). It is initially null.
 
 <p>A <a for=/>notification</a> has an associated <dfn for=notification id=concept-title>title</dfn> (a string).
