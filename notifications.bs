@@ -125,8 +125,8 @@ initially « ».
 is not otherwise accessible to the end user, especially since notification platforms that do not
 support these features might ignore them.
 
-<p>A <a for=/>notification</a> has associated <dfn for=notification id=actions>actions</dfn> (a
-<a for=/>list</a> of zero or more <a for=/>notification actions</a>). A
+<p>A <a for=/>notification</a> has associated <dfn export for=notification id=actions>actions</dfn>
+(a <a for=/>list</a> of zero or more <a for=/>notification actions</a>). A
 <dfn export id=action>notification action</dfn> represents a choice for an end user. Each
 <a for=/>notification action</a> has an associated:
 
