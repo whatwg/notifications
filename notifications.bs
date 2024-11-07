@@ -569,7 +569,7 @@ platform supports activation, the user agent must (unless otherwise specified) r
   <p>If <var>action</var> is non-null, then set <var>navigationURL</var> to <var>action</var>'s
   <a for="notification action">navigation URL</a>.
 
-  <p class=note>This intentionally makes it so that when an <a for=/>notification action</a>'s
+  <p class=note>This intentionally makes it so that when a <a for=/>notification action</a>'s
   <a for="notification action">navigation URL</a> is null, it falls through to the
   <code>click</code> event, providing more flexibility to the web developer.
 
