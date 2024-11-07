@@ -560,7 +560,7 @@ platform supports activation, the user agent must (unless otherwise specified) r
  <li><p>Let <var>action</var> be null.
 
  <li><p>If one of <var>notification</var>'s <a for=notification>actions</a> was activated by the end
- user, then set <var>action</var> to that <a for=/>action</a>.
+ user, then set <var>action</var> to that <a for=/>notification action</a>.
 
  <li><p>Let <var>navigationURL</var> be <var>notification</var>'s
  <a for=notification>navigation URL</a>.
@@ -569,7 +569,7 @@ platform supports activation, the user agent must (unless otherwise specified) r
   <p>If <var>action</var> is non-null, then set <var>navigationURL</var> to <var>action</var>'s
   <a for="notification action">navigation URL</a>.
 
-  <p class=note>This intentionally makes it so that when an <a for=/>action</a>'s
+  <p class=note>This intentionally makes it so that when an <a for=/>notification action</a>'s
   <a for="notification action">navigation URL</a> is null, it falls through to the
   <code>click</code> event, providing more flexibility to the web developer.
 
