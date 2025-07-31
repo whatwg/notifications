@@ -577,16 +577,18 @@ platform supports activation, the user agent must (unless otherwise specified) r
   <p>If <var>navigationURL</var> is non-null:
 
   <ol>
-   <li><p>If there is an existing <a for=/>top-level traversable</a> <var>traversable</var> within
-   the user agent's <a for="user agent">top-level traversable set</a> whose
-   <a for="navigable">active document</a>'s <a for=Document>URL</a> <a for=url>equals</a>
-   <var>navigationURL</var> with <a for=url/equals><i>exclude fragments</i></a> set to true, then
-   <a for=/>navigate</a> <var>traversable</var> to <var>navigationURL</var> and return. If there are
-   multiple <a for=/>top-level traversables</a> that satisfy the condition the user agent has to
-   pick one in an <a>implementation-defined</a> manner.
-   <!-- Should maybe set userInvolvement correctly here and below. -->
+   <li>
+    <p>Select one of the following two options in an <a>implementation-defined</a> manner:
 
-   <li><p><a>Create a fresh top-level traversable</a> given <var>navigationURL</var>.
+    <ul>
+     <li><p><a for=/>Navigate</a> an existing <a for=/>top-level traversable</a> within the user
+     agent's <a for="user agent">top-level traversable set</a> to <var>navigationURL</var>.
+     <!-- Should maybe set userInvolvement correctly here and below. -->
+
+     <li><p><a>Create a fresh top-level traversable</a> given <var>navigationURL</var>.
+    </ul>
+
+    <p class=note>User agents are strongly encouraged to match platform conventions.
 
    <li><p>Return.
   </ol>
