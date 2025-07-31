@@ -583,7 +583,7 @@ platform supports activation, the user agent must (unless otherwise specified) r
     <ul>
      <li><p><a for=/>Navigate</a> an existing <a for=/>top-level traversable</a> within the user
      agent's <a for="user agent">top-level traversable set</a> to <var>navigationURL</var>.
-     <!-- Should maybe set userInvolvement correctly here and below. -->
+     <!-- Should maybe set userInvolvement to "browser UI" here and below. -->
 
      <li><p><a>Create a fresh top-level traversable</a> given <var>navigationURL</var>.
     </ul>
