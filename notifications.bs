@@ -430,7 +430,6 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
    <a for=notification>icon resource</a> to the decoded resource. (Otherwise
    <var>notification</var> has no <a for=notification>icon resource</a>.)
   </ol>
- </li>
 
  <li>
   <p>If the notification platform supports badges, <a for=/>fetch</a> <var>notification</var>'s
@@ -452,7 +451,6 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
    <a for=notification>badge resource</a> to the decoded resource. (Otherwise
    <var>notification</var> has no <a for=notification>badge resource</a>.)
   </ol>
- </li>
 
  <li>
   <p>If the notification platform supports actions and action icons, then for each <var>action</var>
@@ -476,7 +474,6 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
    <a for="notification action">icon resource</a> to the decoded resource. (Otherwise
    <var>action</var>'s <a for="notification action">icon resource</a> remains null.)
   </ol>
- </li>
 </ol>
 </div>
 
@@ -506,13 +503,13 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
  otherwise.
 
  <li>
-  <p>If <var>oldNotification</var> is non-null, then:
+  <p>If <var>oldNotification</var> is non-null:
 
   <ol>
    <li><p><a>Handle close events</a> with <var>oldNotification</var>.
 
    <li>
-    <p>If the notification platform supports replacement, then:
+    <p>If the notification platform supports replacement:
 
     <ol>
      <li><p><a for=list>Replace</a> <var>oldNotification</var> with <var>notification</var>, in the
@@ -529,7 +526,7 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
   </ol>
 
  <li>
-  <p>If <var>shown</var> is false, then:
+  <p>If <var>shown</var> is false:
 
   <ol>
    <li><p><a for=list>Append</a> <var>notification</var> to the <a>list of notifications</a>.
@@ -594,7 +591,7 @@ platform supports activation, the user agent must (unless otherwise specified) r
   </ol>
 
  <li>
-  <p>If <var>notification</var> is a <a>persistent notification</a>, then:
+  <p>If <var>notification</var> is a <a>persistent notification</a>:
 
   <ol>
    <li><p>Let <var>actionName</var> be the empty string.
@@ -1204,7 +1201,7 @@ method steps are:
 
    <li>
     <p><a>Queue a global task</a> on the <a>DOM manipulation task source</a> given <var>global</var>
-    to run these steps:</p>
+    to run these steps:
 
     <ol>
      <li><p>Let <var>objects</var> be a <a for=/>list</a>.
