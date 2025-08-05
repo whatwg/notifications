@@ -1129,6 +1129,12 @@ partial interface ServiceWorkerGlobalScope {
 };
 </pre>
 
+<p>A <a for=/>service worker registration</a> has an associated
+<dfn export for="service worker registration">has <code>showNotification()</code> been successfully invoked</dfn>
+(a <a for=/>boolean</a>), which is initially false.
+
+<p class=note>This is infrastructure for the <cite>Push API</cite> standard. [[PUSH-API]]
+
 <div algorithm>
 <p>The
 <dfn method for=ServiceWorkerRegistration><code>showNotification(<var>title</var>, <var>options</var>)</code></dfn>
@@ -1162,6 +1168,10 @@ method steps are:
    <var>promise</var> with a {{TypeError}}, and abort these steps.
 
    <li><p>Run the <a for=/>notification show steps</a> for <var>notification</var>.
+
+   <li><p>Set <var>notification</var>'s <a for=notification>service worker registration</a>'s
+   <a for="service worker registration">has <code>showNotification()</code> been successfully invoked</a>
+   to true.
 
    <li><p><a>Queue a global task</a> on the <a>DOM manipulation task source</a> given
    <var>global</var> to <a for=/>resolve</a> <var>promise</var> with undefined.
