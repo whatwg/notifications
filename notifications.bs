@@ -151,12 +151,13 @@ support these features might ignore them.
  <dd>Null or a resource. It is initially null.
 </dl>
 
-<p>Users may activate actions, as alternatives to activating the notification itself. The
-<dfn>maximum number of actions</dfn> supported is an <a>implementation-defined</a> integer of zero
-or more, within the constraints of the notification platform.
+<p>Users may activate actions, as alternatives to activating the notification itself.
 
-<p class=note>Since display of actions is platform-dependent, developers are encouraged to make sure
-that any action an end user can invoke from a notification is also available within the web
+<p class=note>The maximum number of supported actions are limited to 2 on all platforms, to prevent
+fingerprinting based on the actual maximum number of the underlying system.
+
+<p class=note>Since the support of actions is platform-dependent, developers are encouraged to make
+sure that any action an end user can invoke from a notification is also available within the web
 application.
 
 <p class="note no-backref">Some platforms might modify an
@@ -270,8 +271,10 @@ important information through, e.g., loss of color or clipped corners.
  <li><p>Set <var>notification</var>'s <a for=notification>actions</a> to « ».
 
  <li>
-  <p>For each <var>entry</var> in <var>options</var>["{{NotificationOptions/actions}}"], up to the
-  <a>maximum number of actions</a> supported (skip any excess entries):
+  <p>Let |actions| be a [=list=] of initial maximum two items from
+  |options|["{{NotificationOptions/actions}}"].
+
+  <p>[=list/For each=] |entry| of |actions|:
 
   <ol>
    <li><p>Let <var>action</var> be a new <a for=/>notification action</a>.
@@ -681,8 +684,6 @@ interface Notification : EventTarget {
   static readonly attribute NotificationPermission permission;
   [Exposed=Window] static Promise&lt;NotificationPermission> requestPermission(optional NotificationPermissionCallback deprecatedCallback);
 
-  static readonly attribute unsigned long maxActions;
-
   attribute EventHandler onclick;
   attribute EventHandler onshow;
   attribute EventHandler onerror;
@@ -860,9 +861,6 @@ method steps are:
 <p class="warning">Notifications are the one instance thus far where asking the end user upfront
 makes sense. Specifications for other APIs should not use this pattern and instead employ one of the
 <a href="http://robert.ocallahan.org/2011/06/permissions-for-web-applications_30.html">many more suitable alternatives</a>.
-
-<p>The static <dfn attribute for=Notification><code>maxActions</code></dfn> getter steps are to
-return the <a>maximum number of actions</a> supported.
 
 <h3 id=object-members>Object members</h3>
 
