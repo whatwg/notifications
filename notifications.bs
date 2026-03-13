@@ -8,6 +8,7 @@ Abstract: This standard defines an API to display notifications to the end user,
 Translation: ja https://triple-underscore.github.io/notifications-ja.html
 Translation: zh-Hans https://htmlspecs.com/notifications/
 Translation: ko https://ko.htmlspecs.com/notifications/
+Ignore MDN Failure: #dom-notification-vibrate
 </pre>
 
 <pre class=anchors>
@@ -640,9 +641,8 @@ the end user, the <a>close steps</a> for it must be run.
 
 <h3 id=alerting-the-user>Alerting the end user</h3>
 
-<p>The <dfn>alert steps</dfn> for alerting the end user about a given <a for=/>notification</a>
-<var>notification</var> are to optionally alert the end user in a user-agent-defined manner (e.g.,
-by playing a sound).
+<p>The <dfn>alert steps</dfn> for alerting the end user about a given <a for=/>notification</a> are
+to optionally alert the end user in a user-agent-defined manner (e.g., by playing a sound).
 
 
 <h2 id=api>API</h2>
