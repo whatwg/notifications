@@ -517,8 +517,8 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
   </ol>
 
  <li><p>If <var>shown</var> is false or <var>oldNotification</var> is non-null, and
- <var>notification</var>'s <a for=notification>renotify preference</a> is true, then run the
- <a>alert steps</a> for <var>notification</var>.
+ <var>notification</var>'s <a for=notification>renotify preference</a> is true, then optionally
+ alert the end user in a user-agent-defined manner (e.g., by playing a sound).
 
  <li><p>If <var>notification</var> is a <a>non-persistent notification</a>, then <a>queue a task</a>
  to <a>fire an event</a> named <code>show</code> on the {{Notification}} object representing
@@ -636,12 +636,6 @@ the end user, the <a>close steps</a> for it must be run.
  <var>notification</var>.
 </ol>
 </div>
-
-
-<h3 id=alerting-the-user>Alerting the end user</h3>
-
-<p>The <dfn>alert steps</dfn> for alerting the end user about a given <a for=/>notification</a> are
-to optionally alert the end user in a user-agent-defined manner (e.g., by playing a sound).
 
 
 <h2 id=api>API</h2>
