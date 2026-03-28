@@ -11,12 +11,6 @@ Translation: ko https://ko.htmlspecs.com/notifications/
 </pre>
 
 <pre class=anchors>
-urlPrefix: https://w3c.github.io/vibration/
-    urlPrefix: #dfn-; type: dfn
-        text: perform vibration
-        text: validate and normalize
-    urlPrefix: #idl-def-; type: interface
-        text: VibratePattern; url: vibratepattern
 urlPrefix: https://tc39.github.io/ecma262/
     urlPrefix: #sec-object.; type: dfn
         text: freeze
@@ -29,7 +23,7 @@ urlPrefix: https://tc39.github.io/ecma262/
 <p>This specification depends on the Infra Standard. [[!INFRA]]
 
 <p>Some terms used in this specification are defined in the DOM, Fetch, High Resolution Time, HTML,
-IDL, Service Workers, URL, and Vibration API Standards.
+IDL, Service Workers, and URL Standards.
 [[!DOM]]
 [[!FETCH]]
 [[!HR-TIME]]
@@ -37,7 +31,6 @@ IDL, Service Workers, URL, and Vibration API Standards.
 [[!WEBIDL]]
 [[!SERVICE-WORKERS]]
 [[!URL]]
-[[!VIBRATION]]
 
 
 <h2 id=notifications>Notifications</h2>
@@ -119,15 +112,10 @@ not enough space to display the <a for=/>notification</a> itself. It <em>may</em
 the <a for=/>notification</a>, but then it should have less visual priority than the
 <a for=notification>image resource</a> and <a for=notification>icon resource</a>.
 
-<p>A <a for=/>notification</a> has an associated
-<dfn for=notification id=vibration-pattern>vibration pattern</dfn> (a <a for=/>list</a>). It is
-initially « ».
-
 <p class=note>Developers are encouraged to not convey information through an
 <a for=notification lt="image resource">image</a>, <a for=notification lt="icon resource">icon</a>,
-<a for=notification lt="badge resource">badge</a>, or <a for=notification>vibration pattern</a> that
-is not otherwise accessible to the end user, especially since notification platforms that do not
-support these features might ignore them.
+or <a for=notification lt="badge resource">badge</a> that is not otherwise accessible to the end
+user, especially since notification platforms that do not support these features might ignore them.
 
 <p>A <a for=/>notification</a> has associated <dfn export for=notification id=actions>actions</dfn>
 (a <a for=/>list</a> of zero or more <a for=/>notification actions</a>). A
@@ -203,10 +191,6 @@ important information through, e.g., loss of color or clipped corners.
 <ol>
  <li><p>Let <var>notification</var> be a new <a for=/>notification</a>.
 
- <li><p>If <var>options</var>["{{NotificationOptions/silent}}"] is true and
- <var>options</var>["{{NotificationOptions/vibrate}}"] <a for=map>exists</a>, then <a>throw</a> a
- {{TypeError}}.
-
  <li><p>If <var>options</var>["{{NotificationOptions/renotify}}"] is true and
  <var>options</var>["{{NotificationOptions/tag}}"] is the empty string, then <a>throw</a> a
  {{TypeError}}.
@@ -249,10 +233,6 @@ important information through, e.g., loss of color or clipped corners.
  <a lt="URL parser">parse</a> it using <var>baseURL</var>, and if that does not return failure, set
  <var>notification</var>'s <a for=notification>badge URL</a> to the return value. (Otherwise
  <var>notification</var>'s <a for=notification>badge URL</a> is not set.)
-
- <li><p>If <var>options</var>["{{NotificationOptions/vibrate}}"] <a for=map>exists</a>, then
- <a>validate and normalize</a> it and set <var>notification</var>'s
- <a for=notification>vibration pattern</a> to the return value.
 
  <li><p>If <var>options</var>["{{NotificationOptions/timestamp}}"] <a for=map>exists</a>, then set
  <var>notification</var>'s <a for=notification>timestamp</a> to the value. Otherwise, set
@@ -537,8 +517,8 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
   </ol>
 
  <li><p>If <var>shown</var> is false or <var>oldNotification</var> is non-null, and
- <var>notification</var>'s <a for=notification>renotify preference</a> is true, then run the
- <a>alert steps</a> for <var>notification</var>.
+ <var>notification</var>'s <a for=notification>renotify preference</a> is true, then optionally
+ alert the end user in a user-agent-defined manner (e.g., by playing a sound).
 
  <li><p>If <var>notification</var> is a <a>non-persistent notification</a>, then <a>queue a task</a>
  to <a>fire an event</a> named <code>show</code> on the {{Notification}} object representing
@@ -658,19 +638,6 @@ the end user, the <a>close steps</a> for it must be run.
 </div>
 
 
-<h3 id=alerting-the-user>Alerting the end user</h3>
-
-<div algorithm>
-<p>The <dfn>alert steps</dfn> for alerting the end user about a given <a for=/>notification</a>
-<var>notification</var> are:
-
-<ol>
- <li><p><a>Perform vibration</a> using <var>notification</var>'s
- <a for=notification>vibration pattern</a>, if any.
-</ol>
-</div>
-
-
 <h2 id=api>API</h2>
 
 <pre class=idl>
@@ -697,7 +664,6 @@ interface Notification : EventTarget {
   readonly attribute USVString image;
   readonly attribute USVString icon;
   readonly attribute USVString badge;
-  [SameObject] readonly attribute FrozenArray&lt;unsigned long> vibrate;
   readonly attribute EpochTimeStamp timestamp;
   readonly attribute boolean renotify;
   readonly attribute boolean? silent;
@@ -717,7 +683,6 @@ dictionary NotificationOptions {
   USVString image;
   USVString icon;
   USVString badge;
-  VibratePattern vibrate;
   EpochTimeStamp timestamp;
   boolean renotify = false;
   boolean? silent = null;
@@ -947,9 +912,6 @@ return the <a>maximum number of actions</a> supported.
  <li><p>Return <a>this</a>'s <a for=/>notification</a>'s <a for=notification>badge URL</a>,
  <a lt="URL serializer">serialized</a>.
 </ol>
-
-<p>The <dfn attribute for=Notification><code>vibrate</code></dfn> getter steps are to return
-<a>this</a>'s <a for=/>notification</a>'s <a for=notification>vibration pattern</a>.
 
 <p>The <dfn attribute for=Notification><code>timestamp</code></dfn> getter steps are to return
 <a>this</a>'s <a for=/>notification</a>'s <a for=notification>timestamp</a>.
