@@ -81,8 +81,8 @@ initially false. When true, indicates that the end user should be alerted after 
 
 <p>A <a for=/>notification</a> has an associated
 <dfn for=notification id=silent-preference-flag>silent preference</dfn> (null or a boolean). It is
-initially null. When true, indicates that no sounds should be made. When null, indicates that
-producing sounds should be left to platform conventions.
+initially null. When true, indicates that no sounds or vibrations should be made. When null,
+indicates that producing sounds or vibrations should be left to platform conventions.
 
 <p>A <a for=/>notification</a> has an associated
 <dfn for=notification id=require-interaction-preference-flag>require interaction preference</dfn>
