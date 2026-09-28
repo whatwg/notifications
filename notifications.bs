@@ -385,96 +385,80 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 <h3 id=resources>Resources</h3>
 
 <div algorithm>
-<p>The <dfn>fetch steps</dfn> for a given <a for=/>notification</a> <var>notification</var> are:
+<p>The <dfn>fetch steps</dfn>, given a <a for=/>notification</a> <var>notification</var> and null or
+an <a for=/>environment settings object</a> <var>settings</var>, are:
 
 <ol>
- <!-- XXX image fetching is underspecified: https://github.com/whatwg/html/issues/4474 -->
+ <li><p>If the notification platform supports images and <var>notification</var>'s
+ <a for=notification>image URL</a> is set, then <a>fetch a notification resource</a> given
+ <var>notification</var>, <var>notification</var>'s <a for=notification>image URL</a>,
+ <var>settings</var>, and the following step given a resource <var>resource</var>: set
+ <var>notification</var>'s <a for=notification>image resource</a> to <var>resource</var>.
+
+ <li><p>If the notification platform supports icons and <var>notification</var>'s
+ <a for=notification>icon URL</a> is set, then <a>fetch a notification resource</a> given
+ <var>notification</var>, <var>notification</var>'s <a for=notification>icon URL</a>,
+ <var>settings</var>, and the following step given a resource <var>resource</var>: set
+ <var>notification</var>'s <a for=notification>icon resource</a> to <var>resource</var>.
+
+ <li><p>If the notification platform supports badges and <var>notification</var>'s
+ <a for=notification>badge URL</a> is set, then <a>fetch a notification resource</a> given
+ <var>notification</var>, <var>notification</var>'s <a for=notification>badge URL</a>,
+ <var>settings</var>, and the following step given a resource <var>resource</var>: set
+ <var>notification</var>'s <a for=notification>badge resource</a> to <var>resource</var>.
+
+ <li><p>If the notification platform supports actions and action icons, then
+ <a for=list>for each</a> <var>action</var> of <var>notification</var>'s
+ <a for=notification>actions</a>: if <var>action</var>'s <a for="notification action">icon URL</a>
+ is non-null, then <a>fetch a notification resource</a> given <var>notification</var>,
+ <var>action</var>'s <a for="notification action">icon URL</a>, <var>settings</var>, and the
+ following step given a resource <var>resource</var>: set <var>action</var>'s
+ <a for="notification action">icon resource</a> to <var>resource</var>.
+</ol>
+</div>
+
+<div algorithm>
+<p>To <dfn>fetch a notification resource</dfn>, given a <a for=/>notification</a>
+<var>notification</var>, a <a for=/>URL</a> <var>url</var>, null or an
+<a for=/>environment settings object</a> <var>settings</var>, and an algorithm
+<var>processResource</var> that takes a resource:
+
+<ol>
+ <li><p>Let <var>request</var> be a new <a for=/>request</a> whose <a for=request>URL</a> is
+ <var>url</var>, <a for=request>client</a> is <var>settings</var>, <a for=request>destination</a> is
+ "<code>image</code>", <a for=request>mode</a> is "<code>no-cors</code>", and
+ <a for=request>credentials mode</a> is "<code>include</code>".
+
  <li>
-  <p>If the notification platform supports images, <a for=/>fetch</a>
-  <var>notification</var>'s <a>image URL</a>, if <a>image URL</a> is set.
+  <p>If <var>settings</var> is null, then set <var>request</var>'s <a for=request>origin</a> to
+  <var>notification</var>'s <a for=notification>origin</a>, <var>request</var>'s
+  <a for=request>referrer</a> to "<code>no-referrer</code>", and <var>request</var>'s
+  <a for=request>service-workers mode</a> to "<code>none</code>".
 
-  <p class=note>The intent is to fetch this resource similar to an
-  <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
-  but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
+  <p class=note>This is the case when the user agent shows the notification of a declarative push
+  message. The resources of such a notification are fetched without involving a
+  <a for=/>service worker</a>, as declarative push messages are designed to not require one.
+  [[PUSH-API]]
 
-  <p>Then, <a>in parallel</a>:
+ <li>
+  <p><a for=/>Fetch</a> <var>request</var> with <a for=fetch><i>useParallelQueue</i></a> set to true
+  and <a for=fetch><i>processResponseConsumeBody</i></a> set to the following steps given a
+  <a for=/>response</a> <var ignore>response</var> and null, failure, or a
+  <a for=/>byte sequence</a> <var>bytes</var>:
 
   <ol>
-   <li><p>Wait for the <a for=/>response</a>.
+   <li><p>If <var>bytes</var> is null or failure, then return.
 
-   <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
-   "<code>default</code>", then attempt to decode the resource as image.
+   <!-- XXX image fetching is underspecified: https://github.com/whatwg/html/issues/4474 -->
+   <li><p>Attempt to decode <var>bytes</var> as an image.
 
-   <li><p>If the image format is supported, set <var>notification</var>'s
-   <a for=notification>image resource</a> to the decoded resource. (Otherwise
-   <var>notification</var> has no <a for=notification>image resource</a>.)
+   <li><p>If the image format is supported, then run <var>processResource</var> given the decoded
+   resource.
   </ol>
-
- <li>
-  <p>If the notification platform supports icons, <a for=/>fetch</a>
-  <var>notification</var>'s <a for=notification>icon URL</a>, if <a for=notification>icon URL</a>
-  is set.
-
-  <p class=note>The intent is to fetch this resource similar to an
-  <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
-  but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
-
-  <p>Then, <a>in parallel</a>:
-
-  <ol>
-   <li><p>Wait for the <a for=/>response</a>.
-
-   <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
-   "<code>default</code>", then attempt to decode the resource as image.
-
-   <li><p>If the image format is supported, set <var>notification</var>'s
-   <a for=notification>icon resource</a> to the decoded resource. (Otherwise
-   <var>notification</var> has no <a for=notification>icon resource</a>.)
-  </ol>
-
- <li>
-  <p>If the notification platform supports badges, <a for=/>fetch</a> <var>notification</var>'s
-  <a for=notification>badge URL</a>, if <a for=notification>badge URL</a> is set.
-
-  <p class=note>The intent is to fetch this resource similar to an
-  <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
-  but this <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=24055">needs abstracting</a>.
-
-  <p>Then, <a>in parallel</a>:
-
-  <ol>
-   <li><p>Wait for the <a for=/>response</a>.
-
-   <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
-   "<code>default</code>", then attempt to decode the resource as image.
-
-   <li><p>If the image format is supported, set <var>notification</var>'s
-   <a for=notification>badge resource</a> to the decoded resource. (Otherwise
-   <var>notification</var> has no <a for=notification>badge resource</a>.)
-  </ol>
-
- <li>
-  <p>If the notification platform supports actions and action icons, then for each <var>action</var>
-  in <var>notification</var>'s <a for=notification>actions</a>: if
-  <a for="notification action">icon URL</a> is non-null, <a for=/>fetch</a> <var>action</var>'s
-  <a for="notification action">icon URL</a>.
 
   <p class=note>The intent is to fetch this resource similar to an
   <a href="https://html.spec.whatwg.org/multipage/images.html#update-the-image-data"><code>&lt;img&gt;</code></a>,
   but this <a href="https://github.com/whatwg/html/issues/4474">needs abstracting</a>.
-
-  <p>Then, <a>in parallel</a>:
-
-  <ol>
-   <li><p>Wait for the <a for=/>response</a>.
-
-   <li><p>If the <a for=/>response</a>'s <a>internal response</a>'s <a for=response>type</a> is
-   "<code>default</code>", then attempt to decode the resource as image.
-
-   <li><p>If the image format is supported, then set <var>action</var>'s
-   <a for="notification action">icon resource</a> to the decoded resource. (Otherwise
-   <var>action</var>'s <a for="notification action">icon resource</a> remains null.)
-  </ol>
 </ol>
 </div>
 
@@ -482,12 +466,13 @@ interpreted as a language tag. Validity or well-formedness are not enforced. [[!
 <h3 id=showing-a-notification>Showing a notification</h3>
 
 <div algorithm>
-<p>The <dfn export>notification show steps</dfn> for a given <a for=/>notification</a>
-<var>notification</var> are:
+<p>The <dfn export>notification show steps</dfn>, given a <a for=/>notification</a>
+<var>notification</var> and null or an <a for=/>environment settings object</a> <var>settings</var>,
+are:
 <!-- These steps are invoked from "in parallel" steps -->
 
 <ol>
- <li><p>Run the <a>fetch steps</a> for <var>notification</var>.
+ <li><p>Run the <a>fetch steps</a> given <var>notification</var> and <var>settings</var>.
 
  <li><p>Wait for any <a for=/ lt=fetch>fetches</a> to complete and <var>notification</var>'s
  <a for=notification>image resource</a>, <a for=notification>icon resource</a>, and
@@ -796,7 +781,8 @@ constructor steps are:
    "<code>granted</code>", then <a>queue a task</a> to <a>fire an event</a> named
    <code>error</code> on <a>this</a>, and abort these steps.
 
-   <li><p>Run the <a for=/>notification show steps</a> for <var>notification</var>.
+   <li><p>Run the <a for=/>notification show steps</a> given <var>notification</var> and
+   <a>this</a>'s <a>relevant settings object</a>.
   </ol>
 </ol>
 </div>
@@ -1168,7 +1154,8 @@ method steps are:
    <a>DOM manipulation task source</a> given <var>global</var> to <a for=/>reject</a>
    <var>promise</var> with a {{TypeError}}, and abort these steps.
 
-   <li><p>Run the <a for=/>notification show steps</a> for <var>notification</var>.
+   <li><p>Run the <a for=/>notification show steps</a> given <var>notification</var> and
+   <a>this</a>'s <a>relevant settings object</a>.
 
    <li><p>Set <var>notification</var>'s <a for=notification>service worker registration</a>'s
    <a for="service worker registration">has <code>showNotification()</code> been successfully invoked</a>
@@ -1300,6 +1287,7 @@ John Mellor,
 Jon Lee,
 Jonas Sicking,
 Kagami Sascha Rosylight<!-- saschanaz; GitHub -->,
+Leo Tenenbaum,
 Michael Cooper,
 Michael Henretty,
 Michael™ Smith,
