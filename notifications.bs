@@ -1096,7 +1096,10 @@ method steps are:
 
  <li><p>Let <var>promise</var> be <a>a new promise</a> in <a>this</a>'s <a>relevant Realm</a>.
 
- <li><p>If <a>this</a>'s <a for="service worker registration">active worker</a> is null, then
+ <li><p>Let <var>registration</var> be <a>this</a>'s
+ <a for=ServiceWorkerRegistration>service worker registration</a>.
+
+ <li><p>If <var>registration</var>'s <a for="service worker registration">active worker</a> is null, then
  <a for=/>reject</a> <var>promise</var> with a {{TypeError}} and return <var>promise</var>.
  <!-- We might have to throw directly here and below, see
       https://github.com/web-platform-tests/wpt/pull/24601 -->
@@ -1107,7 +1110,7 @@ method steps are:
  <a for=/>reject</a> <var>promise</var> with that exception and return <var>promise</var>.
 
  <li><p>Set <var>notification</var>'s <a for=notification>service worker registration</a> to
- <a>this</a>.
+ <var>registration</var>.
 
  <li>
   <p>Run these steps <a>in parallel</a>:
@@ -1148,6 +1151,9 @@ method steps are:
  <!-- Arguably this should snapshot origin somehow so that changes to it do not impact the
       in parallel part. -->
 
+ <li><p>Let <var>registration</var> be <a>this</a>'s
+ <a for=ServiceWorkerRegistration>service worker registration</a>.
+
  <li><p>Let <var>promise</var> be <a for=/>a new promise</a> in <var>realm</var>.
 
  <li>
@@ -1158,7 +1164,7 @@ method steps are:
 
    <li><p>Let <var>notifications</var> be a <a for=/>list</a> of all <a>notifications</a> in the
    <a>list of notifications</a> whose <a for=notification>origin</a> is <a>same origin</a> with
-   <var>origin</var>, whose <a for=notification>service worker registration</a> is <a>this</a>, and
+   <var>origin</var>, whose <a for=notification>service worker registration</a> is <var>registration</var>, and
    whose <a for=notification>tag</a>, if <var>tag</var> is not the empty string, is <var>tag</var>.
 
    <li>
